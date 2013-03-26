@@ -1,9 +1,13 @@
-package com.lfscheidegger.jfacet.activity.jfacet.shade;
+package com.lfscheidegger.jfacet.shade;
+
+import com.lfscheidegger.jfacet.shade.internal.Constant;
 
 /**
  * Namespace for some convenient static methods
  */
 public class Shade {
+
+  private static final Constant sConstant = new Constant();
 
   /**
    * Adds a varying number of {@code Expression} objects together;
@@ -21,5 +25,9 @@ public class Shade {
     }
 
     return null;
+  }
+
+  public static Expression constant(float... args) {
+    return sConstant.constant(args);
   }
 }

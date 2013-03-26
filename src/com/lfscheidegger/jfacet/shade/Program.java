@@ -1,4 +1,4 @@
-package com.lfscheidegger.jfacet.activity.jfacet.shade;
+package com.lfscheidegger.jfacet.shade;
 
 /**
  * A Shade Program. Encapsulates both fragment and vertex shader
