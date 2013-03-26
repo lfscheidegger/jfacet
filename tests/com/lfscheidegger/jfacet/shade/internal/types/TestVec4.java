@@ -1,20 +1,21 @@
-package com.lfscheidegger.jfacet.shade.internal;
+package com.lfscheidegger.jfacet.shade.internal.types;
 
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 /**
- * Unit tests for {@code Vec3}.
+ * Unit tests for {@code Vec4}.
  */
-public class TestVec3 {
+public class TestVec4 {
 
-  private Vec3 vec;
+  private Vec4 vec;
 
   @Before
   public void setUp() {
-    vec = new Vec3(1, 2, 3);
+    vec = new Vec4(1, 2, 3, 4);
   }
 
   @Test
@@ -33,6 +34,12 @@ public class TestVec3 {
   public void testGetZ() {
     assertTrue(vec.getZ() == 3);
     assertTrue(vec.get(2) == 3);
+  }
+
+  @Test
+  public void testGetW() {
+    assertTrue(vec.getW() == 4);
+    assertTrue(vec.get(3) == 4);
   }
 
   @Test
@@ -69,36 +76,79 @@ public class TestVec3 {
   }
 
   @Test
+  public void testSetW() {
+    vec.setW(5);
+    assertTrue(vec.getW() == 5);
+    assertTrue(vec.get(3) == 5);
+
+    vec.set(5, 3);
+    assertTrue(vec.getW() == 5);
+    assertTrue(vec.get(3) == 5);
+  }
+
+  @Test
   public void testConstructors() {
-    Vec3 other = new Vec3();
+    Vec4 other = new Vec4();
 
     assertTrue(other.getX() == 0);
     assertTrue(other.getY() == 0);
     assertTrue(other.getZ() == 0);
+    assertTrue(other.getW() == 0);
 
-    other = new Vec3(vec);
-
-    assertTrue(other.getX() == vec.getX());
-    assertTrue(other.getY() == vec.getY());
-    assertTrue(other.getZ() == vec.getZ());
-
-    other = new Vec3(new Vec2(1, 2), 3);
+    other = new Vec4(vec);
 
     assertTrue(other.getX() == vec.getX());
     assertTrue(other.getY() == vec.getY());
     assertTrue(other.getZ() == vec.getZ());
+    assertTrue(other.getW() == vec.getW());
 
-    other = new Vec3(1, new Vec2(2, 3));
+    other = new Vec4(new Vec2(1, 2), 3, 4);
 
     assertTrue(other.getX() == vec.getX());
     assertTrue(other.getY() == vec.getY());
     assertTrue(other.getZ() == vec.getZ());
+    assertTrue(other.getW() == vec.getW());
+
+    other = new Vec4(1, new Vec2(2, 3), 4);
+
+    assertTrue(other.getX() == vec.getX());
+    assertTrue(other.getY() == vec.getY());
+    assertTrue(other.getZ() == vec.getZ());
+    assertTrue(other.getW() == vec.getW());
+
+    other = new Vec4(1, 2, new Vec2(3, 4));
+
+    assertTrue(other.getX() == vec.getX());
+    assertTrue(other.getY() == vec.getY());
+    assertTrue(other.getZ() == vec.getZ());
+    assertTrue(other.getW() == vec.getW());
+
+    other = new Vec4(new Vec2(1, 2), new Vec2(3, 4));
+
+    assertTrue(other.getX() == vec.getX());
+    assertTrue(other.getY() == vec.getY());
+    assertTrue(other.getZ() == vec.getZ());
+    assertTrue(other.getW() == vec.getW());
+
+    other = new Vec4(1, new Vec3(2, 3, 4));
+
+    assertTrue(other.getX() == vec.getX());
+    assertTrue(other.getY() == vec.getY());
+    assertTrue(other.getZ() == vec.getZ());
+    assertTrue(other.getW() == vec.getW());
+
+    other = new Vec4(new Vec3(1, 2, 3), 4);
+
+    assertTrue(other.getX() == vec.getX());
+    assertTrue(other.getY() == vec.getY());
+    assertTrue(other.getZ() == vec.getZ());
+    assertTrue(other.getW() == vec.getW());
   }
 
   @Test
   public void testEquals() {
-    Vec3 other = new Vec3(1, 2, 3);
-    Vec3 unequal = new Vec3(2, 3, 4);
+    Vec4 other = new Vec4(1, 2, 3, 4);
+    Vec4 unequal = new Vec4(2, 3, 4, 5);
 
     assertFalse(vec.equals(null));
     assertFalse(vec.equals(""));
@@ -109,8 +159,8 @@ public class TestVec3 {
 
   @Test
   public void testHashCode() {
-    Vec3 other = new Vec3(1, 2, 3);
-    Vec3 unequal = new Vec3(2, 3, 4);
+    Vec4 other = new Vec4(1, 2, 3, 4);
+    Vec4 unequal = new Vec4(2, 3, 4, 5);
 
     assertTrue(vec.hashCode() == other.hashCode());
     assertFalse(vec.hashCode() == unequal.hashCode());

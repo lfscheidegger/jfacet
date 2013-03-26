@@ -2,6 +2,9 @@ package com.lfscheidegger.jfacet.shade.internal;
 
 import com.lfscheidegger.jfacet.shade.Expression;
 import com.lfscheidegger.jfacet.shade.ExpressionImpl;
+import com.lfscheidegger.jfacet.shade.internal.types.Vec2;
+import com.lfscheidegger.jfacet.shade.internal.types.Vec3;
+import com.lfscheidegger.jfacet.shade.internal.types.Vec4;
 
 import static com.lfscheidegger.jfacet.shade.Types.*;
 /**

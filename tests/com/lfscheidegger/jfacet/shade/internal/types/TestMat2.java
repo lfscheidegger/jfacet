@@ -1,4 +1,4 @@
-package com.lfscheidegger.jfacet.shade.internal;
+package com.lfscheidegger.jfacet.shade.internal.types;
 
 import org.junit.Before;
 import org.junit.Test;

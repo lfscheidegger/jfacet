@@ -1,6 +1,9 @@
 package com.lfscheidegger.jfacet.shade;
 
 import com.lfscheidegger.jfacet.shade.internal.*;
+import com.lfscheidegger.jfacet.shade.internal.types.Vec2;
+import com.lfscheidegger.jfacet.shade.internal.types.Vec3;
+import com.lfscheidegger.jfacet.shade.internal.types.Vec4;
 
 /**
  * Namespace for some convenient static methods

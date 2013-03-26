@@ -7,7 +7,7 @@ import static org.junit.Assert.*;
 /**
  * Unit tests for {@code Shade.constant}
  */
-public class TestConstant {
+public class TestShadeConstant {
 
   @Test
   public void testConstantFloat() {
@@ -16,7 +16,7 @@ public class TestConstant {
 
   @Test
   public void testConstantVec2() {
-    assertEquals(((ContainsGlSlExpression)Shade.constant(1, 2)).getGlSlExpression(), "vec2(1.0, 2.0)");
+    assertEquals(((ContainsGlSlExpression) Shade.constant(1, 2)).getGlSlExpression(), "vec2(1.0, 2.0)");
     assertEquals(((ContainsGlSlExpression)Shade.constant(Shade.vec2(1, 2))).getGlSlExpression(), "vec2(1.0, 2.0)");
   }
 
