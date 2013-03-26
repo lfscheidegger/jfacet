@@ -10,15 +10,15 @@ import java.util.Arrays;
 public class Mat2 {
   public Vec2[] mValues;
 
-  Mat2() {
+  public Mat2() {
     mValues = new Vec2[]{new Vec2(1, 0), new Vec2(0, 1)};
   }
 
-  Mat2(Vec2 c0, Vec2 c1) {
+  public Mat2(Vec2 c0, Vec2 c1) {
     mValues = new Vec2[]{c0, c1};
   }
 
-  Mat2(Mat2 other) {
+  public Mat2(Mat2 other) {
     mValues = new Vec2[] {other.getC0(), other.getC1()};
   }
 

@@ -2,11 +2,10 @@ package com.lfscheidegger.jfacet.shade.internal;
 
 import com.lfscheidegger.jfacet.shade.Expression;
 import com.lfscheidegger.jfacet.shade.ExpressionImpl;
-import com.lfscheidegger.jfacet.shade.internal.types.Vec2;
-import com.lfscheidegger.jfacet.shade.internal.types.Vec3;
-import com.lfscheidegger.jfacet.shade.internal.types.Vec4;
+import com.lfscheidegger.jfacet.shade.internal.types.*;
 
 import static com.lfscheidegger.jfacet.shade.Types.*;
+
 /**
  * Contains methods to create constant Shade {@code Expression} values.
  */
@@ -20,6 +19,33 @@ public class Constant {
       b.append(", ").append(values[i]);
     }
     return b.append(")").toString();
+  }
+
+  private static String getGlSlExpression(Vec2 vec) {
+    return new StringBuilder()
+        .append(VEC2_T).append("(")
+        .append(vec.get(0)).append(", ")
+        .append(vec.get(1)).append(")")
+        .toString();
+  }
+
+  private static String getGlSlExpression(Vec3 vec) {
+    return new StringBuilder()
+        .append(VEC3_T).append("(")
+        .append(vec.get(0)).append(", ")
+        .append(vec.get(1)).append(", ")
+        .append(vec.get(2)).append(")")
+        .toString();
+  }
+
+  private static String getGlSlExpression(Vec4 vec) {
+    return new StringBuilder()
+        .append(VEC4_T).append("(")
+        .append(vec.get(0)).append(", ")
+        .append(vec.get(1)).append(", ")
+        .append(vec.get(2)).append(", ")
+        .append(vec.get(3)).append(")")
+        .toString();
   }
 
   public static Expression constant(float... args) {
@@ -66,5 +92,29 @@ public class Constant {
         String.valueOf(xyzw.getY()),
         String.valueOf(xyzw.getZ()),
         String.valueOf(xyzw.getW()))).build();
+  }
+
+  public static Expression constant(Mat2 mat) {
+    return new ExpressionImpl.Builder(MAT2_T, getGlSlExpression(
+        MAT2_T,
+        getGlSlExpression(mat.get(0)),
+        getGlSlExpression(mat.get(1)))).build();
+  }
+
+  public static Expression constant(Mat3 mat) {
+    return new ExpressionImpl.Builder(MAT3_T, getGlSlExpression(
+        MAT3_T,
+        getGlSlExpression(mat.get(0)),
+        getGlSlExpression(mat.get(1)),
+        getGlSlExpression(mat.get(2)))).build();
+  }
+
+  public static Expression constant(Mat4 mat) {
+    return new ExpressionImpl.Builder(MAT4_T, getGlSlExpression(
+        MAT4_T,
+        getGlSlExpression(mat.get(0)),
+        getGlSlExpression(mat.get(1)),
+        getGlSlExpression(mat.get(2)),
+        getGlSlExpression(mat.get(3)))).build();
   }
 }

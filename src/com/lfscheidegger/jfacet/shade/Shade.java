@@ -1,9 +1,7 @@
 package com.lfscheidegger.jfacet.shade;
 
 import com.lfscheidegger.jfacet.shade.internal.*;
-import com.lfscheidegger.jfacet.shade.internal.types.Vec2;
-import com.lfscheidegger.jfacet.shade.internal.types.Vec3;
-import com.lfscheidegger.jfacet.shade.internal.types.Vec4;
+import com.lfscheidegger.jfacet.shade.internal.types.*;
 
 /**
  * Namespace for some convenient static methods
@@ -47,6 +45,18 @@ public class Shade {
 
   public static Expression constant(Vec4 xyzw) {
     return sConstant.constant(xyzw);
+  }
+
+  public static Expression constant(Mat2 mat) {
+    return sConstant.constant(mat);
+  }
+
+  public static Expression constant(Mat3 mat) {
+    return sConstant.constant(mat);
+  }
+
+  public static Expression constant(Mat4 mat) {
+    return sConstant.constant(mat);
   }
 
   //
@@ -118,5 +128,41 @@ public class Shade {
 
   public static Vec4 vec4(Vec4 other) {
     return new Vec4(other);
+  }
+
+  public static Mat2 mat2() {
+    return new Mat2();
+  }
+
+  public static Mat2 mat2(Vec2 c0, Vec2 c1) {
+    return new Mat2(c0, c1);
+  }
+
+  public static Mat2 mat2(Mat2 other) {
+    return new Mat2(other);
+  }
+
+  public static Mat3 mat3() {
+    return new Mat3();
+  }
+
+  public static Mat3 mat3(Vec3 c0, Vec3 c1, Vec3 c2) {
+    return new Mat3(c0, c1, c2);
+  }
+
+  public static Mat3 mat3(Mat3 other) {
+    return new Mat3(other);
+  }
+
+  public static Mat4 mat4() {
+    return new Mat4();
+  }
+
+  public static Mat4 mat4(Vec4 c0, Vec4 c1, Vec4 c2, Vec4 c3) {
+    return new Mat4(c0, c1, c2, c3);
+  }
+
+  public static Mat4 mat4(Mat4 other) {
+    return new Mat4(other);
   }
 }
