@@ -15,7 +15,7 @@ public final class Vec2 {
     mValues = new float[]{0, 0};
   }
 
-  public Vec2(int x, int y) {
+  public Vec2(float x, float y) {
     mValues = new float[]{x, y};
   }
 

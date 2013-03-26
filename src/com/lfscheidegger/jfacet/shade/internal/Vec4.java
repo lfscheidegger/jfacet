@@ -23,16 +23,16 @@ public class Vec4 {
     mValues = new float[]{xy.getX(), xy.getY(), z, w};
   }
 
+  public Vec4(float x, Vec2 yz, float w) {
+    mValues = new float[]{x, yz.getX(), yz.getY(), w};
+  }
+
   public Vec4(float x, float y, Vec2 zw) {
     mValues = new float[]{x, y, zw.getX(), zw.getY()};
   }
 
   public Vec4(Vec2 xy, Vec2 zw) {
     mValues = new float[]{xy.getX(), xy.getY(), zw.getX(), zw.getY()};
-  }
-
-  public Vec4(float x, Vec2 yz, float w) {
-    mValues = new float[]{x, yz.getX(), yz.getY(), w};
   }
 
   public Vec4(Vec3 xyz, float w) {

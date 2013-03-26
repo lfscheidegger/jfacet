@@ -1,6 +1,6 @@
 package com.lfscheidegger.jfacet.shade;
 
-import com.lfscheidegger.jfacet.shade.internal.Constant;
+import com.lfscheidegger.jfacet.shade.internal.*;
 
 /**
  * Namespace for some convenient static methods
@@ -29,5 +29,76 @@ public class Shade {
 
   public static Expression constant(float... args) {
     return sConstant.constant(args);
+  }
+
+  //
+  // Aggregate type constructors
+  //
+  public static Vec2 vec2() {
+    return new Vec2();
+  }
+
+  public static Vec2 vec2(float x, float y) {
+    return new Vec2(x, y);
+  }
+
+  public static Vec2 vec2(Vec2 other) {
+    return new Vec2(other);
+  }
+
+  public static Vec3 vec3() {
+    return new Vec3();
+  }
+
+  public static Vec3 vec3(float x, float y, float z) {
+    return new Vec3(x, y, z);
+  }
+
+  public static Vec3 vec3(Vec2 xy, float z) {
+    return new Vec3(xy, z);
+  }
+
+  public static Vec3 vec3(float x, Vec2 yz) {
+    return new Vec3(x, yz);
+  }
+
+  public static Vec3 vec3(Vec3 other) {
+    return new Vec3(other);
+  }
+
+  public static Vec4 vec4() {
+    return new Vec4();
+  }
+
+  public static Vec4 vec4(float x, float y, float z, float w) {
+    return new Vec4(x, y, z, w);
+  }
+
+  public static Vec4 vec4(Vec2 xy, float z, float w) {
+    return new Vec4(xy, z, w);
+  }
+
+  public static Vec4 vec4(float x, Vec2 yz, float w) {
+    return new Vec4(x, yz, w);
+  }
+
+  public static Vec4 vec4(float x, float y, Vec2 zw) {
+    return new Vec4(x, y, zw);
+  }
+
+  public static Vec4 vec4(Vec2 xy, Vec2 zw) {
+    return new Vec4(xy, zw);
+  }
+
+  public static Vec4 vec4(Vec3 xyz, float w) {
+    return new Vec4(xyz, w);
+  }
+
+  public static Vec4 vec4(float x, Vec3 yzw) {
+    return new Vec4(x, yzw);
+  }
+
+  public static Vec4 vec4(Vec4 other) {
+    return new Vec4(other);
   }
 }
