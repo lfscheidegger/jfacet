@@ -27,8 +27,23 @@ public class Shade {
     return null;
   }
 
+  //
+  // Constant expressions
+  //
   public static Expression constant(float... args) {
     return sConstant.constant(args);
+  }
+
+  public static Expression constant(Vec2 xy) {
+    return sConstant.constant(xy);
+  }
+
+  public static Expression constant(Vec3 xyz) {
+    return sConstant.constant(xyz);
+  }
+
+  public static Expression constant(Vec4 xyzw) {
+    return sConstant.constant(xyzw);
   }
 
   //

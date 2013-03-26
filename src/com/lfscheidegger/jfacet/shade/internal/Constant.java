@@ -45,4 +45,23 @@ public class Constant {
         throw new IllegalArgumentException("Got invalid number of float arguments " + args.length);
     }
   }
+
+  public static Expression constant(Vec2 xy) {
+    return new ExpressionImpl.Builder(VEC2_T, getGlSlExpression(
+        VEC2_T, String.valueOf(xy.getX()), String.valueOf(xy.getY()))).build();
+  }
+
+  public static Expression constant(Vec3 xyz) {
+    return new ExpressionImpl.Builder(VEC3_T, getGlSlExpression(
+        VEC3_T, String.valueOf(xyz.getX()), String.valueOf(xyz.getY()), String.valueOf(xyz.getZ()))).build();
+  }
+
+  public static Expression constant(Vec4 xyzw) {
+    return new ExpressionImpl.Builder(VEC4_T, getGlSlExpression(
+        VEC4_T,
+        String.valueOf(xyzw.getX()),
+        String.valueOf(xyzw.getY()),
+        String.valueOf(xyzw.getZ()),
+        String.valueOf(xyzw.getW()))).build();
+  }
 }
