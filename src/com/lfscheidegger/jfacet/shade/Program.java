@@ -1,5 +1,7 @@
 package com.lfscheidegger.jfacet.shade;
 
+import com.lfscheidegger.jfacet.shade.expression.Expression;
+
 /**
  * A Shade Program. Encapsulates both fragment and vertex shader
  * operations

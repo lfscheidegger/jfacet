@@ -1,4 +1,4 @@
-package com.lfscheidegger.jfacet.shade.internal.types;
+package com.lfscheidegger.jfacet.shade.types;
 
 import com.google.common.base.Objects;
 
