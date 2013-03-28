@@ -7,7 +7,7 @@ import java.util.Arrays;
 /**
  * Aggregate type for vec2.
  */
-public final class Vec2 implements SupportsAddition<Vec2> {
+public final class Vec2 implements SupportsAddition<Vec2>, SupportsSubtraction<Vec2> {
 
   private final float[] mValues;
 
