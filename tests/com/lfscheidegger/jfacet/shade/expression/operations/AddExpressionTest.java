@@ -5,7 +5,7 @@ import com.lfscheidegger.jfacet.shade.expression.primitives.*;
 import com.lfscheidegger.jfacet.shade.primitives.*;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Unit tests for {@code AddExpression}.
