@@ -12,7 +12,7 @@ public class FloatExpressionTest {
 
   @Test
   public void testConstructors() {
-    Expression exp = new FloatExpression(3);
+    FloatExpression exp = new FloatExpression(3);
 
     Expression child = new FloatExpression(3);
     assertTrue((Float)child.evaluate() == 3);

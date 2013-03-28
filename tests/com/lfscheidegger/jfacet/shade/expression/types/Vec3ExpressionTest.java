@@ -13,11 +13,11 @@ import static org.junit.Assert.assertTrue;
  */
 public class Vec3ExpressionTest {
 
-  Expression x = new FloatExpression(1);
-  Expression y = new FloatExpression(2);
-  Expression z = new FloatExpression(3);
+  FloatExpression x = new FloatExpression(1);
+  FloatExpression y = new FloatExpression(2);
+  FloatExpression z = new FloatExpression(3);
 
-  Expression xyz = new Vec3Expression(new Vec3(1, 2, 3));
+  Vec3Expression xyz = new Vec3Expression(new Vec3(1, 2, 3));
 
   @Test
   public void testConstructors() {

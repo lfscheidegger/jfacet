@@ -15,10 +15,10 @@ import static org.junit.Assert.assertTrue;
  */
 public class Vec4ExpressionTest {
 
-  Expression x = new FloatExpression(1);
-  Expression y = new FloatExpression(2);
-  Expression z = new FloatExpression(3);
-  Expression w = new FloatExpression(4);
+  FloatExpression x = new FloatExpression(1);
+  FloatExpression y = new FloatExpression(2);
+  FloatExpression z = new FloatExpression(3);
+  FloatExpression w = new FloatExpression(4);
 
   Vec4Expression xyzw = new Vec4Expression(new Vec4(1, 2, 3, 4));
 

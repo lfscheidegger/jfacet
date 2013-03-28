@@ -1,12 +1,9 @@
 package com.lfscheidegger.jfacet.shade.expression.types;
 
-import android.drm.DrmStore;
-import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableList;
 import com.lfscheidegger.jfacet.shade.Type;
 import com.lfscheidegger.jfacet.shade.expression.AbstractExpression;
 import com.lfscheidegger.jfacet.shade.expression.Expression;
-import com.lfscheidegger.jfacet.shade.types.Vec2;
 import com.lfscheidegger.jfacet.shade.types.Vec3;
 
 /**
@@ -22,19 +19,12 @@ public class Vec3Expression extends AbstractExpression {
     mValue = value;
   }
 
-  public Vec3Expression(Expression xyz) {
+  public Vec3Expression(Vec3Expression xyz) {
     super(Type.VEC3_T, ImmutableList.<Expression>of(xyz));
-
-    Preconditions.checkState(xyz.getType() == Type.VEC3_T);
   }
 
-  public Vec3Expression(Expression x, Expression y, Expression z) {
+  public Vec3Expression(FloatExpression x, FloatExpression y, FloatExpression z) {
     super(Type.VEC3_T, ImmutableList.<Expression>of(x, y, z));
-
-    Preconditions.checkState(
-        x.getType() == Type.FLOAT_T &&
-        y.getType() == Type.FLOAT_T &&
-        z.getType() == Type.FLOAT_T);
   }
 
   @Override

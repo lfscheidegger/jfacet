@@ -1,6 +1,5 @@
 package com.lfscheidegger.jfacet.shade.expression.types;
 
-import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableList;
 import com.lfscheidegger.jfacet.shade.Type;
 import com.lfscheidegger.jfacet.shade.expression.AbstractExpression;
@@ -21,16 +20,12 @@ public class Mat2Expression extends AbstractExpression {
     mValue = value;
   }
 
-  public Mat2Expression(Expression mat2) {
+  public Mat2Expression(Mat2Expression mat2) {
     super(Type.MAT2_T, ImmutableList.<Expression>of(mat2));
-
-    Preconditions.checkState(mat2.getType() == Type.MAT2_T);
   }
 
-  public Mat2Expression(Expression c0, Expression c1) {
+  public Mat2Expression(Vec2Expression c0, Vec2Expression c1) {
     super(Type.MAT2_T, ImmutableList.<Expression>of(c0, c1));
-
-    Preconditions.checkState(c0.getType() == Type.VEC2_T && c1.getType() == Type.VEC2_T);
   }
 
   @Override

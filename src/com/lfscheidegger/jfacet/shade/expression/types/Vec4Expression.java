@@ -22,18 +22,12 @@ public class Vec4Expression extends AbstractExpression {
     mValue = value;
   }
 
-  public Vec4Expression(Expression xyzw) {
+  public Vec4Expression(Vec4Expression xyzw) {
     super(Type.VEC4_T, ImmutableList.<Expression>of(xyzw));
-
-    Preconditions.checkState(xyzw.getType() == Type.VEC4_T);
   }
 
-  public Vec4Expression(Expression x, Expression y, Expression z, Expression w) {
+  public Vec4Expression(FloatExpression x, FloatExpression y, FloatExpression z, FloatExpression w) {
     super(Type.VEC4_T, ImmutableList.<Expression>of(x, y, z, w));
-
-    Preconditions.checkState(
-        x.getType() == Type.FLOAT_T && y.getType() == Type.FLOAT_T &&
-        z.getType() == Type.FLOAT_T && w.getType() == Type.FLOAT_T);
   }
 
 

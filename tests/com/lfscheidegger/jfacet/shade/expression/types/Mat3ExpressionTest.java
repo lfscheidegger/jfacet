@@ -15,9 +15,9 @@ import static org.junit.Assert.assertTrue;
  */
 public class Mat3ExpressionTest {
 
-  Expression c0 = new Vec3Expression(new Vec3(1, 0, 0));
-  Expression c1 = new Vec3Expression(new Vec3(0, 1, 0));
-  Expression c2 = new Vec3Expression(new Vec3(0, 0, 1));
+  Vec3Expression c0 = new Vec3Expression(new Vec3(1, 0, 0));
+  Vec3Expression c1 = new Vec3Expression(new Vec3(0, 1, 0));
+  Vec3Expression c2 = new Vec3Expression(new Vec3(0, 0, 1));
 
   Mat3Expression c0c1c2 = new Mat3Expression(
       new Mat3(

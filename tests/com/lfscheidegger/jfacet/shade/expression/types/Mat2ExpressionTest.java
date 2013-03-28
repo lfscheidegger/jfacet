@@ -11,8 +11,8 @@ import static org.junit.Assert.*;
  */
 public class Mat2ExpressionTest {
 
-  Expression c0 = new Vec2Expression(new Vec2(1, 0));
-  Expression c1 = new Vec2Expression(new Vec2(0, 1));
+  Vec2Expression c0 = new Vec2Expression(new Vec2(1, 0));
+  Vec2Expression c1 = new Vec2Expression(new Vec2(0, 1));
 
   Mat2Expression c0c1 = new Mat2Expression(new Mat2(new Vec2(1, 0), new Vec2(0, 1)));
 

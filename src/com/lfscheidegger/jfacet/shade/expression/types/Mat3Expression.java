@@ -1,13 +1,10 @@
 package com.lfscheidegger.jfacet.shade.expression.types;
 
-import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableList;
 import com.lfscheidegger.jfacet.shade.Type;
 import com.lfscheidegger.jfacet.shade.expression.AbstractExpression;
 import com.lfscheidegger.jfacet.shade.expression.Expression;
-import com.lfscheidegger.jfacet.shade.types.Mat2;
 import com.lfscheidegger.jfacet.shade.types.Mat3;
-import com.lfscheidegger.jfacet.shade.types.Vec2;
 import com.lfscheidegger.jfacet.shade.types.Vec3;
 
 /**
@@ -23,16 +20,12 @@ public class Mat3Expression extends AbstractExpression {
     mValue = value;
   }
 
-  public Mat3Expression(Expression mat3) {
+  public Mat3Expression(Mat3Expression mat3) {
     super(Type.MAT3_T, ImmutableList.<Expression>of(mat3));
-
-    Preconditions.checkState(mat3.getType() == Type.MAT3_T);
   }
 
-  public Mat3Expression(Expression c0, Expression c1, Expression c2) {
+  public Mat3Expression(Vec3Expression c0, Vec3Expression c1, Vec3Expression c2) {
     super(Type.MAT3_T, ImmutableList.<Expression>of(c0, c1, c2));
-
-    Preconditions.checkState(c0.getType() == Type.VEC3_T && c1.getType() == Type.VEC3_T && c2.getType() == Type.VEC3_T);
   }
 
   @Override

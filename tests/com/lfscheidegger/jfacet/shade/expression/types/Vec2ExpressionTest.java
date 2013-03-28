@@ -11,8 +11,8 @@ import static org.junit.Assert.*;
  */
 public class Vec2ExpressionTest {
 
-  Expression x = new FloatExpression(1);
-  Expression y = new FloatExpression(2);
+  FloatExpression x = new FloatExpression(1);
+  FloatExpression y = new FloatExpression(2);
 
   Vec2Expression xy = new Vec2Expression(new Vec2(1, 2));
 

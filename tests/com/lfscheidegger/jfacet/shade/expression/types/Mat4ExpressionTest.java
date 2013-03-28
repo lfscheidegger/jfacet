@@ -15,10 +15,10 @@ import static org.junit.Assert.assertTrue;
  */
 public class Mat4ExpressionTest {
 
-  Expression c0 = new Vec4Expression(new Vec4(1, 0, 0, 0));
-  Expression c1 = new Vec4Expression(new Vec4(0, 1, 0, 0));
-  Expression c2 = new Vec4Expression(new Vec4(0, 0, 1, 0));
-  Expression c3 = new Vec4Expression(new Vec4(0, 0, 0, 1));
+  Vec4Expression c0 = new Vec4Expression(new Vec4(1, 0, 0, 0));
+  Vec4Expression c1 = new Vec4Expression(new Vec4(0, 1, 0, 0));
+  Vec4Expression c2 = new Vec4Expression(new Vec4(0, 0, 1, 0));
+  Vec4Expression c3 = new Vec4Expression(new Vec4(0, 0, 0, 1));
 
   Mat4Expression c0c1c2c3 = new Mat4Expression(
       new Mat4(

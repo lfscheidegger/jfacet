@@ -18,10 +18,8 @@ public class FloatExpression extends AbstractExpression {
     mValue = t;
   }
 
-  public FloatExpression(Expression other) {
+  public FloatExpression(FloatExpression other) {
     super(Type.FLOAT_T, ImmutableList.<Expression>of(other));
-
-    Preconditions.checkState(other.getType() == Type.FLOAT_T);
   }
 
   @Override
