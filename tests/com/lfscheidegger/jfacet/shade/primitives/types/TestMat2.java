@@ -84,4 +84,42 @@ public class TestMat2 {
     Mat2 other = new Mat2(new Vec2(1, 2), new Vec2(3, 4));
     assertEquals(other.toString(), "Mat2{Vec2{1.0, 2.0}, Vec2{3.0, 4.0}}");
   }
+
+  @Test
+  public void testAdd() {
+    Mat2 mat = new Mat2();
+    Mat2 other = new Mat2();
+    float t = 3;
+
+    assertEquals(mat.add(other), new Mat2(new Vec2(2, 0), new Vec2(0, 2)));
+    assertEquals(mat.add(other), other.add(mat));
+    assertEquals(mat.add(t), new Mat2(new Vec2(4, 3), new Vec2(3, 4)));
+  }
+
+  @Test
+  public void testSub() {
+    Mat2 mat = new Mat2(new Vec2(2, 0), new Vec2(0, 2));
+    Mat2 other = new Mat2();
+    float t = 1;
+
+    assertEquals(mat.sub(other), new Mat2());
+    assertEquals(mat.sub(t), new Mat2(new Vec2(1, -1), new Vec2(-1, 1)));
+  }
+
+  @Test
+  public void testMul() {
+    Mat2 mat = new Mat2();
+    Mat2 otherMat = new Mat2(new Vec2(2, 0), new Vec2(0, 2));
+    Mat2 thirdMat = new Mat2(new Vec2(1, 2), new Vec2(3, 4));
+    Mat2 fourthMat = new Mat2(new Vec2(3, 4), new Vec2(5, 6));
+    Vec2 vec = new Vec2(2, 3);
+
+    assertEquals(mat.mul(vec), vec);
+    assertEquals(otherMat.mul(vec), new Vec2(4, 6));
+    assertEquals(new Mat2().mul(new Mat2()), new Mat2());
+    assertEquals(otherMat.mul(new Mat2()), otherMat);
+
+    assertEquals(thirdMat.mul(fourthMat), new Mat2(new Vec2(15, 22), new Vec2(23, 34)));
+    assertEquals(fourthMat.mul(thirdMat), new Mat2(new Vec2(13, 16), new Vec2(29, 36)));
+  }
 }

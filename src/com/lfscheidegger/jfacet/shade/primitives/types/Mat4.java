@@ -1,6 +1,7 @@
 package com.lfscheidegger.jfacet.shade.primitives.types;
 
 import com.google.common.base.Objects;
+import com.lfscheidegger.jfacet.utils.ArrayUtils;
 
 import java.util.Arrays;
 
@@ -35,6 +36,10 @@ public class Mat4 {
         other.get(2).get(0), other.get(2).get(1), other.get(2).get(2), other.get(2).get(3),
         other.get(3).get(0), other.get(3).get(1), other.get(3).get(2), other.get(3).get(3),
     };
+  }
+
+  Mat4(float[] other) {
+    mValues = other;
   }
 
   public Mat4 setC0(Vec4 c0) {
@@ -119,5 +124,33 @@ public class Mat4 {
         .addValue(new Vec4(mValues[8], mValues[9], mValues[10], mValues[11]))
         .addValue(new Vec4(mValues[12], mValues[13], mValues[14], mValues[15]))
         .toString();
+  }
+
+  public Mat4 add(float t) {
+    return new Mat4(ArrayUtils.add(mValues, t));
+  }
+
+  public Mat4 add(Mat4 other) {
+    return new Mat4(ArrayUtils.add(mValues, other.mValues));
+  }
+
+  public Mat4 sub(float t) {
+    return new Mat4(ArrayUtils.sub(mValues, t));
+  }
+
+  public Mat4 sub(Mat4 other) {
+    return new Mat4(ArrayUtils.sub(mValues, other.mValues));
+  }
+
+  public Vec4 mul(Vec4 vec) {
+    return new Vec4(
+        mValues[0] * vec.getX() + mValues[4] * vec.getY() + mValues[8] * vec.getZ() + mValues[12] * vec.getW(),
+        mValues[1] * vec.getX() + mValues[5] * vec.getY() + mValues[9] * vec.getZ() + mValues[13] * vec.getW(),
+        mValues[2] * vec.getX() + mValues[6] * vec.getY() + mValues[10] * vec.getZ() + mValues[14] * vec.getW(),
+        mValues[3] * vec.getX() + mValues[7] * vec.getY() + mValues[11] * vec.getZ() + mValues[15] * vec.getW());
+  }
+
+  public Mat4 mul(Mat4 mat) {
+    return new Mat4(ArrayUtils.mulMatrix(mValues, mat.mValues, 4));
   }
 }

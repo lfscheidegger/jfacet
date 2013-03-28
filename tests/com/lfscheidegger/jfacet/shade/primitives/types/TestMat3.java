@@ -6,7 +6,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
- * Unit tests for {@code Mat2}.
+ * Unit tests for {@code Mat3}.
  */
 public class TestMat3 {
 
@@ -100,5 +100,50 @@ public class TestMat3 {
   public void testToString() {
     Mat3 other = new Mat3(new Vec3(1, 2, 3), new Vec3(4, 5, 6), new Vec3(7, 8, 9));
     assertEquals(other.toString(), "Mat3{Vec3{1.0, 2.0, 3.0}, Vec3{4.0, 5.0, 6.0}, Vec3{7.0, 8.0, 9.0}}");
+  }
+
+  @Test
+  public void testAdd() {
+    Mat3 mat = new Mat3();
+    Mat3 other = new Mat3();
+    float t = 3;
+
+    assertEquals(mat.add(other), new Mat3(new Vec3(2, 0, 0), new Vec3(0, 2, 0), new Vec3(0, 0, 2)));
+    assertEquals(mat.add(other), other.add(mat));
+    assertEquals(mat.add(t), new Mat3(new Vec3(4, 3, 3), new Vec3(3, 4, 3), new Vec3(3, 3, 4)));
+  }
+
+  @Test
+  public void testSub() {
+    Mat3 mat = new Mat3(new Vec3(2, 0, 0), new Vec3(0, 2, 0), new Vec3(0, 0, 2));
+    Mat3 other = new Mat3();
+    float t = 1;
+
+    assertEquals(mat.sub(other), new Mat3());
+    assertEquals(mat.sub(t), new Mat3(new Vec3(1, -1, -1), new Vec3(-1, 1, -1), new Vec3(-1, -1, 1)));
+  }
+
+  @Test
+  public void testMul() {
+    Mat3 mat = new Mat3();
+    Mat3 otherMat = new Mat3(new Vec3(2, 0, 0), new Vec3(0, 2, 0), new Vec3(0, 0, 2));
+    Mat3 thirdMat = new Mat3(new Vec3(1, 2, 3), new Vec3(4, 5, 6), new Vec3(7, 8, 9));
+    Mat3 fourthMat = new Mat3(new Vec3(3, 4, 5), new Vec3(6, 7, 8), new Vec3(9, 10, 11));
+    Vec3 vec = new Vec3(2, 3, 4);
+
+    assertEquals(mat.mul(vec), vec);
+    assertEquals(thirdMat.mul(vec), new Vec3(42, 51, 60));
+    assertEquals(new Mat3().mul(new Mat3()), new Mat3());
+    assertEquals(otherMat.mul(new Mat3()), otherMat);
+
+    assertEquals(thirdMat.mul(fourthMat), new Mat3(
+        new Vec3(54, 66, 78),
+        new Vec3(90, 111, 132),
+        new Vec3(126, 156, 186)));
+    assertEquals(fourthMat.mul(thirdMat), new Mat3(
+        new Vec3(42, 48, 54),
+        new Vec3(96, 111, 126),
+        new Vec3(150, 174, 198)));
+
   }
 }
