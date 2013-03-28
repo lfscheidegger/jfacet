@@ -119,6 +119,10 @@ public class Mat3 {
     return new Mat3(ArrayUtils.sub(mValues, other.mValues));
   }
 
+  public Mat3 mul(float t) {
+    return new Mat3(ArrayUtils.mul(mValues, t));
+  }
+
   public Vec3 mul(Vec3 vec) {
     return new Vec3(
         mValues[0] * vec.getX() + mValues[3] * vec.getY() + mValues[6] * vec.getZ(),

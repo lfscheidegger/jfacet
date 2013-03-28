@@ -142,6 +142,10 @@ public class Mat4 {
     return new Mat4(ArrayUtils.sub(mValues, other.mValues));
   }
 
+  public Mat4 mul(float t) {
+    return new Mat4(ArrayUtils.mul(mValues, t));
+  }
+
   public Vec4 mul(Vec4 vec) {
     return new Vec4(
         mValues[0] * vec.getX() + mValues[4] * vec.getY() + mValues[8] * vec.getZ() + mValues[12] * vec.getW(),

@@ -118,6 +118,7 @@ public class Mat2Test {
     assertEquals(otherMat.mul(vec), new Vec2(4, 6));
     assertEquals(new Mat2().mul(new Mat2()), new Mat2());
     assertEquals(otherMat.mul(new Mat2()), otherMat);
+    assertEquals(mat.mul(2), otherMat);
 
     assertEquals(thirdMat.mul(fourthMat), new Mat2(new Vec2(15, 22), new Vec2(23, 34)));
     assertEquals(fourthMat.mul(thirdMat), new Mat2(new Vec2(13, 16), new Vec2(29, 36)));

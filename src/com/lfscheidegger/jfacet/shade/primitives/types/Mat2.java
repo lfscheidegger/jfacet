@@ -96,6 +96,10 @@ public class Mat2 {
     return new Mat2(ArrayUtils.sub(mValues, other.mValues));
   }
 
+  public Mat2 mul(float t) {
+    return new Mat2(ArrayUtils.mul(mValues, t));
+  }
+
   public Vec2 mul(Vec2 vec) {
     return new Vec2(
         mValues[0] * vec.getX() + mValues[2] * vec.getY(),

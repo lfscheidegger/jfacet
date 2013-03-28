@@ -135,6 +135,7 @@ public class Mat3Test {
     assertEquals(thirdMat.mul(vec), new Vec3(42, 51, 60));
     assertEquals(new Mat3().mul(new Mat3()), new Mat3());
     assertEquals(otherMat.mul(new Mat3()), otherMat);
+    assertEquals(mat.mul(2), otherMat);
 
     assertEquals(thirdMat.mul(fourthMat), new Mat3(
         new Vec3(54, 66, 78),

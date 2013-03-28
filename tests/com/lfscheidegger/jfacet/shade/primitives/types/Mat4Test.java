@@ -187,6 +187,7 @@ public class Mat4Test {
     assertEquals(thirdMat.mul(vec), new Vec4(28, 32, 36, 40));
     assertEquals(new Mat4().mul(new Mat4()), new Mat4());
     assertEquals(otherMat.mul(new Mat4()), otherMat);
+    assertEquals(mat.mul(2), otherMat);
 
     assertEquals(thirdMat.mul(fourthMat), new Mat4(
         new Vec4(146, 164, 182, 200),
