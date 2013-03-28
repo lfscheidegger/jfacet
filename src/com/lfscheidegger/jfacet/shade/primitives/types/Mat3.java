@@ -8,7 +8,7 @@ import java.util.Arrays;
 /**
  * Aggregate type for mat3.
  */
-public class Mat3 {
+public class Mat3 implements SupportsAddition<Mat3> {
 
   private final float[] mValues;
 
