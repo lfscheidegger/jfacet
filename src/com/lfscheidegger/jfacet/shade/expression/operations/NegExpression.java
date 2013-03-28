@@ -4,7 +4,7 @@ import com.google.common.collect.ImmutableList;
 import com.lfscheidegger.jfacet.shade.Type;
 import com.lfscheidegger.jfacet.shade.expression.AbstractExpression;
 import com.lfscheidegger.jfacet.shade.expression.Expression;
-import com.lfscheidegger.jfacet.shade.primitives.types.SupportsBasicArithmetic;
+import com.lfscheidegger.jfacet.shade.primitives.SupportsBasicArithmetic;
 
 public class NegExpression extends AbstractExpression {
 

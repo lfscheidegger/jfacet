@@ -1,12 +1,12 @@
-package com.lfscheidegger.jfacet.shade.expression.types;
+package com.lfscheidegger.jfacet.shade.expression.primitives;
 
 import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableList;
 import com.lfscheidegger.jfacet.shade.Type;
 import com.lfscheidegger.jfacet.shade.expression.AbstractExpression;
 import com.lfscheidegger.jfacet.shade.expression.Expression;
-import com.lfscheidegger.jfacet.shade.primitives.types.Mat2;
-import com.lfscheidegger.jfacet.shade.primitives.types.Vec2;
+import com.lfscheidegger.jfacet.shade.primitives.Mat2;
+import com.lfscheidegger.jfacet.shade.primitives.Vec2;
 
 /**
  * {@code Expression} object that encapsulates a {@code Mat2} object

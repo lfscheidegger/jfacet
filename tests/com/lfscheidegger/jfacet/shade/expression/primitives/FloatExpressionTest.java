@@ -1,4 +1,4 @@
-package com.lfscheidegger.jfacet.shade.expression.types;
+package com.lfscheidegger.jfacet.shade.expression.primitives;
 
 import com.lfscheidegger.jfacet.shade.expression.Expression;
 import org.junit.Test;

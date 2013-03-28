@@ -1,7 +1,7 @@
 package com.lfscheidegger.jfacet.shade;
 
 /**
- * Namespace for deafult GLSL types.
+ * Namespace for deafult GLSL primitives.
  */
 public enum Type {
   /**

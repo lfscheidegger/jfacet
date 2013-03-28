@@ -5,7 +5,7 @@ import com.google.common.collect.ImmutableList;
 import com.lfscheidegger.jfacet.shade.Type;
 import com.lfscheidegger.jfacet.shade.expression.AbstractExpression;
 import com.lfscheidegger.jfacet.shade.expression.Expression;
-import com.lfscheidegger.jfacet.shade.primitives.types.*;
+import com.lfscheidegger.jfacet.shade.primitives.SupportsBasicArithmetic;
 
 public class AddExpression extends AbstractExpression {
 
@@ -44,7 +44,7 @@ public class AddExpression extends AbstractExpression {
     else if (leftType == Type.MAT4_T && rightType == Type.FLOAT_T) return Type.MAT4_T;
     else if (leftType == Type.MAT4_T && rightType == Type.MAT4_T) return Type.MAT4_T;
 
-    throw new IllegalArgumentException("Incompatible types for addition: " + leftType + " " + rightType);
+    throw new IllegalArgumentException("Incompatible primitives for addition: " + leftType + " " + rightType);
   }
 
   private float evaluateFloat() {

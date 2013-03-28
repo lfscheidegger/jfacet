@@ -1,5 +1,7 @@
-package com.lfscheidegger.jfacet.shade.primitives.types;
+package com.lfscheidegger.jfacet.shade.primitives;
 
+import com.lfscheidegger.jfacet.shade.primitives.Mat3;
+import com.lfscheidegger.jfacet.shade.primitives.Vec3;
 import org.junit.Before;
 import org.junit.Test;
 

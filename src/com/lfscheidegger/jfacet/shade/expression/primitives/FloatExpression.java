@@ -1,4 +1,4 @@
-package com.lfscheidegger.jfacet.shade.expression.types;
+package com.lfscheidegger.jfacet.shade.expression.primitives;
 
 import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableList;

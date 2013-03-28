@@ -1,7 +1,7 @@
-package com.lfscheidegger.jfacet.shade.expression.types;
+package com.lfscheidegger.jfacet.shade.expression.primitives;
 
 import com.lfscheidegger.jfacet.shade.expression.Expression;
-import com.lfscheidegger.jfacet.shade.primitives.types.Vec2;
+import com.lfscheidegger.jfacet.shade.primitives.Vec2;
 import org.junit.Test;
 
 import static org.junit.Assert.*;

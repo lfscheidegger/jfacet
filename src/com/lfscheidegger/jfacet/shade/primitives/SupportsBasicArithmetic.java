@@ -1,7 +1,7 @@
-package com.lfscheidegger.jfacet.shade.primitives.types;
+package com.lfscheidegger.jfacet.shade.primitives;
 
 /**
- * Interface for primitive types that support basic linear algebaric operations
+ * Interface for primitive primitives that support basic linear algebaric operations
  */
 public interface SupportsBasicArithmetic<T> {
 

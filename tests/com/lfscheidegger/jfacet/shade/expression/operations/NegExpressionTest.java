@@ -1,7 +1,7 @@
 package com.lfscheidegger.jfacet.shade.expression.operations;
 
-import com.lfscheidegger.jfacet.shade.expression.types.*;
-import com.lfscheidegger.jfacet.shade.primitives.types.*;
+import com.lfscheidegger.jfacet.shade.expression.primitives.*;
+import com.lfscheidegger.jfacet.shade.primitives.*;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
