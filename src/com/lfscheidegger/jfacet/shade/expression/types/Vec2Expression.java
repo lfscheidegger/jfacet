@@ -4,7 +4,7 @@ import com.google.common.collect.ImmutableList;
 import com.lfscheidegger.jfacet.shade.Type;
 import com.lfscheidegger.jfacet.shade.expression.AbstractExpression;
 import com.lfscheidegger.jfacet.shade.expression.Expression;
-import com.lfscheidegger.jfacet.shade.types.Vec2;
+import com.lfscheidegger.jfacet.shade.primitives.types.Vec2;
 
 /**
  * {@code Expression} object that encapsulates a 2-dimensional floating-point value

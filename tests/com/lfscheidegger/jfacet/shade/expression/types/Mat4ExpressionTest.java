@@ -1,10 +1,8 @@
 package com.lfscheidegger.jfacet.shade.expression.types;
 
 import com.lfscheidegger.jfacet.shade.expression.Expression;
-import com.lfscheidegger.jfacet.shade.types.Mat3;
-import com.lfscheidegger.jfacet.shade.types.Mat4;
-import com.lfscheidegger.jfacet.shade.types.Vec3;
-import com.lfscheidegger.jfacet.shade.types.Vec4;
+import com.lfscheidegger.jfacet.shade.primitives.types.Mat4;
+import com.lfscheidegger.jfacet.shade.primitives.types.Vec4;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;

@@ -4,7 +4,7 @@ import com.google.common.collect.ImmutableList;
 import com.lfscheidegger.jfacet.shade.Type;
 import com.lfscheidegger.jfacet.shade.expression.AbstractExpression;
 import com.lfscheidegger.jfacet.shade.expression.Expression;
-import com.lfscheidegger.jfacet.shade.types.Vec3;
+import com.lfscheidegger.jfacet.shade.primitives.types.Vec3;
 
 /**
  * {@code Expression} object encapsulating a 3-dimensional floating-point vector.

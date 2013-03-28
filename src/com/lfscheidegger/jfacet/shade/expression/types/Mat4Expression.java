@@ -4,8 +4,8 @@ import com.google.common.collect.ImmutableList;
 import com.lfscheidegger.jfacet.shade.Type;
 import com.lfscheidegger.jfacet.shade.expression.AbstractExpression;
 import com.lfscheidegger.jfacet.shade.expression.Expression;
-import com.lfscheidegger.jfacet.shade.types.Mat4;
-import com.lfscheidegger.jfacet.shade.types.Vec4;
+import com.lfscheidegger.jfacet.shade.primitives.types.Mat4;
+import com.lfscheidegger.jfacet.shade.primitives.types.Vec4;
 
 /**
  * {@code Expression} object that encapsulates a {@code Mat2} object

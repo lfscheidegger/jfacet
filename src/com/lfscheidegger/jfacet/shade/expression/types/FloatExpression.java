@@ -1,6 +1,5 @@
 package com.lfscheidegger.jfacet.shade.expression.types;
 
-import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableList;
 import com.lfscheidegger.jfacet.shade.Type;
 import com.lfscheidegger.jfacet.shade.expression.AbstractExpression;
@@ -29,7 +28,6 @@ public class FloatExpression extends AbstractExpression {
         return mValue;
       case 1:
         Expression parent = getParents().get(0);
-        Preconditions.checkState(parent.getType() == Type.FLOAT_T);
         return parent.evaluate();
       default:
         throw new IllegalStateException(

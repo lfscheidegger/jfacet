@@ -1,13 +1,10 @@
 package com.lfscheidegger.jfacet.shade.expression.types;
 
-import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableList;
 import com.lfscheidegger.jfacet.shade.Type;
 import com.lfscheidegger.jfacet.shade.expression.AbstractExpression;
 import com.lfscheidegger.jfacet.shade.expression.Expression;
-import com.lfscheidegger.jfacet.shade.types.Vec2;
-import com.lfscheidegger.jfacet.shade.types.Vec3;
-import com.lfscheidegger.jfacet.shade.types.Vec4;
+import com.lfscheidegger.jfacet.shade.primitives.types.Vec4;
 
 /**
  * {@code Expression} object encapsulating a 3-dimensional floating-point vector.
