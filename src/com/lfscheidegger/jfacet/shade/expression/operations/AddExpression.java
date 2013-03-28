@@ -24,7 +24,7 @@ public class AddExpression extends AbstractExpression {
     if (mLeftType == Type.FLOAT_T) {
       return evaluateFloat();
     } else {
-      SupportsAddition result = evaluateForType(mLeftType);
+      SupportsBasicArithmetic result = evaluateForType(mLeftType);
       return result;
     }
   }
@@ -52,7 +52,7 @@ public class AddExpression extends AbstractExpression {
     return (Float)getParents().get(0).evaluate() + (Float)getParents().get(1).evaluate();
   }
 
-  private <T extends SupportsAddition<T> > T evaluateForType(Type type) {
+  private <T extends SupportsBasicArithmetic<T>> T evaluateForType(Type type) {
     if (mRightType == Type.FLOAT_T) {
       return ((T)getParents().get(0).evaluate()).add((Float)getParents().get(1).evaluate());
     } else if (mRightType == type) {

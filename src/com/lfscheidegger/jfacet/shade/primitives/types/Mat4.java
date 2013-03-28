@@ -8,10 +8,7 @@ import java.util.Arrays;
 /**
  * Aggregate type for mat4
  */
-public class Mat4 implements
-    SupportsAddition<Mat4>,
-    SupportsSubtraction<Mat4>,
-    SupportsMultiplication<Mat4> {
+public class Mat4 implements SupportsBasicArithmetic<Mat4> {
 
   private final float[] mValues;
 

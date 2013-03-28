@@ -5,8 +5,7 @@ import com.google.common.collect.ImmutableList;
 import com.lfscheidegger.jfacet.shade.Type;
 import com.lfscheidegger.jfacet.shade.expression.AbstractExpression;
 import com.lfscheidegger.jfacet.shade.expression.Expression;
-import com.lfscheidegger.jfacet.shade.primitives.types.SupportsMultiplication;
-import com.lfscheidegger.jfacet.shade.primitives.types.SupportsSubtraction;
+import com.lfscheidegger.jfacet.shade.primitives.types.SupportsBasicArithmetic;
 
 public class MulExpression extends AbstractExpression {
 
@@ -25,7 +24,7 @@ public class MulExpression extends AbstractExpression {
     if (mLeftType == Type.FLOAT_T) {
       return evaluateFloat();
     } else {
-      SupportsMultiplication result = evaluateForType(mLeftType);
+      SupportsBasicArithmetic result = evaluateForType(mLeftType);
       return result;
     }
   }
@@ -53,7 +52,7 @@ public class MulExpression extends AbstractExpression {
     return (Float)getParents().get(0).evaluate() * (Float)getParents().get(1).evaluate();
   }
 
-  private <T extends SupportsMultiplication<T>> T evaluateForType(Type type) {
+  private <T extends SupportsBasicArithmetic<T>> T evaluateForType(Type type) {
     if (mRightType == Type.FLOAT_T) {
       return ((T)getParents().get(0).evaluate()).mul((Float) getParents().get(1).evaluate());
     } else if (mRightType == type) {

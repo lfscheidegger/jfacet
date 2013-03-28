@@ -7,10 +7,7 @@ import java.util.Arrays;
 /**
  * Aggregate type for vec3.
  */
-public class Vec4 implements
-    SupportsAddition<Vec4>,
-    SupportsSubtraction<Vec4>,
-    SupportsMultiplication<Vec4> {
+public class Vec4 implements SupportsBasicArithmetic<Vec4> {
 
   private float[] mValues;
 

@@ -5,8 +5,7 @@ import com.google.common.collect.ImmutableList;
 import com.lfscheidegger.jfacet.shade.Type;
 import com.lfscheidegger.jfacet.shade.expression.AbstractExpression;
 import com.lfscheidegger.jfacet.shade.expression.Expression;
-import com.lfscheidegger.jfacet.shade.primitives.types.SupportsAddition;
-import com.lfscheidegger.jfacet.shade.primitives.types.SupportsSubtraction;
+import com.lfscheidegger.jfacet.shade.primitives.types.SupportsBasicArithmetic;
 
 public class SubExpression extends AbstractExpression {
 
@@ -25,7 +24,7 @@ public class SubExpression extends AbstractExpression {
     if (mLeftType == Type.FLOAT_T) {
       return evaluateFloat();
     } else {
-      SupportsSubtraction result = evaluateForType(mLeftType);
+      SupportsBasicArithmetic result = evaluateForType(mLeftType);
       return result;
     }
   }
@@ -53,11 +52,11 @@ public class SubExpression extends AbstractExpression {
     return (Float)getParents().get(0).evaluate() - (Float)getParents().get(1).evaluate();
   }
 
-  private <T extends SupportsSubtraction<T>> T evaluateForType(Type type) {
+  private <T extends SupportsBasicArithmetic<T>> T evaluateForType(Type type) {
     if (mRightType == Type.FLOAT_T) {
-      return ((T)getParents().get(0).evaluate()).sub((Float)getParents().get(1).evaluate());
+      return ((T)getParents().get(0).evaluate()).sub((Float) getParents().get(1).evaluate());
     } else if (mRightType == type) {
-      return ((T)getParents().get(0).evaluate()).sub((T)getParents().get(1).evaluate());
+      return ((T)getParents().get(0).evaluate()).sub((T) getParents().get(1).evaluate());
     } else {
       throw new IllegalArgumentException("Cannot subtract " + mLeftType + " from " + mRightType);
     }
