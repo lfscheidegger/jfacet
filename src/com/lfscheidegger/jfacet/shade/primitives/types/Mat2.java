@@ -80,36 +80,37 @@ public class Mat2 implements SupportsBasicArithmetic<Mat2> {
         .toString();
   }
 
+  @Override
   public Mat2 add(float t) {
     return new Mat2(ArrayUtils.add(mValues, t));
   }
 
+  @Override
   public Mat2 add(Mat2 other) {
     return new Mat2(ArrayUtils.add(mValues, other.mValues));
   }
 
+  @Override
   public Mat2 sub(float t) {
     return new Mat2(ArrayUtils.sub(mValues, t));
   }
 
+  @Override
   public Mat2 sub(Mat2 other) {
     return new Mat2(ArrayUtils.sub(mValues, other.mValues));
   }
 
+  @Override
   public Mat2 neg() {
     return new Mat2(ArrayUtils.mul(mValues, -1));
   }
 
+  @Override
   public Mat2 mul(float t) {
     return new Mat2(ArrayUtils.mul(mValues, t));
   }
 
-  public Vec2 mul(Vec2 vec) {
-    return new Vec2(
-        mValues[0] * vec.getX() + mValues[2] * vec.getY(),
-        mValues[1] * vec.getY() + mValues[3] * vec.getY());
-  }
-
+  @Override
   public Mat2 mul(Mat2 mat) {
     float[] buf = new float[] {
         mValues[0] * mat.mValues[0] + mValues[2] * mat.mValues[1],
@@ -118,5 +119,11 @@ public class Mat2 implements SupportsBasicArithmetic<Mat2> {
         mValues[1] * mat.mValues[2] + mValues[3] * mat.mValues[3],
     };
     return new Mat2(buf);
+  }
+
+  public Vec2 mul(Vec2 vec) {
+    return new Vec2(
+        mValues[0] * vec.getX() + mValues[2] * vec.getY(),
+        mValues[1] * vec.getY() + mValues[3] * vec.getY());
   }
 }

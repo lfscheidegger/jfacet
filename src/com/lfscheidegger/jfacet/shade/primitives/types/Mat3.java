@@ -103,28 +103,39 @@ public class Mat3 implements SupportsBasicArithmetic<Mat3> {
         .toString();
   }
 
+  @Override
   public Mat3 add(float t) {
     return new Mat3(ArrayUtils.add(mValues, t));
   }
 
+  @Override
   public Mat3 add(Mat3 other) {
     return new Mat3(ArrayUtils.add(mValues, other.mValues));
   }
 
+  @Override
   public Mat3 sub(float t) {
     return new Mat3(ArrayUtils.sub(mValues, t));
   }
 
+  @Override
   public Mat3 sub(Mat3 other) {
     return new Mat3(ArrayUtils.sub(mValues, other.mValues));
   }
 
+  @Override
   public Mat3 neg() {
     return new Mat3(ArrayUtils.mul(mValues, -1));
   }
 
+  @Override
   public Mat3 mul(float t) {
     return new Mat3(ArrayUtils.mul(mValues, t));
+  }
+
+  @Override
+  public Mat3 mul(Mat3 mat) {
+    return new Mat3(ArrayUtils.mulMatrix(mValues, mat.mValues, 3));
   }
 
   public Vec3 mul(Vec3 vec) {
@@ -132,9 +143,5 @@ public class Mat3 implements SupportsBasicArithmetic<Mat3> {
         mValues[0] * vec.getX() + mValues[3] * vec.getY() + mValues[6] * vec.getZ(),
         mValues[1] * vec.getX() + mValues[4] * vec.getY() + mValues[7] * vec.getZ(),
         mValues[2] * vec.getX() + mValues[5] * vec.getY() + mValues[8] * vec.getZ());
-  }
-
-  public Mat3 mul(Mat3 mat) {
-    return new Mat3(ArrayUtils.mulMatrix(mValues, mat.mValues, 3));
   }
 }

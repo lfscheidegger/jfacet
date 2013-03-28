@@ -126,28 +126,39 @@ public class Mat4 implements SupportsBasicArithmetic<Mat4> {
         .toString();
   }
 
+  @Override
   public Mat4 add(float t) {
     return new Mat4(ArrayUtils.add(mValues, t));
   }
 
+  @Override
   public Mat4 add(Mat4 other) {
     return new Mat4(ArrayUtils.add(mValues, other.mValues));
   }
 
+  @Override
   public Mat4 sub(float t) {
     return new Mat4(ArrayUtils.sub(mValues, t));
   }
 
+  @Override
   public Mat4 sub(Mat4 other) {
     return new Mat4(ArrayUtils.sub(mValues, other.mValues));
   }
 
+  @Override
   public Mat4 neg() {
     return new Mat4(ArrayUtils.mul(mValues, -1));
   }
 
+  @Override
   public Mat4 mul(float t) {
     return new Mat4(ArrayUtils.mul(mValues, t));
+  }
+
+  @Override
+  public Mat4 mul(Mat4 mat) {
+    return new Mat4(ArrayUtils.mulMatrix(mValues, mat.mValues, 4));
   }
 
   public Vec4 mul(Vec4 vec) {
@@ -156,9 +167,5 @@ public class Mat4 implements SupportsBasicArithmetic<Mat4> {
         mValues[1] * vec.getX() + mValues[5] * vec.getY() + mValues[9] * vec.getZ() + mValues[13] * vec.getW(),
         mValues[2] * vec.getX() + mValues[6] * vec.getY() + mValues[10] * vec.getZ() + mValues[14] * vec.getW(),
         mValues[3] * vec.getX() + mValues[7] * vec.getY() + mValues[11] * vec.getZ() + mValues[15] * vec.getW());
-  }
-
-  public Mat4 mul(Mat4 mat) {
-    return new Mat4(ArrayUtils.mulMatrix(mValues, mat.mValues, 4));
   }
 }
