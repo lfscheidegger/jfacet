@@ -99,6 +99,10 @@ public class Mat2 implements
     return new Mat2(ArrayUtils.sub(mValues, other.mValues));
   }
 
+  public Mat2 neg() {
+    return new Mat2(ArrayUtils.mul(mValues, -1));
+  }
+
   public Mat2 mul(float t) {
     return new Mat2(ArrayUtils.mul(mValues, t));
   }

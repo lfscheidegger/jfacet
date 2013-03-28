@@ -164,6 +164,16 @@ public class Mat4Test {
   }
 
   @Test
+  public void testNeg() {
+    Mat4 mat = new Mat4(new Vec4(1, 2, 3, 4), new Vec4(5, 6, 7, 8), new Vec4(9, 10, 11, 12), new Vec4(13, 14, 15, 16));
+    assertEquals(mat.neg(), new Mat4(
+        new Vec4(-1, -2, -3, -4),
+        new Vec4(-5, -6, -7, -8),
+        new Vec4(-9, -10, -11, -12),
+        new Vec4(-13, -14, -15, -16)));
+  }
+
+  @Test
   public void testMul() {
     Mat4 mat = new Mat4();
     Mat4 otherMat = new Mat4(

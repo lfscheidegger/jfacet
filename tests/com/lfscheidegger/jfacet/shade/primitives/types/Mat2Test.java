@@ -107,6 +107,12 @@ public class Mat2Test {
   }
 
   @Test
+  public void testNeg() {
+    Mat2 mat = new Mat2(new Vec2(1, 2), new Vec2(3, 4));
+    assertEquals(mat.neg(), new Mat2(new Vec2(-1, -2), new Vec2(-3, -4)));
+  }
+
+  @Test
   public void testMul() {
     Mat2 mat = new Mat2();
     Mat2 otherMat = new Mat2(new Vec2(2, 0), new Vec2(0, 2));

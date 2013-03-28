@@ -145,6 +145,10 @@ public class Mat4 implements
     return new Mat4(ArrayUtils.sub(mValues, other.mValues));
   }
 
+  public Mat4 neg() {
+    return new Mat4(ArrayUtils.mul(mValues, -1));
+  }
+
   public Mat4 mul(float t) {
     return new Mat4(ArrayUtils.mul(mValues, t));
   }

@@ -122,6 +122,10 @@ public class Mat3 implements
     return new Mat3(ArrayUtils.sub(mValues, other.mValues));
   }
 
+  public Mat3 neg() {
+    return new Mat3(ArrayUtils.mul(mValues, -1));
+  }
+
   public Mat3 mul(float t) {
     return new Mat3(ArrayUtils.mul(mValues, t));
   }

@@ -124,6 +124,12 @@ public class Mat3Test {
   }
 
   @Test
+  public void testNeg() {
+    Mat3 mat = new Mat3(new Vec3(1, 2, 3), new Vec3(4, 5, 6), new Vec3(7, 8, 9));
+    assertEquals(mat.neg(), new Mat3(new Vec3(-1, -2, -3), new Vec3(-4, -5, -6), new Vec3(-7, -8, -9)));
+  }
+
+  @Test
   public void testMul() {
     Mat3 mat = new Mat3();
     Mat3 otherMat = new Mat3(new Vec3(2, 0, 0), new Vec3(0, 2, 0), new Vec3(0, 0, 2));
