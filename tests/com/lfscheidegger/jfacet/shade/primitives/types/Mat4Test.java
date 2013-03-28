@@ -8,7 +8,7 @@ import static org.junit.Assert.*;
 /**
  * Unit tests for {@code Mat4}.
  */
-public class TestMat4 {
+public class Mat4Test {
 
   private Mat4 mat;
 

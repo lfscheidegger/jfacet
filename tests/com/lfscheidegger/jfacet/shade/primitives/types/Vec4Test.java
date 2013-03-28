@@ -8,7 +8,7 @@ import static org.junit.Assert.*;
 /**
  * Unit tests for {@code Vec4}.
  */
-public class TestVec4 {
+public class Vec4Test {
 
   private Vec4 vec;
 
