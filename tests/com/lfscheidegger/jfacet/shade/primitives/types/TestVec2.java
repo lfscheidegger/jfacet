@@ -85,6 +85,12 @@ public class TestVec2 {
   }
 
   @Test
+  public void testToString() {
+    Vec2 vec = new Vec2(1, 2);
+    assertEquals(vec.toString(), "Vec2{1.0, 2.0}");
+  }
+
+  @Test
   public void testAdd() {
     Vec2 v1 = new Vec2(1, 2);
     Vec2 v2 = new Vec2(3, 4);

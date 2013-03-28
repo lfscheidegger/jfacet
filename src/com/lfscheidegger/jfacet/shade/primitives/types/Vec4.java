@@ -165,4 +165,14 @@ public class Vec4 {
         mValues[2] * other.mValues[2] +
         mValues[3] * other.mValues[3];
   }
+
+  @Override
+  public String toString() {
+    return Objects.toStringHelper(Vec4.class)
+        .addValue(mValues[0])
+        .addValue(mValues[1])
+        .addValue(mValues[2])
+        .addValue(mValues[3])
+        .toString();
+  }
 }

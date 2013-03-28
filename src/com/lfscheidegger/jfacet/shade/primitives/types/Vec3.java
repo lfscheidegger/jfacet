@@ -120,4 +120,13 @@ public class Vec3 {
   public int hashCode() {
     return Objects.hashCode(mValues[0], mValues[1], mValues[2]);
   }
+
+  @Override
+  public String toString() {
+    return Objects.toStringHelper(Vec3.class)
+        .addValue(mValues[0])
+        .addValue(mValues[1])
+        .addValue(mValues[2])
+        .toString();
+  }
 }

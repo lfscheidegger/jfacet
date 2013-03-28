@@ -103,4 +103,12 @@ public final class Vec2 {
   public int hashCode() {
     return Objects.hashCode(mValues[0], mValues[1]);
   }
+
+  @Override
+  public String toString() {
+    return Objects.toStringHelper(Vec2.class)
+        .addValue(mValues[0])
+        .addValue(mValues[1])
+        .toString();
+  }
 }

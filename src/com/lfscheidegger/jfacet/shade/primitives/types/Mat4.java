@@ -110,4 +110,14 @@ public class Mat4 {
   public int hashCode() {
     return Objects.hashCode(mValues[0], mValues[1], mValues[2], mValues[3]);
   }
+
+  @Override
+  public String toString() {
+    return Objects.toStringHelper(Mat4.class)
+        .addValue(new Vec4(mValues[0], mValues[1], mValues[2], mValues[3]))
+        .addValue(new Vec4(mValues[4], mValues[5], mValues[6], mValues[7]))
+        .addValue(new Vec4(mValues[8], mValues[9], mValues[10], mValues[11]))
+        .addValue(new Vec4(mValues[12], mValues[13], mValues[14], mValues[15]))
+        .toString();
+  }
 }

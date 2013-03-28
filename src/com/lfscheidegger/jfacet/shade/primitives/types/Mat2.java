@@ -1,6 +1,7 @@
 package com.lfscheidegger.jfacet.shade.primitives.types;
 
 import com.google.common.base.Objects;
+import com.google.common.base.Strings;
 
 import java.util.Arrays;
 
@@ -65,5 +66,13 @@ public class Mat2 {
   @Override
   public int hashCode() {
     return Objects.hashCode(mValues[0], mValues[1]);
+  }
+
+  @Override
+  public String toString() {
+    return Objects.toStringHelper(Mat2.class)
+        .addValue(new Vec2(mValues[0], mValues[1]))
+        .addValue(new Vec2(mValues[2], mValues[3]))
+        .toString();
   }
 }

@@ -117,6 +117,12 @@ public class TestVec3 {
   }
 
   @Test
+  public void testToString() {
+    Vec3 vec = new Vec3(1, 2, 3);
+    assertEquals(vec.toString(), "Vec3{1.0, 2.0, 3.0}");
+  }
+
+  @Test
   public void testAdd() {
     Vec3 v1 = new Vec3(1, 2, 3);
     Vec3 v2 = new Vec3(3, 4, 5);

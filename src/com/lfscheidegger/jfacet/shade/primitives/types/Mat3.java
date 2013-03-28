@@ -88,4 +88,13 @@ public class Mat3 {
   public int hashCode() {
     return Objects.hashCode(mValues[0], mValues[1], mValues[2]);
   }
+
+  @Override
+  public String toString() {
+    return Objects.toStringHelper(Mat3.class)
+        .addValue(new Vec3(mValues[0], mValues[1], mValues[2]))
+        .addValue(new Vec3(mValues[3], mValues[4], mValues[5]))
+        .addValue(new Vec3(mValues[6], mValues[7], mValues[8]))
+        .toString();
+  }
 }

@@ -78,4 +78,10 @@ public class TestMat2 {
     assertTrue(mat.hashCode() == other.hashCode());
     assertFalse(mat.hashCode() == unequal.hashCode());
   }
+
+  @Test
+  public void testToString() {
+    Mat2 other = new Mat2(new Vec2(1, 2), new Vec2(3, 4));
+    assertEquals(other.toString(), "Mat2{Vec2{1.0, 2.0}, Vec2{3.0, 4.0}}");
+  }
 }
