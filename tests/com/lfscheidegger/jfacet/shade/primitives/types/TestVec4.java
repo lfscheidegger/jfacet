@@ -3,8 +3,7 @@ package com.lfscheidegger.jfacet.shade.primitives.types;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 /**
  * Unit tests for {@code Vec4}.
@@ -164,5 +163,58 @@ public class TestVec4 {
 
     assertTrue(vec.hashCode() == other.hashCode());
     assertFalse(vec.hashCode() == unequal.hashCode());
+  }
+
+  @Test
+  public void testAdd() {
+    Vec4 v1 = new Vec4(1, 2, 3, 4);
+    Vec4 v2 = new Vec4(3, 4, 5, 6);
+
+    assertEquals(v1.add(v2), new Vec4(4, 6, 8, 10));
+    assertEquals(v2.add(v1), new Vec4(4, 6, 8, 10));
+    assertEquals(v1.add(2), new Vec4(3, 4, 5, 6));
+  }
+
+  @Test
+  public void testSub() {
+    Vec4 v1 = new Vec4(1, 2, 3, 4);
+    Vec4 v2 = new Vec4(3, 4, 5, 6);
+
+    assertEquals(v1.sub(v2), new Vec4(-2, -2, -2, -2));
+    assertEquals(v2.sub(v1), new Vec4(2, 2, 2, 2));
+    assertEquals(v1.sub(2), new Vec4(-1, 0, 1, 2));
+  }
+
+  @Test
+  public void testNeg() {
+    Vec4 v = new Vec4(1, 2, 3, 4);
+    assertEquals(v.neg(), new Vec4(-1, -2, -3, -4));
+  }
+
+  @Test
+  public void testMul() {
+    Vec4 v1 = new Vec4(1, 2, 3, 4);
+    Vec4 v2 = new Vec4(3, 4, 5, 6);
+
+    assertEquals(v1.mul(2), new Vec4(2, 4, 6, 8));
+    assertEquals(v1.mul(v2), new Vec4(3, 8, 15, 24));
+  }
+
+  @Test
+  public void testDiv() {
+    Vec4 v1 = new Vec4(1, 2, 3, 4);
+    Vec4 v2 = new Vec4(2, 5, 6, 8);
+
+    assertEquals(v1.div(2), new Vec4(0.5f, 1, 1.5f, 2));
+    assertEquals(v1.div(v2), new Vec4(0.5f, 0.4f, 0.5f, 0.5f));
+  }
+
+  @Test
+  public void testDot() {
+    Vec4 v1 = new Vec4(1, 2, 3, 4);
+    Vec4 v2 = new Vec4(3, 4, 5, 6);
+
+    assertTrue(v1.dot(v2) == 50);
+    assertTrue(v1.dot(v2) == v2.dot(v1));
   }
 }

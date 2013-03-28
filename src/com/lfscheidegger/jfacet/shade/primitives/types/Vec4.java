@@ -105,4 +105,64 @@ public class Vec4 {
   public int hashCode() {
     return Objects.hashCode(mValues[0], mValues[1], mValues[2], mValues[3]);
   }
+
+  public Vec4 add(Vec4 other) {
+    return new Vec4(
+        mValues[0] + other.mValues[0],
+        mValues[1] + other.mValues[1],
+        mValues[2] + other.mValues[2],
+        mValues[3] + other.mValues[3]);
+  }
+
+  public Vec4 add(float t) {
+    return new Vec4(mValues[0] + t, mValues[1] + t, mValues[2] + t, mValues[3] + t);
+  }
+
+  public Vec4 sub(Vec4 other) {
+    return new Vec4(
+        mValues[0] - other.mValues[0],
+        mValues[1] - other.mValues[1],
+        mValues[2] - other.mValues[2],
+        mValues[3] - other.mValues[3]);
+  }
+
+  public Vec4 sub(float t) {
+    return new Vec4(mValues[0] - t, mValues[1] - t, mValues[2] - t, mValues[3] - t);
+  }
+
+  public Vec4 neg() {
+    return new Vec4(-mValues[0], -mValues[1], -mValues[2], -mValues[3]);
+  }
+
+  public Vec4 mul(float t) {
+    return new Vec4(mValues[0] * t, mValues[1] * t, mValues[2] * t, mValues[3] * t);
+  }
+
+  public Vec4 mul(Vec4 other) {
+    return new Vec4(
+        mValues[0] * other.mValues[0],
+        mValues[1] * other.mValues[1],
+        mValues[2] * other.mValues[2],
+        mValues[3] * other.mValues[3]);
+  }
+
+  public Vec4 div(float t) {
+    return new Vec4(mValues[0] / t, mValues[1] / t, mValues[2] / t, mValues[3] / t);
+  }
+
+  public Vec4 div(Vec4 other) {
+    return new Vec4(
+        mValues[0] / other.mValues[0],
+        mValues[1] / other.mValues[1],
+        mValues[2] / other.mValues[2],
+        mValues[3] / other.mValues[3]);
+  }
+
+  public float dot(Vec4 other) {
+    return
+        mValues[0] * other.mValues[0] +
+        mValues[1] * other.mValues[1] +
+        mValues[2] * other.mValues[2] +
+        mValues[3] * other.mValues[3];
+  }
 }

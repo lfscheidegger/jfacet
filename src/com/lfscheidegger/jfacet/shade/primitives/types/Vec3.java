@@ -67,6 +67,46 @@ public class Vec3 {
     return mValues[idx];
   }
 
+  public Vec3 add(Vec3 other) {
+    return new Vec3(mValues[0] + other.mValues[0], mValues[1] + other.mValues[1], mValues[2] + other.mValues[2]);
+  }
+
+  public Vec3 add(float t) {
+    return new Vec3(mValues[0] + t, mValues[1] + t, mValues[2] + t);
+  }
+
+  public Vec3 sub(Vec3 other) {
+    return new Vec3(mValues[0] - other.mValues[0], mValues[1] - other.mValues[1], mValues[2] - other.mValues[2]);
+  }
+
+  public Vec3 sub(float t) {
+    return new Vec3(mValues[0] - t, mValues[1] - t, mValues[2] - t);
+  }
+
+  public Vec3 neg() {
+    return new Vec3(-mValues[0], -mValues[1], -mValues[2]);
+  }
+
+  public Vec3 mul(float t) {
+    return new Vec3(mValues[0] * t, mValues[1] * t, mValues[2] * t);
+  }
+
+  public Vec3 mul(Vec3 other) {
+    return new Vec3(mValues[0] * other.mValues[0], mValues[1] * other.mValues[1], mValues[2] * other.mValues[2]);
+  }
+
+  public Vec3 div(float t) {
+    return new Vec3(mValues[0] / t, mValues[1] / t, mValues[2] / t);
+  }
+
+  public Vec3 div(Vec3 other) {
+    return new Vec3(mValues[0] / other.mValues[0], mValues[1] / other.mValues[1], mValues[2] / other.mValues[2]);
+  }
+
+  public float dot(Vec3 other) {
+    return mValues[0] * other.mValues[0] + mValues[1] * other.mValues[1] + mValues[2] * other.mValues[2];
+  }
+
   @Override
   public boolean equals(Object other) {
     if (!(other instanceof Vec3)) {

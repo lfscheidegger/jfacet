@@ -83,4 +83,57 @@ public class TestVec2 {
     assertTrue(vec.hashCode() == other.hashCode());
     assertFalse(vec.hashCode() == unequal.hashCode());
   }
+
+  @Test
+  public void testAdd() {
+    Vec2 v1 = new Vec2(1, 2);
+    Vec2 v2 = new Vec2(3, 4);
+
+    assertEquals(v1.add(v2), new Vec2(4, 6));
+    assertEquals(v2.add(v1), new Vec2(4, 6));
+    assertEquals(v1.add(2), new Vec2(3, 4));
+  }
+
+  @Test
+  public void testSub() {
+    Vec2 v1 = new Vec2(1, 2);
+    Vec2 v2 = new Vec2(3, 4);
+
+    assertEquals(v1.sub(v2), new Vec2(-2, -2));
+    assertEquals(v2.sub(v1), new Vec2(2, 2));
+    assertEquals(v1.sub(2), new Vec2(-1, 0));
+  }
+
+  @Test
+  public void testNeg() {
+    Vec2 v = new Vec2(1, 2);
+    assertEquals(v.neg(), new Vec2(-1, -2));
+  }
+
+  @Test
+  public void testMul() {
+    Vec2 v1 = new Vec2(1, 2);
+    Vec2 v2 = new Vec2(3, 4);
+
+    assertEquals(v1.mul(2), new Vec2(2, 4));
+    assertEquals(v1.mul(v2), new Vec2(3, 8));
+  }
+
+  @Test
+  public void testDiv() {
+    Vec2 v1 = new Vec2(1, 2);
+    Vec2 v2 = new Vec2(2, 5);
+
+    assertEquals(v1.div(2), new Vec2(0.5f, 1));
+    assertEquals(v1.div(v2), new Vec2(0.5f, 0.4f));
+  }
+
+  @Test
+  public void testDot() {
+    Vec2 v1 = new Vec2(1, 2);
+    Vec2 v2 = new Vec2(3, 4);
+
+    assertTrue(v1.dot(v2) == 11);
+    assertTrue(v1.dot(v2) == v2.dot(v1));
+  }
 }
