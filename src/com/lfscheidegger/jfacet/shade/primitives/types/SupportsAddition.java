@@ -5,6 +5,6 @@ package com.lfscheidegger.jfacet.shade.primitives.types;
  */
 public interface SupportsAddition<T> {
 
-  T add(float other);
-  T add(T other);
+  public T add(float other);
+  public T add(T other);
 }

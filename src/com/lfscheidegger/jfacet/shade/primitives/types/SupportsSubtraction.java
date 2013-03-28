@@ -5,6 +5,6 @@ package com.lfscheidegger.jfacet.shade.primitives.types;
  */
 public interface SupportsSubtraction<T> {
 
-  T sub(float other);
-  T sub(T other);
+  public T sub(float other);
+  public T sub(T other);
 }

@@ -13,7 +13,7 @@ import static org.junit.Assert.assertTrue;
 public class SubExpressionTest {
 
   @Test
-  public void testAddFloatWithFloat() {
+  public void testSubFloatWithFloat() {
     Expression left = new FloatExpression(3);
     Expression right = new FloatExpression(4);
 
@@ -21,7 +21,7 @@ public class SubExpressionTest {
   }
 
   @Test
-  public void testAddVec2WithFloat() {
+  public void testSubVec2WithFloat() {
     Expression left = new Vec2Expression(new Vec2(1, 2));
     Expression right = new FloatExpression(1);
 
@@ -29,7 +29,7 @@ public class SubExpressionTest {
   }
 
   @Test
-  public void testAddVec2WithVec2() {
+  public void testSubVec2WithVec2() {
     Expression left = new Vec2Expression(new Vec2(1, 2));
     Expression right = new Vec2Expression(new Vec2(1, 2));
 
@@ -37,7 +37,7 @@ public class SubExpressionTest {
   }
 
   @Test
-  public void testAddVec3WithFloat() {
+  public void testSubVec3WithFloat() {
     Expression left = new Vec3Expression(new Vec3(1, 2, 3));
     Expression right = new FloatExpression(1);
 
@@ -45,7 +45,7 @@ public class SubExpressionTest {
   }
 
   @Test
-  public void testAddVec3WithVec3() {
+  public void testSubVec3WithVec3() {
     Expression left = new Vec3Expression(new Vec3(1, 2, 3));
     Expression right = new Vec3Expression(new Vec3(1, 2, 3));
 
@@ -53,7 +53,7 @@ public class SubExpressionTest {
   }
 
   @Test
-  public void testAddVec4WithFloat() {
+  public void testSubVec4WithFloat() {
     Expression left = new Vec4Expression(new Vec4(1, 2, 3, 4));
     Expression right = new FloatExpression(1);
 
@@ -61,7 +61,7 @@ public class SubExpressionTest {
   }
 
   @Test
-  public void testAddVec4WithVec4() {
+  public void testSubVec4WithVec4() {
     Expression left = new Vec4Expression(new Vec4(1, 2, 3, 4));
     Expression right = new Vec4Expression(new Vec4(1, 2, 3, 4));
 
@@ -69,7 +69,7 @@ public class SubExpressionTest {
   }
 
   @Test
-  public void testAddMat2WithFloat() {
+  public void testSubMat2WithFloat() {
     Expression left = new Mat2Expression(new Mat2());
     Expression right = new FloatExpression(1);
 
@@ -77,7 +77,7 @@ public class SubExpressionTest {
   }
 
   @Test
-  public void testAddMat2WithMat2() {
+  public void testSubMat2WithMat2() {
     Expression left = new Mat2Expression(new Mat2());
     Expression right = new Mat2Expression(new Mat2());
 
@@ -85,7 +85,7 @@ public class SubExpressionTest {
   }
 
   @Test
-  public void testAddMat3WithFloat() {
+  public void testSubMat3WithFloat() {
     Expression left = new Mat3Expression(new Mat3());
     Expression right = new FloatExpression(1);
 
@@ -93,7 +93,7 @@ public class SubExpressionTest {
   }
 
   @Test
-  public void testAddMat3WithMat3() {
+  public void testSubMat3WithMat3() {
     Expression left = new Mat3Expression(new Mat3());
     Expression right = new Mat3Expression(new Mat3());
 
@@ -101,7 +101,7 @@ public class SubExpressionTest {
   }
 
   @Test
-  public void testAddMat4WithFloat() {
+  public void testSubMat4WithFloat() {
     Expression left = new Mat4Expression(new Mat4());
     Expression right = new FloatExpression(1);
 
@@ -110,7 +110,7 @@ public class SubExpressionTest {
   }
 
   @Test
-  public void testAddMat4WithMat4() {
+  public void testSubMat4WithMat4() {
     Expression left = new Mat4Expression(new Mat4());
     Expression right = new Mat4Expression(new Mat4());
 
