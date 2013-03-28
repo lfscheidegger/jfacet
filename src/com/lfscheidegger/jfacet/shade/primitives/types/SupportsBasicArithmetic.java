@@ -14,5 +14,8 @@ public interface SupportsBasicArithmetic<T> {
   public T mul(float other);
   public T mul(T other);
 
+  public T div(float other);
+  public T div(T other);
+
   public T neg();
 }

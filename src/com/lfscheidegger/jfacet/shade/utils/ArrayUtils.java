@@ -45,6 +45,7 @@ public class ArrayUtils {
 
     return result;
   }
+
   public static float[] mul(float[] left, float[] right) {
     Preconditions.checkState(left.length == right.length);
 
@@ -61,6 +62,27 @@ public class ArrayUtils {
 
     for (int i = 0; i < left.length; i++) {
       result[i] = left[i] * t;
+    }
+
+    return result;
+  }
+
+  public static float[] div(float[] left, float t) {
+    float[] result = new float[left.length];
+
+    for (int i = 0; i < left.length; i++) {
+      result[i] = left[i] / t;
+    }
+
+    return result;
+  }
+
+  public static float[] div(float[] left, float[] right) {
+    Preconditions.checkState(left.length == right.length);
+
+    float[] result = new float[left.length];
+    for (int i = 0; i < left.length; i++) {
+      result[i] = left[i] / right[i];
     }
 
     return result;

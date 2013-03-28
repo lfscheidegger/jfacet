@@ -161,6 +161,16 @@ public class Mat4 implements SupportsBasicArithmetic<Mat4> {
     return new Mat4(ArrayUtils.mulMatrix(mValues, mat.mValues, 4));
   }
 
+  @Override
+  public Mat4 div(float t) {
+    return new Mat4(ArrayUtils.div(mValues, t));
+  }
+
+  @Override
+  public Mat4 div(Mat4 other) {
+    return new Mat4(ArrayUtils.div(mValues, other.mValues));
+  }
+
   public Vec4 mul(Vec4 vec) {
     return new Vec4(
         mValues[0] * vec.getX() + mValues[4] * vec.getY() + mValues[8] * vec.getZ() + mValues[12] * vec.getW(),

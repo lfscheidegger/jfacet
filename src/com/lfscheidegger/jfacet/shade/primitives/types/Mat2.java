@@ -121,6 +121,16 @@ public class Mat2 implements SupportsBasicArithmetic<Mat2> {
     return new Mat2(buf);
   }
 
+  @Override
+  public Mat2 div(float t) {
+    return new Mat2(ArrayUtils.div(mValues, t));
+  }
+
+  @Override
+  public Mat2 div(Mat2 other) {
+    return new Mat2(ArrayUtils.div(mValues, other.mValues));
+  }
+
   public Vec2 mul(Vec2 vec) {
     return new Vec2(
         mValues[0] * vec.getX() + mValues[2] * vec.getY(),

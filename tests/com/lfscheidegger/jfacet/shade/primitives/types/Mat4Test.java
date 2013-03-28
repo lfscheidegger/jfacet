@@ -211,4 +211,20 @@ public class Mat4Test {
         new Vec4(398, 440, 482, 524),
         new Vec4(542, 600, 658, 716)));
   }
+
+  @Test
+  public void testDiv() {
+    Mat4 mat = new Mat4();
+    Mat4 other = new Mat4(new Vec4(2, 1, 1, 1), new Vec4(1, 2, 1, 1), new Vec4(1, 1, 2, 1), new Vec4(1, 1, 1, 2));
+    assertEquals(mat.div(2), new Mat4(
+        new Vec4(0.5f, 0, 0, 0),
+        new Vec4(0, 0.5f, 0, 0),
+        new Vec4(0, 0, 0.5f, 0),
+        new Vec4(0, 0, 0, 0.5f)));
+    assertEquals(mat.div(other), new Mat4(
+        new Vec4(0.5f, 0, 0, 0),
+        new Vec4(0, 0.5f, 0, 0),
+        new Vec4(0, 0, 0.5f, 0),
+        new Vec4(0, 0, 0, 0.5f)));
+  }
 }

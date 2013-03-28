@@ -129,4 +129,12 @@ public class Mat2Test {
     assertEquals(thirdMat.mul(fourthMat), new Mat2(new Vec2(15, 22), new Vec2(23, 34)));
     assertEquals(fourthMat.mul(thirdMat), new Mat2(new Vec2(13, 16), new Vec2(29, 36)));
   }
+
+  @Test
+  public void testDiv() {
+    Mat2 mat = new Mat2();
+    Mat2 other = new Mat2(new Vec2(2, 1), new Vec2(1, 2));
+    assertEquals(mat.div(2), new Mat2(new Vec2(0.5f, 0), new Vec2(0, 0.5f)));
+    assertEquals(mat.div(other), new Mat2(new Vec2(0.5f, 0), new Vec2(0, 0.5f)));
+  }
 }

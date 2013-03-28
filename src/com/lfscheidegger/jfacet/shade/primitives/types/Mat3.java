@@ -138,6 +138,16 @@ public class Mat3 implements SupportsBasicArithmetic<Mat3> {
     return new Mat3(ArrayUtils.mulMatrix(mValues, mat.mValues, 3));
   }
 
+  @Override
+  public Mat3 div(float t) {
+    return new Mat3(ArrayUtils.div(mValues, t));
+  }
+
+  @Override
+  public Mat3 div(Mat3 other) {
+    return new Mat3(ArrayUtils.div(mValues, other.mValues));
+  }
+
   public Vec3 mul(Vec3 vec) {
     return new Vec3(
         mValues[0] * vec.getX() + mValues[3] * vec.getY() + mValues[6] * vec.getZ(),

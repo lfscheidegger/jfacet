@@ -153,4 +153,12 @@ public class Mat3Test {
         new Vec3(150, 174, 198)));
 
   }
+
+  @Test
+  public void testDiv() {
+    Mat3 mat = new Mat3();
+    Mat3 other = new Mat3(new Vec3(2, 1, 1), new Vec3(1, 2, 1), new Vec3(1, 1, 2));
+    assertEquals(mat.div(2), new Mat3(new Vec3(0.5f, 0, 0), new Vec3(0, 0.5f, 0), new Vec3(0, 0, 0.5f)));
+    assertEquals(mat.div(other), new Mat3(new Vec3(0.5f, 0, 0), new Vec3(0, 0.5f, 0), new Vec3(0, 0, 0.5f)));
+  }
 }
