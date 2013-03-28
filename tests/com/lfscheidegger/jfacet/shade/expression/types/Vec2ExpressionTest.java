@@ -14,7 +14,7 @@ public class Vec2ExpressionTest {
   Expression x = new FloatExpression(1);
   Expression y = new FloatExpression(2);
 
-  Expression xy = new Vec2Expression(new Vec2(1, 2));
+  Vec2Expression xy = new Vec2Expression(new Vec2(1, 2));
 
   @Test
   public void testConstructors() {
@@ -36,10 +36,9 @@ public class Vec2ExpressionTest {
 
   @Test
   public void testGetters() {
-    Vec2Expression child = new Vec2Expression(new Vec2(1, 2));
-    assertGetters(child);
+    assertGetters(xy);
 
-    child = new Vec2Expression(xy);
+    Vec2Expression child = new Vec2Expression(xy);
     assertGetters(child);
 
     child = new Vec2Expression(x, y);
