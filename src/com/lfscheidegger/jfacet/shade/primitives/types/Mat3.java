@@ -1,7 +1,7 @@
 package com.lfscheidegger.jfacet.shade.primitives.types;
 
 import com.google.common.base.Objects;
-import com.lfscheidegger.jfacet.utils.ArrayUtils;
+import com.lfscheidegger.jfacet.shade.utils.ArrayUtils;
 
 import java.util.Arrays;
 

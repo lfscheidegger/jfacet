@@ -1,4 +1,4 @@
-package com.lfscheidegger.jfacet.utils;
+package com.lfscheidegger.jfacet.shade.utils;
 
 import com.google.common.base.Preconditions;
 
