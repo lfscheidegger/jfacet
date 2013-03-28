@@ -1,5 +1,6 @@
 package com.lfscheidegger.jfacet.shade.expression.types;
 
+import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableList;
 import com.lfscheidegger.jfacet.shade.Type;
 import com.lfscheidegger.jfacet.shade.expression.AbstractExpression;
@@ -10,15 +11,20 @@ import com.lfscheidegger.jfacet.shade.expression.Expression;
  */
 public class FloatExpression extends AbstractExpression {
 
+  private final static Type TYPE = Type.FLOAT_T;
+
   private float mValue;
 
   public FloatExpression(float t) {
-    super(Type.FLOAT_T, ImmutableList.<Expression>of());
+    super(TYPE, ImmutableList.<Expression>of());
+
     mValue = t;
   }
 
-  public FloatExpression(FloatExpression other) {
-    super(Type.FLOAT_T, ImmutableList.<Expression>of(other));
+  public FloatExpression(Expression other) {
+    super(TYPE, ImmutableList.<Expression>of(other));
+
+    Preconditions.checkArgument(other.getType() == TYPE);
   }
 
   @Override

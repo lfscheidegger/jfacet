@@ -1,5 +1,6 @@
 package com.lfscheidegger.jfacet.shade.expression.types;
 
+import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableList;
 import com.lfscheidegger.jfacet.shade.Type;
 import com.lfscheidegger.jfacet.shade.expression.AbstractExpression;
@@ -11,20 +12,26 @@ import com.lfscheidegger.jfacet.shade.primitives.types.Vec2;
  */
 public class Vec2Expression extends AbstractExpression {
 
+  private static final Type TYPE = Type.VEC2_T;
+
   private Vec2 mValue;
 
   public Vec2Expression(Vec2 value) {
-    super(Type.VEC2_T, ImmutableList.<Expression>of());
+    super(TYPE, ImmutableList.<Expression>of());
 
     mValue = value;
   }
 
-  public Vec2Expression(Vec2Expression other) {
-    super(Type.VEC2_T, ImmutableList.<Expression>of(other));
+  public Vec2Expression(Expression other) {
+    super(TYPE, ImmutableList.<Expression>of(other));
+
+    Preconditions.checkArgument(other.getType() == TYPE);
   }
 
-  public Vec2Expression(FloatExpression x, FloatExpression y) {
-    super(Type.VEC2_T, ImmutableList.<Expression>of(x, y));
+  public Vec2Expression(Expression x, Expression y) {
+    super(TYPE, ImmutableList.<Expression>of(x, y));
+
+    Preconditions.checkArgument(x.getType() == Type.FLOAT_T && y.getType() == Type.FLOAT_T);
   }
 
   @Override

@@ -1,5 +1,6 @@
 package com.lfscheidegger.jfacet.shade.expression.types;
 
+import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableList;
 import com.lfscheidegger.jfacet.shade.Type;
 import com.lfscheidegger.jfacet.shade.expression.AbstractExpression;
@@ -11,22 +12,31 @@ import com.lfscheidegger.jfacet.shade.primitives.types.Vec4;
  */
 public class Vec4Expression extends AbstractExpression {
 
+  private static final Type TYPE = Type.VEC4_T;
+
   private Vec4 mValue;
 
   public Vec4Expression(Vec4 value) {
-    super(Type.VEC4_T, ImmutableList.<Expression>of());
+    super(TYPE, ImmutableList.<Expression>of());
 
     mValue = value;
   }
 
-  public Vec4Expression(Vec4Expression xyzw) {
-    super(Type.VEC4_T, ImmutableList.<Expression>of(xyzw));
+  public Vec4Expression(Expression xyzw) {
+    super(TYPE, ImmutableList.<Expression>of(xyzw));
+
+    Preconditions.checkArgument(xyzw.getType() == TYPE);
   }
 
-  public Vec4Expression(FloatExpression x, FloatExpression y, FloatExpression z, FloatExpression w) {
-    super(Type.VEC4_T, ImmutableList.<Expression>of(x, y, z, w));
-  }
+  public Vec4Expression(Expression x, Expression y, Expression z, Expression w) {
+    super(TYPE, ImmutableList.<Expression>of(x, y, z, w));
 
+    Preconditions.checkArgument(
+        x.getType() == Type.FLOAT_T &&
+        y.getType() == Type.FLOAT_T &&
+        z.getType() == Type.FLOAT_T &&
+        w.getType() == Type.FLOAT_T);
+  }
 
   @Override
   public Vec4 evaluate() {
