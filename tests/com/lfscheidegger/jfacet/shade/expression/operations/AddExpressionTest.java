@@ -118,6 +118,6 @@ public class AddExpressionTest {
   }
 
   private <T> void additionHelper(Expression left, Expression right, T expectedResult) {
-    assertTrue((new AddExpression(left, right).evaluate()).equals(expectedResult));
+    assertTrue(ArithmeticExpression.getAddExpression(left, right).evaluate().equals(expectedResult));
   }
 }

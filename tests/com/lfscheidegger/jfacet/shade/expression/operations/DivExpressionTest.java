@@ -121,6 +121,6 @@ public class DivExpressionTest {
   }
 
   private <T> void multiplicationHelper(Expression left, Expression right, T expectedResult) {
-    assertTrue((new DivExpression(left, right).evaluate()).equals(expectedResult));
+    assertTrue(ArithmeticExpression.getDivExpression(left, right).evaluate().equals(expectedResult));
   }
 }

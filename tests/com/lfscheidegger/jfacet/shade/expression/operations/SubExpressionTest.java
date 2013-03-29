@@ -118,6 +118,6 @@ public class SubExpressionTest {
   }
 
   private <T> void subtractionHelper(Expression left, Expression right, T expectedResult) {
-    assertTrue((new SubExpression(left, right).evaluate()).equals(expectedResult));
+    assertTrue(ArithmeticExpression.getSubExpression(left, right).evaluate().equals(expectedResult));
   }
 }

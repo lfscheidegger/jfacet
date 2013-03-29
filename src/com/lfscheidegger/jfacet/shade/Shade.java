@@ -89,19 +89,19 @@ public class Shade {
   }
 
   public static Expression add(Expression left, Expression right) {
-    return new AddExpression(left, right);
+    return ArithmeticExpression.getAddExpression(left, right);
   }
 
   public static Expression sub(Expression left, Expression right) {
-    return new SubExpression(left, right);
+    return ArithmeticExpression.getSubExpression(left, right);
   }
 
   public static Expression mul(Expression left, Expression right) {
-    return new MulExpression(left, right);
+    return ArithmeticExpression.getMulExpression(left, right);
   }
 
   public static Expression div(Expression left, Expression right) {
-    return new DivExpression(left, right);
+    return ArithmeticExpression.getDivExpression(left, right);
   }
 
   public static Expression neg(Expression exp) {

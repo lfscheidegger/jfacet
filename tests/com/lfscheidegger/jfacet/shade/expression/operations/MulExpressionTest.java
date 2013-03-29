@@ -118,6 +118,6 @@ public class MulExpressionTest {
   }
 
   private <T> void multiplicationHelper(Expression left, Expression right, T expectedResult) {
-    assertTrue((new MulExpression(left, right).evaluate()).equals(expectedResult));
+    assertTrue(ArithmeticExpression.getMulExpression(left, right).evaluate().equals(expectedResult));
   }
 }
