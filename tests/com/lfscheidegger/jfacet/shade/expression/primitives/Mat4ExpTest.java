@@ -82,14 +82,31 @@ public class Mat4ExpTest {
     assertEquals(Shade.add(Shade.mat(new Mat4()), Shade.mat(new Mat4())).getC0().evaluate(), new Vec4(2, 0, 0, 0));
     assertEquals(Shade.add(Shade.mat(new Mat4()), Shade.mat(new Mat4())).get(0).evaluate(), new Vec4(2, 0, 0, 0));
 
+    assertEquals(Shade.mat(new Mat4()).getC0().getGlSlString(), "vec4(mat4(vec4(float(1.0), float(0.0), float(0.0), float(0.0)), vec4(float(0.0), float(1.0), float(0.0), float(0.0)), vec4(float(0.0), float(0.0), float(1.0), float(0.0)), vec4(float(0.0), float(0.0), float(0.0), float(1.0)))[0])");
+    assertEquals(Shade.mat(new Mat4()).get(0).getGlSlString(), "vec4(mat4(vec4(float(1.0), float(0.0), float(0.0), float(0.0)), vec4(float(0.0), float(1.0), float(0.0), float(0.0)), vec4(float(0.0), float(0.0), float(1.0), float(0.0)), vec4(float(0.0), float(0.0), float(0.0), float(1.0)))[0])");
+
     assertEquals(Shade.mat(new Mat4()).getC1().evaluate(), new Vec4(0, 1, 0, 0));
     assertEquals(Shade.mat(new Mat4()).get(1).evaluate(), new Vec4(0, 1, 0, 0));
     assertEquals(Shade.add(Shade.mat(new Mat4()), Shade.mat(new Mat4())).getC1().evaluate(), new Vec4(0, 2, 0, 0));
     assertEquals(Shade.add(Shade.mat(new Mat4()), Shade.mat(new Mat4())).get(1).evaluate(), new Vec4(0, 2, 0, 0));
 
+    assertEquals(Shade.mat(new Mat4()).getC1().getGlSlString(), "vec4(mat4(vec4(float(1.0), float(0.0), float(0.0), float(0.0)), vec4(float(0.0), float(1.0), float(0.0), float(0.0)), vec4(float(0.0), float(0.0), float(1.0), float(0.0)), vec4(float(0.0), float(0.0), float(0.0), float(1.0)))[1])");
+    assertEquals(Shade.mat(new Mat4()).get(1).getGlSlString(), "vec4(mat4(vec4(float(1.0), float(0.0), float(0.0), float(0.0)), vec4(float(0.0), float(1.0), float(0.0), float(0.0)), vec4(float(0.0), float(0.0), float(1.0), float(0.0)), vec4(float(0.0), float(0.0), float(0.0), float(1.0)))[1])");
+
     assertEquals(Shade.mat(new Mat4()).getC2().evaluate(), new Vec4(0, 0, 1, 0));
     assertEquals(Shade.mat(new Mat4()).get(2).evaluate(), new Vec4(0, 0, 1, 0));
     assertEquals(Shade.add(Shade.mat(new Mat4()), Shade.mat(new Mat4())).getC2().evaluate(), new Vec4(0, 0, 2, 0));
     assertEquals(Shade.add(Shade.mat(new Mat4()), Shade.mat(new Mat4())).get(2).evaluate(), new Vec4(0, 0, 2, 0));
+
+    assertEquals(Shade.mat(new Mat4()).getC2().getGlSlString(), "vec4(mat4(vec4(float(1.0), float(0.0), float(0.0), float(0.0)), vec4(float(0.0), float(1.0), float(0.0), float(0.0)), vec4(float(0.0), float(0.0), float(1.0), float(0.0)), vec4(float(0.0), float(0.0), float(0.0), float(1.0)))[2])");
+    assertEquals(Shade.mat(new Mat4()).get(2).getGlSlString(), "vec4(mat4(vec4(float(1.0), float(0.0), float(0.0), float(0.0)), vec4(float(0.0), float(1.0), float(0.0), float(0.0)), vec4(float(0.0), float(0.0), float(1.0), float(0.0)), vec4(float(0.0), float(0.0), float(0.0), float(1.0)))[2])");
+
+    assertEquals(Shade.mat(new Mat4()).getC3().evaluate(), new Vec4(0, 0, 0, 1));
+    assertEquals(Shade.mat(new Mat4()).get(3).evaluate(), new Vec4(0, 0, 0, 1));
+    assertEquals(Shade.add(Shade.mat(new Mat4()), Shade.mat(new Mat4())).getC3().evaluate(), new Vec4(0, 0, 0, 2));
+    assertEquals(Shade.add(Shade.mat(new Mat4()), Shade.mat(new Mat4())).get(3).evaluate(), new Vec4(0, 0, 0, 2));
+
+    assertEquals(Shade.mat(new Mat4()).getC3().getGlSlString(), "vec4(mat4(vec4(float(1.0), float(0.0), float(0.0), float(0.0)), vec4(float(0.0), float(1.0), float(0.0), float(0.0)), vec4(float(0.0), float(0.0), float(1.0), float(0.0)), vec4(float(0.0), float(0.0), float(0.0), float(1.0)))[3])");
+    assertEquals(Shade.mat(new Mat4()).get(3).getGlSlString(), "vec4(mat4(vec4(float(1.0), float(0.0), float(0.0), float(0.0)), vec4(float(0.0), float(1.0), float(0.0), float(0.0)), vec4(float(0.0), float(0.0), float(1.0), float(0.0)), vec4(float(0.0), float(0.0), float(0.0), float(1.0)))[3])");
   }
 }

@@ -24,10 +24,10 @@ public class GlSlExpressionHelper {
   }
 
   public static String getBinOpString(Type type, String opSymbol, Expression left, Expression right) {
-    return type + "(" + left.getGlSlString() + " " + opSymbol + " " + right.getGlSlString() + ")";
+    return getWrappedExpression(type, left.getGlSlString() + " " + opSymbol + " " + right.getGlSlString());
   }
 
   public static String getComponentExpression(Type type, Expression exp, int idx) {
-    return type + "(" + exp.getGlSlString() + "[" + idx + "])";
+    return getWrappedExpression(type, exp.getGlSlString() + "[" + idx + "]");
   }
 }

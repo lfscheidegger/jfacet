@@ -74,14 +74,23 @@ public class Mat3ExpTest {
     assertEquals(Shade.add(Shade.mat(new Mat3()), Shade.mat(new Mat3())).getC0().evaluate(), new Vec3(2, 0, 0));
     assertEquals(Shade.add(Shade.mat(new Mat3()), Shade.mat(new Mat3())).get(0).evaluate(), new Vec3(2, 0, 0));
 
+    assertEquals(Shade.mat(new Mat3()).getC0().getGlSlString(), "vec3(mat3(vec3(float(1.0), float(0.0), float(0.0)), vec3(float(0.0), float(1.0), float(0.0)), vec3(float(0.0), float(0.0), float(1.0)))[0])");
+    assertEquals(Shade.mat(new Mat3()).get(0).getGlSlString(), "vec3(mat3(vec3(float(1.0), float(0.0), float(0.0)), vec3(float(0.0), float(1.0), float(0.0)), vec3(float(0.0), float(0.0), float(1.0)))[0])");
+
     assertEquals(Shade.mat(new Mat3()).getC1().evaluate(), new Vec3(0, 1, 0));
     assertEquals(Shade.mat(new Mat3()).get(1).evaluate(), new Vec3(0, 1, 0));
     assertEquals(Shade.add(Shade.mat(new Mat3()), Shade.mat(new Mat3())).getC1().evaluate(), new Vec3(0, 2, 0));
     assertEquals(Shade.add(Shade.mat(new Mat3()), Shade.mat(new Mat3())).get(1).evaluate(), new Vec3(0, 2, 0));
 
+    assertEquals(Shade.mat(new Mat3()).getC1().getGlSlString(), "vec3(mat3(vec3(float(1.0), float(0.0), float(0.0)), vec3(float(0.0), float(1.0), float(0.0)), vec3(float(0.0), float(0.0), float(1.0)))[1])");
+    assertEquals(Shade.mat(new Mat3()).get(1).getGlSlString(), "vec3(mat3(vec3(float(1.0), float(0.0), float(0.0)), vec3(float(0.0), float(1.0), float(0.0)), vec3(float(0.0), float(0.0), float(1.0)))[1])");
+
     assertEquals(Shade.mat(new Mat3()).getC2().evaluate(), new Vec3(0, 0, 1));
     assertEquals(Shade.mat(new Mat3()).get(2).evaluate(), new Vec3(0, 0, 1));
     assertEquals(Shade.add(Shade.mat(new Mat3()), Shade.mat(new Mat3())).getC2().evaluate(), new Vec3(0, 0, 2));
     assertEquals(Shade.add(Shade.mat(new Mat3()), Shade.mat(new Mat3())).get(2).evaluate(), new Vec3(0, 0, 2));
+
+    assertEquals(Shade.mat(new Mat3()).getC2().getGlSlString(), "vec3(mat3(vec3(float(1.0), float(0.0), float(0.0)), vec3(float(0.0), float(1.0), float(0.0)), vec3(float(0.0), float(0.0), float(1.0)))[2])");
+    assertEquals(Shade.mat(new Mat3()).get(2).getGlSlString(), "vec3(mat3(vec3(float(1.0), float(0.0), float(0.0)), vec3(float(0.0), float(1.0), float(0.0)), vec3(float(0.0), float(0.0), float(1.0)))[2])");
   }
 }
