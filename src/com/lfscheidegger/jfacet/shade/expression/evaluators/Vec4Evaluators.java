@@ -5,6 +5,7 @@ import com.lfscheidegger.jfacet.shade.Type;
 import com.lfscheidegger.jfacet.shade.compiler.GlSlExpressionHelper;
 import com.lfscheidegger.jfacet.shade.expression.Expression;
 import com.lfscheidegger.jfacet.shade.expression.primitives.FloatExp;
+import com.lfscheidegger.jfacet.shade.expression.primitives.Mat4Exp;
 import com.lfscheidegger.jfacet.shade.expression.primitives.Vec4Exp;
 import com.lfscheidegger.jfacet.shade.expression.operators.Operator;
 import com.lfscheidegger.jfacet.shade.primitives.Vec4;
@@ -45,6 +46,20 @@ public class Vec4Evaluators {
       public String getGlSlString(Expression expression) {
         ImmutableList<Expression> parents = expression.getParents();
         return GlSlExpressionHelper.getCommaExpression(Type.VEC4_T, parents.get(0), parents.get(1), parents.get(2), parents.get(3));
+      }
+    };
+  }
+
+  public static Evaluator<Vec4> forMat4Component(final int idx) {
+    return new Evaluator<Vec4>() {
+      @Override
+      public Vec4 evaluate(Expression expression) {
+        return ((Mat4Exp)expression.getParents().get(0)).evaluate().get(idx);
+      }
+
+      @Override
+      public String getGlSlString(Expression expression) {
+        return GlSlExpressionHelper.getComponentExpression(Type.VEC4_T, (Expression) expression.getParents().get(0), idx);
       }
     };
   }

@@ -23,6 +23,14 @@ public class Mat2Exp extends AbstractExpression<Mat2> implements Mat2Like {
   }
 
   public Vec2Exp getC0() {
-    return new Vec2Exp(ImmutableList.<Expression>of(this), Vec2Evaluators.forMat2Component(0));
+    return get(0);
+  }
+
+  public Vec2Exp getC1() {
+    return get(1);
+  }
+
+  public Vec2Exp get(int idx) {
+    return new Vec2Exp(ImmutableList.<Expression>of(this), Vec2Evaluators.forMat2Component(idx));
   }
 }

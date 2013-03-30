@@ -74,4 +74,22 @@ public class Mat4ExpTest {
         Shade.mat(new Mat4(new Vec4(1, 1, 1, 1), new Vec4(1, 1, 1, 1), new Vec4(1, 1, 1, 1), new Vec4(1, 1, 1, 1)))).evaluate(),
         new Mat4().div(new Mat4(new Vec4(1, 1, 1, 1), new Vec4(1, 1, 1, 1), new Vec4(1, 1, 1, 1), new Vec4(1, 1, 1, 1))));
   }
+
+  @Test
+  public void testComponents() {
+    assertEquals(Shade.mat(new Mat4()).getC0().evaluate(), new Vec4(1, 0, 0, 0));
+    assertEquals(Shade.mat(new Mat4()).get(0).evaluate(), new Vec4(1, 0, 0, 0));
+    assertEquals(Shade.add(Shade.mat(new Mat4()), Shade.mat(new Mat4())).getC0().evaluate(), new Vec4(2, 0, 0, 0));
+    assertEquals(Shade.add(Shade.mat(new Mat4()), Shade.mat(new Mat4())).get(0).evaluate(), new Vec4(2, 0, 0, 0));
+
+    assertEquals(Shade.mat(new Mat4()).getC1().evaluate(), new Vec4(0, 1, 0, 0));
+    assertEquals(Shade.mat(new Mat4()).get(1).evaluate(), new Vec4(0, 1, 0, 0));
+    assertEquals(Shade.add(Shade.mat(new Mat4()), Shade.mat(new Mat4())).getC1().evaluate(), new Vec4(0, 2, 0, 0));
+    assertEquals(Shade.add(Shade.mat(new Mat4()), Shade.mat(new Mat4())).get(1).evaluate(), new Vec4(0, 2, 0, 0));
+
+    assertEquals(Shade.mat(new Mat4()).getC2().evaluate(), new Vec4(0, 0, 1, 0));
+    assertEquals(Shade.mat(new Mat4()).get(2).evaluate(), new Vec4(0, 0, 1, 0));
+    assertEquals(Shade.add(Shade.mat(new Mat4()), Shade.mat(new Mat4())).getC2().evaluate(), new Vec4(0, 0, 2, 0));
+    assertEquals(Shade.add(Shade.mat(new Mat4()), Shade.mat(new Mat4())).get(2).evaluate(), new Vec4(0, 0, 2, 0));
+  }
 }

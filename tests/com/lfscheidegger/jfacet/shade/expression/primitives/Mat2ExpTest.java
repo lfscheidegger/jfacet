@@ -61,4 +61,17 @@ public class Mat2ExpTest {
     assertEquals(Shade.div(Shade.mat(new Mat2()), Shade.mat(new Mat2(new Vec2(1, 1), new Vec2(1, 1)))).evaluate(),
         new Mat2().div(new Mat2(new Vec2(1, 1), new Vec2(1, 1))));
   }
+
+  @Test
+  public void testComponents() {
+    assertEquals(Shade.mat(new Mat2()).getC0().evaluate(), new Vec2(1, 0));
+    assertEquals(Shade.mat(new Mat2()).get(0).evaluate(), new Vec2(1, 0));
+    assertEquals(Shade.add(Shade.mat(new Mat2()), Shade.mat(new Mat2())).getC0().evaluate(), new Vec2(2, 0));
+    assertEquals(Shade.add(Shade.mat(new Mat2()), Shade.mat(new Mat2())).get(0).evaluate(), new Vec2(2, 0));
+
+    assertEquals(Shade.mat(new Mat2()).getC1().evaluate(), new Vec2(0, 1));
+    assertEquals(Shade.mat(new Mat2()).get(1).evaluate(), new Vec2(0, 1));
+    assertEquals(Shade.add(Shade.mat(new Mat2()), Shade.mat(new Mat2())).getC1().evaluate(), new Vec2(0, 2));
+    assertEquals(Shade.add(Shade.mat(new Mat2()), Shade.mat(new Mat2())).get(1).evaluate(), new Vec2(0, 2));
+  }
 }

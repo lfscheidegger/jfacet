@@ -23,15 +23,15 @@ public class Vec3Exp extends AbstractExpression<Vec3> implements Vec3Like {
   }
 
   public FloatExp getX() {
-    return new FloatExp(ImmutableList.<Expression>of(this), FloatEvaluators.forVec3Component(0));
+    return get(0);
   }
 
   public FloatExp getY() {
-    return new FloatExp(ImmutableList.<Expression>of(this), FloatEvaluators.forVec3Component(1));
+    return get(1);
   }
 
   public FloatExp getZ() {
-    return new FloatExp(ImmutableList.<Expression>of(this), FloatEvaluators.forVec3Component(2));
+    return get(2);
   }
 
   public FloatExp get(int idx) {

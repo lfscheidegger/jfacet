@@ -23,11 +23,11 @@ public class Vec2Exp extends AbstractExpression<Vec2> implements Vec2Like {
   }
 
   public FloatExp getX() {
-    return new FloatExp(ImmutableList.<Expression>of(this), FloatEvaluators.forVec2Component(0));
+    return get(0);
   }
 
   public FloatExp getY() {
-    return new FloatExp(ImmutableList.<Expression>of(this), FloatEvaluators.forVec2Component(1));
+    return get(1);
   }
 
   public FloatExp get(int idx) {

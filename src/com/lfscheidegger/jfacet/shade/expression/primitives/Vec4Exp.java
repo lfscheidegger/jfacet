@@ -23,19 +23,19 @@ public class Vec4Exp extends AbstractExpression<Vec4> implements Vec4Like {
   }
 
   public FloatExp getX() {
-    return new FloatExp(ImmutableList.<Expression>of(this), FloatEvaluators.forVec4Component(0));
+    return get(0);
   }
 
   public FloatExp getY() {
-    return new FloatExp(ImmutableList.<Expression>of(this), FloatEvaluators.forVec4Component(1));
+    return get(1);
   }
 
   public FloatExp getZ() {
-    return new FloatExp(ImmutableList.<Expression>of(this), FloatEvaluators.forVec4Component(2));
+    return get(2);
   }
 
   public FloatExp getW() {
-    return new FloatExp(ImmutableList.<Expression>of(this), FloatEvaluators.forVec4Component(3));
+    return get(3);
   }
 
   public FloatExp get(int idx) {
