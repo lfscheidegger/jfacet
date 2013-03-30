@@ -629,7 +629,6 @@ public class Shade {
   // ===================================================================================================================
   // Type promotion
   // ===================================================================================================================
-
   private static Vec2Exp promote(Vec2Like param) {
     return (param instanceof Vec2Exp) ? (Vec2Exp)param : new Vec2Exp((Vec2)param);
   }

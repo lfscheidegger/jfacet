@@ -1,6 +1,5 @@
 package com.lfscheidegger.jfacet.shade.expression.evaluators;
 
-import com.google.common.collect.ImmutableList;
 import com.lfscheidegger.jfacet.shade.expression.Expression;
 
 /**
@@ -8,5 +7,7 @@ import com.lfscheidegger.jfacet.shade.expression.Expression;
  */
 public interface Evaluator<T> {
 
-  public T evaluate(ImmutableList<Expression> parents);
+  public T evaluate(Expression expression);
+
+  public String getGlSlString(Expression expression);
 }

@@ -23,7 +23,12 @@ public abstract class AbstractExpression<T> implements Expression<T> {
 
   @Override
   public final T evaluate() {
-    return mEvaluator.evaluate(mParents);
+    return mEvaluator.evaluate(this);
+  }
+
+  @Override
+  public final String getGlSlString() {
+    return mEvaluator.getGlSlString(this);
   }
 
   @Override

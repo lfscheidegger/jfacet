@@ -5,7 +5,7 @@ package com.lfscheidegger.jfacet.shade.expression.operators;
  */
 public class FloatOperators {
   public static Operator<Float, Float, Float> forAddition() {
-    return new Operator<Float, Float, Float>() {
+    return new NamedOperator<Float, Float, Float>("+") {
       @Override
       public Float op(Float left, Float right) {
         return left + right;
@@ -14,7 +14,7 @@ public class FloatOperators {
   }
 
   public static Operator<Float, Float, Float> forSubtraction() {
-    return new Operator<Float, Float, Float>() {
+    return new NamedOperator<Float, Float, Float>("-") {
       @Override
       public Float op(Float left, Float right) {
         return left - right;
@@ -23,7 +23,7 @@ public class FloatOperators {
   }
 
   public static Operator<Float, Float, Float> forMultiplication() {
-    return new Operator<Float, Float, Float>() {
+    return new NamedOperator<Float, Float, Float>("*") {
       @Override
       public Float op(Float left, Float right) {
         return left * right;
@@ -32,7 +32,7 @@ public class FloatOperators {
   }
 
   public static Operator<Float, Float, Float> forDivision() {
-    return new Operator<Float, Float, Float>() {
+    return new NamedOperator<Float, Float, Float>("/") {
       @Override
       public Float op(Float left, Float right) {
         return left / right;
