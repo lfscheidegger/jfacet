@@ -1,6 +1,8 @@
 package com.lfscheidegger.jfacet.shade.primitives;
 
 import com.google.common.base.Objects;
+import com.lfscheidegger.jfacet.shade.Type;
+import com.lfscheidegger.jfacet.shade.utils.StringUtils;
 
 import java.util.Arrays;
 
@@ -177,11 +179,11 @@ public class Vec4 implements SupportsBasicArithmetic<Vec4> {
 
   @Override
   public String toString() {
-    return Objects.toStringHelper(Vec4.class)
-        .addValue(mValues[0])
-        .addValue(mValues[1])
-        .addValue(mValues[2])
-        .addValue(mValues[3])
+    return StringUtils.toStringHelper(Type.VEC4_T)
+        .addValue(StringUtils.wrapFloat(mValues[0]))
+        .addValue(StringUtils.wrapFloat(mValues[1]))
+        .addValue(StringUtils.wrapFloat(mValues[2]))
+        .addValue(StringUtils.wrapFloat(mValues[3]))
         .toString();
   }
 }

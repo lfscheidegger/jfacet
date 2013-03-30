@@ -23,9 +23,11 @@ public class Mat2ExpressionTest {
 
     Expression child = new Mat2Expression(c0c1);
     assertEquals(child.evaluate(), new Mat2(new Vec2(1, 0), new Vec2(0, 1)));
+    assertEquals(child.getGlSlExpression(), "mat2(mat2(vec2(float(1.0), float(0.0)), vec2(float(0.0), float(1.0))))");
 
     child = new Mat2Expression(c0, c1);
     assertEquals(child.evaluate(), new Mat2(new Vec2(1, 0), new Vec2(0, 1)));
+    assertEquals(child.getGlSlExpression(), "mat2(vec2(float(1.0), float(0.0)), vec2(float(0.0), float(1.0)))");
   }
 
   private void assertGetters(Mat2Expression c0c1) {

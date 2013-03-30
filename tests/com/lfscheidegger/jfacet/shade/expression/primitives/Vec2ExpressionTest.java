@@ -23,9 +23,11 @@ public class Vec2ExpressionTest {
 
     Expression child = new Vec2Expression(xy);
     assertEquals(child.evaluate(), new Vec2(1, 2));
+    assertEquals(child.getGlSlExpression(), "vec2(vec2(float(1.0), float(2.0)))");
 
     child = new Vec2Expression(x, y);
     assertEquals(child.evaluate(), new Vec2(1, 2));
+    assertEquals(child.getGlSlExpression(), "vec2(float(1.0), float(2.0))");
   }
 
   private void assertGetters(Vec2Expression xy) {

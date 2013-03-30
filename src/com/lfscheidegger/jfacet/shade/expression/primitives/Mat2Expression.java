@@ -50,6 +50,11 @@ public class Mat2Expression extends AbstractExpression {
     }
   }
 
+  @Override
+  public String getGlSlExpression() {
+    return getGlSlExpression(TYPE, mValue);
+  }
+
   public Vec2Expression getC0() {
     switch(getParents().size()) {
       case 0: return new Vec2Expression(mValue.getC0());

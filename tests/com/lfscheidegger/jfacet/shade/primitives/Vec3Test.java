@@ -119,7 +119,7 @@ public class Vec3Test {
   @Test
   public void testToString() {
     Vec3 vec = new Vec3(1, 2, 3);
-    assertEquals(vec.toString(), "Vec3{1.0, 2.0, 3.0}");
+    assertEquals(vec.toString(), "vec3(float(1.0), float(2.0), float(3.0))");
   }
 
   @Test

@@ -37,10 +37,12 @@ public class Mat4ExpressionTest {
     Expression child = new Mat4Expression(c0c1c2c3);
     assertEquals(child.evaluate(), new Mat4(
         new Vec4(1, 0, 0, 0), new Vec4(0, 1, 0, 0), new Vec4(0, 0, 1, 0), new Vec4(0, 0, 0, 1)));
+    assertEquals(child.getGlSlExpression(), "mat4(mat4(vec4(float(1.0), float(0.0), float(0.0), float(0.0)), vec4(float(0.0), float(1.0), float(0.0), float(0.0)), vec4(float(0.0), float(0.0), float(1.0), float(0.0)), vec4(float(0.0), float(0.0), float(0.0), float(1.0))))");
 
     child = new Mat4Expression(c0, c1, c2, c3);
     assertEquals(child.evaluate(), new Mat4(
         new Vec4(1, 0, 0, 0), new Vec4(0, 1, 0, 0), new Vec4(0, 0, 1, 0), new Vec4(0, 0, 0, 1)));
+    assertEquals(child.getGlSlExpression(), "mat4(vec4(float(1.0), float(0.0), float(0.0), float(0.0)), vec4(float(0.0), float(1.0), float(0.0), float(0.0)), vec4(float(0.0), float(0.0), float(1.0), float(0.0)), vec4(float(0.0), float(0.0), float(0.0), float(1.0)))");
   }
 
   private void assertGetters(Mat4Expression c0c1c2c3) {

@@ -23,4 +23,9 @@ public interface Expression {
    * that's possible
    */
   public <T> T evaluate();
+
+  /**
+   * Returns a String for this expression's GLSL representation
+   */
+  public String getGlSlExpression();
 }

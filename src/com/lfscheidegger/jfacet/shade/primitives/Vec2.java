@@ -1,6 +1,8 @@
 package com.lfscheidegger.jfacet.shade.primitives;
 
 import com.google.common.base.Objects;
+import com.lfscheidegger.jfacet.shade.Type;
+import com.lfscheidegger.jfacet.shade.utils.StringUtils;
 
 import java.util.Arrays;
 
@@ -105,7 +107,7 @@ public final class Vec2 implements SupportsBasicArithmetic<Vec2> {
       return false;
     }
 
-    return Arrays.equals(mValues, ((Vec2)other).mValues);
+    return Arrays.equals(mValues, ((Vec2) other).mValues);
   }
 
   @Override
@@ -115,9 +117,9 @@ public final class Vec2 implements SupportsBasicArithmetic<Vec2> {
 
   @Override
   public String toString() {
-    return Objects.toStringHelper(Vec2.class)
-        .addValue(mValues[0])
-        .addValue(mValues[1])
+    return StringUtils.toStringHelper(Type.VEC2_T)
+        .addValue(StringUtils.wrapFloat(mValues[0]))
+        .addValue(StringUtils.wrapFloat(mValues[1]))
         .toString();
   }
 }

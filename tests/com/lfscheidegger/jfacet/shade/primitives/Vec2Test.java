@@ -87,7 +87,7 @@ public class Vec2Test {
   @Test
   public void testToString() {
     Vec2 vec = new Vec2(1, 2);
-    assertEquals(vec.toString(), "Vec2{1.0, 2.0}");
+    assertEquals(vec.toString(), "vec2(float(1.0), float(2.0))");
   }
 
   @Test

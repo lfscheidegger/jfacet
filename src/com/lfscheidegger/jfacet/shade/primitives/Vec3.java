@@ -1,6 +1,8 @@
 package com.lfscheidegger.jfacet.shade.primitives;
 
 import com.google.common.base.Objects;
+import com.lfscheidegger.jfacet.shade.Type;
+import com.lfscheidegger.jfacet.shade.utils.StringUtils;
 
 import java.util.Arrays;
 
@@ -132,10 +134,10 @@ public class Vec3 implements SupportsBasicArithmetic<Vec3> {
 
   @Override
   public String toString() {
-    return Objects.toStringHelper(Vec3.class)
-        .addValue(mValues[0])
-        .addValue(mValues[1])
-        .addValue(mValues[2])
+    return StringUtils.toStringHelper(Type.VEC3_T)
+        .addValue(StringUtils.wrapFloat(mValues[0]))
+        .addValue(StringUtils.wrapFloat(mValues[1]))
+        .addValue(StringUtils.wrapFloat(mValues[2]))
         .toString();
   }
 }

@@ -55,6 +55,11 @@ public class Vec4Expression extends AbstractExpression {
     }
   }
 
+  @Override
+  public String getGlSlExpression() {
+    return getGlSlExpression(TYPE, mValue);
+  }
+
   public FloatExpression getX() {
     switch(getParents().size()) {
       case 0: return new FloatExpression(mValue.getX());

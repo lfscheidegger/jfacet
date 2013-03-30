@@ -40,4 +40,13 @@ public class FloatExpression extends AbstractExpression {
             "FloatExpression cannot have more than 1 parent - found " + getParents().size());
     }
   }
+
+  @Override
+  public String getGlSlExpression() {
+    if (getParents().size() == 0) {
+      return "float(" + mValue + ")";
+    }
+
+    return getParents().get(0).getGlSlExpression();
+  }
 }

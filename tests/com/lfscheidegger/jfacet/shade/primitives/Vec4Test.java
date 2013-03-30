@@ -168,7 +168,7 @@ public class Vec4Test {
   @Test
   public void testToString() {
     Vec4 vec = new Vec4(1, 2, 3, 4);
-    assertEquals(vec.toString(), "Vec4{1.0, 2.0, 3.0, 4.0}");
+    assertEquals(vec.toString(), "vec4(float(1.0), float(2.0), float(3.0), float(4.0))");
   }
 
   @Test

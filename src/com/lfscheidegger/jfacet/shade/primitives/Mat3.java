@@ -1,7 +1,9 @@
 package com.lfscheidegger.jfacet.shade.primitives;
 
 import com.google.common.base.Objects;
+import com.lfscheidegger.jfacet.shade.Type;
 import com.lfscheidegger.jfacet.shade.utils.ArrayUtils;
+import com.lfscheidegger.jfacet.shade.utils.StringUtils;
 
 import java.util.Arrays;
 
@@ -96,7 +98,7 @@ public class Mat3 implements SupportsBasicArithmetic<Mat3> {
 
   @Override
   public String toString() {
-    return Objects.toStringHelper(Mat3.class)
+    return StringUtils.toStringHelper(Type.MAT3_T)
         .addValue(new Vec3(mValues[0], mValues[1], mValues[2]))
         .addValue(new Vec3(mValues[3], mValues[4], mValues[5]))
         .addValue(new Vec3(mValues[6], mValues[7], mValues[8]))

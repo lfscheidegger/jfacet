@@ -28,6 +28,12 @@ public class ArithmeticExpression extends AbstractExpression {
      * The object can be either another instance of T or a {@code Float} instance.
      */
     <T extends SupportsBasicArithmetic<T>> T evalObject(T left, Object right);
+
+    /**
+     * Returns the symbol for the binary operation implemented by this evaluator.
+     */
+    public String getOperationSymbol();
+
   }
 
   /**
@@ -46,6 +52,11 @@ public class ArithmeticExpression extends AbstractExpression {
       } else {
         return left.add((T)right);
       }
+    }
+
+    @Override
+    public String getOperationSymbol() {
+      return "+";
     }
   }
 
@@ -66,6 +77,11 @@ public class ArithmeticExpression extends AbstractExpression {
         return left.sub((T)right);
       }
     }
+
+    @Override
+    public String getOperationSymbol() {
+      return "-";
+    }
   }
 
   /**
@@ -85,6 +101,11 @@ public class ArithmeticExpression extends AbstractExpression {
         return left.mul((T)right);
       }
     }
+
+    @Override
+    public String getOperationSymbol() {
+      return "*";
+    }
   }
 
   /**
@@ -103,6 +124,11 @@ public class ArithmeticExpression extends AbstractExpression {
       } else {
         return left.div((T)right);
       }
+    }
+
+    @Override
+    public String getOperationSymbol() {
+      return "/";
     }
   }
 
@@ -143,6 +169,14 @@ public class ArithmeticExpression extends AbstractExpression {
       SupportsBasicArithmetic result = evaluateForType(mLeftType);
       return result;
     }
+  }
+
+  @Override
+  public String getGlSlExpression() {
+    return
+        getParents().get(0).getGlSlExpression() +
+        " " + mEvaluator.getOperationSymbol() + " " +
+        getParents().get(0).getGlSlExpression();
   }
 
   private static Type getResultType(Type leftType, Type rightType) {

@@ -29,9 +29,11 @@ public class Mat3ExpressionTest {
 
     Expression child = new Mat3Expression(c0c1c2);
     assertEquals(child.evaluate(), new Mat3(new Vec3(1, 0, 0), new Vec3(0, 1, 0), new Vec3(0, 0, 1)));
+    assertEquals(child.getGlSlExpression(), "mat3(mat3(vec3(float(1.0), float(0.0), float(0.0)), vec3(float(0.0), float(1.0), float(0.0)), vec3(float(0.0), float(0.0), float(1.0))))");
 
     child = new Mat3Expression(c0, c1, c2);
     assertEquals(child.evaluate(), new Mat3(new Vec3(1, 0, 0), new Vec3(0, 1, 0), new Vec3(0, 0, 1)));
+    assertEquals(child.getGlSlExpression(), "mat3(vec3(float(1.0), float(0.0), float(0.0)), vec3(float(0.0), float(1.0), float(0.0)), vec3(float(0.0), float(0.0), float(1.0)))");
   }
 
   private void assertGetters(Mat3Expression c0c1c2) {

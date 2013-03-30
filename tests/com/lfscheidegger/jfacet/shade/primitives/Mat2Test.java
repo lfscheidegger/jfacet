@@ -82,7 +82,7 @@ public class Mat2Test {
   @Test
   public void testToString() {
     Mat2 other = new Mat2(new Vec2(1, 2), new Vec2(3, 4));
-    assertEquals(other.toString(), "Mat2{Vec2{1.0, 2.0}, Vec2{3.0, 4.0}}");
+    assertEquals(other.toString(), "mat2(vec2(float(1.0), float(2.0)), vec2(float(3.0), float(4.0)))");
   }
 
   @Test

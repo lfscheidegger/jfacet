@@ -24,4 +24,9 @@ public class NegExpression extends AbstractExpression {
       return ((SupportsBasicArithmetic)getParents().get(0).evaluate()).neg();
     }
   }
+
+  @Override
+  public String getGlSlExpression() {
+    return "-" + getParents().get(0).getGlSlExpression();
+  }
 }
