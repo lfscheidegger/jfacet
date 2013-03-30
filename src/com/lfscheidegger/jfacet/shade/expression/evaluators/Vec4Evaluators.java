@@ -44,7 +44,7 @@ public class Vec4Evaluators {
       @Override
       public String getGlSlString(Expression expression) {
         ImmutableList<Expression> parents = expression.getParents();
-        return GlSlExpressionHelper.getCommaExpression(Type.VEC4_T, parents.get(0), parents.get(1), parents.get(2));
+        return GlSlExpressionHelper.getCommaExpression(Type.VEC4_T, parents.get(0), parents.get(1), parents.get(2), parents.get(3));
       }
     };
   }
