@@ -2,6 +2,7 @@ package com.lfscheidegger.jfacet.shade.primitives;
 
 import com.google.common.base.Objects;
 import com.lfscheidegger.jfacet.shade.Type;
+import com.lfscheidegger.jfacet.shade.primitives.interfaces.Vec4Like;
 import com.lfscheidegger.jfacet.shade.utils.StringUtils;
 
 import java.util.Arrays;
@@ -9,7 +10,7 @@ import java.util.Arrays;
 /**
  * Aggregate type for vec4.
  */
-public final class Vec4 {
+public final class Vec4 implements Vec4Like {
 
   private float[] mValues;
 

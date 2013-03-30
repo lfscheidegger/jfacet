@@ -7,8 +7,9 @@ import com.lfscheidegger.jfacet.shade.expression.Expression;
 import com.lfscheidegger.jfacet.shade.expression.evaluators.Evaluator;
 import com.lfscheidegger.jfacet.shade.expression.evaluators.Mat2Evaluators;
 import com.lfscheidegger.jfacet.shade.primitives.Mat2;
+import com.lfscheidegger.jfacet.shade.primitives.interfaces.Mat2Like;
 
-public class Mat2Exp extends AbstractExpression<Mat2> {
+public class Mat2Exp extends AbstractExpression<Mat2> implements Mat2Like {
 
   private static final Type TYPE = Type.MAT2_T;
 
