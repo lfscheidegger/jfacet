@@ -15,6 +15,8 @@ import com.lfscheidegger.jfacet.shade.primitives.Vec2;
  */
 public class Vec2Evaluators {
 
+  private static final Type TYPE = Type.VEC2_T;
+
   public static Evaluator<Vec2> forConstant(final Vec2 c) {
     return new Evaluator<Vec2>() {
       @Override
@@ -43,7 +45,7 @@ public class Vec2Evaluators {
       @Override
       public String getGlSlString(Expression expression) {
         ImmutableList<Expression> parents = expression.getParents();
-        return GlSlExpressionHelper.getCommaExpression(Type.VEC2_T, parents.get(0), parents.get(1));
+        return GlSlExpressionHelper.getCommaExpression(TYPE, parents.get(0), parents.get(1));
       }
     };
   }
@@ -57,13 +59,13 @@ public class Vec2Evaluators {
 
       @Override
       public String getGlSlString(Expression expression) {
-        return GlSlExpressionHelper.getComponentExpression(Type.VEC2_T, (Expression)expression.getParents().get(0), idx);
+        return GlSlExpressionHelper.getComponentExpression(TYPE, (Expression)expression.getParents().get(0), idx);
       }
     };
   }
 
   public static Evaluator<Vec2> forOperationWithFloat(final Operator<Vec2, Float, Vec2> operator) {
-    return new BinaryOpEvaluator<Vec2, Float, Vec2>(Type.VEC2_T, operator) {
+    return new BinaryOpEvaluator<Vec2, Float, Vec2>(TYPE, operator) {
       @Override
       public Vec2 evaluate(Expression expression) {
         ImmutableList<Expression> parents = expression.getParents();
@@ -76,7 +78,7 @@ public class Vec2Evaluators {
   }
 
   public static Evaluator<Vec2> forOperationWithVec2(final Operator<Vec2, Vec2, Vec2> operator) {
-    return new BinaryOpEvaluator<Vec2, Vec2, Vec2>(Type.VEC2_T, operator) {
+    return new BinaryOpEvaluator<Vec2, Vec2, Vec2>(TYPE, operator) {
       @Override
       public Vec2 evaluate(Expression expression) {
         ImmutableList<Expression> parents = expression.getParents();

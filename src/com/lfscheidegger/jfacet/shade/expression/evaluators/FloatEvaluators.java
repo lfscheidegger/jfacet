@@ -12,6 +12,8 @@ import com.lfscheidegger.jfacet.shade.expression.primitives.Vec4Exp;
 
 public class FloatEvaluators {
 
+  private final static Type TYPE = Type.FLOAT_T;
+
   public static Evaluator<Float> forConstant(final float c) {
     return new Evaluator<Float>() {
       @Override
@@ -21,13 +23,13 @@ public class FloatEvaluators {
 
       @Override
       public String getGlSlString(Expression expression) {
-        return GlSlExpressionHelper.getWrappedExpression(Type.FLOAT_T, String.valueOf(c));
+        return GlSlExpressionHelper.getWrappedExpression(TYPE, String.valueOf(c));
       }
     };
   }
 
   public static Evaluator<Float> forOperation(final Operator<Float, Float, Float> operator) {
-    return new BinaryOpEvaluator<Float, Float, Float>(Type.FLOAT_T, operator) {
+    return new BinaryOpEvaluator<Float, Float, Float>(TYPE, operator) {
       @Override
       public Float evaluate(Expression expression) {
         ImmutableList<Expression> parents = expression.getParents();
@@ -48,7 +50,7 @@ public class FloatEvaluators {
       @Override
       public String getGlSlString(Expression expression) {
         return GlSlExpressionHelper.getComponentExpression(
-            Type.FLOAT_T, (Expression)expression.getParents().get(0), idx);
+            TYPE, (Expression)expression.getParents().get(0), idx);
       }
     };
   }
@@ -63,7 +65,7 @@ public class FloatEvaluators {
       @Override
       public String getGlSlString(Expression expression) {
         return GlSlExpressionHelper.getComponentExpression(
-            Type.FLOAT_T, (Expression)expression.getParents().get(0), idx);
+            TYPE, (Expression)expression.getParents().get(0), idx);
       }
     };
   }
@@ -78,7 +80,7 @@ public class FloatEvaluators {
       @Override
       public String getGlSlString(Expression expression) {
         return GlSlExpressionHelper.getComponentExpression(
-            Type.FLOAT_T, (Expression)expression.getParents().get(0), idx);
+            TYPE, (Expression)expression.getParents().get(0), idx);
       }
     };
   }

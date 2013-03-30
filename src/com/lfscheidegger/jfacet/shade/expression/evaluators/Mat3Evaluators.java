@@ -15,6 +15,8 @@ import com.lfscheidegger.jfacet.shade.primitives.Mat3;
  */
 public class Mat3Evaluators {
 
+  private static final Type TYPE = Type.MAT3_T;
+
   public static Evaluator<Mat3> forConstant(final Mat3 c) {
     return new Evaluator<Mat3>() {
       @Override
@@ -44,13 +46,13 @@ public class Mat3Evaluators {
       @Override
       public String getGlSlString(Expression expression) {
         ImmutableList<Expression> parents = expression.getParents();
-        return GlSlExpressionHelper.getCommaExpression(Type.MAT3_T, parents.get(0), parents.get(1), parents.get(2));
+        return GlSlExpressionHelper.getCommaExpression(TYPE, parents.get(0), parents.get(1), parents.get(2));
       }
     };
   }
 
   public static Evaluator<Mat3> forOperationWithFloat(final Operator<Mat3, Float, Mat3> operator) {
-    return new BinaryOpEvaluator<Mat3, Float, Mat3>(Type.MAT3_T, operator) {
+    return new BinaryOpEvaluator<Mat3, Float, Mat3>(TYPE, operator) {
       @Override
       public Mat3 evaluate(Expression expression) {
         ImmutableList<Expression> parents = expression.getParents();
@@ -63,7 +65,7 @@ public class Mat3Evaluators {
   }
 
   public static Evaluator<Mat3> forOperationWithMat3(final Operator<Mat3, Mat3, Mat3> operator) {
-    return new BinaryOpEvaluator<Mat3, Mat3, Mat3>(Type.MAT3_T, operator) {
+    return new BinaryOpEvaluator<Mat3, Mat3, Mat3>(TYPE, operator) {
       @Override
       public Mat3 evaluate(Expression expression) {
         ImmutableList<Expression> parents = expression.getParents();
