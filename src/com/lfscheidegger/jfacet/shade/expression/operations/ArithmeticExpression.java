@@ -168,13 +168,13 @@ public class ArithmeticExpression extends AbstractExpression {
     return mEvaluator.evalFloat((Float)getParents().get(0).evaluate(), (Float)getParents().get(1).evaluate());
   }
 
-  private <T extends SupportsBasicArithmetic<T>> T evaluateForType(Type type) {
-    if (mRightType == Type.FLOAT_T) {
-      return mEvaluator.evalObject(((T)getParents().get(0).evaluate()), (Float)getParents().get(1).evaluate());
-    } else if (mRightType == type) {
-      return mEvaluator.evalObject(((T)getParents().get(0).evaluate()), getParents().get(1).evaluate());
-    } else {
+  private SupportsBasicArithmetic evaluateForType(Type type) {
+    if (mRightType != Type.FLOAT_T && mRightType != type) {
       throw new IllegalArgumentException("Cannot add " + mLeftType + " with " + mRightType);
     }
+
+    return mEvaluator.evalObject(
+        ((SupportsBasicArithmetic)getParents().get(0).evaluate()),
+        getParents().get(1).evaluate());
   }
 }
