@@ -58,7 +58,7 @@ public class Mat4Expression extends AbstractExpression {
 
   @Override
   public String getGlSlExpression() {
-    return getGlSlExpression(TYPE, mValue);
+    return getGlSlExpression(mValue);
   }
 
   public Vec4Expression getC0() {

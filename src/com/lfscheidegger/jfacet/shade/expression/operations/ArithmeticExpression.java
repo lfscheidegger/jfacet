@@ -3,6 +3,7 @@ package com.lfscheidegger.jfacet.shade.expression.operations;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableList;
 import com.lfscheidegger.jfacet.shade.Type;
+import com.lfscheidegger.jfacet.shade.compiler.CompilationContext;
 import com.lfscheidegger.jfacet.shade.expression.AbstractExpression;
 import com.lfscheidegger.jfacet.shade.expression.Expression;
 import com.lfscheidegger.jfacet.shade.primitives.SupportsBasicArithmetic;
@@ -176,7 +177,15 @@ public class ArithmeticExpression extends AbstractExpression {
     return
         getParents().get(0).getGlSlExpression() +
         " " + mEvaluator.getOperationSymbol() + " " +
-        getParents().get(0).getGlSlExpression();
+        getParents().get(1).getGlSlExpression();
+  }
+
+  @Override
+  public String getGlSlExpression(CompilationContext context) {
+    return
+        context.getName(getParents().get(0)) +
+        " " + mEvaluator.getOperationSymbol() + " " +
+        context.getName(getParents().get(1));
   }
 
   private static Type getResultType(Type leftType, Type rightType) {

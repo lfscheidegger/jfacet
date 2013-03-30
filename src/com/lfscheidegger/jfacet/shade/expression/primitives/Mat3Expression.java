@@ -56,7 +56,7 @@ public class Mat3Expression extends AbstractExpression {
 
   @Override
   public String getGlSlExpression() {
-    return getGlSlExpression(TYPE, mValue);
+    return getGlSlExpression(mValue);
   }
 
   public Vec3Expression getC0() {

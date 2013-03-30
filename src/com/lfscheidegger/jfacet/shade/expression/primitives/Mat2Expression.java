@@ -52,7 +52,7 @@ public class Mat2Expression extends AbstractExpression {
 
   @Override
   public String getGlSlExpression() {
-    return getGlSlExpression(TYPE, mValue);
+    return getGlSlExpression(mValue);
   }
 
   public Vec2Expression getC0() {
