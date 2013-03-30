@@ -1,118 +1,231 @@
 package com.lfscheidegger.jfacet.shade;
 
+import com.google.common.collect.ImmutableList;
 import com.lfscheidegger.jfacet.shade.expression.Expression;
-import com.lfscheidegger.jfacet.shade.expression.operations.*;
-import com.lfscheidegger.jfacet.shade.expression.primitives.*;
-import com.lfscheidegger.jfacet.shade.primitives.*;
+import com.lfscheidegger.jfacet.shade.expression.FloatExp;
+import com.lfscheidegger.jfacet.shade.expression.Vec2Exp;
+import com.lfscheidegger.jfacet.shade.expression.evaluators.FloatEvaluators;
+import com.lfscheidegger.jfacet.shade.expression.evaluators.Vec2Evaluators;
+import com.lfscheidegger.jfacet.shade.expression.operators.FloatOperators;
+import com.lfscheidegger.jfacet.shade.expression.operators.Vec2Operators;
+import com.lfscheidegger.jfacet.shade.primitives.Vec2;
 
 /**
  * Convenience methods to promote primitive types into expressions
  */
 public class Shade {
 
-  public static Expression vec(Vec2 vec) {
-    return new Vec2Expression(vec);
+  public static FloatExp constant(float c) {
+    return new FloatExp(c);
   }
 
-  public static Expression vec(Vec3 vec) {
-    return new Vec3Expression(vec);
+  public static FloatExp add(FloatExp left, FloatExp right) {
+    return new FloatExp(
+        ImmutableList.<Expression>of(left, right),
+        FloatEvaluators.forOperation(FloatOperators.forAddition()));
   }
 
-  public static Expression vec(Vec4 vec) {
-    return new Vec4Expression(vec);
+  public static FloatExp add(FloatExp left, float right) {
+    return add(left, new FloatExp(right));
   }
 
-  public static Expression vec(Object x, Object y) {
-    return new Vec2Expression(promote(x), promote(y));
+  public static FloatExp add(float left, FloatExp right) {
+    return add(new FloatExp(left), right);
   }
 
-  public static Expression vec(Object x, Object y, Object z) {
-    return new Vec3Expression(promote(x), promote(y), promote(z));
+  public static FloatExp add(float left, float right) {
+    return add(new FloatExp(left), new FloatExp(right));
   }
 
-  public static Expression vec(Object x, Object y, Object z, Object w) {
-    return new Vec4Expression(promote(x), promote(y), promote(z), promote(w));
+  public static FloatExp sub(FloatExp left, FloatExp right) {
+    return new FloatExp(
+        ImmutableList.<Expression>of(left, right),
+        FloatEvaluators.forOperation(FloatOperators.forSubtraction()));
   }
 
-  public static Expression mat(Mat2 mat) {
-    return new Mat2Expression(mat);
+  public static FloatExp sub(FloatExp left, float right) {
+    return sub(left, new FloatExp(right));
   }
 
-  public static Expression mat(Mat3 mat) {
-    return new Mat3Expression(mat);
+  public static FloatExp sub(float left, FloatExp right) {
+    return sub(new FloatExp(left), right);
   }
 
-  public static Expression mat(Mat4 mat) {
-    return new Mat4Expression(mat);
+  public static FloatExp sub(float left, float right) {
+    return sub(new FloatExp(left), new FloatExp(right));
   }
 
-  public static Expression mat(Object c0, Object c1) {
-    if (c0 instanceof Vec2) {
-      c0 = new Vec2Expression((Vec2)c0);
-    }
-    if (c1 instanceof Vec2) {
-      c1 = new Vec2Expression((Vec2)c1);
-    }
-
-    return new Mat2Expression((Vec2Expression)c0, (Vec2Expression)c1);
+  public static FloatExp mul(FloatExp left, FloatExp right) {
+    return new FloatExp(
+        ImmutableList.<Expression>of(left, right),
+        FloatEvaluators.forOperation(FloatOperators.forMultiplication()));
   }
 
-  public static Expression mat(Object c0, Object c1, Object c2) {
-    if (c0 instanceof Vec3) {
-      c0 = new Vec3Expression((Vec3)c0);
-    }
-    if (c1 instanceof Vec3) {
-      c1 = new Vec3Expression((Vec3)c1);
-    }
-    if (c2 instanceof Vec3) {
-      c2 = new Vec3Expression((Vec3)c2);
-    }
-
-    return new Mat3Expression((Vec3Expression)c0, (Vec3Expression)c1, (Vec3Expression)c2);
+  public static FloatExp mul(FloatExp left, float right) {
+    return mul(left, new FloatExp(right));
   }
 
-  public static Expression mat(Object c0, Object c1, Object c2, Object c3) {
-    if (c0 instanceof Vec4) {
-      c0 = new Vec4Expression((Vec4)c0);
-    }
-    if (c1 instanceof Vec4) {
-      c1 = new Vec4Expression((Vec4)c1);
-    }
-    if (c2 instanceof Vec4) {
-      c2 = new Vec4Expression((Vec4)c2);
-    }
-    if (c3 instanceof Vec4) {
-      c3 = new Vec4Expression((Vec4)c3);
-    }
-
-    return new Mat4Expression((Vec4Expression)c0, (Vec4Expression)c1, (Vec4Expression)c2, (Vec4Expression)c3);
+  public static FloatExp mul(float left, FloatExp right) {
+    return mul(new FloatExp(left), right);
   }
 
-  public static Expression add(Expression left, Expression right) {
-    return ArithmeticExpression.getAddExpression(left, right);
+  public static FloatExp mul(float left, float right) {
+    return mul(new FloatExp(left), new FloatExp(right));
   }
 
-  public static Expression sub(Expression left, Expression right) {
-    return ArithmeticExpression.getSubExpression(left, right);
+  public static FloatExp div(FloatExp left, FloatExp right) {
+    return new FloatExp(
+        ImmutableList.<Expression>of(left, right),
+        FloatEvaluators.forOperation(FloatOperators.forDivision()));
   }
 
-  public static Expression mul(Expression left, Expression right) {
-    return ArithmeticExpression.getMulExpression(left, right);
+  public static FloatExp div(FloatExp left, float right) {
+    return div(left, new FloatExp(right));
   }
 
-  public static Expression div(Expression left, Expression right) {
-    return ArithmeticExpression.getDivExpression(left, right);
+  public static FloatExp div(float left, FloatExp right) {
+    return div(new FloatExp(left), right);
   }
 
-  public static Expression neg(Expression exp) {
-    return new NegExpression(exp);
+  public static FloatExp div(float left, float right) {
+    return div(new FloatExp(left), new FloatExp(right));
   }
 
-  private static Expression promote(Object v) {
-    if (v instanceof FloatExpression) {
-      return (FloatExpression)v;
-    }
+  public static Vec2Exp vec(Vec2 val) {
+    return new Vec2Exp(val);
+  }
+  public static Vec2Exp vec(float x, float y) {
+    return vec(new FloatExp(x), new FloatExp(y));
+  }
+  public static Vec2Exp vec(FloatExp x, float y) {
+    return vec(x, new FloatExp(y));
+  }
+  public static Vec2Exp vec(float x, FloatExp y) {
+    return vec(new FloatExp(x), y);
+  }
+  public static Vec2Exp vec(FloatExp x, FloatExp y) {
+    return new Vec2Exp(
+        ImmutableList.<Expression>of(x, y),
+        Vec2Evaluators.forComponents());
+  }
 
-    return new FloatExpression((Float)v);
+  public static Vec2Exp add(Vec2 left, float right) {
+    return add(vec(left), constant(right));
+  }
+  public static Vec2Exp add(Vec2Exp left, float right) {
+    return add(left, constant(right));
+  }
+  public static Vec2Exp add(Vec2 left, FloatExp right) {
+    return add(vec(left), right);
+  }
+  public static Vec2Exp add(Vec2Exp left, FloatExp right) {
+    return new Vec2Exp(
+        ImmutableList.<Expression>of(left, right),
+        Vec2Evaluators.forOperationWithFloat(Vec2Operators.forAdditionWithFloat()));
+  }
+
+  public static Vec2Exp sub(Vec2 left, float right) {
+    return sub(vec(left), constant(right));
+  }
+  public static Vec2Exp sub(Vec2Exp left, float right) {
+    return sub(left, constant(right));
+  }
+  public static Vec2Exp sub(Vec2 left, FloatExp right) {
+    return sub(vec(left), right);
+  }
+  public static Vec2Exp sub(Vec2Exp left, FloatExp right) {
+    return new Vec2Exp(
+        ImmutableList.<Expression>of(left, right),
+        Vec2Evaluators.forOperationWithFloat(Vec2Operators.forSubtractionWithFloat()));
+  }
+
+  public static Vec2Exp mul(Vec2 left, float right) {
+    return mul(vec(left), constant(right));
+  }
+  public static Vec2Exp mul(Vec2Exp left, float right) {
+    return mul(left, constant(right));
+  }
+  public static Vec2Exp mul(Vec2 left, FloatExp right) {
+    return mul(vec(left), right);
+  }
+  public static Vec2Exp mul(Vec2Exp left, FloatExp right) {
+    return new Vec2Exp(
+        ImmutableList.<Expression>of(left, right),
+        Vec2Evaluators.forOperationWithFloat(Vec2Operators.forMultiplicationWithFloat()));
+  }
+
+  public static Vec2Exp div(Vec2 left, float right) {
+    return div(vec(left), constant(right));
+  }
+  public static Vec2Exp div(Vec2Exp left, float right) {
+    return div(left, constant(right));
+  }
+  public static Vec2Exp div(Vec2 left, FloatExp right) {
+    return div(vec(left), right);
+  }
+  public static Vec2Exp div(Vec2Exp left, FloatExp right) {
+    return new Vec2Exp(
+        ImmutableList.<Expression>of(left, right),
+        Vec2Evaluators.forOperationWithFloat(Vec2Operators.forDivisionWithFloat()));
+  }
+
+  public static Vec2Exp add(Vec2 left, Vec2 right) {
+    return add(vec(left), vec(right));
+  }
+  public static Vec2Exp add(Vec2Exp left, Vec2 right) {
+    return add(left, vec(right));
+  }
+  public static Vec2Exp add(Vec2 left, Vec2Exp right) {
+    return add(vec(left), right);
+  }
+  public static Vec2Exp add(Vec2Exp left, Vec2Exp right) {
+    return new Vec2Exp(
+        ImmutableList.<Expression>of(left, right),
+        Vec2Evaluators.forOperationWithVec2(Vec2Operators.forAdditionWithVec2()));
+  }
+
+  public static Vec2Exp sub(Vec2 left, Vec2 right) {
+    return sub(vec(left), vec(right));
+  }
+  public static Vec2Exp sub(Vec2Exp left, Vec2 right) {
+    return sub(left, vec(right));
+  }
+  public static Vec2Exp sub(Vec2 left, Vec2Exp right) {
+    return sub(vec(left), right);
+  }
+  public static Vec2Exp sub(Vec2Exp left, Vec2Exp right) {
+    return new Vec2Exp(
+        ImmutableList.<Expression>of(left, right),
+        Vec2Evaluators.forOperationWithVec2(Vec2Operators.forSubtractionWithVec2()));
+  }
+
+  public static Vec2Exp mul(Vec2 left, Vec2 right) {
+    return mul(vec(left), vec(right));
+  }
+  public static Vec2Exp mul(Vec2Exp left, Vec2 right) {
+    return mul(left, vec(right));
+  }
+  public static Vec2Exp mul(Vec2 left, Vec2Exp right) {
+    return mul(vec(left), right);
+  }
+  public static Vec2Exp mul(Vec2Exp left, Vec2Exp right) {
+    return new Vec2Exp(
+        ImmutableList.<Expression>of(left, right),
+        Vec2Evaluators.forOperationWithVec2(Vec2Operators.forMultiplicationWithVec2()));
+  }
+
+  public static Vec2Exp div(Vec2 left, Vec2 right) {
+    return div(vec(left), vec(right));
+  }
+  public static Vec2Exp div(Vec2Exp left, Vec2 right) {
+    return div(left, vec(right));
+  }
+  public static Vec2Exp div(Vec2 left, Vec2Exp right) {
+    return div(vec(left), right);
+  }
+  public static Vec2Exp div(Vec2Exp left, Vec2Exp right) {
+    return new Vec2Exp(
+        ImmutableList.<Expression>of(left, right),
+        Vec2Evaluators.forOperationWithVec2(Vec2Operators.forDivisionWithVec2()));
   }
 }
