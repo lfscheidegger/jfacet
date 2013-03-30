@@ -49,7 +49,7 @@ public class Mat2Evaluators {
   }
 
   public static Evaluator<Mat2> forOperationWithFloat(final Operator<Mat2, Float, Mat2> operator) {
-    return new Evaluator<Mat2>() {
+    return new BinaryOpEvaluator<Mat2, Float, Mat2>(Type.MAT2_T, operator) {
       @Override
       public Mat2 evaluate(Expression expression) {
         ImmutableList<Expression> parents = expression.getParents();
@@ -58,19 +58,11 @@ public class Mat2Evaluators {
 
         return operator.op(left.evaluate(), right.evaluate());
       }
-
-      @Override
-      public String getGlSlString(Expression expression) {
-        ImmutableList<Expression> parents = expression.getParents();
-
-        return GlSlExpressionHelper.getBinOpString(
-            Type.MAT2_T, operator.getOperatorSymbol(), parents.get(0), parents.get(1));
-      }
     };
   }
 
   public static Evaluator<Mat2> forOperationWithMat2(final Operator<Mat2, Mat2, Mat2> operator) {
-    return new Evaluator<Mat2>() {
+    return new BinaryOpEvaluator<Mat2, Mat2, Mat2>(Type.MAT2_T, operator) {
       @Override
       public Mat2 evaluate(Expression expression) {
         ImmutableList<Expression> parents = expression.getParents();
@@ -78,14 +70,6 @@ public class Mat2Evaluators {
         Mat2Exp right = (Mat2Exp)parents.get(1);
 
         return operator.op(left.evaluate(), right.evaluate());
-      }
-
-      @Override
-      public String getGlSlString(Expression expression) {
-        ImmutableList<Expression> parents = expression.getParents();
-
-        return GlSlExpressionHelper.getBinOpString(
-            Type.MAT2_T, operator.getOperatorSymbol(), parents.get(0), parents.get(1));
       }
     };
   }

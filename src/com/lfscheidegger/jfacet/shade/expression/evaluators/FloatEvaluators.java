@@ -24,20 +24,13 @@ public class FloatEvaluators {
   }
 
   public static Evaluator<Float> forOperation(final Operator<Float, Float, Float> operator) {
-    return new Evaluator<Float>() {
+    return new BinaryOpEvaluator<Float, Float, Float>(Type.FLOAT_T, operator) {
       @Override
       public Float evaluate(Expression expression) {
         ImmutableList<Expression> parents = expression.getParents();
         FloatExp left = (FloatExp)parents.get(0);
         FloatExp right = (FloatExp)parents.get(1);
         return operator.op(left.evaluate(), right.evaluate());
-      }
-
-      @Override
-      public String getGlSlString(Expression expression) {
-        ImmutableList<Expression> parents = expression.getParents();
-        return GlSlExpressionHelper.getBinOpString(
-            Type.FLOAT_T, operator.getOperatorSymbol(), parents.get(0), parents.get(1));
       }
     };
   }

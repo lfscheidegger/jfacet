@@ -49,7 +49,7 @@ public class Vec3Evaluators {
   }
 
   public static Evaluator<Vec3> forOperationWithFloat(final Operator<Vec3, Float, Vec3> operator) {
-    return new Evaluator<Vec3>() {
+    return new BinaryOpEvaluator<Vec3, Float, Vec3>(Type.VEC3_T, operator) {
       @Override
       public Vec3 evaluate(Expression expression) {
         ImmutableList<Expression> parents = expression.getParents();
@@ -58,19 +58,11 @@ public class Vec3Evaluators {
 
         return operator.op(left.evaluate(), right.evaluate());
       }
-
-      @Override
-      public String getGlSlString(Expression expression) {
-        ImmutableList<Expression> parents = expression.getParents();
-
-        return GlSlExpressionHelper.getBinOpString(
-            Type.VEC3_T, operator.getOperatorSymbol(), parents.get(0), parents.get(1));
-      }
     };
   }
 
   public static Evaluator<Vec3> forOperationWithVec3(final Operator<Vec3, Vec3, Vec3> operator) {
-    return new Evaluator<Vec3>() {
+    return new BinaryOpEvaluator<Vec3, Vec3, Vec3>(Type.VEC3_T, operator) {
       @Override
       public Vec3 evaluate(Expression expression) {
         ImmutableList<Expression> parents = expression.getParents();
@@ -78,14 +70,6 @@ public class Vec3Evaluators {
         Vec3Exp right = (Vec3Exp)parents.get(1);
 
         return operator.op(left.evaluate(), right.evaluate());
-      }
-
-      @Override
-      public String getGlSlString(Expression expression) {
-        ImmutableList<Expression> parents = expression.getParents();
-
-        return GlSlExpressionHelper.getBinOpString(
-            Type.VEC3_T, operator.getOperatorSymbol(), parents.get(0), parents.get(1));
       }
     };
   }

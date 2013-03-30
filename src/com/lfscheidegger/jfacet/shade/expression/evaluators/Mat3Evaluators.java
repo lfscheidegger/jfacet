@@ -50,7 +50,7 @@ public class Mat3Evaluators {
   }
 
   public static Evaluator<Mat3> forOperationWithFloat(final Operator<Mat3, Float, Mat3> operator) {
-    return new Evaluator<Mat3>() {
+    return new BinaryOpEvaluator<Mat3, Float, Mat3>(Type.MAT3_T, operator) {
       @Override
       public Mat3 evaluate(Expression expression) {
         ImmutableList<Expression> parents = expression.getParents();
@@ -59,19 +59,11 @@ public class Mat3Evaluators {
 
         return operator.op(left.evaluate(), right.evaluate());
       }
-
-      @Override
-      public String getGlSlString(Expression expression) {
-        ImmutableList<Expression> parents = expression.getParents();
-
-        return GlSlExpressionHelper.getBinOpString(
-            Type.MAT3_T, operator.getOperatorSymbol(), parents.get(0), parents.get(1));
-      }
     };
   }
 
   public static Evaluator<Mat3> forOperationWithMat3(final Operator<Mat3, Mat3, Mat3> operator) {
-    return new Evaluator<Mat3>() {
+    return new BinaryOpEvaluator<Mat3, Mat3, Mat3>(Type.MAT3_T, operator) {
       @Override
       public Mat3 evaluate(Expression expression) {
         ImmutableList<Expression> parents = expression.getParents();
@@ -79,14 +71,6 @@ public class Mat3Evaluators {
         Mat3Exp right = (Mat3Exp)parents.get(1);
 
         return operator.op(left.evaluate(), right.evaluate());
-      }
-
-      @Override
-      public String getGlSlString(Expression expression) {
-        ImmutableList<Expression> parents = expression.getParents();
-
-        return GlSlExpressionHelper.getBinOpString(
-            Type.MAT3_T, operator.getOperatorSymbol(), parents.get(0), parents.get(1));
       }
     };
   }
