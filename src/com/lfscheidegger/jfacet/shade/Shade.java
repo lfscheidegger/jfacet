@@ -4,10 +4,7 @@ import com.google.common.collect.ImmutableList;
 import com.lfscheidegger.jfacet.shade.expression.*;
 import com.lfscheidegger.jfacet.shade.expression.evaluators.*;
 import com.lfscheidegger.jfacet.shade.expression.operators.*;
-import com.lfscheidegger.jfacet.shade.primitives.Mat2;
-import com.lfscheidegger.jfacet.shade.primitives.Vec2;
-import com.lfscheidegger.jfacet.shade.primitives.Vec3;
-import com.lfscheidegger.jfacet.shade.primitives.Vec4;
+import com.lfscheidegger.jfacet.shade.primitives.*;
 
 /**
  * Convenience methods to promote primitive types into expressions
@@ -689,5 +686,155 @@ public class Shade {
     return new Mat2Exp(
         ImmutableList.<Expression>of(left, right),
         Mat2Evaluators.forOperationWithMat2(Mat2Operators.forDivisionWithMat2()));
+  }
+
+  // ===================================================================================================================
+  // Stuff for Mat3
+  // ===================================================================================================================
+
+  public static Mat3Exp mat(Mat3 val) {
+    return new Mat3Exp(val);
+  }
+  public static Mat3Exp mat(Vec3 x, Vec3 y, Vec3 z) {
+    return mat(new Vec3Exp(x), new Vec3Exp(y), new Vec3Exp(z));
+  }
+  public static Mat3Exp mat(Vec3Exp x, Vec3 y, Vec3 z) {
+    return mat(x, new Vec3Exp(y), new Vec3Exp(z));
+  }
+  public static Mat3Exp mat(Vec3 x, Vec3Exp y, Vec3 z) {
+    return mat(new Vec3Exp(x), y, new Vec3Exp(z));
+  }
+  public static Mat3Exp mat(Vec3Exp x, Vec3Exp y, Vec3 z) {
+    return mat(x, y, new Vec3Exp(z));
+  }
+  public static Mat3Exp mat(Vec3 x, Vec3 y, Vec3Exp z) {
+    return mat(new Vec3Exp(x), new Vec3Exp(y), z);
+  }
+  public static Mat3Exp mat(Vec3Exp x, Vec3 y, Vec3Exp z) {
+    return mat(x, new Vec3Exp(y), z);
+  }
+  public static Mat3Exp mat(Vec3 x, Vec3Exp y, Vec3Exp z) {
+    return mat(new Vec3Exp(x), y, z);
+  }
+  public static Mat3Exp mat(Vec3Exp x, Vec3Exp y, Vec3Exp z) {
+    return new Mat3Exp(
+        ImmutableList.<Expression>of(x, y, z),
+        Mat3Evaluators.forComponents());
+  }
+
+  public static Mat3Exp add(Mat3 left, float right) {
+    return add(mat(left), constant(right));
+  }
+  public static Mat3Exp add(Mat3Exp left, float right) {
+    return add(left, constant(right));
+  }
+  public static Mat3Exp add(Mat3 left, FloatExp right) {
+    return add(mat(left), right);
+  }
+  public static Mat3Exp add(Mat3Exp left, FloatExp right) {
+    return new Mat3Exp(
+        ImmutableList.<Expression>of(left, right),
+        Mat3Evaluators.forOperationWithFloat(Mat3Operators.forAdditionWithFloat()));
+  }
+  public static Mat3Exp add(Mat3 left, Mat3 right) {
+    return add(mat(left), mat(right));
+  }
+  public static Mat3Exp add(Mat3Exp left, Mat3 right) {
+    return add(left, mat(right));
+  }
+  public static Mat3Exp add(Mat3 left, Mat3Exp right) {
+    return add(mat(left), right);
+  }
+  public static Mat3Exp add(Mat3Exp left, Mat3Exp right) {
+    return new Mat3Exp(
+        ImmutableList.<Expression>of(left, right),
+        Mat3Evaluators.forOperationWithMat3(Mat3Operators.forAdditionWithMat3()));
+  }
+
+  public static Mat3Exp sub(Mat3 left, float right) {
+    return sub(mat(left), constant(right));
+  }
+  public static Mat3Exp sub(Mat3Exp left, float right) {
+    return sub(left, constant(right));
+  }
+  public static Mat3Exp sub(Mat3 left, FloatExp right) {
+    return sub(mat(left), right);
+  }
+  public static Mat3Exp sub(Mat3Exp left, FloatExp right) {
+    return new Mat3Exp(
+        ImmutableList.<Expression>of(left, right),
+        Mat3Evaluators.forOperationWithFloat(Mat3Operators.forSubtractionWithFloat()));
+  }
+  public static Mat3Exp sub(Mat3 left, Mat3 right) {
+    return sub(mat(left), mat(right));
+  }
+  public static Mat3Exp sub(Mat3Exp left, Mat3 right) {
+    return sub(left, mat(right));
+  }
+  public static Mat3Exp sub(Mat3 left, Mat3Exp right) {
+    return sub(mat(left), right);
+  }
+  public static Mat3Exp sub(Mat3Exp left, Mat3Exp right) {
+    return new Mat3Exp(
+        ImmutableList.<Expression>of(left, right),
+        Mat3Evaluators.forOperationWithMat3(Mat3Operators.forSubtractionWithMat3()));
+  }
+
+  public static Mat3Exp mul(Mat3 left, float right) {
+    return mul(mat(left), constant(right));
+  }
+  public static Mat3Exp mul(Mat3Exp left, float right) {
+    return mul(left, constant(right));
+  }
+  public static Mat3Exp mul(Mat3 left, FloatExp right) {
+    return mul(mat(left), right);
+  }
+  public static Mat3Exp mul(Mat3Exp left, FloatExp right) {
+    return new Mat3Exp(
+        ImmutableList.<Expression>of(left, right),
+        Mat3Evaluators.forOperationWithFloat(Mat3Operators.forMultiplicationWithFloat()));
+  }
+  public static Mat3Exp mul(Mat3 left, Mat3 right) {
+    return mul(mat(left), mat(right));
+  }
+  public static Mat3Exp mul(Mat3Exp left, Mat3 right) {
+    return mul(left, mat(right));
+  }
+  public static Mat3Exp mul(Mat3 left, Mat3Exp right) {
+    return mul(mat(left), right);
+  }
+  public static Mat3Exp mul(Mat3Exp left, Mat3Exp right) {
+    return new Mat3Exp(
+        ImmutableList.<Expression>of(left, right),
+        Mat3Evaluators.forOperationWithMat3(Mat3Operators.forMultiplicationWithMat3()));
+  }
+
+  public static Mat3Exp div(Mat3 left, float right) {
+    return div(mat(left), constant(right));
+  }
+  public static Mat3Exp div(Mat3Exp left, float right) {
+    return div(left, constant(right));
+  }
+  public static Mat3Exp div(Mat3 left, FloatExp right) {
+    return div(mat(left), right);
+  }
+  public static Mat3Exp div(Mat3Exp left, FloatExp right) {
+    return new Mat3Exp(
+        ImmutableList.<Expression>of(left, right),
+        Mat3Evaluators.forOperationWithFloat(Mat3Operators.forDivisionWithFloat()));
+  }
+  public static Mat3Exp div(Mat3 left, Mat3 right) {
+    return div(mat(left), mat(right));
+  }
+  public static Mat3Exp div(Mat3Exp left, Mat3 right) {
+    return div(left, mat(right));
+  }
+  public static Mat3Exp div(Mat3 left, Mat3Exp right) {
+    return div(mat(left), right);
+  }
+  public static Mat3Exp div(Mat3Exp left, Mat3Exp right) {
+    return new Mat3Exp(
+        ImmutableList.<Expression>of(left, right),
+        Mat3Evaluators.forOperationWithMat3(Mat3Operators.forDivisionWithMat3()));
   }
 }

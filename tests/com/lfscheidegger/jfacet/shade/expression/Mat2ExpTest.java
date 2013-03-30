@@ -17,7 +17,7 @@ public class Mat2ExpTest {
     assertEquals(Shade.mat(new Mat2()).evaluate(), new Mat2());
     assertEquals(Shade.mat(new Vec2Exp(new Vec2(1, 0)), new Vec2(0, 1)).evaluate(), new Mat2());
     assertEquals(Shade.mat(new Vec2(1, 0), new Vec2Exp(new Vec2(0, 1))).evaluate(), new Mat2());
-    assertEquals(Shade.mat(new Vec2Exp(new Vec2(1, 0)), new Vec2(0, 1)).evaluate(), new Mat2());
+    assertEquals(Shade.mat(new Vec2(1, 0), new Vec2(0, 1)).evaluate(), new Mat2());
     assertEquals(Shade.mat(new Vec2Exp(new Vec2(1, 0)), new Vec2Exp(new Vec2(0, 1))).evaluate(), new Mat2());
   }
 
