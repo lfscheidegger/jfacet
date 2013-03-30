@@ -5,6 +5,7 @@ import com.lfscheidegger.jfacet.shade.Type;
 import com.lfscheidegger.jfacet.shade.expression.AbstractExpression;
 import com.lfscheidegger.jfacet.shade.expression.Expression;
 import com.lfscheidegger.jfacet.shade.expression.evaluators.Evaluator;
+import com.lfscheidegger.jfacet.shade.expression.evaluators.FloatEvaluators;
 import com.lfscheidegger.jfacet.shade.expression.evaluators.Vec2Evaluators;
 import com.lfscheidegger.jfacet.shade.primitives.Vec2;
 import com.lfscheidegger.jfacet.shade.primitives.interfaces.Vec2Like;
@@ -19,5 +20,17 @@ public class Vec2Exp extends AbstractExpression<Vec2> implements Vec2Like {
 
   public Vec2Exp(ImmutableList<Expression> parents, Evaluator<Vec2> evaluator) {
     super(TYPE, parents, evaluator);
+  }
+
+  public FloatExp getX() {
+    return new FloatExp(ImmutableList.<Expression>of(this), FloatEvaluators.forVec2Component(0));
+  }
+
+  public FloatExp getY() {
+    return new FloatExp(ImmutableList.<Expression>of(this), FloatEvaluators.forVec2Component(1));
+  }
+
+  public FloatExp get(int idx) {
+    return new FloatExp(ImmutableList.<Expression>of(this), FloatEvaluators.forVec2Component(idx));
   }
 }

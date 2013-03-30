@@ -4,7 +4,7 @@ import com.lfscheidegger.jfacet.shade.Shade;
 import com.lfscheidegger.jfacet.shade.primitives.Vec3;
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 /**
  * Unit tests for {@code Vec3Exp}
@@ -61,5 +61,17 @@ public class Vec3ExpTest {
     assertEquals(Shade.div(Shade.vec(1, 2, 3), Shade.constant(2)).evaluate(), new Vec3(0.5f, 1, 1.5f));
 
     assertEquals(Shade.div(Shade.vec(1, 2, 3), Shade.vec(1, 2, 3)).evaluate(), new Vec3(1, 1, 1));
+  }
+
+  @Test
+  public void testForVec3Component() {
+    assertTrue(Shade.add(Shade.vec(1, 2, 3), Shade.vec(3, 4, 5)).getX().evaluate() == 4);
+    assertTrue(Shade.add(Shade.vec(1, 2, 3), Shade.vec(3, 4, 5)).get(0).evaluate() == 4);
+
+    assertTrue(Shade.add(Shade.vec(1, 2, 3), Shade.vec(3, 4, 5)).getY().evaluate() == 6);
+    assertTrue(Shade.add(Shade.vec(1, 2, 3), Shade.vec(3, 4, 5)).get(1).evaluate() == 6);
+
+    assertTrue(Shade.add(Shade.vec(1, 2, 3), Shade.vec(3, 4, 5)).getZ().evaluate() == 8);
+    assertTrue(Shade.add(Shade.vec(1, 2, 3), Shade.vec(3, 4, 5)).get(2).evaluate() == 8);
   }
 }

@@ -4,7 +4,7 @@ import com.lfscheidegger.jfacet.shade.Shade;
 import com.lfscheidegger.jfacet.shade.primitives.Vec4;
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 /**
  * Unit tests for {@code Vec4Exp}
@@ -69,5 +69,20 @@ public class Vec4ExpTest {
     assertEquals(Shade.div(Shade.vec(1, 2, 3, 4), Shade.constant(2)).evaluate(), new Vec4(0.5f, 1, 1.5f, 2));
 
     assertEquals(Shade.div(Shade.vec(1, 2, 3, 4), Shade.vec(1, 2, 3, 4)).evaluate(), new Vec4(1, 1, 1, 1));
+  }
+
+  @Test
+  public void testForVec4Component() {
+    assertTrue(Shade.add(Shade.vec(1, 2, 3, 4), Shade.vec(3, 4, 5, 6)).getX().evaluate() == 4);
+    assertTrue(Shade.add(Shade.vec(1, 2, 3, 4), Shade.vec(3, 4, 5, 6)).get(0).evaluate() == 4);
+
+    assertTrue(Shade.add(Shade.vec(1, 2, 3, 4), Shade.vec(3, 4, 5, 6)).getY().evaluate() == 6);
+    assertTrue(Shade.add(Shade.vec(1, 2, 3, 4), Shade.vec(3, 4, 5, 6)).get(1).evaluate() == 6);
+
+    assertTrue(Shade.add(Shade.vec(1, 2, 3, 4), Shade.vec(3, 4, 5, 6)).getZ().evaluate() == 8);
+    assertTrue(Shade.add(Shade.vec(1, 2, 3, 4), Shade.vec(3, 4, 5, 6)).get(2).evaluate() == 8);
+
+    assertTrue(Shade.add(Shade.vec(1, 2, 3, 4), Shade.vec(3, 4, 5, 6)).getW().evaluate() == 10);
+    assertTrue(Shade.add(Shade.vec(1, 2, 3, 4), Shade.vec(3, 4, 5, 6)).get(3).evaluate() == 10);
   }
 }
