@@ -9,7 +9,7 @@ import java.util.Arrays;
 /**
  * Aggregate type for vec3.
  */
-public class Vec3 implements SupportsBasicArithmetic<Vec3> {
+public final class Vec3 {
 
   private float[] mValues;
 
@@ -69,47 +69,38 @@ public class Vec3 implements SupportsBasicArithmetic<Vec3> {
     return mValues[idx];
   }
 
-  @Override
   public Vec3 add(Vec3 other) {
     return new Vec3(mValues[0] + other.mValues[0], mValues[1] + other.mValues[1], mValues[2] + other.mValues[2]);
   }
 
-  @Override
   public Vec3 add(float t) {
     return new Vec3(mValues[0] + t, mValues[1] + t, mValues[2] + t);
   }
 
-  @Override
   public Vec3 sub(Vec3 other) {
     return new Vec3(mValues[0] - other.mValues[0], mValues[1] - other.mValues[1], mValues[2] - other.mValues[2]);
   }
 
-  @Override
   public Vec3 sub(float t) {
     return new Vec3(mValues[0] - t, mValues[1] - t, mValues[2] - t);
   }
 
-  @Override
   public Vec3 neg() {
     return new Vec3(-mValues[0], -mValues[1], -mValues[2]);
   }
 
-  @Override
   public Vec3 mul(float t) {
     return new Vec3(mValues[0] * t, mValues[1] * t, mValues[2] * t);
   }
 
-  @Override
   public Vec3 mul(Vec3 other) {
     return new Vec3(mValues[0] * other.mValues[0], mValues[1] * other.mValues[1], mValues[2] * other.mValues[2]);
   }
 
-  @Override
   public Vec3 div(float t) {
     return new Vec3(mValues[0] / t, mValues[1] / t, mValues[2] / t);
   }
 
-  @Override
   public Vec3 div(Vec3 other) {
     return new Vec3(mValues[0] / other.mValues[0], mValues[1] / other.mValues[1], mValues[2] / other.mValues[2]);
   }

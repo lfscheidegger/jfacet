@@ -10,7 +10,7 @@ import java.util.Arrays;
 /**
  * Aggregate type for mat2
  */
-public class Mat2 implements SupportsBasicArithmetic<Mat2> {
+public final class Mat2 {
 
   private final float[] mValues;
 
@@ -82,37 +82,30 @@ public class Mat2 implements SupportsBasicArithmetic<Mat2> {
         .toString();
   }
 
-  @Override
   public Mat2 add(float t) {
     return new Mat2(ArrayUtils.add(mValues, t));
   }
 
-  @Override
   public Mat2 add(Mat2 other) {
     return new Mat2(ArrayUtils.add(mValues, other.mValues));
   }
 
-  @Override
   public Mat2 sub(float t) {
     return new Mat2(ArrayUtils.sub(mValues, t));
   }
 
-  @Override
   public Mat2 sub(Mat2 other) {
     return new Mat2(ArrayUtils.sub(mValues, other.mValues));
   }
 
-  @Override
   public Mat2 neg() {
     return new Mat2(ArrayUtils.mul(mValues, -1));
   }
 
-  @Override
   public Mat2 mul(float t) {
     return new Mat2(ArrayUtils.mul(mValues, t));
   }
 
-  @Override
   public Mat2 mul(Mat2 mat) {
     float[] buf = new float[] {
         mValues[0] * mat.mValues[0] + mValues[2] * mat.mValues[1],
@@ -123,12 +116,10 @@ public class Mat2 implements SupportsBasicArithmetic<Mat2> {
     return new Mat2(buf);
   }
 
-  @Override
   public Mat2 div(float t) {
     return new Mat2(ArrayUtils.div(mValues, t));
   }
 
-  @Override
   public Mat2 div(Mat2 other) {
     return new Mat2(ArrayUtils.div(mValues, other.mValues));
   }

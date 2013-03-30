@@ -10,7 +10,7 @@ import java.util.Arrays;
 /**
  * Aggregate type for mat4
  */
-public class Mat4 implements SupportsBasicArithmetic<Mat4> {
+public final class Mat4 {
 
   private final float[] mValues;
 
@@ -128,47 +128,38 @@ public class Mat4 implements SupportsBasicArithmetic<Mat4> {
         .toString();
   }
 
-  @Override
   public Mat4 add(float t) {
     return new Mat4(ArrayUtils.add(mValues, t));
   }
 
-  @Override
   public Mat4 add(Mat4 other) {
     return new Mat4(ArrayUtils.add(mValues, other.mValues));
   }
 
-  @Override
   public Mat4 sub(float t) {
     return new Mat4(ArrayUtils.sub(mValues, t));
   }
 
-  @Override
   public Mat4 sub(Mat4 other) {
     return new Mat4(ArrayUtils.sub(mValues, other.mValues));
   }
 
-  @Override
   public Mat4 neg() {
     return new Mat4(ArrayUtils.mul(mValues, -1));
   }
 
-  @Override
   public Mat4 mul(float t) {
     return new Mat4(ArrayUtils.mul(mValues, t));
   }
 
-  @Override
   public Mat4 mul(Mat4 mat) {
     return new Mat4(ArrayUtils.mulMatrix(mValues, mat.mValues, 4));
   }
 
-  @Override
   public Mat4 div(float t) {
     return new Mat4(ArrayUtils.div(mValues, t));
   }
 
-  @Override
   public Mat4 div(Mat4 other) {
     return new Mat4(ArrayUtils.div(mValues, other.mValues));
   }

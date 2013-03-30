@@ -10,7 +10,7 @@ import java.util.Arrays;
 /**
  * Aggregate type for mat3.
  */
-public class Mat3 implements SupportsBasicArithmetic<Mat3> {
+public final class Mat3 {
 
   private final float[] mValues;
 
@@ -82,7 +82,6 @@ public class Mat3 implements SupportsBasicArithmetic<Mat3> {
     return new Vec3(mValues[3 * idx], mValues[3 * idx + 1], mValues[3 * idx + 2]);
   }
 
-  @Override
   public boolean equals(Object other) {
     if (!(other instanceof Mat3)) {
       return false;
@@ -91,12 +90,10 @@ public class Mat3 implements SupportsBasicArithmetic<Mat3> {
     return Arrays.equals(mValues, ((Mat3) other).mValues);
   }
 
-  @Override
   public int hashCode() {
     return Objects.hashCode(mValues[0], mValues[1], mValues[2]);
   }
 
-  @Override
   public String toString() {
     return StringUtils.toStringHelper(Type.MAT3_T)
         .addValue(new Vec3(mValues[0], mValues[1], mValues[2]))
@@ -105,47 +102,38 @@ public class Mat3 implements SupportsBasicArithmetic<Mat3> {
         .toString();
   }
 
-  @Override
   public Mat3 add(float t) {
     return new Mat3(ArrayUtils.add(mValues, t));
   }
 
-  @Override
   public Mat3 add(Mat3 other) {
     return new Mat3(ArrayUtils.add(mValues, other.mValues));
   }
 
-  @Override
   public Mat3 sub(float t) {
     return new Mat3(ArrayUtils.sub(mValues, t));
   }
 
-  @Override
   public Mat3 sub(Mat3 other) {
     return new Mat3(ArrayUtils.sub(mValues, other.mValues));
   }
 
-  @Override
   public Mat3 neg() {
     return new Mat3(ArrayUtils.mul(mValues, -1));
   }
 
-  @Override
   public Mat3 mul(float t) {
     return new Mat3(ArrayUtils.mul(mValues, t));
   }
 
-  @Override
   public Mat3 mul(Mat3 mat) {
     return new Mat3(ArrayUtils.mulMatrix(mValues, mat.mValues, 3));
   }
 
-  @Override
   public Mat3 div(float t) {
     return new Mat3(ArrayUtils.div(mValues, t));
   }
 
-  @Override
   public Mat3 div(Mat3 other) {
     return new Mat3(ArrayUtils.div(mValues, other.mValues));
   }

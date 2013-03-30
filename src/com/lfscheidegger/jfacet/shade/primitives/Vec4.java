@@ -7,9 +7,9 @@ import com.lfscheidegger.jfacet.shade.utils.StringUtils;
 import java.util.Arrays;
 
 /**
- * Aggregate type for vec3.
+ * Aggregate type for vec4.
  */
-public class Vec4 implements SupportsBasicArithmetic<Vec4> {
+public final class Vec4 {
 
   private float[] mValues;
 
@@ -108,7 +108,6 @@ public class Vec4 implements SupportsBasicArithmetic<Vec4> {
     return Objects.hashCode(mValues[0], mValues[1], mValues[2], mValues[3]);
   }
 
-  @Override
   public Vec4 add(Vec4 other) {
     return new Vec4(
         mValues[0] + other.mValues[0],
@@ -117,12 +116,10 @@ public class Vec4 implements SupportsBasicArithmetic<Vec4> {
         mValues[3] + other.mValues[3]);
   }
 
-  @Override
   public Vec4 add(float t) {
     return new Vec4(mValues[0] + t, mValues[1] + t, mValues[2] + t, mValues[3] + t);
   }
 
-  @Override
   public Vec4 sub(Vec4 other) {
     return new Vec4(
         mValues[0] - other.mValues[0],
@@ -131,22 +128,18 @@ public class Vec4 implements SupportsBasicArithmetic<Vec4> {
         mValues[3] - other.mValues[3]);
   }
 
-  @Override
   public Vec4 sub(float t) {
     return new Vec4(mValues[0] - t, mValues[1] - t, mValues[2] - t, mValues[3] - t);
   }
 
-  @Override
   public Vec4 neg() {
     return new Vec4(-mValues[0], -mValues[1], -mValues[2], -mValues[3]);
   }
 
-  @Override
   public Vec4 mul(float t) {
     return new Vec4(mValues[0] * t, mValues[1] * t, mValues[2] * t, mValues[3] * t);
   }
 
-  @Override
   public Vec4 mul(Vec4 other) {
     return new Vec4(
         mValues[0] * other.mValues[0],
@@ -155,12 +148,10 @@ public class Vec4 implements SupportsBasicArithmetic<Vec4> {
         mValues[3] * other.mValues[3]);
   }
 
-  @Override
   public Vec4 div(float t) {
     return new Vec4(mValues[0] / t, mValues[1] / t, mValues[2] / t, mValues[3] / t);
   }
 
-  @Override
   public Vec4 div(Vec4 other) {
     return new Vec4(
         mValues[0] / other.mValues[0],
