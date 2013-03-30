@@ -837,4 +837,178 @@ public class Shade {
         ImmutableList.<Expression>of(left, right),
         Mat3Evaluators.forOperationWithMat3(Mat3Operators.forDivisionWithMat3()));
   }
+
+  // ===================================================================================================================
+  // Stuff for Mat4
+  // ===================================================================================================================
+
+  public static Mat4Exp mat(Mat4 val) {
+    return new Mat4Exp(val);
+  }
+  public static Mat4Exp mat(Vec4 x, Vec4 y, Vec4 z, Vec4 w) {
+    return mat(new Vec4Exp(x), new Vec4Exp(y), new Vec4Exp(z), new Vec4Exp(w));
+  }
+  public static Mat4Exp mat(Vec4Exp x, Vec4 y, Vec4 z, Vec4 w) {
+    return mat(x, new Vec4Exp(y), new Vec4Exp(z), new Vec4Exp(w));
+  }
+  public static Mat4Exp mat(Vec4 x, Vec4Exp y, Vec4 z, Vec4 w) {
+    return mat(new Vec4Exp(x), y, new Vec4Exp(z), new Vec4Exp(w));
+  }
+  public static Mat4Exp mat(Vec4Exp x, Vec4Exp y, Vec4 z, Vec4 w) {
+    return mat(x, y, new Vec4Exp(z), new Vec4Exp(w));
+  }
+  public static Mat4Exp mat(Vec4 x, Vec4 y, Vec4Exp z, Vec4 w) {
+    return mat(new Vec4Exp(x), new Vec4Exp(y), z, new Vec4Exp(w));
+  }
+  public static Mat4Exp mat(Vec4Exp x, Vec4 y, Vec4Exp z, Vec4 w) {
+    return mat(x, new Vec4Exp(y), z, new Vec4Exp(w));
+  }
+  public static Mat4Exp mat(Vec4 x, Vec4Exp y, Vec4Exp z, Vec4 w) {
+    return mat(new Vec4Exp(x), y, z, new Vec4Exp(w));
+  }
+  public static Mat4Exp mat(Vec4 x, Vec4 y, Vec4 z, Vec4Exp w) {
+    return mat(new Vec4Exp(x), new Vec4Exp(y), new Vec4Exp(z), w);
+  }
+  public static Mat4Exp mat(Vec4Exp x, Vec4 y, Vec4 z, Vec4Exp w) {
+    return mat(x, new Vec4Exp(y), new Vec4Exp(z), w);
+  }
+  public static Mat4Exp mat(Vec4 x, Vec4Exp y, Vec4 z, Vec4Exp w) {
+    return mat(new Vec4Exp(x), y, new Vec4Exp(z), w);
+  }
+  public static Mat4Exp mat(Vec4Exp x, Vec4Exp y, Vec4 z, Vec4Exp w) {
+    return mat(x, y, new Vec4Exp(z), w);
+  }
+  public static Mat4Exp mat(Vec4 x, Vec4 y, Vec4Exp z, Vec4Exp w) {
+    return mat(new Vec4Exp(x), new Vec4Exp(y), z, w);
+  }
+  public static Mat4Exp mat(Vec4Exp x, Vec4 y, Vec4Exp z, Vec4Exp w) {
+    return mat(x, new Vec4Exp(y), z, w);
+  }
+  public static Mat4Exp mat(Vec4 x, Vec4Exp y, Vec4Exp z, Vec4Exp w) {
+    return mat(new Vec4Exp(x), y, z, w);
+  }
+  public static Mat4Exp mat(Vec4Exp x, Vec4Exp y, Vec4Exp z, Vec4 w) {
+    return mat(x, y, z, new Vec4Exp(w));
+  }
+  public static Mat4Exp mat(Vec4Exp x, Vec4Exp y, Vec4Exp z, Vec4Exp w) {
+    return new Mat4Exp(
+        ImmutableList.<Expression>of(x, y, z, w),
+        Mat4Evaluators.forComponents());
+  }
+
+  public static Mat4Exp add(Mat4 left, float right) {
+    return add(mat(left), constant(right));
+  }
+  public static Mat4Exp add(Mat4Exp left, float right) {
+    return add(left, constant(right));
+  }
+  public static Mat4Exp add(Mat4 left, FloatExp right) {
+    return add(mat(left), right);
+  }
+  public static Mat4Exp add(Mat4Exp left, FloatExp right) {
+    return new Mat4Exp(
+        ImmutableList.<Expression>of(left, right),
+        Mat4Evaluators.forOperationWithFloat(Mat4Operators.forAdditionWithFloat()));
+  }
+  public static Mat4Exp add(Mat4 left, Mat4 right) {
+    return add(mat(left), mat(right));
+  }
+  public static Mat4Exp add(Mat4Exp left, Mat4 right) {
+    return add(left, mat(right));
+  }
+  public static Mat4Exp add(Mat4 left, Mat4Exp right) {
+    return add(mat(left), right);
+  }
+  public static Mat4Exp add(Mat4Exp left, Mat4Exp right) {
+    return new Mat4Exp(
+        ImmutableList.<Expression>of(left, right),
+        Mat4Evaluators.forOperationWithMat4(Mat4Operators.forAdditionWithMat4()));
+  }
+
+  public static Mat4Exp sub(Mat4 left, float right) {
+    return sub(mat(left), constant(right));
+  }
+  public static Mat4Exp sub(Mat4Exp left, float right) {
+    return sub(left, constant(right));
+  }
+  public static Mat4Exp sub(Mat4 left, FloatExp right) {
+    return sub(mat(left), right);
+  }
+  public static Mat4Exp sub(Mat4Exp left, FloatExp right) {
+    return new Mat4Exp(
+        ImmutableList.<Expression>of(left, right),
+        Mat4Evaluators.forOperationWithFloat(Mat4Operators.forSubtractionWithFloat()));
+  }
+  public static Mat4Exp sub(Mat4 left, Mat4 right) {
+    return sub(mat(left), mat(right));
+  }
+  public static Mat4Exp sub(Mat4Exp left, Mat4 right) {
+    return sub(left, mat(right));
+  }
+  public static Mat4Exp sub(Mat4 left, Mat4Exp right) {
+    return sub(mat(left), right);
+  }
+  public static Mat4Exp sub(Mat4Exp left, Mat4Exp right) {
+    return new Mat4Exp(
+        ImmutableList.<Expression>of(left, right),
+        Mat4Evaluators.forOperationWithMat4(Mat4Operators.forSubtractionWithMat4()));
+  }
+
+  public static Mat4Exp mul(Mat4 left, float right) {
+    return mul(mat(left), constant(right));
+  }
+  public static Mat4Exp mul(Mat4Exp left, float right) {
+    return mul(left, constant(right));
+  }
+  public static Mat4Exp mul(Mat4 left, FloatExp right) {
+    return mul(mat(left), right);
+  }
+  public static Mat4Exp mul(Mat4Exp left, FloatExp right) {
+    return new Mat4Exp(
+        ImmutableList.<Expression>of(left, right),
+        Mat4Evaluators.forOperationWithFloat(Mat4Operators.forMultiplicationWithFloat()));
+  }
+  public static Mat4Exp mul(Mat4 left, Mat4 right) {
+    return mul(mat(left), mat(right));
+  }
+  public static Mat4Exp mul(Mat4Exp left, Mat4 right) {
+    return mul(left, mat(right));
+  }
+  public static Mat4Exp mul(Mat4 left, Mat4Exp right) {
+    return mul(mat(left), right);
+  }
+  public static Mat4Exp mul(Mat4Exp left, Mat4Exp right) {
+    return new Mat4Exp(
+        ImmutableList.<Expression>of(left, right),
+        Mat4Evaluators.forOperationWithMat4(Mat4Operators.forMultiplicationWithMat4()));
+  }
+
+  public static Mat4Exp div(Mat4 left, float right) {
+    return div(mat(left), constant(right));
+  }
+  public static Mat4Exp div(Mat4Exp left, float right) {
+    return div(left, constant(right));
+  }
+  public static Mat4Exp div(Mat4 left, FloatExp right) {
+    return div(mat(left), right);
+  }
+  public static Mat4Exp div(Mat4Exp left, FloatExp right) {
+    return new Mat4Exp(
+        ImmutableList.<Expression>of(left, right),
+        Mat4Evaluators.forOperationWithFloat(Mat4Operators.forDivisionWithFloat()));
+  }
+  public static Mat4Exp div(Mat4 left, Mat4 right) {
+    return div(mat(left), mat(right));
+  }
+  public static Mat4Exp div(Mat4Exp left, Mat4 right) {
+    return div(left, mat(right));
+  }
+  public static Mat4Exp div(Mat4 left, Mat4Exp right) {
+    return div(mat(left), right);
+  }
+  public static Mat4Exp div(Mat4Exp left, Mat4Exp right) {
+    return new Mat4Exp(
+        ImmutableList.<Expression>of(left, right),
+        Mat4Evaluators.forOperationWithMat4(Mat4Operators.forDivisionWithMat4()));
+  }
 }
