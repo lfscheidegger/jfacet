@@ -2,14 +2,9 @@ package com.lfscheidegger.jfacet.shade;
 
 import com.google.common.collect.ImmutableList;
 import com.lfscheidegger.jfacet.shade.expression.*;
-import com.lfscheidegger.jfacet.shade.expression.evaluators.FloatEvaluators;
-import com.lfscheidegger.jfacet.shade.expression.evaluators.Vec2Evaluators;
-import com.lfscheidegger.jfacet.shade.expression.evaluators.Vec3Evaluators;
-import com.lfscheidegger.jfacet.shade.expression.evaluators.Vec4Evaluators;
-import com.lfscheidegger.jfacet.shade.expression.operators.FloatOperators;
-import com.lfscheidegger.jfacet.shade.expression.operators.Vec2Operators;
-import com.lfscheidegger.jfacet.shade.expression.operators.Vec3Operators;
-import com.lfscheidegger.jfacet.shade.expression.operators.Vec4Operators;
+import com.lfscheidegger.jfacet.shade.expression.evaluators.*;
+import com.lfscheidegger.jfacet.shade.expression.operators.*;
+import com.lfscheidegger.jfacet.shade.primitives.Mat2;
 import com.lfscheidegger.jfacet.shade.primitives.Vec2;
 import com.lfscheidegger.jfacet.shade.primitives.Vec3;
 import com.lfscheidegger.jfacet.shade.primitives.Vec4;
@@ -556,5 +551,143 @@ public class Shade {
     return new Vec4Exp(
         ImmutableList.<Expression>of(left, right),
         Vec4Evaluators.forOperationWithVec4(Vec4Operators.forDivisionWithVec4()));
+  }
+
+  // ===================================================================================================================
+  // Stuff for Mat2
+  // ===================================================================================================================
+
+  public static Mat2Exp mat(Mat2 val) {
+    return new Mat2Exp(val);
+  }
+  public static Mat2Exp mat(Vec2 x, Vec2 y) {
+    return mat(new Vec2Exp(x), new Vec2Exp(y));
+  }
+  public static Mat2Exp mat(Vec2Exp x, Vec2 y) {
+    return mat(x, new Vec2Exp(y));
+  }
+  public static Mat2Exp mat(Vec2 x, Vec2Exp y) {
+    return mat(new Vec2Exp(x), y);
+  }
+  public static Mat2Exp mat(Vec2Exp x, Vec2Exp y) {
+    return new Mat2Exp(
+        ImmutableList.<Expression>of(x, y),
+        Mat2Evaluators.forComponents());
+  }
+
+  public static Mat2Exp add(Mat2 left, float right) {
+    return add(mat(left), constant(right));
+  }
+  public static Mat2Exp add(Mat2Exp left, float right) {
+    return add(left, constant(right));
+  }
+  public static Mat2Exp add(Mat2 left, FloatExp right) {
+    return add(mat(left), right);
+  }
+  public static Mat2Exp add(Mat2Exp left, FloatExp right) {
+    return new Mat2Exp(
+        ImmutableList.<Expression>of(left, right),
+        Mat2Evaluators.forOperationWithFloat(Mat2Operators.forAdditionWithFloat()));
+  }
+  public static Mat2Exp add(Mat2 left, Mat2 right) {
+    return add(mat(left), mat(right));
+  }
+  public static Mat2Exp add(Mat2Exp left, Mat2 right) {
+    return add(left, mat(right));
+  }
+  public static Mat2Exp add(Mat2 left, Mat2Exp right) {
+    return add(mat(left), right);
+  }
+  public static Mat2Exp add(Mat2Exp left, Mat2Exp right) {
+    return new Mat2Exp(
+        ImmutableList.<Expression>of(left, right),
+        Mat2Evaluators.forOperationWithMat2(Mat2Operators.forAdditionWithMat2()));
+  }
+
+  public static Mat2Exp sub(Mat2 left, float right) {
+    return sub(mat(left), constant(right));
+  }
+  public static Mat2Exp sub(Mat2Exp left, float right) {
+    return sub(left, constant(right));
+  }
+  public static Mat2Exp sub(Mat2 left, FloatExp right) {
+    return sub(mat(left), right);
+  }
+  public static Mat2Exp sub(Mat2Exp left, FloatExp right) {
+    return new Mat2Exp(
+        ImmutableList.<Expression>of(left, right),
+        Mat2Evaluators.forOperationWithFloat(Mat2Operators.forSubtractionWithFloat()));
+  }
+  public static Mat2Exp sub(Mat2 left, Mat2 right) {
+    return sub(mat(left), mat(right));
+  }
+  public static Mat2Exp sub(Mat2Exp left, Mat2 right) {
+    return sub(left, mat(right));
+  }
+  public static Mat2Exp sub(Mat2 left, Mat2Exp right) {
+    return sub(mat(left), right);
+  }
+  public static Mat2Exp sub(Mat2Exp left, Mat2Exp right) {
+    return new Mat2Exp(
+        ImmutableList.<Expression>of(left, right),
+        Mat2Evaluators.forOperationWithMat2(Mat2Operators.forSubtractionWithMat2()));
+  }
+
+  public static Mat2Exp mul(Mat2 left, float right) {
+    return mul(mat(left), constant(right));
+  }
+  public static Mat2Exp mul(Mat2Exp left, float right) {
+    return mul(left, constant(right));
+  }
+  public static Mat2Exp mul(Mat2 left, FloatExp right) {
+    return mul(mat(left), right);
+  }
+  public static Mat2Exp mul(Mat2Exp left, FloatExp right) {
+    return new Mat2Exp(
+        ImmutableList.<Expression>of(left, right),
+        Mat2Evaluators.forOperationWithFloat(Mat2Operators.forMultiplicationWithFloat()));
+  }
+  public static Mat2Exp mul(Mat2 left, Mat2 right) {
+    return mul(mat(left), mat(right));
+  }
+  public static Mat2Exp mul(Mat2Exp left, Mat2 right) {
+    return mul(left, mat(right));
+  }
+  public static Mat2Exp mul(Mat2 left, Mat2Exp right) {
+    return mul(mat(left), right);
+  }
+  public static Mat2Exp mul(Mat2Exp left, Mat2Exp right) {
+    return new Mat2Exp(
+        ImmutableList.<Expression>of(left, right),
+        Mat2Evaluators.forOperationWithMat2(Mat2Operators.forMultiplicationWithMat2()));
+  }
+
+  public static Mat2Exp div(Mat2 left, float right) {
+    return div(mat(left), constant(right));
+  }
+  public static Mat2Exp div(Mat2Exp left, float right) {
+    return div(left, constant(right));
+  }
+  public static Mat2Exp div(Mat2 left, FloatExp right) {
+    return div(mat(left), right);
+  }
+  public static Mat2Exp div(Mat2Exp left, FloatExp right) {
+    return new Mat2Exp(
+        ImmutableList.<Expression>of(left, right),
+        Mat2Evaluators.forOperationWithFloat(Mat2Operators.forDivisionWithFloat()));
+  }
+  public static Mat2Exp div(Mat2 left, Mat2 right) {
+    return div(mat(left), mat(right));
+  }
+  public static Mat2Exp div(Mat2Exp left, Mat2 right) {
+    return div(left, mat(right));
+  }
+  public static Mat2Exp div(Mat2 left, Mat2Exp right) {
+    return div(mat(left), right);
+  }
+  public static Mat2Exp div(Mat2Exp left, Mat2Exp right) {
+    return new Mat2Exp(
+        ImmutableList.<Expression>of(left, right),
+        Mat2Evaluators.forOperationWithMat2(Mat2Operators.forDivisionWithMat2()));
   }
 }
