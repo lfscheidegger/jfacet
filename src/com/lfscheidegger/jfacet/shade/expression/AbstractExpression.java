@@ -10,7 +10,7 @@ public abstract class AbstractExpression<T> implements Expression<T> {
   private final ImmutableList<Expression> mParents;
   private final Evaluator<T> mEvaluator;
 
-  AbstractExpression(Type type, ImmutableList<Expression> parents, Evaluator<T> evaluator) {
+  public AbstractExpression(Type type, ImmutableList<Expression> parents, Evaluator<T> evaluator) {
     mType = type;
     mParents = parents;
     mEvaluator = evaluator;

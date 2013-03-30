@@ -4,6 +4,7 @@ import com.google.common.collect.ImmutableList;
 import com.lfscheidegger.jfacet.shade.expression.*;
 import com.lfscheidegger.jfacet.shade.expression.evaluators.*;
 import com.lfscheidegger.jfacet.shade.expression.operators.*;
+import com.lfscheidegger.jfacet.shade.expression.primitives.*;
 import com.lfscheidegger.jfacet.shade.primitives.*;
 
 /**

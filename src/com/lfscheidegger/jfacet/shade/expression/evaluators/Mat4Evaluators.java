@@ -2,9 +2,9 @@ package com.lfscheidegger.jfacet.shade.expression.evaluators;
 
 import com.google.common.collect.ImmutableList;
 import com.lfscheidegger.jfacet.shade.expression.Expression;
-import com.lfscheidegger.jfacet.shade.expression.FloatExp;
-import com.lfscheidegger.jfacet.shade.expression.Mat4Exp;
-import com.lfscheidegger.jfacet.shade.expression.Vec4Exp;
+import com.lfscheidegger.jfacet.shade.expression.primitives.FloatExp;
+import com.lfscheidegger.jfacet.shade.expression.primitives.Mat4Exp;
+import com.lfscheidegger.jfacet.shade.expression.primitives.Vec4Exp;
 import com.lfscheidegger.jfacet.shade.expression.operators.Operator;
 import com.lfscheidegger.jfacet.shade.primitives.Mat4;
 
