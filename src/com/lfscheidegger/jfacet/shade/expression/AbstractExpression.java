@@ -19,12 +19,12 @@ public abstract class AbstractExpression implements Expression {
   }
 
   @Override
-  public Type getType() {
+  public final Type getType() {
     return mType;
   }
 
   @Override
-  public ImmutableList<Expression> getParents() {
+  public final ImmutableList<Expression> getParents() {
     return mParents;
   }
 }
