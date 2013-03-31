@@ -15,6 +15,7 @@ public abstract class AbstractCompiler implements Compiler {
   private final CompilationContext mContext = new CompilationContext() {
 
     private final Map<Expression, String> mExpressionNameMap = new HashMap<Expression, String>();
+    private int mScopeLevel = 0;
 
     @Override
     public String getExpressionName(Expression exp) {
@@ -23,6 +24,21 @@ public abstract class AbstractCompiler implements Compiler {
       }
 
       return mExpressionNameMap.get(exp);
+    }
+
+    @Override
+    public int getScopeLevel() {
+      return mScopeLevel;
+    }
+
+    @Override
+    public void pushScope() {
+      mScopeLevel++;
+    }
+
+    @Override
+    public void popScope() {
+      mScopeLevel = (mScopeLevel > 0) ? mScopeLevel - 1: 0;
     }
   };
 

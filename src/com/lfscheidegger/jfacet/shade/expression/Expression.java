@@ -1,6 +1,7 @@
 package com.lfscheidegger.jfacet.shade.expression;
 
 import com.google.common.collect.ImmutableList;
+import com.lfscheidegger.jfacet.shade.GlSlType;
 import com.lfscheidegger.jfacet.shade.Type;
 import com.lfscheidegger.jfacet.shade.compiler.CompilationContext;
 
@@ -13,6 +14,11 @@ public interface Expression<T> {
    * Returns the primitive type of the value of evaluating this expression.
    */
   public Type getType();
+
+  /**
+   * Returns the GLSL type of the value for this expression.
+   */
+  public GlSlType getGlSlType();
 
   /**
    * Returns a possibly empty list of parents for this expression.

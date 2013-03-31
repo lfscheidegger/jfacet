@@ -1,6 +1,7 @@
 package com.lfscheidegger.jfacet.shade.expression;
 
 import com.google.common.collect.ImmutableList;
+import com.lfscheidegger.jfacet.shade.GlSlType;
 import com.lfscheidegger.jfacet.shade.Type;
 import com.lfscheidegger.jfacet.shade.compiler.CompilationContext;
 import com.lfscheidegger.jfacet.shade.expression.evaluators.Evaluator;
@@ -8,11 +9,13 @@ import com.lfscheidegger.jfacet.shade.expression.evaluators.Evaluator;
 public abstract class AbstractExpression<T> implements Expression<T> {
 
   private final Type mType;
+  private final GlSlType mGlSlType;
   private final ImmutableList<Expression> mParents;
   private final Evaluator<T> mEvaluator;
 
-  public AbstractExpression(Type type, ImmutableList<Expression> parents, Evaluator<T> evaluator) {
+  public AbstractExpression(Type type, GlSlType glSlType, ImmutableList<Expression> parents, Evaluator<T> evaluator) {
     mType = type;
+    mGlSlType = glSlType;
     mParents = parents;
     mEvaluator = evaluator;
   }
@@ -20,6 +23,11 @@ public abstract class AbstractExpression<T> implements Expression<T> {
   @Override
   public final Type getType() {
     return mType;
+  }
+
+  @Override
+  public final GlSlType getGlSlType() {
+    return mGlSlType;
   }
 
   @Override

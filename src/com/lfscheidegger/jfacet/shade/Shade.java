@@ -1,5 +1,6 @@
 package com.lfscheidegger.jfacet.shade;
 
+import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableList;
 import com.lfscheidegger.jfacet.shade.expression.*;
 import com.lfscheidegger.jfacet.shade.expression.evaluators.*;
@@ -692,5 +693,40 @@ public class Shade {
     return new Vec4Exp(
         ImmutableList.<Expression>of(promote(left), promote(right)),
         Mat4Evaluators.forOperationWithVec4(Mat4Operators.forMultiplicationWithVec4()));
+  }
+
+  // ===================================================================================================================
+  // GLSL stuff
+  // ===================================================================================================================
+  public static FloatExp attributef() {
+    return new FloatExp(
+        Type.FLOAT_T,
+        GlSlType.ATTRIBUTE_T,
+        ImmutableList.<Expression>of(),
+        GlSlEvaluators.<Float>forAttribute());
+  }
+
+  public static Vec2Exp attribute2f() {
+    return new Vec2Exp(
+        Type.VEC2_T,
+        GlSlType.ATTRIBUTE_T,
+        ImmutableList.<Expression>of(),
+        GlSlEvaluators.<Vec2>forAttribute());
+  }
+
+  public static Vec3Exp attribute3f() {
+    return new Vec3Exp(
+        Type.VEC3_T,
+        GlSlType.ATTRIBUTE_T,
+        ImmutableList.<Expression>of(),
+        GlSlEvaluators.<Vec3>forAttribute());
+  }
+
+  public static Vec4Exp attribute4f() {
+    return new Vec4Exp(
+        Type.VEC4_T,
+        GlSlType.ATTRIBUTE_T,
+        ImmutableList.<Expression>of(),
+        GlSlEvaluators.<Vec4>forAttribute());
   }
 }

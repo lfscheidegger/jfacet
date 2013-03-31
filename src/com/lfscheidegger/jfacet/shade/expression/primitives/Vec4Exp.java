@@ -1,6 +1,7 @@
 package com.lfscheidegger.jfacet.shade.expression.primitives;
 
 import com.google.common.collect.ImmutableList;
+import com.lfscheidegger.jfacet.shade.GlSlType;
 import com.lfscheidegger.jfacet.shade.Type;
 import com.lfscheidegger.jfacet.shade.expression.AbstractExpression;
 import com.lfscheidegger.jfacet.shade.expression.Expression;
@@ -15,11 +16,15 @@ public class Vec4Exp extends AbstractExpression<Vec4> implements Vec4Like {
   private static final Type TYPE = Type.VEC4_T;
 
   public Vec4Exp(Vec4 vec) {
-    super(TYPE, ImmutableList.<Expression>of(), Vec4Evaluators.forConstant(vec));
+    this(TYPE, GlSlType.DEFAULT_T, ImmutableList.<Expression>of(), Vec4Evaluators.forConstant(vec));
   }
 
   public Vec4Exp(ImmutableList<Expression> parents, Evaluator<Vec4> evaluator) {
-    super(TYPE, parents, evaluator);
+    this(TYPE, GlSlType.DEFAULT_T, parents, evaluator);
+  }
+
+  public Vec4Exp(Type type, GlSlType glSlType, ImmutableList<Expression> parents, Evaluator<Vec4> evaluator) {
+    super(type, glSlType, parents, evaluator);
   }
 
   public FloatExp getX() {
