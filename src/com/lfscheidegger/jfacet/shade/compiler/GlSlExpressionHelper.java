@@ -1,7 +1,6 @@
 package com.lfscheidegger.jfacet.shade.compiler;
 
 import com.lfscheidegger.jfacet.shade.Type;
-import com.lfscheidegger.jfacet.shade.expression.Expression;
 
 public class GlSlExpressionHelper {
 
@@ -23,7 +22,7 @@ public class GlSlExpressionHelper {
     return b.append(")").toString();
   }
 
-  public static String getBinOpString(Type type, String opSymbol, String left, String right) {
+  public static String getBinOpExpression(Type type, String opSymbol, String left, String right) {
     return getWrappedExpression(type, left + " " + opSymbol + " " + right);
   }
 

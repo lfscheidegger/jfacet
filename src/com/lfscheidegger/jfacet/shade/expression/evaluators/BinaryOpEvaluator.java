@@ -21,7 +21,7 @@ public abstract class BinaryOpEvaluator<LEFT_T, RIGHT_T, RESULT_T> implements Ev
   public final String getGlSlString(Expression expression) {
     ImmutableList<Expression> parents = expression.getParents();
 
-    return GlSlExpressionHelper.getBinOpString(
+    return GlSlExpressionHelper.getBinOpExpression(
         mType, mOperator.getOperatorSymbol(), parents.get(0).getGlSlString(), parents.get(1).getGlSlString());
   }
 
@@ -29,7 +29,7 @@ public abstract class BinaryOpEvaluator<LEFT_T, RIGHT_T, RESULT_T> implements Ev
   public final String getGlSlString(Expression expression, CompilationContext context) {
     ImmutableList<Expression> parents = expression.getParents();
 
-    return GlSlExpressionHelper.getBinOpString(
+    return GlSlExpressionHelper.getBinOpExpression(
         mType, mOperator.getOperatorSymbol(),
         context.getExpressionName(parents.get(0)), context.getExpressionName(parents.get(1)));
   }
