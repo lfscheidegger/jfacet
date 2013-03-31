@@ -10,7 +10,7 @@ public class VertexShaderCompilerTest {
 
   @Test
   public void testVertexShaderCompiler() {
-    VertexShaderCompiler compiler = new VertexShaderCompiler(
+    VertexShaderCompiler vertexShaderCompiler = new VertexShaderCompiler(
         Shade.add(
             Shade.vec(1, 2, 3, 4),
             Shade.mul(
@@ -18,15 +18,15 @@ public class VertexShaderCompilerTest {
                 Shade.neg(
                     Shade.vec(9, 10, 11, 12)))));
 
-    String code = compiler.compile();
+    String code = vertexShaderCompiler.compile();
     System.err.println(code);
   }
 
   @Test
   public void testVertexShaderCompilerWithPromotion() {
-    VertexShaderCompiler compiler = new VertexShaderCompiler(Shade.vec(1, 2, 3));
+    VertexShaderCompiler vertexShaderCompiler = new VertexShaderCompiler(Shade.vec(1, 2, 3));
 
-    String code = compiler.compile();
+    String code = vertexShaderCompiler.compile();
     System.err.println(code);
   }
 }
