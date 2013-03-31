@@ -10,6 +10,7 @@ import com.lfscheidegger.jfacet.shade.expression.primitives.Mat4Exp;
 import com.lfscheidegger.jfacet.shade.expression.primitives.Vec4Exp;
 import com.lfscheidegger.jfacet.shade.expression.operators.Operator;
 import com.lfscheidegger.jfacet.shade.primitives.Mat4;
+import com.lfscheidegger.jfacet.shade.primitives.Vec4;
 
 /**
  * {@code Evaluator} objects for {@code Mat4Exp}
@@ -118,6 +119,19 @@ public class Mat4Evaluators {
       public String getGlSlString(Expression expression, CompilationContext context) {
         return GlSlExpressionHelper.getUnOpExpression(
             TYPE, "-", context.getExpressionName((Expression)expression.getParents().get(0)));
+      }
+    };
+  }
+
+  public static Evaluator<Vec4> forOperationWithVec4(final Operator<Mat4, Vec4, Vec4> operator) {
+    return new BinaryOpEvaluator<Mat4, Vec4, Vec4>(Type.VEC4_T, operator) {
+      @Override
+      public Vec4 evaluate(Expression expression) {
+        ImmutableList<Expression> parents = expression.getParents();
+        Mat4Exp left = (Mat4Exp)parents.get(0);
+        Vec4Exp right = (Vec4Exp)parents.get(1);
+
+        return operator.op(left.evaluate(), right.evaluate());
       }
     };
   }

@@ -5,6 +5,7 @@ import com.lfscheidegger.jfacet.shade.compiler.CompilationContext;
 import com.lfscheidegger.jfacet.shade.expression.Expression;
 import com.lfscheidegger.jfacet.shade.expression.operators.Mat2Operators;
 import com.lfscheidegger.jfacet.shade.primitives.Mat2;
+import com.lfscheidegger.jfacet.shade.primitives.Vec2;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -117,5 +118,12 @@ public class Mat2EvaluatorsTest {
     Evaluator<Mat2> eval = Mat2Evaluators.forNegation();
 
     assertEquals(eval.evaluate(Shade.neg(Shade.mat(new Mat2()))), new Mat2().neg());
+  }
+
+  @Test
+  public void testForMultiplicationWithVec2() {
+    Evaluator<Vec2> eval = Mat2Evaluators.forOperationWithVec2(Mat2Operators.forMultiplicationWithVec2());
+
+    assertEquals(eval.evaluate(Shade.mul(Shade.mat(new Mat2().mul(2)), Shade.vec(1, 1))), new Vec2(2, 2));
   }
 }

@@ -1,6 +1,7 @@
 package com.lfscheidegger.jfacet.shade.expression.operators;
 
 import com.lfscheidegger.jfacet.shade.primitives.Mat3;
+import com.lfscheidegger.jfacet.shade.primitives.Vec3;
 
 /**
  * {@code Operator} objects for {@code Mat3Exp}
@@ -75,6 +76,15 @@ public class Mat3Operators {
       @Override
       public Mat3 op(Mat3 left, Mat3 right) {
         return new Mat3(left.getC0().div(right.getC0()), left.getC1().div(right.getC1()), left.getC2().div(right.getC2()));
+      }
+    };
+  }
+
+  public static Operator<Mat3, Vec3, Vec3> forMultiplicationWithVec3() {
+    return new NamedOperator<Mat3, Vec3, Vec3>("*") {
+      @Override
+      public Vec3 op(Mat3 left, Vec3 right) {
+        return left.mul(right);
       }
     };
   }
