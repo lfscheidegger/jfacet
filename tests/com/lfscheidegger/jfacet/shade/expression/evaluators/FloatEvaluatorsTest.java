@@ -61,4 +61,13 @@ public class FloatEvaluatorsTest {
     assertEquals(eval.getGlSlString(Shade.div(2, 3)), "float(float(2.0) / float(3.0))");
     assertEquals(eval.getGlSlString(Shade.div(2, 3), mContext), "float(a / a)");
   }
+
+  @Test
+  public void testForNegation() {
+    Evaluator<Float> eval = FloatEvaluators.forNegation();
+
+    assertTrue(eval.evaluate(Shade.neg(Shade.constant(2))) == -2);
+    assertEquals(eval.getGlSlString(Shade.neg(Shade.constant(2))), "float(-float(2.0))");
+    assertEquals(eval.getGlSlString(Shade.neg(Shade.constant(2)), mContext), "float(-a)");
+  }
 }

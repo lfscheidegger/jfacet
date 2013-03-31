@@ -118,4 +118,26 @@ public class Vec4Evaluators {
       }
     };
   }
+
+  public static Evaluator<Vec4> forNegation() {
+    return new Evaluator<Vec4>() {
+      @Override
+      public Vec4 evaluate(Expression expression) {
+        Vec4Exp parent = (Vec4Exp)expression.getParents().get(0);
+        return parent.evaluate().neg();
+      }
+
+      @Override
+      public String getGlSlString(Expression expression) {
+        return GlSlExpressionHelper.getUnOpExpression(
+            TYPE, "-", ((Expression)expression.getParents().get(0)).getGlSlString());
+      }
+
+      @Override
+      public String getGlSlString(Expression expression, CompilationContext context) {
+        return GlSlExpressionHelper.getUnOpExpression(
+            TYPE, "-", context.getExpressionName((Expression)expression.getParents().get(0)));
+      }
+    };
+  }
 }

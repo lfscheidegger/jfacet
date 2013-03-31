@@ -114,4 +114,11 @@ public class Mat4EvaluatorsTest {
         "mat4(mat4(vec4(float(1.0), float(0.0), float(0.0), float(0.0)), vec4(float(0.0), float(1.0), float(0.0), float(0.0)), vec4(float(0.0), float(0.0), float(1.0), float(0.0)), vec4(float(0.0), float(0.0), float(0.0), float(1.0))) / mat4(vec4(float(1.0), float(0.0), float(0.0), float(0.0)), vec4(float(0.0), float(1.0), float(0.0), float(0.0)), vec4(float(0.0), float(0.0), float(1.0), float(0.0)), vec4(float(0.0), float(0.0), float(0.0), float(1.0))))");
     assertEquals(eval.getGlSlString(Shade.div(Shade.mat(new Mat4()), Shade.mat(new Mat4())), mContext), "mat4(a / a)");
   }
+
+  @Test
+  public void testForNegation() {
+    Evaluator<Mat4> eval = Mat4Evaluators.forNegation();
+
+    assertEquals(eval.evaluate(Shade.neg(Shade.mat(new Mat4()))), new Mat4().neg());
+  }
 }

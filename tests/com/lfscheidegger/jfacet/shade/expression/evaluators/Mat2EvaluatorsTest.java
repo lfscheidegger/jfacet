@@ -111,4 +111,11 @@ public class Mat2EvaluatorsTest {
         "mat2(mat2(vec2(float(1.0), float(0.0)), vec2(float(0.0), float(1.0))) / mat2(vec2(float(1.0), float(0.0)), vec2(float(0.0), float(1.0))))");
     assertEquals(eval.getGlSlString(Shade.div(Shade.mat(new Mat2()), Shade.mat(new Mat2())), mContext), "mat2(a / a)");
   }
+
+  @Test
+  public void testForNegation() {
+    Evaluator<Mat2> eval = Mat2Evaluators.forNegation();
+
+    assertEquals(eval.evaluate(Shade.neg(Shade.mat(new Mat2()))), new Mat2().neg());
+  }
 }

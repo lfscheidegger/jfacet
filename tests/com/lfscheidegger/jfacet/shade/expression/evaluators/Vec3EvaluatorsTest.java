@@ -83,4 +83,11 @@ public class Vec3EvaluatorsTest {
     assertEquals(eval.getGlSlString(Shade.div(Shade.vec(1, 2, 3), Shade.vec(3, 4, 5))),
         "vec3(vec3(float(1.0), float(2.0), float(3.0)) / vec3(float(3.0), float(4.0), float(5.0)))");
   }
+
+  @Test
+  public void testForNegation() {
+    Evaluator<Vec3> eval = Vec3Evaluators.forNegation();
+
+    assertEquals(eval.evaluate(Shade.neg(Shade.vec(1, 2, 3))), new Vec3(1, 2, 3).neg());
+  }
 }

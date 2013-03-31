@@ -99,4 +99,26 @@ public class Mat4Evaluators {
       }
     };
   }
+
+  public static Evaluator<Mat4> forNegation() {
+    return new Evaluator<Mat4>() {
+      @Override
+      public Mat4 evaluate(Expression expression) {
+        Mat4Exp parent = (Mat4Exp)expression.getParents().get(0);
+        return parent.evaluate().neg();
+      }
+
+      @Override
+      public String getGlSlString(Expression expression) {
+        return GlSlExpressionHelper.getUnOpExpression(
+            TYPE, "-", ((Expression)expression.getParents().get(0)).getGlSlString());
+      }
+
+      @Override
+      public String getGlSlString(Expression expression, CompilationContext context) {
+        return GlSlExpressionHelper.getUnOpExpression(
+            TYPE, "-", context.getExpressionName((Expression)expression.getParents().get(0)));
+      }
+    };
+  }
 }

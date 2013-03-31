@@ -79,6 +79,10 @@ public class Shade {
     return div(new FloatExp(left), new FloatExp(right));
   }
 
+  public static FloatExp neg(FloatExp exp) {
+    return new FloatExp(ImmutableList.<Expression>of(exp), FloatEvaluators.forNegation());
+  }
+
   // ===================================================================================================================
   // Stuff for Vec2
   // ===================================================================================================================
@@ -176,6 +180,10 @@ public class Shade {
     return new Vec2Exp(
         ImmutableList.<Expression>of(promote(left), promote(right)),
         Vec2Evaluators.forOperationWithVec2(Vec2Operators.forDivisionWithVec2()));
+  }
+
+  public static Vec2Exp neg(Vec2Like exp) {
+    return new Vec2Exp(ImmutableList.<Expression>of(promote(exp)), Vec2Evaluators.forNegation());
   }
 
   // ===================================================================================================================
@@ -287,6 +295,10 @@ public class Shade {
     return new Vec3Exp(
         ImmutableList.<Expression>of(promote(left), promote(right)),
         Vec3Evaluators.forOperationWithVec3(Vec3Operators.forDivisionWithVec3()));
+  }
+
+  public static Vec3Exp neg(Vec3Like exp) {
+    return new Vec3Exp(ImmutableList.<Expression>of(promote(exp)), Vec3Evaluators.forNegation());
   }
 
   // ===================================================================================================================
@@ -424,6 +436,10 @@ public class Shade {
         Vec4Evaluators.forOperationWithVec4(Vec4Operators.forDivisionWithVec4()));
   }
 
+  public static Vec4Exp neg(Vec4Like exp) {
+    return new Vec4Exp(ImmutableList.<Expression>of(promote(exp)), Vec4Evaluators.forNegation());
+  }
+
   // ===================================================================================================================
   // Stuff for Mat2
   // ===================================================================================================================
@@ -488,6 +504,10 @@ public class Shade {
     return new Mat2Exp(
         ImmutableList.<Expression>of(promote(left), promote(right)),
         Mat2Evaluators.forOperationWithMat2(Mat2Operators.forDivisionWithMat2()));
+  }
+
+  public static Mat2Exp neg(Mat2Like exp) {
+    return new Mat2Exp(ImmutableList.<Expression>of(promote(exp)), Mat2Evaluators.forNegation());
   }
 
   // ===================================================================================================================
@@ -556,6 +576,10 @@ public class Shade {
     return new Mat3Exp(
         ImmutableList.<Expression>of(promote(left), promote(right)),
         Mat3Evaluators.forOperationWithMat3(Mat3Operators.forDivisionWithMat3()));
+  }
+
+  public static Mat3Exp neg(Mat3Like exp) {
+    return new Mat3Exp(ImmutableList.<Expression>of(promote(exp)), Mat3Evaluators.forNegation());
   }
 
   // ===================================================================================================================
@@ -646,5 +670,9 @@ public class Shade {
   }
   private static Mat4Exp promote(Mat4Like param) {
     return (param instanceof Mat4Exp) ? (Mat4Exp)param : new Mat4Exp((Mat4)param);
+  }
+
+  public static Mat4Exp neg(Mat4Like exp) {
+    return new Mat4Exp(ImmutableList.<Expression>of(promote(exp)), Mat4Evaluators.forNegation());
   }
 }

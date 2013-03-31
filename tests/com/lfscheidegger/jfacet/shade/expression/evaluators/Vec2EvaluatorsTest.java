@@ -88,4 +88,11 @@ public class Vec2EvaluatorsTest {
     assertEquals(eval.getGlSlString(Shade.div(Shade.vec(1, 2), Shade.vec(3, 4))),
         "vec2(vec2(float(1.0), float(2.0)) / vec2(float(3.0), float(4.0)))");
   }
+
+  @Test
+  public void testForNegation() {
+    Evaluator<Vec2> eval = Vec2Evaluators.forNegation();
+
+    assertEquals(eval.evaluate(Shade.neg(Shade.vec(1, 2))), new Vec2(1, 2).neg());
+  }
 }

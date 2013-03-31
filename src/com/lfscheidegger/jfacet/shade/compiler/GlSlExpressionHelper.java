@@ -26,6 +26,10 @@ public class GlSlExpressionHelper {
     return getWrappedExpression(type, left + " " + opSymbol + " " + right);
   }
 
+  public static String getUnOpExpression(Type type, String opSymbol, String exp) {
+    return getWrappedExpression(type, opSymbol + exp);
+  }
+
   public static String getComponentExpression(Type type, String exp, int idx) {
     return getWrappedExpression(type, exp + "[" + idx + "]");
   }

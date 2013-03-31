@@ -115,4 +115,11 @@ public class Mat3EvaluatorsTest {
         "mat3(mat3(vec3(float(1.0), float(0.0), float(0.0)), vec3(float(0.0), float(1.0), float(0.0)), vec3(float(0.0), float(0.0), float(1.0))) / mat3(vec3(float(1.0), float(0.0), float(0.0)), vec3(float(0.0), float(1.0), float(0.0)), vec3(float(0.0), float(0.0), float(1.0))))");
     assertEquals(eval.getGlSlString(Shade.div(Shade.mat(new Mat3()), Shade.mat(new Mat3())), mContext), "mat3(a / a)");
   }
+
+  @Test
+  public void testForNegation() {
+    Evaluator<Mat3> eval = Mat3Evaluators.forNegation();
+
+    assertEquals(eval.evaluate(Shade.neg(Shade.mat(new Mat3()))), new Mat3().neg());
+  }
 }
