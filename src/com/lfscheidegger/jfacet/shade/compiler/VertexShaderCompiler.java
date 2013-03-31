@@ -1,7 +1,12 @@
 package com.lfscheidegger.jfacet.shade.compiler;
 
 import com.google.common.collect.ImmutableList;
+import com.lfscheidegger.jfacet.shade.Shade;
 import com.lfscheidegger.jfacet.shade.expression.Expression;
+import com.lfscheidegger.jfacet.shade.expression.primitives.FloatExp;
+import com.lfscheidegger.jfacet.shade.expression.primitives.Vec2Exp;
+import com.lfscheidegger.jfacet.shade.expression.primitives.Vec3Exp;
+import com.lfscheidegger.jfacet.shade.expression.primitives.Vec4Exp;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -24,7 +29,26 @@ public class VertexShaderCompiler {
   };
 
   public VertexShaderCompiler(Expression vertexPosition) {
-    mVertexPosition = vertexPosition;
+    mVertexPosition = promote(vertexPosition);
+  }
+
+  private Vec4Exp promote(Expression vertexPosition) {
+    if (vertexPosition instanceof FloatExp) {
+      return Shade.vec((FloatExp)vertexPosition, 0, 0, 1);
+    } else if (vertexPosition instanceof Vec2Exp) {
+      FloatExp x = ((Vec2Exp) vertexPosition).getX();
+      FloatExp y = ((Vec2Exp) vertexPosition).getY();
+      return Shade.vec(x, y, 0, 1);
+    } else if (vertexPosition instanceof Vec3Exp) {
+      FloatExp x = ((Vec3Exp) vertexPosition).getX();
+      FloatExp y = ((Vec3Exp) vertexPosition).getY();
+      FloatExp z = ((Vec3Exp) vertexPosition).getZ();
+      return Shade.vec(x, y, z, 1);
+    } else if (vertexPosition instanceof Vec4Exp) {
+      return (Vec4Exp)vertexPosition;
+    }
+
+    throw new IllegalArgumentException("Expression for vertex position cannot be of type " + vertexPosition.getType());
   }
 
   public String compile() {
