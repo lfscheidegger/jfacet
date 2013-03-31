@@ -38,21 +38,21 @@ public class Vec3EvaluatorsTest {
   @Test
   public void testForSubtractionWithFloat() {
     Evaluator<Vec3> eval = Vec3Evaluators.forOperationWithFloat(Vec3Operators.forSubtractionWithFloat());
-    assertEquals(eval.getGlSlString(Shade.add(Shade.vec(1, 2, 3), 3)),
+    assertEquals(eval.getGlSlString(Shade.sub(Shade.vec(1, 2, 3), 3)),
         "vec3(vec3(float(1.0), float(2.0), float(3.0)) - float(3.0))");
   }
 
   @Test
   public void testForMultiplicationWithFloat() {
     Evaluator<Vec3> eval = Vec3Evaluators.forOperationWithFloat(Vec3Operators.forMultiplicationWithFloat());
-    assertEquals(eval.getGlSlString(Shade.add(Shade.vec(1, 2, 3), 3)),
+    assertEquals(eval.getGlSlString(Shade.mul(Shade.vec(1, 2, 3), 3)),
         "vec3(vec3(float(1.0), float(2.0), float(3.0)) * float(3.0))");
   }
 
   @Test
   public void testForDivisionWithFloat() {
     Evaluator<Vec3> eval = Vec3Evaluators.forOperationWithFloat(Vec3Operators.forDivisionWithFloat());
-    assertEquals(eval.getGlSlString(Shade.add(Shade.vec(1, 2, 3), 3)),
+    assertEquals(eval.getGlSlString(Shade.div(Shade.vec(1, 2, 3), 3)),
         "vec3(vec3(float(1.0), float(2.0), float(3.0)) / float(3.0))");
   }
 
@@ -66,21 +66,21 @@ public class Vec3EvaluatorsTest {
   @Test
   public void testForSubtractionWithVec3() {
     Evaluator<Vec3> eval = Vec3Evaluators.forOperationWithVec3(Vec3Operators.forSubtractionWithVec3());
-    assertEquals(eval.getGlSlString(Shade.add(Shade.vec(1, 2, 3), Shade.vec(3, 4, 5))),
+    assertEquals(eval.getGlSlString(Shade.sub(Shade.vec(1, 2, 3), Shade.vec(3, 4, 5))),
         "vec3(vec3(float(1.0), float(2.0), float(3.0)) - vec3(float(3.0), float(4.0), float(5.0)))");
   }
 
   @Test
   public void testForMultiplicationWithVec3() {
     Evaluator<Vec3> eval = Vec3Evaluators.forOperationWithVec3(Vec3Operators.forMultiplicationWithVec3());
-    assertEquals(eval.getGlSlString(Shade.add(Shade.vec(1, 2, 3), Shade.vec(3, 4, 5))),
+    assertEquals(eval.getGlSlString(Shade.mul(Shade.vec(1, 2, 3), Shade.vec(3, 4, 5))),
         "vec3(vec3(float(1.0), float(2.0), float(3.0)) * vec3(float(3.0), float(4.0), float(5.0)))");
   }
 
   @Test
   public void testForDivisionWithVec3() {
     Evaluator<Vec3> eval = Vec3Evaluators.forOperationWithVec3(Vec3Operators.forDivisionWithVec3());
-    assertEquals(eval.getGlSlString(Shade.add(Shade.vec(1, 2, 3), Shade.vec(3, 4, 5))),
+    assertEquals(eval.getGlSlString(Shade.div(Shade.vec(1, 2, 3), Shade.vec(3, 4, 5))),
         "vec3(vec3(float(1.0), float(2.0), float(3.0)) / vec3(float(3.0), float(4.0), float(5.0)))");
   }
 }

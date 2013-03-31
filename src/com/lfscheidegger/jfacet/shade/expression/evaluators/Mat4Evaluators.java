@@ -32,7 +32,7 @@ public class Mat4Evaluators {
 
       @Override
       public String getGlSlString(Expression expression, CompilationContext context) {
-        return getGlSlString(expression, context);
+        return getGlSlString(expression);
       }
     };
   }
