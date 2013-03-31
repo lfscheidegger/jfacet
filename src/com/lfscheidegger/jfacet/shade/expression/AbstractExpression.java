@@ -2,6 +2,7 @@ package com.lfscheidegger.jfacet.shade.expression;
 
 import com.google.common.collect.ImmutableList;
 import com.lfscheidegger.jfacet.shade.Type;
+import com.lfscheidegger.jfacet.shade.compiler.CompilationContext;
 import com.lfscheidegger.jfacet.shade.expression.evaluators.Evaluator;
 
 public abstract class AbstractExpression<T> implements Expression<T> {
@@ -29,6 +30,11 @@ public abstract class AbstractExpression<T> implements Expression<T> {
   @Override
   public final String getGlSlString() {
     return mEvaluator.getGlSlString(this);
+  }
+
+  @Override
+  public final String getGlSlString(CompilationContext context) {
+    return mEvaluator.getGlSlString(this, context);
   }
 
   @Override

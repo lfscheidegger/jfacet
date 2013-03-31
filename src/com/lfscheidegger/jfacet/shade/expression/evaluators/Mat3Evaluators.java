@@ -2,6 +2,7 @@ package com.lfscheidegger.jfacet.shade.expression.evaluators;
 
 import com.google.common.collect.ImmutableList;
 import com.lfscheidegger.jfacet.shade.Type;
+import com.lfscheidegger.jfacet.shade.compiler.CompilationContext;
 import com.lfscheidegger.jfacet.shade.compiler.GlSlExpressionHelper;
 import com.lfscheidegger.jfacet.shade.expression.Expression;
 import com.lfscheidegger.jfacet.shade.expression.primitives.FloatExp;
@@ -28,6 +29,11 @@ public class Mat3Evaluators {
       public String getGlSlString(Expression expression) {
         return c.toString();
       }
+
+      @Override
+      public String getGlSlString(Expression expression, CompilationContext context) {
+        return getGlSlString(expression);
+      }
     };
   }
 
@@ -46,7 +52,18 @@ public class Mat3Evaluators {
       @Override
       public String getGlSlString(Expression expression) {
         ImmutableList<Expression> parents = expression.getParents();
-        return GlSlExpressionHelper.getCommaExpression(TYPE, parents.get(0), parents.get(1), parents.get(2));
+        return GlSlExpressionHelper.getCommaExpression(
+            TYPE, parents.get(0).getGlSlString(), parents.get(1).getGlSlString(), parents.get(2).getGlSlString());
+      }
+
+      @Override
+      public String getGlSlString(Expression expression, CompilationContext context) {
+        ImmutableList<Expression> parents = expression.getParents();
+        return GlSlExpressionHelper.getCommaExpression(
+            TYPE,
+            context.getExpressionName(parents.get(0)),
+            context.getExpressionName(parents.get(1)),
+            context.getExpressionName(parents.get(2)));
       }
     };
   }

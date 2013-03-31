@@ -1,5 +1,6 @@
 package com.lfscheidegger.jfacet.shade.expression.evaluators;
 
+import com.lfscheidegger.jfacet.shade.compiler.CompilationContext;
 import com.lfscheidegger.jfacet.shade.expression.Expression;
 
 /**
@@ -10,4 +11,6 @@ public interface Evaluator<T> {
   public T evaluate(Expression expression);
 
   public String getGlSlString(Expression expression);
+
+  public String getGlSlString(Expression expression, CompilationContext context);
 }

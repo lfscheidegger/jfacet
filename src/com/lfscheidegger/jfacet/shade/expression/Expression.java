@@ -2,6 +2,7 @@ package com.lfscheidegger.jfacet.shade.expression;
 
 import com.google.common.collect.ImmutableList;
 import com.lfscheidegger.jfacet.shade.Type;
+import com.lfscheidegger.jfacet.shade.compiler.CompilationContext;
 
 /**
  * A Shade expression.
@@ -28,4 +29,10 @@ public interface Expression<T> {
    * Returns a string representing this {@code Expression} in GLSL.
    */
   public String getGlSlString();
+
+  /**
+   * Returns a string representing this {@code Expression} in GLSL, using the provided {@code CompilationContext}
+   * object to obtain names for its subexpressions
+   */
+  public String getGlSlString(CompilationContext context);
 }

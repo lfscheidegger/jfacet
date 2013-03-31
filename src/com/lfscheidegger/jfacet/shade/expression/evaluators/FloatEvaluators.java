@@ -2,6 +2,7 @@ package com.lfscheidegger.jfacet.shade.expression.evaluators;
 
 import com.google.common.collect.ImmutableList;
 import com.lfscheidegger.jfacet.shade.Type;
+import com.lfscheidegger.jfacet.shade.compiler.CompilationContext;
 import com.lfscheidegger.jfacet.shade.compiler.GlSlExpressionHelper;
 import com.lfscheidegger.jfacet.shade.expression.Expression;
 import com.lfscheidegger.jfacet.shade.expression.primitives.FloatExp;
@@ -24,6 +25,11 @@ public class FloatEvaluators {
       @Override
       public String getGlSlString(Expression expression) {
         return GlSlExpressionHelper.getWrappedExpression(TYPE, String.valueOf(c));
+      }
+
+      @Override
+      public String getGlSlString(Expression expression, CompilationContext context) {
+        return getGlSlString(expression);
       }
     };
   }
@@ -50,7 +56,13 @@ public class FloatEvaluators {
       @Override
       public String getGlSlString(Expression expression) {
         return GlSlExpressionHelper.getComponentExpression(
-            TYPE, (Expression)expression.getParents().get(0), idx);
+            TYPE, ((Expression)expression.getParents().get(0)).getGlSlString(), idx);
+      }
+
+      @Override
+      public String getGlSlString(Expression expression, CompilationContext context) {
+        return GlSlExpressionHelper.getComponentExpression(
+            TYPE, context.getExpressionName(((Expression)expression.getParents().get(0))), idx);
       }
     };
   }
@@ -65,7 +77,13 @@ public class FloatEvaluators {
       @Override
       public String getGlSlString(Expression expression) {
         return GlSlExpressionHelper.getComponentExpression(
-            TYPE, (Expression)expression.getParents().get(0), idx);
+            TYPE, ((Expression)expression.getParents().get(0)).getGlSlString(), idx);
+      }
+
+      @Override
+      public String getGlSlString(Expression expression, CompilationContext context) {
+        return GlSlExpressionHelper.getComponentExpression(
+            TYPE, context.getExpressionName(((Expression)expression.getParents().get(0))), idx);
       }
     };
   }
@@ -80,7 +98,13 @@ public class FloatEvaluators {
       @Override
       public String getGlSlString(Expression expression) {
         return GlSlExpressionHelper.getComponentExpression(
-            TYPE, (Expression)expression.getParents().get(0), idx);
+            TYPE, ((Expression)expression.getParents().get(0)).getGlSlString(), idx);
+      }
+
+      @Override
+      public String getGlSlString(Expression expression, CompilationContext context) {
+        return GlSlExpressionHelper.getComponentExpression(
+            TYPE, context.getExpressionName(((Expression)expression.getParents().get(0))), idx);
       }
     };
   }

@@ -9,25 +9,25 @@ public class GlSlExpressionHelper {
     return type + "(" + innerExpression + ")";
   }
 
-  public static String getCommaExpression(Type type, Expression... expressions) {
+  public static String getCommaExpression(Type type, String... expressions) {
     StringBuilder b = new StringBuilder();
     b.append(type).append("(");
     if (expressions.length > 0) {
-      b.append(expressions[0].getGlSlString());
+      b.append(expressions[0]);
     }
 
     for (int i = 1; i < expressions.length; i++) {
-      b.append(", ").append(expressions[i].getGlSlString());
+      b.append(", ").append(expressions[i]);
     }
 
     return b.append(")").toString();
   }
 
-  public static String getBinOpString(Type type, String opSymbol, Expression left, Expression right) {
-    return getWrappedExpression(type, left.getGlSlString() + " " + opSymbol + " " + right.getGlSlString());
+  public static String getBinOpString(Type type, String opSymbol, String left, String right) {
+    return getWrappedExpression(type, left + " " + opSymbol + " " + right);
   }
 
-  public static String getComponentExpression(Type type, Expression exp, int idx) {
-    return getWrappedExpression(type, exp.getGlSlString() + "[" + idx + "]");
+  public static String getComponentExpression(Type type, String exp, int idx) {
+    return getWrappedExpression(type, exp + "[" + idx + "]");
   }
 }

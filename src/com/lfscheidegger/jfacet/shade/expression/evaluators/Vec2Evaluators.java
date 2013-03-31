@@ -2,6 +2,7 @@ package com.lfscheidegger.jfacet.shade.expression.evaluators;
 
 import com.google.common.collect.ImmutableList;
 import com.lfscheidegger.jfacet.shade.Type;
+import com.lfscheidegger.jfacet.shade.compiler.CompilationContext;
 import com.lfscheidegger.jfacet.shade.compiler.GlSlExpressionHelper;
 import com.lfscheidegger.jfacet.shade.expression.Expression;
 import com.lfscheidegger.jfacet.shade.expression.primitives.FloatExp;
@@ -28,6 +29,11 @@ public class Vec2Evaluators {
       public String getGlSlString(Expression expression) {
         return c.toString();
       }
+
+      @Override
+      public String getGlSlString(Expression expression, CompilationContext context) {
+          return getGlSlString(expression);
+      }
     };
   }
 
@@ -45,7 +51,16 @@ public class Vec2Evaluators {
       @Override
       public String getGlSlString(Expression expression) {
         ImmutableList<Expression> parents = expression.getParents();
-        return GlSlExpressionHelper.getCommaExpression(TYPE, parents.get(0), parents.get(1));
+        return GlSlExpressionHelper.getCommaExpression(TYPE,
+            parents.get(0).getGlSlString(), parents.get(1).getGlSlString());
+      }
+
+      @Override
+      public String getGlSlString(Expression expression, CompilationContext context) {
+        ImmutableList<Expression> parents = expression.getParents();
+        return GlSlExpressionHelper.getCommaExpression(TYPE,
+            context.getExpressionName(parents.get(0)),
+            context.getExpressionName(parents.get(1)));
       }
     };
   }
@@ -59,7 +74,15 @@ public class Vec2Evaluators {
 
       @Override
       public String getGlSlString(Expression expression) {
-        return GlSlExpressionHelper.getComponentExpression(TYPE, (Expression)expression.getParents().get(0), idx);
+        return GlSlExpressionHelper.getComponentExpression(
+            TYPE, ((Expression)expression.getParents().get(0)).getGlSlString(), idx);
+      }
+
+      @Override
+      public String getGlSlString(Expression expression, CompilationContext context) {
+        return GlSlExpressionHelper.getComponentExpression(
+            TYPE,
+            context.getExpressionName((Expression)expression.getParents().get(0)), idx);
       }
     };
   }
