@@ -10,8 +10,8 @@ public class TopologicalSorter {
   private final ImmutableList<Expression> mExpressions;
   private final LinkedHashSet<Expression> mSortedExpressionList;
 
-  public TopologicalSorter(Expression... roots) {
-    mExpressions = ImmutableList.copyOf(roots);
+  public TopologicalSorter(ImmutableList<Expression> roots) {
+    mExpressions = roots;
     mSortedExpressionList = new LinkedHashSet<Expression>();
   }
 

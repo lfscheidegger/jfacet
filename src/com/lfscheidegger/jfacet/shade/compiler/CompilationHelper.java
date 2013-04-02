@@ -1,6 +1,7 @@
 package com.lfscheidegger.jfacet.shade.compiler;
 
 import com.google.common.base.Strings;
+import com.lfscheidegger.jfacet.shade.GlSlType;
 import com.lfscheidegger.jfacet.shade.Type;
 
 class CompilationHelper {
@@ -14,16 +15,30 @@ class CompilationHelper {
   private static final int TAB_AMOUNT = 4;
 
   public static String getGlSlDeclarationStatement(
-      Type type, String glSlQualifier, String name, CompilationContext context) {
-    return Strings.repeat(" ", TAB_AMOUNT * context.getScopeLevel()) + glSlQualifier + " " + type + " " + name + ";\n";
+      GlSlType glSlType, Type type, String name, CompilationContext context) {
+    return getGlSLQualifierForType(glSlType) + " " + type + " " + name + ";\n";
   }
 
   public static String getDeclarationAndAssignmentStatement(
       Type type, String name, String expression, CompilationContext context) {
-    return Strings.repeat(" ", TAB_AMOUNT * context.getScopeLevel()) + type + " " + name + " = " + expression + ";\n";
+    return type + " " + name + " = " + expression + ";\n";
   }
 
   public static String getAssignmentStatemenet(String name, String expression, CompilationContext context) {
-    return Strings.repeat(" ", TAB_AMOUNT * context.getScopeLevel()) + name + " = " + expression + ";\n";
+    return name + " = " + expression + ";\n";
+  }
+
+  private static String getGlSLQualifierForType(GlSlType glSlType) {
+    switch(glSlType) {
+      case ATTRIBUTE_T:
+        return "attribute";
+      case UNIFORM_T:
+        return "uniform";
+      case VARYING_T:
+        return "varying";
+      case DEFAULT_T:
+      default:
+        return "";
+    }
   }
 }
