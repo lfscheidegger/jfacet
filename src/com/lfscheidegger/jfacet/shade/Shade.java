@@ -15,7 +15,7 @@ import com.lfscheidegger.jfacet.shade.primitives.interfaces.*;
 import java.nio.FloatBuffer;
 
 /**
- * Convenience methods to promote primitive types into expressions
+ * Convenience methods to fill primitive types into expressions
  */
 public class Shade {
   // ===================================================================================================================
@@ -717,5 +717,53 @@ public class Shade {
 
   public static Vec4Exp attribute4f(FloatBuffer buffer) {
     return new Vec4Attribute(buffer);
+  }
+
+  // ===================================================================================================================
+  //
+  // ===================================================================================================================
+  public static Vec2Exp fill(Expression vector, Vec2Like defaultValues) {
+    Vec2Exp defaultExp = promote(defaultValues);
+
+    switch(vector.getType()) {
+      case FLOAT_T: return Shade.vec((FloatExp)vector, defaultExp.getY());
+      case VEC2_T: return (Vec2Exp)vector;
+      default: throw new RuntimeException("Cannot fill " + vector.getType() + " to vec2");
+    }
+  }
+
+  public static Vec3Exp fill(Expression vector, Vec3Like defaultValues) {
+    Vec3Exp defaultExp = promote(defaultValues);
+
+    switch(vector.getType()) {
+      case FLOAT_T: return Shade.vec((FloatExp) vector, defaultExp.getY(), defaultExp.getZ());
+      case VEC2_T: return Shade.vec(((Vec2Exp) vector).getX(), ((Vec2Exp) vector).getY(), defaultExp.getZ());
+      case VEC3_T: return (Vec3Exp)vector;
+      default: throw new RuntimeException("Cannot fill " + vector.getType() + " to vec3");
+    }
+  }
+
+  public static Vec4Exp fill(Expression vector, Vec4Like defaultValues) {
+    Vec4Exp defaultExp = promote(defaultValues);
+
+    switch(vector.getType()) {
+      case FLOAT_T:
+        return Shade.vec((FloatExp)vector, defaultExp.getY(), defaultExp.getZ(), defaultExp.getW());
+      case VEC2_T:
+        return Shade.vec(
+            ((Vec2Exp)vector).getX(),
+            ((Vec2Exp)vector).getY(),
+            defaultExp.getZ(),
+            defaultExp.getW());
+      case VEC3_T:
+        return Shade.vec(
+            ((Vec3Exp)vector).getX(),
+            ((Vec3Exp)vector).getY(),
+            ((Vec3Exp)vector).getZ(),
+            defaultExp.getW());
+      case VEC4_T:
+        return (Vec4Exp)vector;
+      default: throw new RuntimeException("Cannot fill " + vector.getType() + " to vec3");
+    }
   }
 }

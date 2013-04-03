@@ -165,7 +165,7 @@ public class Program {
       case VEC4_T:
         return (Vec4Exp)exp;
       default:
-        throw new RuntimeException("Cannot promote " + exp.getType() + " to vec4");
+        throw new RuntimeException("Cannot fill " + exp.getType() + " to vec4");
     }
   }
 

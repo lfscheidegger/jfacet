@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.opengl.GLSurfaceView;
 import android.os.Bundle;
 import com.lfscheidegger.jfacet.R;
+import com.lfscheidegger.jfacet.facet.*;
 import com.lfscheidegger.jfacet.facet.renderer.FacetRenderer;
 import com.lfscheidegger.jfacet.shade.Shade;
 
@@ -20,8 +21,16 @@ public class JFacetDemoActivity extends Activity {
     setContentView(R.layout.main);
 
     mSurfaceView = (GLSurfaceView) findViewById(R.id.gl_view);
-    mSurfaceView.setEGLContextClientVersion(2);
-    mSurfaceView.setRenderer(new FacetRenderer(Shade.vec(1, 1, 1, 1)));
+
+    Scene scene = new Scene(new Scene.SceneConfig.Builder().build());
+
+    Geometry geometry = Facet.model(
+        ModelType.TRIANGLES,
+        new float[] {0, 0, 1, 0, 1, 1});
+    Drawable drawable = Facet.bake(geometry, Shade.attribute2f(geometry.getPositionBuffer()));
+
+    scene.add(drawable);
+    mSurfaceView.setRenderer(new FacetRenderer(scene));
   }
 
   @Override
