@@ -8,6 +8,6 @@ public class Facet {
   }
 
   public static Geometry model(ModelType type, float[] vertices) {
-    return new Geometry(type, BufferHelper.getBufferFromArray(vertices));
+    return new Geometry(type, vertices);
   }
 }

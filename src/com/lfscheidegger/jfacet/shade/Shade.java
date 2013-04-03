@@ -5,8 +5,14 @@ import com.lfscheidegger.jfacet.shade.expression.*;
 import com.lfscheidegger.jfacet.shade.expression.evaluators.*;
 import com.lfscheidegger.jfacet.shade.expression.operators.*;
 import com.lfscheidegger.jfacet.shade.expression.primitives.*;
+import com.lfscheidegger.jfacet.shade.expression.primitives.attribute.FloatAttribute;
+import com.lfscheidegger.jfacet.shade.expression.primitives.attribute.Vec2Attribute;
+import com.lfscheidegger.jfacet.shade.expression.primitives.attribute.Vec3Attribute;
+import com.lfscheidegger.jfacet.shade.expression.primitives.attribute.Vec4Attribute;
 import com.lfscheidegger.jfacet.shade.primitives.*;
 import com.lfscheidegger.jfacet.shade.primitives.interfaces.*;
+
+import java.nio.FloatBuffer;
 
 /**
  * Convenience methods to promote primitive types into expressions
@@ -697,35 +703,19 @@ public class Shade {
   // ===================================================================================================================
   // GLSL stuff
   // ===================================================================================================================
-  public static FloatExp attributef() {
-    return new FloatExp(
-        Type.FLOAT_T,
-        GlSlType.ATTRIBUTE_T,
-        ImmutableList.<Expression>of(),
-        GlSlEvaluators.<Float>forAttribute());
+  public static FloatExp attributef(FloatBuffer buffer) {
+    return new FloatAttribute(buffer);
   }
 
-  public static Vec2Exp attribute2f() {
-    return new Vec2Exp(
-        Type.VEC2_T,
-        GlSlType.ATTRIBUTE_T,
-        ImmutableList.<Expression>of(),
-        GlSlEvaluators.<Vec2>forAttribute());
+  public static Vec2Exp attribute2f(FloatBuffer buffer) {
+    return new Vec2Attribute(buffer);
   }
 
-  public static Vec3Exp attribute3f() {
-    return new Vec3Exp(
-        Type.VEC3_T,
-        GlSlType.ATTRIBUTE_T,
-        ImmutableList.<Expression>of(),
-        GlSlEvaluators.<Vec3>forAttribute());
+  public static Vec3Exp attribute3f(FloatBuffer buffer) {
+    return new Vec3Attribute(buffer);
   }
 
-  public static Vec4Exp attribute4f() {
-    return new Vec4Exp(
-        Type.VEC4_T,
-        GlSlType.ATTRIBUTE_T,
-        ImmutableList.<Expression>of(),
-        GlSlEvaluators.<Vec4>forAttribute());
+  public static Vec4Exp attribute4f(FloatBuffer buffer) {
+    return new Vec4Attribute(buffer);
   }
 }

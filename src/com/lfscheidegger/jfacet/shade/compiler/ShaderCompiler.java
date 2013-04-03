@@ -6,11 +6,15 @@ import com.google.common.collect.ImmutableMap;
 import com.lfscheidegger.jfacet.shade.GlSlType;
 import com.lfscheidegger.jfacet.shade.expression.Expression;
 
+import java.util.Map;
+
 public class ShaderCompiler extends AbstractCompiler {
 
+  private final ImmutableMap<String, Expression> mOutputExpressions;
   private final ImmutableList<Expression> mSortedExpressions;
 
   public ShaderCompiler(ImmutableMap<String, Expression> outputExpressions) {
+    mOutputExpressions = outputExpressions;
     mSortedExpressions = new TopologicalSorter(
         ImmutableList.<Expression>copyOf(outputExpressions.values())).sort();
   }
@@ -19,6 +23,7 @@ public class ShaderCompiler extends AbstractCompiler {
       CompilationContext context,
       ImmutableMap<String, Expression> outputExpressions) {
     super(context);
+    mOutputExpressions = outputExpressions;
     mSortedExpressions = new TopologicalSorter(
         ImmutableList.<Expression> copyOf(outputExpressions.values())).sort();
   }
@@ -41,6 +46,11 @@ public class ShaderCompiler extends AbstractCompiler {
             getContext().getExpressionName(expression),
             getContext()));
       }
+    }
+
+    for (Map.Entry<String, Expression> entry : mOutputExpressions.entrySet()) {
+      mainBuilder.add(CompilationHelper.getAssignmentStatemenet(
+          entry.getKey(), getContext().getExpressionName(entry.getValue()), getContext()));
     }
 
     return getPreamble(preambleBuilder.build()) + getMainBody(mainBuilder.build());

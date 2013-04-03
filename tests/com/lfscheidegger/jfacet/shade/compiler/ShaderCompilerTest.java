@@ -41,7 +41,7 @@ public class ShaderCompilerTest {
 
   @Test
   public void testVertexShaderCompilerWithAttribute() {
-    Vec4Like vertexInput = Shade.attribute4f();
+    Vec4Like vertexInput = Shade.attribute4f(null);
     Mat4Like mvp = Shade.mat(new Mat4());
     ShaderCompiler shaderCompiler = new ShaderCompiler(
         ImmutableMap.<String, Expression>of(

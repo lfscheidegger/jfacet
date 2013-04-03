@@ -16,7 +16,7 @@ class CompilationHelper {
 
   public static String getGlSlDeclarationStatement(
       GlSlType glSlType, Type type, String name, CompilationContext context) {
-    return getGlSLQualifierForType(glSlType) + " " + type + " " + name + ";\n";
+    return glSlType.toString() + " " + type + " " + name + ";\n";
   }
 
   public static String getDeclarationAndAssignmentStatement(
@@ -26,19 +26,5 @@ class CompilationHelper {
 
   public static String getAssignmentStatemenet(String name, String expression, CompilationContext context) {
     return name + " = " + expression + ";\n";
-  }
-
-  private static String getGlSLQualifierForType(GlSlType glSlType) {
-    switch(glSlType) {
-      case ATTRIBUTE_T:
-        return "attribute";
-      case UNIFORM_T:
-        return "uniform";
-      case VARYING_T:
-        return "varying";
-      case DEFAULT_T:
-      default:
-        return "";
-    }
   }
 }

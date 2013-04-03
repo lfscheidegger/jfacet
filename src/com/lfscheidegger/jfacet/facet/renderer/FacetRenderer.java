@@ -2,6 +2,9 @@ package com.lfscheidegger.jfacet.facet.renderer;
 
 import android.opengl.GLES20;
 import android.opengl.GLSurfaceView;
+import com.lfscheidegger.jfacet.facet.Drawable;
+import com.lfscheidegger.jfacet.facet.Geometry;
+import com.lfscheidegger.jfacet.facet.ModelType;
 import com.lfscheidegger.jfacet.shade.Shade;
 import com.lfscheidegger.jfacet.shade.Type;
 import com.lfscheidegger.jfacet.shade.expression.Expression;
@@ -13,6 +16,7 @@ import javax.microedition.khronos.opengles.GL10;
 public class FacetRenderer implements GLSurfaceView.Renderer {
 
   private final Vec4 mClearColor;
+  private Drawable mDrawable;
 
   public FacetRenderer(Expression<Vec4> clearColor) {
     if (clearColor == null) {
@@ -29,6 +33,15 @@ public class FacetRenderer implements GLSurfaceView.Renderer {
   @Override
   public void onSurfaceCreated(GL10 gl, EGLConfig config) {
     GLES20.glClearColor(mClearColor.get(0), mClearColor.get(1), mClearColor.get(2), mClearColor.get(3));
+
+    Geometry geometry = new Geometry(ModelType.TRIANGLES, new float[]
+        {0, 0, 0, 1,
+         1, 0, 0, 1,
+         1, 1, 0, 1});
+    mDrawable = new Drawable(
+        geometry,
+        Shade.attribute4f(geometry.getPositionBuffer()),
+        Shade.vec(1, 0, 0, 1));
   }
 
   @Override
@@ -38,6 +51,7 @@ public class FacetRenderer implements GLSurfaceView.Renderer {
 
   @Override
   public void onDrawFrame(GL10 gl) {
-
+    GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT | GLES20.GL_DEPTH_BUFFER_BIT);
+    mDrawable.draw();
   }
 }
