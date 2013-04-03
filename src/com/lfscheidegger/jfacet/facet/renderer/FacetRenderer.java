@@ -3,6 +3,7 @@ package com.lfscheidegger.jfacet.facet.renderer;
 import android.opengl.GLES20;
 import android.opengl.GLSurfaceView;
 import com.lfscheidegger.jfacet.facet.Drawable;
+import com.lfscheidegger.jfacet.facet.Facet;
 import com.lfscheidegger.jfacet.facet.Geometry;
 import com.lfscheidegger.jfacet.facet.ModelType;
 import com.lfscheidegger.jfacet.shade.Shade;
@@ -34,14 +35,12 @@ public class FacetRenderer implements GLSurfaceView.Renderer {
   public void onSurfaceCreated(GL10 gl, EGLConfig config) {
     GLES20.glClearColor(mClearColor.get(0), mClearColor.get(1), mClearColor.get(2), mClearColor.get(3));
 
-    Geometry geometry = new Geometry(ModelType.TRIANGLES, new float[]
-        {0, 0, 0, 1,
-         1, 0, 0, 1,
-         1, 1, 0, 1});
-    mDrawable = new Drawable(
-        geometry,
-        Shade.attribute4f(geometry.getPositionBuffer()),
-        Shade.vec(1, 0, 0, 1));
+    Geometry geometry = Facet.model(ModelType.TRIANGLES, new float[] {
+        0, 0,
+        1, 0,
+        1, 1
+    });
+    mDrawable = Facet.bake(geometry, Shade.attribute2f(geometry.getPositionBuffer()), Shade.vec(0, 0, 1, 1));
   }
 
   @Override

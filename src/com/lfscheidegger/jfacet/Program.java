@@ -6,12 +6,18 @@ import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import com.lfscheidegger.jfacet.shade.GlSlType;
+import com.lfscheidegger.jfacet.shade.Shade;
 import com.lfscheidegger.jfacet.shade.Type;
 import com.lfscheidegger.jfacet.shade.compiler.CompilationContext;
 import com.lfscheidegger.jfacet.shade.compiler.DefaultCompilationContext;
 import com.lfscheidegger.jfacet.shade.compiler.ShaderCompiler;
 import com.lfscheidegger.jfacet.shade.expression.Expression;
+import com.lfscheidegger.jfacet.shade.expression.primitives.FloatExp;
+import com.lfscheidegger.jfacet.shade.expression.primitives.Vec2Exp;
+import com.lfscheidegger.jfacet.shade.expression.primitives.Vec3Exp;
+import com.lfscheidegger.jfacet.shade.expression.primitives.Vec4Exp;
 import com.lfscheidegger.jfacet.shade.expression.primitives.attribute.Attribute;
+import com.lfscheidegger.jfacet.shade.primitives.Vec4;
 
 import java.nio.FloatBuffer;
 import java.util.HashMap;
@@ -33,8 +39,8 @@ public class Program {
   public Program(Expression position, Expression fragColor) {
     mCompilationContext = new DefaultCompilationContext();
 
-    mPosition = position;
-    mFragColor = fragColor;
+    mPosition = promoteVector(position, new Vec4(0, 0, 0, 1));
+    mFragColor = promoteVector(fragColor, new Vec4(0, 0, 0, 1));
 
     mAttributeMap = new HashMap<Expression, FloatBuffer>();
   }
@@ -145,6 +151,21 @@ public class Program {
           mProgramHandle,
           mCompilationContext.getExpressionName(entry.getKey()));
       GLES20.glDisableVertexAttribArray(attribLocationHandle);
+    }
+  }
+
+  private Vec4Exp promoteVector(Expression exp, Vec4 defaults) {
+    switch(exp.getType()) {
+      case FLOAT_T:
+        return Shade.vec((FloatExp)exp, defaults.getY(), defaults.getZ(), defaults.getW());
+      case VEC2_T:
+        return Shade.vec(((Vec2Exp)exp).getX(), ((Vec2Exp)exp).getY(), defaults.getZ(), defaults.getW());
+      case VEC3_T:
+        return Shade.vec(((Vec3Exp)exp).getX(), ((Vec3Exp)exp).getY(), ((Vec3Exp)exp).getZ(), defaults.getW());
+      case VEC4_T:
+        return (Vec4Exp)exp;
+      default:
+        throw new RuntimeException("Cannot promote " + exp.getType() + " to vec4");
     }
   }
 

@@ -21,7 +21,7 @@ public class JFacetDemoActivity extends Activity {
 
     mSurfaceView = (GLSurfaceView) findViewById(R.id.gl_view);
     mSurfaceView.setEGLContextClientVersion(2);
-    mSurfaceView.setRenderer(new FacetRenderer(Shade.vec(0, 0, 0, 0)));
+    mSurfaceView.setRenderer(new FacetRenderer(Shade.vec(1, 1, 1, 1)));
   }
 
   @Override
