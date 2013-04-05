@@ -5,6 +5,7 @@ import com.badlogic.gdx.backends.android.AndroidGL20;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
+import com.lfscheidegger.jfacet.facet.BufferHelper;
 import com.lfscheidegger.jfacet.shade.GlSlType;
 import com.lfscheidegger.jfacet.shade.Shade;
 import com.lfscheidegger.jfacet.shade.Type;
@@ -21,7 +22,9 @@ import com.lfscheidegger.jfacet.shade.primitives.Vec4;
 
 import java.nio.FloatBuffer;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 public class Program {
 
@@ -34,15 +37,15 @@ public class Program {
 
   private AndroidGL20 mAndroidGL;
 
-  private final Map<Expression, FloatBuffer> mAttributeMap;
+  private final Set<Expression> mAttributeSet;
 
   public Program(Expression position, Expression fragColor) {
     mCompilationContext = new DefaultCompilationContext();
 
-    mPosition = promoteVector(position, new Vec4(0, 0, 0, 1));
-    mFragColor = promoteVector(fragColor, new Vec4(0, 0, 0, 1));
+    mPosition = Shade.fill(position, new Vec4(0, 0, 0, 1));
+    mFragColor = Shade.fill(fragColor, new Vec4(0, 0, 0, 1));
 
-    mAttributeMap = new HashMap<Expression, FloatBuffer>();
+    mAttributeSet = new HashSet<Expression>();
   }
 
   public void bake() {
@@ -85,7 +88,7 @@ public class Program {
       System.err.println(compileLog);
 
       GLES20.glDeleteShader(shaderHandle);
-      throw new RuntimeException("Error compiling program");
+      throw new RuntimeException("Error compiling program\n" + compileLog);
     }
   }
 
@@ -111,8 +114,7 @@ public class Program {
 
   private void extractAttributes(Expression exp) {
     if (exp.getGlSlType() == GlSlType.ATTRIBUTE_T) {
-      mAttributeMap.put(exp, ((Attribute)exp).getBuffer());
-      return;
+      mAttributeSet.add(exp);
     }
 
     for (Expression parent : (ImmutableList<Expression>)exp.getParents()) {
@@ -121,51 +123,29 @@ public class Program {
   }
 
   private void bindAttributeLocations() {
-    Preconditions.checkState(mAttributeMap.size() <= GLES20.GL_MAX_VERTEX_ATTRIBS);
+    Preconditions.checkState(mAttributeSet.size() <= GLES20.GL_MAX_VERTEX_ATTRIBS);
 
     int count = 0;
-    for (Map.Entry<Expression, FloatBuffer> entry: mAttributeMap.entrySet()) {
-      Expression expression = entry.getKey();
-      Preconditions.checkState(expression instanceof Attribute);
-
-      GLES20.glBindAttribLocation(mProgramHandle, count++, mCompilationContext.getExpressionName(expression));
+    for (Expression attribute: mAttributeSet) {
+      GLES20.glBindAttribLocation(mProgramHandle, count++, mCompilationContext.getExpressionName(attribute));
     }
   }
 
   private void bindAttributes() {
-    for (Map.Entry<Expression, FloatBuffer> entry: mAttributeMap.entrySet()) {
-      int attribLocationHandle = GLES20.glGetAttribLocation(
-          mProgramHandle,
-          mCompilationContext.getExpressionName(entry.getKey()));
-      Type type = entry.getKey().getType();
-      FloatBuffer buffer = ((Attribute)entry.getKey()).getBuffer();
-      int size = type.getDimension();
-      GLES20.glVertexAttribPointer(attribLocationHandle, size, GLES20.GL_FLOAT, false, 0, buffer);
-      GLES20.glEnableVertexAttribArray(attribLocationHandle);
+    for (Expression attribute: mAttributeSet) {
+      int attribHandle = GLES20.glGetAttribLocation(mProgramHandle, mCompilationContext.getExpressionName(attribute));
+      FloatBuffer buffer = ((Attribute)attribute).getBuffer();
+      int size = attribute.getType().getDimension();
+      GLES20.glEnableVertexAttribArray(attribHandle);
+
+      GLES20.glVertexAttribPointer(attribHandle, size, GLES20.GL_FLOAT, false, 0, buffer);
     }
   }
 
   private void unbindAttributes() {
-    for (Map.Entry<Expression, FloatBuffer> entry: mAttributeMap.entrySet()) {
-      int attribLocationHandle = GLES20.glGetAttribLocation(
-          mProgramHandle,
-          mCompilationContext.getExpressionName(entry.getKey()));
-      GLES20.glDisableVertexAttribArray(attribLocationHandle);
-    }
-  }
-
-  private Vec4Exp promoteVector(Expression exp, Vec4 defaults) {
-    switch(exp.getType()) {
-      case FLOAT_T:
-        return Shade.vec((FloatExp)exp, defaults.getY(), defaults.getZ(), defaults.getW());
-      case VEC2_T:
-        return Shade.vec(((Vec2Exp)exp).getX(), ((Vec2Exp)exp).getY(), defaults.getZ(), defaults.getW());
-      case VEC3_T:
-        return Shade.vec(((Vec3Exp)exp).getX(), ((Vec3Exp)exp).getY(), ((Vec3Exp)exp).getZ(), defaults.getW());
-      case VEC4_T:
-        return (Vec4Exp)exp;
-      default:
-        throw new RuntimeException("Cannot fill " + exp.getType() + " to vec4");
+    for (Expression attribute: mAttributeSet) {
+      int attribHandle = GLES20.glGetAttribLocation(mProgramHandle, mCompilationContext.getExpressionName(attribute));
+      GLES20.glDisableVertexAttribArray(attribHandle);
     }
   }
 

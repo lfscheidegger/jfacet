@@ -11,6 +11,8 @@ import com.lfscheidegger.jfacet.shade.expression.primitives.attribute.Vec3Attrib
 import com.lfscheidegger.jfacet.shade.expression.primitives.attribute.Vec4Attribute;
 import com.lfscheidegger.jfacet.shade.primitives.*;
 import com.lfscheidegger.jfacet.shade.primitives.interfaces.*;
+import com.lfscheidegger.jfacet.shade.transform.Transform;
+import com.lfscheidegger.jfacet.shade.transform.Translation;
 
 import java.nio.FloatBuffer;
 
@@ -698,6 +700,14 @@ public class Shade {
     return new Vec4Exp(
         ImmutableList.<Expression>of(promote(left), promote(right)),
         Mat4Evaluators.forOperationWithVec4(Mat4Operators.forMultiplicationWithVec4()));
+  }
+
+  // ===================================================================================================================
+  // Basic transformations
+  // ===================================================================================================================
+
+  public static Transform translation(float x, float y, float z) {
+    return new Translation(x, y, z);
   }
 
   // ===================================================================================================================

@@ -7,7 +7,6 @@ import com.lfscheidegger.jfacet.shade.expression.Expression;
 
 public class Drawable {
 
-  private final int mDimension;
   private final Geometry mGeometry;
   private Program mProgram;
 
@@ -18,7 +17,6 @@ public class Drawable {
     mPosition = position;
     mFragColor = fragColor;
 
-    mDimension = position.getType().getDimension();
     mGeometry = geometry;
   }
 
@@ -32,7 +30,7 @@ public class Drawable {
 
     mProgram.use();
     try {
-      GLES20.glDrawArrays(GLES20.GL_TRIANGLES, 0, mGeometry.getBufferSize() / mDimension);
+      GLES20.glDrawArrays(GLES20.GL_TRIANGLES, 0, mGeometry.getElementCount());
     } finally {
       mProgram.stopUsing();
     }

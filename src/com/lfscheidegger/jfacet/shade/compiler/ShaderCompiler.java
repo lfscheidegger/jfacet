@@ -58,6 +58,7 @@ public class ShaderCompiler extends AbstractCompiler {
 
   private String getPreamble(ImmutableList<String> preambleStatements) {
     StringBuilder builder = new StringBuilder();
+
     for (String statement: preambleStatements) {
       builder.append(statement);
     }
