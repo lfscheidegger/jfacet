@@ -673,22 +673,22 @@ public class Shade {
   // ===================================================================================================================
   // Type promotion
   // ===================================================================================================================
-  private static Vec2Exp promote(Vec2Like param) {
+  public static Vec2Exp promote(Vec2Like param) {
     return (param instanceof Vec2Exp) ? (Vec2Exp)param : new Vec2Exp((Vec2)param);
   }
-  private static Vec3Exp promote(Vec3Like param) {
+  public static Vec3Exp promote(Vec3Like param) {
     return (param instanceof Vec3Exp) ? (Vec3Exp)param : new Vec3Exp((Vec3)param);
   }
-  private static Vec4Exp promote(Vec4Like param) {
+  public static Vec4Exp promote(Vec4Like param) {
     return (param instanceof Vec4Exp) ? (Vec4Exp)param : new Vec4Exp((Vec4)param);
   }
-  private static Mat2Exp promote(Mat2Like param) {
+  public static Mat2Exp promote(Mat2Like param) {
     return (param instanceof Mat2Exp) ? (Mat2Exp)param : new Mat2Exp((Mat2)param);
   }
-  private static Mat3Exp promote(Mat3Like param) {
+  public static Mat3Exp promote(Mat3Like param) {
     return (param instanceof Mat3Exp) ? (Mat3Exp)param : new Mat3Exp((Mat3)param);
   }
-  private static Mat4Exp promote(Mat4Like param) {
+  public static Mat4Exp promote(Mat4Like param) {
     return (param instanceof Mat4Exp) ? (Mat4Exp)param : new Mat4Exp((Mat4)param);
   }
 

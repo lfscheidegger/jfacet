@@ -31,8 +31,7 @@ public class JFacetDemoActivity extends Activity {
 
     Geometry geometry = Facet.model(
         ModelType.TRIANGLES,
-        new float[] {0, 0, 1, 0, 1, 1}, 2);
-
+        new float[] {-1, -1, 1, -1, 1, 1, -1, -1, 1, 1, -1, 1}, 2);
     Expression trianglePosition = Shade.translation(-0.1f, 0, 0).apply(geometry.getVertices());
     Drawable drawable = Facet.bake(geometry, trianglePosition);
 
