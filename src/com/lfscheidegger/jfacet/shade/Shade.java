@@ -745,6 +745,31 @@ public class Shade {
     return new Vec4Attribute(buffer);
   }
 
+  public static FloatExp varying(float c) {
+    FloatExp exp = Shade.constant(c);
+    return Shade.varying(exp);
+  }
+
+  public static FloatExp varying(FloatExp exp) {
+    return new FloatExp(
+        Type.FLOAT_T, GlSlType.VARYING_T, ImmutableList.<Expression>of(exp), GlSlEvaluators.<Float>forAttribute());
+  }
+
+  public static Vec2Exp varying(Vec2Exp exp) {
+    return new Vec2Exp(
+        Type.VEC2_T, GlSlType.VARYING_T, ImmutableList.<Expression>of(exp), GlSlEvaluators.<Vec2>forAttribute());
+  }
+
+  public static Vec3Exp varying(Vec3Exp exp) {
+    return new Vec3Exp(
+        Type.VEC3_T, GlSlType.VARYING_T, ImmutableList.<Expression>of(exp), GlSlEvaluators.<Vec3>forAttribute());
+  }
+
+  public static Vec4Exp varying(Vec4Exp exp) {
+    return new Vec4Exp(
+        Type.VEC4_T, GlSlType.VARYING_T, ImmutableList.<Expression>of(exp), GlSlEvaluators.<Vec4>forAttribute());
+  }
+
   // ===================================================================================================================
   //
   // ===================================================================================================================

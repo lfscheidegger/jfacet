@@ -14,6 +14,6 @@ public class Facet {
   }
 
   public static Geometry model(ModelType type, float[] vertices, int dimension) {
-    return new Geometry(type, vertices, dimension);
+    return new Geometry(type, new AttribBuffer(vertices, dimension));
   }
 }
