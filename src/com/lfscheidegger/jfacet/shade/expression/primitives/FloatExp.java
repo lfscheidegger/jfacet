@@ -2,6 +2,7 @@ package com.lfscheidegger.jfacet.shade.expression.primitives;
 
 import com.google.common.collect.ImmutableList;
 import com.lfscheidegger.jfacet.shade.GlSlType;
+import com.lfscheidegger.jfacet.shade.Shade;
 import com.lfscheidegger.jfacet.shade.Type;
 import com.lfscheidegger.jfacet.shade.expression.AbstractExpression;
 import com.lfscheidegger.jfacet.shade.expression.Expression;
@@ -26,4 +27,18 @@ public class FloatExp extends AbstractExpression<Float> {
   public FloatExp(Type type, GlSlType glSlType, ImmutableList<Expression> parents, Evaluator<Float> evaluator) {
     super(type, glSlType, parents, evaluator);
   }
+
+  public FloatExp add(float other) { return Shade.add(this, other); }
+  public FloatExp add(FloatExp other) { return Shade.add(this, other); }
+
+  public FloatExp sub(float other) { return Shade.sub(this, other); }
+  public FloatExp sub(FloatExp other) { return Shade.sub(this, other); }
+
+  public FloatExp mul(float other) { return Shade.mul(this, other); }
+  public FloatExp mul(FloatExp other) { return Shade.mul(this, other); }
+
+  public FloatExp div(float other) { return Shade.div(this, other); }
+  public FloatExp div(FloatExp other) { return Shade.div(this, other); }
+
+  public FloatExp neg() { return Shade.neg(this); }
 }

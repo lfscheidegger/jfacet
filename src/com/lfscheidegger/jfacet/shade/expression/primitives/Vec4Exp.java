@@ -2,6 +2,7 @@ package com.lfscheidegger.jfacet.shade.expression.primitives;
 
 import com.google.common.collect.ImmutableList;
 import com.lfscheidegger.jfacet.shade.GlSlType;
+import com.lfscheidegger.jfacet.shade.Shade;
 import com.lfscheidegger.jfacet.shade.Type;
 import com.lfscheidegger.jfacet.shade.expression.AbstractExpression;
 import com.lfscheidegger.jfacet.shade.expression.Expression;
@@ -46,4 +47,22 @@ public class Vec4Exp extends AbstractExpression<Vec4> implements Vec4Like {
   public FloatExp get(int idx) {
     return new FloatExp(ImmutableList.<Expression>of(this), FloatEvaluators.forVec4Component(idx));
   }
+
+  public Vec4Exp add(float other) { return Shade.add(this, other); }
+  public Vec4Exp add(FloatExp other) { return Shade.add(this, other); }
+  public Vec4Exp add(Vec4Exp other) { return Shade.add(this, other); }
+
+  public Vec4Exp sub(float other) { return Shade.sub(this, other); }
+  public Vec4Exp sub(FloatExp other) { return Shade.sub(this, other); }
+  public Vec4Exp sub(Vec4Exp other) { return Shade.sub(this, other); }
+
+  public Vec4Exp mul(float other) { return Shade.mul(this, other); }
+  public Vec4Exp mul(FloatExp other) { return Shade.mul(this, other); }
+  public Vec4Exp mul(Vec4Exp other) { return Shade.mul(this, other); }
+
+  public Vec4Exp div(float other) { return Shade.div(this, other); }
+  public Vec4Exp div(FloatExp other) { return Shade.div(this, other); }
+  public Vec4Exp div(Vec4Exp other) { return Shade.div(this, other); }
+
+  public Vec4Exp neg() { return Shade.neg(this); }
 }
