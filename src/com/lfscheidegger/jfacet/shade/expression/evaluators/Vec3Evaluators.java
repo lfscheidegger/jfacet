@@ -137,4 +137,15 @@ public class Vec3Evaluators {
       }
     };
   }
+
+  public static Evaluator<Vec3> forCrossProduct() {
+    return new FunctionEvaluator<Vec3>(Type.VEC3_T, "cross") {
+      @Override
+      public Vec3 evaluate(Expression expression) {
+        Vec3Exp left = (Vec3Exp)expression.getParents().get(0);
+        Vec3Exp right = (Vec3Exp)expression.getParents().get(1);
+        return left.evaluate().cross(right.evaluate());
+      }
+    };
+  }
 }

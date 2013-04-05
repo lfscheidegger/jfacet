@@ -1,5 +1,7 @@
 package com.lfscheidegger.jfacet.shade;
 
+import com.lfscheidegger.jfacet.shade.compiler.CompilationContext;
+import com.lfscheidegger.jfacet.shade.expression.Expression;
 import com.lfscheidegger.jfacet.shade.expression.primitives.FloatExp;
 import com.lfscheidegger.jfacet.shade.expression.primitives.Vec2Exp;
 import com.lfscheidegger.jfacet.shade.expression.primitives.Vec3Exp;
@@ -16,6 +18,23 @@ import static org.junit.Assert.*;
  */
 public class TestMath {
 
+  private CompilationContext mContext = new CompilationContext() {
+    @Override
+    public String getExpressionName(Expression exp) {
+      return "a";
+    }
+
+    @Override
+    public int getScopeLevel() {
+      return 0;
+    }
+
+    @Override
+    public void pushScope() {}
+    @Override
+    public void popScope() {}
+  };
+
   @Test
   public void testSqrt() {
     FloatExp f = Shade.constant(4);
@@ -29,6 +48,7 @@ public class TestMath {
     Vec2Exp vec = Shade.vec(2, 0);
 
     assertEquals(Math.normalize(vec).getGlSlString(), "vec2(normalize(vec2(float(2.0), float(0.0))))");
+    assertEquals(Math.normalize(vec).getGlSlString(mContext), "vec2(normalize(a))");
     assertTrue(Math.normalize(vec).evaluate().equals(new Vec2(1, 0)));
   }
 
@@ -37,6 +57,7 @@ public class TestMath {
     Vec3Exp vec = Shade.vec(2, 0, 0);
 
     assertEquals(Math.normalize(vec).getGlSlString(), "vec3(normalize(vec3(float(2.0), float(0.0), float(0.0))))");
+    assertEquals(Math.normalize(vec).getGlSlString(mContext), "vec3(normalize(a))");
     assertTrue(Math.normalize(vec).evaluate().equals(new Vec3(1, 0, 0)));
   }
 
@@ -45,6 +66,7 @@ public class TestMath {
     Vec4Exp vec = Shade.vec(2, 0, 0, 0);
 
     assertEquals(Math.normalize(vec).getGlSlString(), "vec4(normalize(vec4(float(2.0), float(0.0), float(0.0), float(0.0))))");
+    assertEquals(Math.normalize(vec).getGlSlString(mContext), "vec4(normalize(a))");
     assertTrue(Math.normalize(vec).evaluate().equals(new Vec4(1, 0, 0, 0)));
   }
 }

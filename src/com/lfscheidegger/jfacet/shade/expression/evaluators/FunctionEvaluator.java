@@ -2,7 +2,6 @@ package com.lfscheidegger.jfacet.shade.expression.evaluators;
 
 import com.google.common.base.Function;
 import com.google.common.collect.Collections2;
-import com.google.common.collect.ImmutableList;
 import com.lfscheidegger.jfacet.shade.Type;
 import com.lfscheidegger.jfacet.shade.compiler.CompilationContext;
 import com.lfscheidegger.jfacet.shade.compiler.GlSlExpressionHelper;
@@ -39,7 +38,7 @@ public abstract class FunctionEvaluator<T> implements Evaluator<T> {
         (String[])Collections2.transform(expression.getParents(), new Function<Expression, String>() {
           @Override
           public String apply(Expression parent) {
-            return parent.getGlSlString(compilationContext);
+            return compilationContext.getExpressionName(parent);
           }
         }).toArray(new String[expression.getParents().size()]));
   }

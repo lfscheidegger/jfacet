@@ -42,19 +42,21 @@ public class Mat2Exp extends AbstractExpression<Mat2> implements Mat2Like {
 
   public Mat2Exp add(float other) { return Shade.add(this, other); }
   public Mat2Exp add(FloatExp other) { return Shade.add(this, other); }
-  public Mat2Exp add(Mat2Exp other) { return Shade.add(this, other); }
+  public Mat2Exp add(Mat2Like other) { return Shade.add(this, other); }
 
   public Mat2Exp sub(float other) { return Shade.sub(this, other); }
   public Mat2Exp sub(FloatExp other) { return Shade.sub(this, other); }
-  public Mat2Exp sub(Mat2Exp other) { return Shade.sub(this, other); }
+  public Mat2Exp sub(Mat2Like other) { return Shade.sub(this, other); }
 
   public Mat2Exp mul(float other) { return Shade.mul(this, other); }
   public Mat2Exp mul(FloatExp other) { return Shade.mul(this, other); }
-  public Mat2Exp mul(Mat2Exp other) { return Shade.mul(this, other); }
+  public Mat2Exp mul(Mat2Like other) { return Shade.mul(this, other); }
+
+  public Vec2Exp mul(Vec2Exp other) { return Shade.mul(this, other); }
 
   public Mat2Exp div(float other) { return Shade.div(this, other); }
   public Mat2Exp div(FloatExp other) { return Shade.div(this, other); }
-  public Mat2Exp div(Mat2Exp other) { return Shade.div(this, other); }
+  public Mat2Exp div(Mat2Like other) { return Shade.div(this, other); }
 
   public Mat2Exp neg() { return Shade.neg(this); }
 }

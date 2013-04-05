@@ -194,6 +194,10 @@ public class Shade {
     return new Vec2Exp(ImmutableList.<Expression>of(promote(exp)), Vec2Evaluators.forNegation());
   }
 
+  public static FloatExp dot(Vec2Like left, Vec2Like right) {
+    return new FloatExp(ImmutableList.<Expression>of(promote(left), promote(right)), FloatEvaluators.forVec2Dot());
+  }
+
   // ===================================================================================================================
   // Stuff for Vec3
   // ===================================================================================================================
@@ -307,6 +311,14 @@ public class Shade {
 
   public static Vec3Exp neg(Vec3Like exp) {
     return new Vec3Exp(ImmutableList.<Expression>of(promote(exp)), Vec3Evaluators.forNegation());
+  }
+
+  public static FloatExp dot(Vec3Like left, Vec3Like right) {
+    return new FloatExp(ImmutableList.<Expression>of(promote(left), promote(right)), FloatEvaluators.forVec3Dot());
+  }
+
+  public static Vec3Exp cross(Vec3Like left, Vec3Like right) {
+    return new Vec3Exp(ImmutableList.<Expression>of(promote(left), promote(right)), Vec3Evaluators.forCrossProduct());
   }
 
   // ===================================================================================================================
@@ -446,6 +458,10 @@ public class Shade {
 
   public static Vec4Exp neg(Vec4Like exp) {
     return new Vec4Exp(ImmutableList.<Expression>of(promote(exp)), Vec4Evaluators.forNegation());
+  }
+
+  public static FloatExp dot(Vec4Like left, Vec4Like right) {
+    return new FloatExp(ImmutableList.<Expression>of(promote(left), promote(right)), FloatEvaluators.forVec4Dot());
   }
 
   // ===================================================================================================================

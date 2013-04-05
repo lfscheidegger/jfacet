@@ -46,19 +46,25 @@ public class Vec3Exp extends AbstractExpression<Vec3> implements Vec3Like {
 
   public Vec3Exp add(float other) { return Shade.add(this, other); }
   public Vec3Exp add(FloatExp other) { return Shade.add(this, other); }
-  public Vec3Exp add(Vec3Exp other) { return Shade.add(this, other); }
+  public Vec3Exp add(Vec3Like other) { return Shade.add(this, other); }
 
   public Vec3Exp sub(float other) { return Shade.sub(this, other); }
   public Vec3Exp sub(FloatExp other) { return Shade.sub(this, other); }
-  public Vec3Exp sub(Vec3Exp other) { return Shade.sub(this, other); }
+  public Vec3Exp sub(Vec3Like other) { return Shade.sub(this, other); }
 
   public Vec3Exp mul(float other) { return Shade.mul(this, other); }
   public Vec3Exp mul(FloatExp other) { return Shade.mul(this, other); }
-  public Vec3Exp mul(Vec3Exp other) { return Shade.mul(this, other); }
+  public Vec3Exp mul(Vec3Like other) { return Shade.mul(this, other); }
 
   public Vec3Exp div(float other) { return Shade.div(this, other); }
   public Vec3Exp div(FloatExp other) { return Shade.div(this, other); }
-  public Vec3Exp div(Vec3Exp other) { return Shade.div(this, other); }
+  public Vec3Exp div(Vec3Like other) { return Shade.div(this, other); }
 
   public Vec3Exp neg() { return Shade.neg(this); }
+
+  public FloatExp dot(Vec3Like other) { return Shade.dot(this, other); }
+
+  public Vec3Exp normalize() { return com.lfscheidegger.jfacet.shade.Math.normalize(this); }
+
+  public Vec3Exp cross(Vec3Like other) { return Shade.cross(this, other); }
 }

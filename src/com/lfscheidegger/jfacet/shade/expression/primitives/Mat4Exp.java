@@ -50,19 +50,21 @@ public class Mat4Exp extends AbstractExpression<Mat4> implements Mat4Like {
 
   public Mat4Exp add(float other) { return Shade.add(this, other); }
   public Mat4Exp add(FloatExp other) { return Shade.add(this, other); }
-  public Mat4Exp add(Mat4Exp other) { return Shade.add(this, other); }
+  public Mat4Exp add(Mat4Like other) { return Shade.add(this, other); }
 
   public Mat4Exp sub(float other) { return Shade.sub(this, other); }
   public Mat4Exp sub(FloatExp other) { return Shade.sub(this, other); }
-  public Mat4Exp sub(Mat4Exp other) { return Shade.sub(this, other); }
+  public Mat4Exp sub(Mat4Like other) { return Shade.sub(this, other); }
 
   public Mat4Exp mul(float other) { return Shade.mul(this, other); }
   public Mat4Exp mul(FloatExp other) { return Shade.mul(this, other); }
-  public Mat4Exp mul(Mat4Exp other) { return Shade.mul(this, other); }
+  public Mat4Exp mul(Mat4Like other) { return Shade.mul(this, other); }
+
+  public Vec4Exp mul(Vec4Exp other) { return Shade.mul(this, other); }
 
   public Mat4Exp div(float other) { return Shade.div(this, other); }
   public Mat4Exp div(FloatExp other) { return Shade.div(this, other); }
-  public Mat4Exp div(Mat4Exp other) { return Shade.div(this, other); }
+  public Mat4Exp div(Mat4Like other) { return Shade.div(this, other); }
 
   public Mat4Exp neg() { return Shade.neg(this); }
 }

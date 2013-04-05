@@ -110,6 +110,13 @@ public final class Vec3 implements Vec3Like {
     return mValues[0] * other.mValues[0] + mValues[1] * other.mValues[1] + mValues[2] * other.mValues[2];
   }
 
+  public Vec3 cross(Vec3 other) {
+    return new Vec3(
+        getY() * other.getZ() - getZ() * other.getY(),
+        getZ() * other.getX() - getX() * other.getZ(),
+        getX() * other.getY() - getY() * other.getX());
+  }
+
   @Override
   public boolean equals(Object other) {
     if (!(other instanceof Vec3)) {

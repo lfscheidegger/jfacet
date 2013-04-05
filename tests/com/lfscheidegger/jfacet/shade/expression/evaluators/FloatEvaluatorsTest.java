@@ -5,6 +5,9 @@ import com.lfscheidegger.jfacet.shade.compiler.CompilationContext;
 import com.lfscheidegger.jfacet.shade.expression.Expression;
 import com.lfscheidegger.jfacet.shade.expression.operators.FloatOperators;
 import com.lfscheidegger.jfacet.shade.expression.primitives.FloatExp;
+import com.lfscheidegger.jfacet.shade.primitives.Vec2;
+import com.lfscheidegger.jfacet.shade.primitives.Vec3;
+import com.lfscheidegger.jfacet.shade.primitives.Vec4;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -79,5 +82,32 @@ public class FloatEvaluatorsTest {
     assertTrue(eval.evaluate(Shade.neg(Shade.constant(2))) == -2);
     assertEquals(eval.getGlSlString(Shade.neg(Shade.constant(2))), "float(-float(2.0))");
     assertEquals(eval.getGlSlString(Shade.neg(Shade.constant(2)), mContext), "float(-a)");
+  }
+
+  @Test
+  public void testForVec2Dot() {
+    Evaluator<Float> eval = FloatEvaluators.forVec2Dot();
+
+    assertTrue(eval.evaluate(Shade.dot(new Vec2(1, 2), new Vec2(3, 4))) == 11);
+    assertEquals(eval.getGlSlString(Shade.dot(Shade.vec(1, 2), Shade.vec(3, 4))), "float(dot(vec2(float(1.0), float(2.0)), vec2(float(3.0), float(4.0))))");
+    assertEquals(eval.getGlSlString(Shade.dot(Shade.vec(1, 2), Shade.vec(3, 4)), mContext), "float(dot(a, a))");
+  }
+
+  @Test
+  public void testForVec3Dot() {
+    Evaluator<Float> eval = FloatEvaluators.forVec3Dot();
+
+    assertTrue(eval.evaluate(Shade.dot(new Vec3(1, 2, 3), new Vec3(4, 5, 6))) == 32);
+    assertEquals(eval.getGlSlString(Shade.dot(Shade.vec(1, 2, 3), Shade.vec(4, 5, 6))), "float(dot(vec3(float(1.0), float(2.0), float(3.0)), vec3(float(4.0), float(5.0), float(6.0))))");
+    assertEquals(eval.getGlSlString(Shade.dot(Shade.vec(1, 2, 3), Shade.vec(4, 5, 6)), mContext), "float(dot(a, a))");
+  }
+
+  @Test
+  public void testForVec4Dot() {
+    Evaluator<Float> eval = FloatEvaluators.forVec4Dot();
+
+    assertTrue(eval.evaluate(Shade.dot(new Vec4(1, 2, 3, 4), new Vec4(1, 2, 3, 4))) == 30);
+    assertEquals(eval.getGlSlString(Shade.dot(Shade.vec(1, 2, 3, 4), Shade.vec(1, 2, 3, 4))), "float(dot(vec4(float(1.0), float(2.0), float(3.0), float(4.0)), vec4(float(1.0), float(2.0), float(3.0), float(4.0))))");
+    assertEquals(eval.getGlSlString(Shade.dot(Shade.vec(1, 2, 3, 4), Shade.vec(1, 2, 3, 4)), mContext), "float(dot(a, a))");
   }
 }

@@ -16,8 +16,6 @@ public abstract class AbstractTransform implements Transform {
 
   @Override
   public Vec4Exp apply(Expression exp) {
-    Vec4Exp filled = Shade.fill(exp, new Vec4(0, 0, 0, 1));
-
-    return Shade.mul(mTransformMatrix, filled);
+    return mTransformMatrix.mul(Shade.fill(exp, new Vec4(0, 0, 0, 1)));
   }
 }

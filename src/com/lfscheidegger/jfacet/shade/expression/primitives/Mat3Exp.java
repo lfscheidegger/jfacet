@@ -46,19 +46,21 @@ public class Mat3Exp extends AbstractExpression<Mat3> implements Mat3Like {
 
   public Mat3Exp add(float other) { return Shade.add(this, other); }
   public Mat3Exp add(FloatExp other) { return Shade.add(this, other); }
-  public Mat3Exp add(Mat3Exp other) { return Shade.add(this, other); }
+  public Mat3Exp add(Mat3Like other) { return Shade.add(this, other); }
 
   public Mat3Exp sub(float other) { return Shade.sub(this, other); }
   public Mat3Exp sub(FloatExp other) { return Shade.sub(this, other); }
-  public Mat3Exp sub(Mat3Exp other) { return Shade.sub(this, other); }
+  public Mat3Exp sub(Mat3Like other) { return Shade.sub(this, other); }
 
   public Mat3Exp mul(float other) { return Shade.mul(this, other); }
   public Mat3Exp mul(FloatExp other) { return Shade.mul(this, other); }
-  public Mat3Exp mul(Mat3Exp other) { return Shade.mul(this, other); }
+  public Mat3Exp mul(Mat3Like other) { return Shade.mul(this, other); }
+
+  public Vec3Exp mul(Vec3Exp other) { return Shade.mul(this, other); }
 
   public Mat3Exp div(float other) { return Shade.div(this, other); }
   public Mat3Exp div(FloatExp other) { return Shade.div(this, other); }
-  public Mat3Exp div(Mat3Exp other) { return Shade.div(this, other); }
+  public Mat3Exp div(Mat3Like other) { return Shade.div(this, other); }
 
   public Mat3Exp neg() { return Shade.neg(this); }
 }

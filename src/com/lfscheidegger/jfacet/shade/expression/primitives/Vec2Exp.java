@@ -42,19 +42,23 @@ public class Vec2Exp extends AbstractExpression<Vec2> implements Vec2Like {
 
   public Vec2Exp add(float other) { return Shade.add(this, other); }
   public Vec2Exp add(FloatExp other) { return Shade.add(this, other); }
-  public Vec2Exp add(Vec2Exp other) { return Shade.add(this, other); }
+  public Vec2Exp add(Vec2Like other) { return Shade.add(this, other); }
 
   public Vec2Exp sub(float other) { return Shade.sub(this, other); }
   public Vec2Exp sub(FloatExp other) { return Shade.sub(this, other); }
-  public Vec2Exp sub(Vec2Exp other) { return Shade.sub(this, other); }
+  public Vec2Exp sub(Vec2Like other) { return Shade.sub(this, other); }
 
   public Vec2Exp mul(float other) { return Shade.mul(this, other); }
   public Vec2Exp mul(FloatExp other) { return Shade.mul(this, other); }
-  public Vec2Exp mul(Vec2Exp other) { return Shade.mul(this, other); }
+  public Vec2Exp mul(Vec2Like other) { return Shade.mul(this, other); }
 
   public Vec2Exp div(float other) { return Shade.div(this, other); }
   public Vec2Exp div(FloatExp other) { return Shade.div(this, other); }
-  public Vec2Exp div(Vec2Exp other) { return Shade.div(this, other); }
+  public Vec2Exp div(Vec2Like other) { return Shade.div(this, other); }
 
   public Vec2Exp neg() { return Shade.neg(this); }
+
+  public FloatExp dot(Vec2Like other) { return Shade.dot(this, other); }
+
+  public Vec2Exp normalize() { return com.lfscheidegger.jfacet.shade.Math.normalize(this); }
 }

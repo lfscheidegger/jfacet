@@ -174,4 +174,12 @@ public class Vec3Test {
     assertTrue(v1.dot(v2) == 26);
     assertTrue(v1.dot(v2) == v2.dot(v1));
   }
+
+  @Test
+  public void testCross() {
+    Vec3 v1 = new Vec3(1, 0, 0);
+    Vec3 v2 = new Vec3(0, 1, 0);
+
+    assertEquals(v1.cross(v2), new Vec3(0, 0, 1));
+  }
 }
