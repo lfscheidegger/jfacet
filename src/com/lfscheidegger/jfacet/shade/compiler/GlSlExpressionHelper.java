@@ -1,5 +1,6 @@
 package com.lfscheidegger.jfacet.shade.compiler;
 
+import com.google.common.collect.ImmutableList;
 import com.lfscheidegger.jfacet.shade.Type;
 
 public class GlSlExpressionHelper {
@@ -32,5 +33,20 @@ public class GlSlExpressionHelper {
 
   public static String getComponentExpression(Type type, String exp, int idx) {
     return getWrappedExpression(type, exp + "[" + idx + "]");
+  }
+
+  public static String getFunctionExpression(Type type, String functionName, String... arguments) {
+    StringBuilder b = new StringBuilder();
+    b.append(type).append("(").append(functionName).append("(");
+
+    if (arguments.length > 0) {
+      b.append(arguments[0]);
+    }
+
+    for (int i = 1; i < arguments.length; i++) {
+      b.append(", ").append(arguments[i]);
+    }
+
+    return b.append("))").toString();
   }
 }
