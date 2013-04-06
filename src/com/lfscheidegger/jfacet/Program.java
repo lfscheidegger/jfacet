@@ -7,17 +7,17 @@ import com.google.common.collect.ImmutableBiMap;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
+import com.lfscheidegger.jfacet.facet.AttribBuffer;
 import com.lfscheidegger.jfacet.shade.GlSlType;
 import com.lfscheidegger.jfacet.shade.Shade;
 import com.lfscheidegger.jfacet.shade.compiler.*;
 import com.lfscheidegger.jfacet.shade.expression.Expression;
-import com.lfscheidegger.jfacet.shade.expression.primitives.attribute.Attribute;
 import com.lfscheidegger.jfacet.shade.expression.primitives.uniform.FloatUniform;
 import com.lfscheidegger.jfacet.shade.expression.primitives.uniform.Uniform;
 import com.lfscheidegger.jfacet.shade.primitives.Vec4;
 
-import java.nio.FloatBuffer;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 public class Program {
@@ -31,16 +31,19 @@ public class Program {
 
   private AndroidGL20 mAndroidGL;
 
-  private final Set<Expression> mAttributeSet;
+  private final Map<AttribBuffer, Expression> mAttributeMap;
   private final Set<Expression> mUniformSet;
 
-  public Program(Expression position, Expression fragColor) {
+  public Program(
+      Expression position,
+      Expression fragColor,
+      ImmutableMap<AttribBuffer, Expression> attributeMap) {
     mCompilationContext = new DefaultCompilationContext();
 
     mPosition = Shade.fill(position, new Vec4(0, 0, 0, 1));
     mFragColor = Shade.fill(fragColor, new Vec4(0, 0, 0, 1));
 
-    mAttributeSet = new HashSet<Expression>();
+    mAttributeMap = attributeMap;
     mUniformSet = new HashSet<Expression>();
   }
 
@@ -100,9 +103,6 @@ public class Program {
   }
 
   private void linkProgram() {
-    extractAttributes(mPosition);
-    extractAttributes(mFragColor);
-
     extractUniforms(mPosition);
     extractUniforms(mFragColor);
 
@@ -124,16 +124,6 @@ public class Program {
     }
   }
 
-  private void extractAttributes(Expression exp) {
-    if (exp.getGlSlType() == GlSlType.ATTRIBUTE_T) {
-      mAttributeSet.add(exp);
-    }
-
-    for (Expression parent: (ImmutableList<Expression>)exp.getParents()) {
-      extractAttributes(parent);
-    }
-  }
-
   private void extractUniforms(Expression exp) {
     if (exp.getGlSlType() == GlSlType.UNIFORM_T) {
       mUniformSet.add(exp);
@@ -145,27 +135,26 @@ public class Program {
   }
 
   private void bindAttributeLocations() {
-    Preconditions.checkState(mAttributeSet.size() <= GLES20.GL_MAX_VERTEX_ATTRIBS);
+    Preconditions.checkState(mAttributeMap.size() <= GLES20.GL_MAX_VERTEX_ATTRIBS);
 
     int count = 0;
-    for (Expression attribute: mAttributeSet) {
+    for (Expression attribute: mAttributeMap.values()) {
       GLES20.glBindAttribLocation(mProgramHandle, count++, mCompilationContext.getExpressionName(attribute));
     }
   }
 
   private void bindAttributes() {
-    for (Expression attribute: mAttributeSet) {
+    for (AttribBuffer buffer: mAttributeMap.keySet()) {
+      Expression attribute = mAttributeMap.get(buffer);
       int attribHandle = GLES20.glGetAttribLocation(mProgramHandle, mCompilationContext.getExpressionName(attribute));
-      FloatBuffer buffer = ((Attribute)attribute).getBuffer();
-      int size = attribute.getType().getDimension();
+      int size = buffer.getDimension();
       GLES20.glEnableVertexAttribArray(attribHandle);
-
-      GLES20.glVertexAttribPointer(attribHandle, size, GLES20.GL_FLOAT, false, 0, buffer);
+      GLES20.glVertexAttribPointer(attribHandle, size, GLES20.GL_FLOAT, false, 0, buffer.getBuffer());
     }
   }
 
   private void unbindAttributes() {
-    for (Expression attribute: mAttributeSet) {
+    for (Expression attribute: mAttributeMap.values()) {
       int attribHandle = GLES20.glGetAttribLocation(mProgramHandle, mCompilationContext.getExpressionName(attribute));
       GLES20.glDisableVertexAttribArray(attribHandle);
     }

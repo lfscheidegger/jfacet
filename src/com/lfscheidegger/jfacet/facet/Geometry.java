@@ -1,6 +1,8 @@
 package com.lfscheidegger.jfacet.facet;
 
+import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableMap;
 import com.lfscheidegger.jfacet.shade.Shade;
 import com.lfscheidegger.jfacet.shade.expression.Expression;
 
@@ -12,12 +14,17 @@ public class Geometry {
   // Hold generic attribute buffers. We assume that
   //   .get(0) contains positions,
   //   .get(1) contains colors,
-  private final ImmutableList<AttribBuffer> mAttributeBuffers;
+  private final ImmutableMap<AttribBuffer, Expression> mAttributeMap;
+
+  private final AttribBuffer mVertexBuffer;
+  private final AttribBuffer mColorBuffer;
 
   public Geometry(ModelType type, AttribBuffer vertexPositionBuffer) {
     mType = type;
     mElementCount = vertexPositionBuffer.getElementCount();
-    mAttributeBuffers = ImmutableList.<AttribBuffer>of(vertexPositionBuffer);
+    mAttributeMap = buildAttributeMap(ImmutableList.<AttribBuffer>of(vertexPositionBuffer));
+    mVertexBuffer = vertexPositionBuffer;
+    mColorBuffer = null;
   }
 
   public Geometry(
@@ -26,23 +33,42 @@ public class Geometry {
       AttribBuffer colorBuffer) {
     mType = type;
     mElementCount = vertexPositionBuffer.getElementCount();
-    mAttributeBuffers = ImmutableList.<AttribBuffer>of(vertexPositionBuffer, colorBuffer);
+    mAttributeMap = buildAttributeMap(ImmutableList.<AttribBuffer>of(
+        vertexPositionBuffer, colorBuffer));
+    mVertexBuffer = vertexPositionBuffer;
+    mColorBuffer = colorBuffer;
+  }
+
+  private ImmutableMap<AttribBuffer, Expression> buildAttributeMap(ImmutableList<AttribBuffer> attributeBuffers) {
+    ImmutableMap.Builder<AttribBuffer, Expression> builder = new ImmutableMap.Builder<AttribBuffer, Expression>();
+
+    for (AttribBuffer attributeBuffer: attributeBuffers) {
+      builder.put(attributeBuffer,  getExpressionForBuffer(attributeBuffer));
+    }
+
+    return builder.build();
+  }
+
+  public ImmutableMap<AttribBuffer, Expression> getAttributeMap() {
+    return mAttributeMap;
   }
 
   public Expression getVertices() {
-    return getExpressionForBuffer(mAttributeBuffers.get(0));
+    Preconditions.checkNotNull(mVertexBuffer);
+    return mAttributeMap.get(mVertexBuffer);
   }
 
   public Expression getColors() {
-    return getExpressionForBuffer(mAttributeBuffers.get(1));
+    Preconditions.checkNotNull(mColorBuffer);
+    return mAttributeMap.get(mColorBuffer);
   }
 
   private Expression getExpressionForBuffer(AttribBuffer buffer) {
     switch(buffer.getDimension()) {
-      case 1: return Shade.attributef(buffer.getBuffer());
-      case 2: return Shade.attribute2f(buffer.getBuffer());
-      case 3: return Shade.attribute3f(buffer.getBuffer());
-      case 4: return Shade.attribute4f(buffer.getBuffer());
+      case 1: return Shade.attributef();
+      case 2: return Shade.attribute2f();
+      case 3: return Shade.attribute3f();
+      case 4: return Shade.attribute4f();
       default:
         throw new RuntimeException("Invalid dimension for Geometry object: " + buffer.getDimension());
     }

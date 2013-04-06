@@ -21,7 +21,7 @@ public class Drawable {
   }
 
   public void bake() {
-    mProgram = new Program(mPosition, mFragColor);
+    mProgram = new Program(mPosition, mFragColor, mGeometry.getAttributeMap());
     mProgram.bake();
   }
 
