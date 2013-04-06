@@ -3,27 +3,19 @@ package com.lfscheidegger.jfacet;
 import android.opengl.GLES20;
 import com.badlogic.gdx.backends.android.AndroidGL20;
 import com.google.common.base.Preconditions;
+import com.google.common.collect.ImmutableBiMap;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
-import com.lfscheidegger.jfacet.facet.BufferHelper;
+import com.google.common.collect.ImmutableSet;
 import com.lfscheidegger.jfacet.shade.GlSlType;
 import com.lfscheidegger.jfacet.shade.Shade;
-import com.lfscheidegger.jfacet.shade.Type;
-import com.lfscheidegger.jfacet.shade.compiler.CompilationContext;
-import com.lfscheidegger.jfacet.shade.compiler.DefaultCompilationContext;
-import com.lfscheidegger.jfacet.shade.compiler.ShaderCompiler;
+import com.lfscheidegger.jfacet.shade.compiler.*;
 import com.lfscheidegger.jfacet.shade.expression.Expression;
-import com.lfscheidegger.jfacet.shade.expression.primitives.FloatExp;
-import com.lfscheidegger.jfacet.shade.expression.primitives.Vec2Exp;
-import com.lfscheidegger.jfacet.shade.expression.primitives.Vec3Exp;
-import com.lfscheidegger.jfacet.shade.expression.primitives.Vec4Exp;
 import com.lfscheidegger.jfacet.shade.expression.primitives.attribute.Attribute;
 import com.lfscheidegger.jfacet.shade.primitives.Vec4;
 
 import java.nio.FloatBuffer;
-import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Map;
 import java.util.Set;
 
 public class Program {
@@ -39,6 +31,19 @@ public class Program {
 
   private final Set<Expression> mAttributeSet;
 
+  // this parent obtainer cuts the DAG away from varying's parents, to make sure we don't look
+  // at them when compiling a fragment shader.
+  private final TopologicalSorter.ParentObtainer mVaryingAwareParentObtainer = new TopologicalSorter.ParentObtainer() {
+    @Override
+    public ImmutableList<Expression> getParents(Expression exp) {
+      if (exp.getGlSlType() == GlSlType.VARYING_T) {
+        return ImmutableList.of();
+      }
+
+      return exp.getParents();
+    }
+  };
+
   public Program(Expression position, Expression fragColor) {
     mCompilationContext = new DefaultCompilationContext();
 
@@ -51,15 +56,15 @@ public class Program {
   public void bake() {
     mAndroidGL = new AndroidGL20();
 
-    ShaderCompiler vertexShaderCompiler = new ShaderCompiler(
-        mCompilationContext,
-        ImmutableMap.<String, Expression>of("gl_Position", mPosition));
-    ShaderCompiler fragmentShaderCompiler = new ShaderCompiler(
-        mCompilationContext,
-        ImmutableMap.<String, Expression>of("gl_FragColor", mFragColor));
-
-    String vertexShaderSource = vertexShaderCompiler.compile();
+    FragmentShaderCompiler fragmentShaderCompiler = new FragmentShaderCompiler(
+        ImmutableMap.<String, Expression>of("gl_FragColor", mFragColor),
+        mCompilationContext);
     String fragmentShaderSource = fragmentShaderCompiler.compile();
+
+    VertexShaderCompiler vertexShaderCompiler = new VertexShaderCompiler(
+        getVertexShaderCompilationNames(fragmentShaderCompiler.getVaryingExpressions()),
+        mCompilationContext);
+    String vertexShaderSource = vertexShaderCompiler.compile();
 
     int vertexShaderHandle = GLES20.glCreateShader(GLES20.GL_VERTEX_SHADER);
     int fragmentShaderHandle = GLES20.glCreateShader(GLES20.GL_FRAGMENT_SHADER);
@@ -72,6 +77,17 @@ public class Program {
     GLES20.glAttachShader(mProgramHandle, fragmentShaderHandle);
 
     linkProgram();
+  }
+
+  private ImmutableMap<String, Expression> getVertexShaderCompilationNames(ImmutableSet<Expression> varyings) {
+    ImmutableMap.Builder<String, Expression> builder = new ImmutableBiMap.Builder<String, Expression>();
+
+    for (Expression varying: varyings) {
+      builder.put(mCompilationContext.getExpressionName(varying), varying);
+    }
+
+    builder.put("gl_Position", mPosition);
+    return builder.build();
   }
 
   private void compileShader(int shaderHandle, String shaderSource) {
@@ -94,6 +110,7 @@ public class Program {
 
   private void linkProgram() {
     extractAttributes(mPosition);
+    extractAttributes(mFragColor);
     bindAttributeLocations();
 
     GLES20.glLinkProgram(mProgramHandle);

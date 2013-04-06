@@ -12,6 +12,7 @@ import com.lfscheidegger.jfacet.shade.Shade;
 import com.lfscheidegger.jfacet.shade.camera.Camera;
 import com.lfscheidegger.jfacet.shade.expression.Expression;
 import com.lfscheidegger.jfacet.shade.expression.primitives.Vec2Exp;
+import com.lfscheidegger.jfacet.shade.expression.primitives.Vec3Exp;
 import com.lfscheidegger.jfacet.shade.primitives.Mat2;
 import com.lfscheidegger.jfacet.shade.primitives.Mat4;
 import com.lfscheidegger.jfacet.shade.primitives.Vec4;
@@ -37,7 +38,8 @@ public class JFacetDemoActivity extends Activity {
         new float[] {-1, -1, 1, -1, 1, 1, -1, -1, 1, 1, -1, 1}, 2);
     Geometry triangleModel = Facet.model(
         ModelType.TRIANGLES,
-        new float[] {0, 1, -1, -1, 1, -1}, 2);
+        new float[] {0, 1, -1, -1, 1, -1}, 2,
+        new float[] {1, 0, 0, 0, 1, 0, 0, 0, 1}, 3);
 
     Display display = getWindowManager().getDefaultDisplay();
     Point size = new Point();
@@ -48,7 +50,7 @@ public class JFacetDemoActivity extends Activity {
     Expression trianglePosition = camera.apply(Shade.translation(-1.5f, 0, -12).apply(triangleModel.getVertices()));
 
     Drawable square = Facet.bake(squareModel, squarePosition, Shade.vec(0.5f, 0.5f, 1));
-    Drawable triangle = Facet.bake(triangleModel, trianglePosition);
+    Drawable triangle = Facet.bake(triangleModel, trianglePosition, Shade.varying((Vec3Exp)triangleModel.getColors()));
 
     scene.add(square);
     scene.add(triangle);

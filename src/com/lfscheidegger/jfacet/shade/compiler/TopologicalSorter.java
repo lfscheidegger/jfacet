@@ -1,22 +1,49 @@
 package com.lfscheidegger.jfacet.shade.compiler;
 
 import com.google.common.collect.ImmutableList;
+import com.lfscheidegger.jfacet.shade.GlSlType;
 import com.lfscheidegger.jfacet.shade.expression.Expression;
 
 import java.util.LinkedHashSet;
 
 public class TopologicalSorter {
 
-  private final ImmutableList<Expression> mExpressions;
-  private final LinkedHashSet<Expression> mSortedExpressionList;
-
-  public TopologicalSorter(ImmutableList<Expression> roots) {
-    mExpressions = roots;
-    mSortedExpressionList = new LinkedHashSet<Expression>();
+  public static interface ParentObtainer {
+    public ImmutableList<Expression> getParents(Expression exp);
   }
 
-  public ImmutableList<Expression> sort() {
-    for (Expression root: mExpressions) {
+  private final ParentObtainer mParentObtainer;
+  private final LinkedHashSet<Expression> mSortedExpressionList;
+
+  public static TopologicalSorter forVertexShaderCompiler() {
+    return new TopologicalSorter(new ParentObtainer() {
+      @Override
+      public ImmutableList<Expression> getParents(Expression exp) {
+        return exp.getParents();
+      }
+    });
+  }
+
+  public static TopologicalSorter forFragmentShaderCompiler() {
+    return new TopologicalSorter(new ParentObtainer() {
+      @Override
+      public ImmutableList<Expression> getParents(Expression exp) {
+        if (exp.getGlSlType() == GlSlType.VARYING_T) {
+          return ImmutableList.of();
+        }
+
+        return exp.getParents();
+      }
+    });
+  }
+
+  public TopologicalSorter(ParentObtainer parentObtainer) {
+    mSortedExpressionList = new LinkedHashSet<Expression>();
+    mParentObtainer = parentObtainer;
+  }
+
+  public ImmutableList<Expression> sort(ImmutableList<Expression> expressions) {
+    for (Expression root: expressions) {
       sortExpression(root);
     }
 
@@ -33,7 +60,7 @@ public class TopologicalSorter {
       return;
     }
 
-    for (Expression dependency: (ImmutableList<Expression>)exp.getParents()) {
+    for (Expression dependency: mParentObtainer.getParents(exp)) {
       sortExpression(dependency);
     }
 

@@ -17,7 +17,8 @@ public class TopologicalSorterTest {
   public void testSimpleSort() {
     Expression exp = Shade.constant(2);
 
-    assertEquals(new TopologicalSorter(ImmutableList.of(exp)).sort(), ImmutableList.<Expression>of(exp));
+    assertEquals(TopologicalSorter.forVertexShaderCompiler().sort(
+        ImmutableList.of(exp)), ImmutableList.<Expression>of(exp));
   }
 
   @Test
@@ -26,7 +27,8 @@ public class TopologicalSorterTest {
     FloatExp b = Shade.neg(a);
     FloatExp c = Shade.neg(b);
     FloatExp d = Shade.neg(c);
-    assertEquals(new TopologicalSorter(ImmutableList.<Expression>of(d)).sort(), ImmutableList.<Expression>of(a, b, c, d));
+    assertEquals(TopologicalSorter.forVertexShaderCompiler().sort(
+        ImmutableList.<Expression>of(d)), ImmutableList.<Expression>of(a, b, c, d));
   }
 
   @Test
@@ -35,6 +37,7 @@ public class TopologicalSorterTest {
     FloatExp b = Shade.neg(a);
     FloatExp c = Shade.neg(a);
     FloatExp d = Shade.add(b, c);
-    assertEquals(new TopologicalSorter(ImmutableList.<Expression>of(d)).sort(), ImmutableList.of(a, b, c, d));
+    assertEquals(TopologicalSorter.forVertexShaderCompiler().sort(
+        ImmutableList.<Expression>of(d)), ImmutableList.of(a, b, c, d));
   }
 }
