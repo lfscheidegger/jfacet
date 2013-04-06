@@ -46,6 +46,10 @@ public class Math {
         });
   }
 
+  public static FloatExp radians(FloatExp param) {
+    return param.mul((float)(java.lang.Math.PI / 180.0));
+  }
+
   public static Vec2Exp normalize(Vec2Exp vec) {
     return new Vec2Exp(Type.VEC2_T, GlSlType.DEFAULT_T, ImmutableList.<Expression>of(vec),
         new FunctionEvaluator<Vec2>(Type.VEC2_T, "normalize") {

@@ -2,7 +2,6 @@ package com.lfscheidegger.jfacet.shade.expression.primitives.uniform;
 
 import com.google.common.collect.ImmutableList;
 import com.lfscheidegger.jfacet.shade.GlSlType;
-import com.lfscheidegger.jfacet.shade.Shade;
 import com.lfscheidegger.jfacet.shade.Type;
 import com.lfscheidegger.jfacet.shade.expression.Expression;
 import com.lfscheidegger.jfacet.shade.expression.evaluators.GlSlEvaluators;
@@ -26,6 +25,10 @@ public class FloatUniform extends FloatExp implements Uniform {
   public void set(FloatExp value) {
     mValue = value;
     mCachedValue = value.evaluate();
+  }
+
+  public void set(float val) {
+    mCachedValue = val;
   }
 
   public float get() {

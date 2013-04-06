@@ -8,21 +8,17 @@ import android.view.Display;
 import com.lfscheidegger.jfacet.R;
 import com.lfscheidegger.jfacet.facet.*;
 import com.lfscheidegger.jfacet.facet.renderer.FacetRenderer;
+import com.lfscheidegger.jfacet.shade.Parameter;
 import com.lfscheidegger.jfacet.shade.Shade;
 import com.lfscheidegger.jfacet.shade.camera.Camera;
 import com.lfscheidegger.jfacet.shade.expression.Expression;
-import com.lfscheidegger.jfacet.shade.expression.primitives.Vec2Exp;
+import com.lfscheidegger.jfacet.shade.expression.primitives.FloatExp;
 import com.lfscheidegger.jfacet.shade.expression.primitives.Vec3Exp;
 import com.lfscheidegger.jfacet.shade.expression.primitives.uniform.FloatUniform;
-import com.lfscheidegger.jfacet.shade.primitives.Mat2;
-import com.lfscheidegger.jfacet.shade.primitives.Mat4;
-import com.lfscheidegger.jfacet.shade.primitives.Vec4;
 
 public class JFacetDemoActivity extends Activity {
 
   private GLSurfaceView mSurfaceView;
-
-  private FloatUniform tx;
 
   /**
    * Called when the activity is first created.
@@ -50,17 +46,19 @@ public class JFacetDemoActivity extends Activity {
 
     Camera camera = Camera.perspective(size.x, size.y);
 
-    tx = new FloatUniform(Shade.constant(0));
+    FloatExp angle = Parameter.now().mul(50).radians();
+
+        new FloatUniform(Shade.constant(0));
     Expression squarePosition =
         camera.apply(
         Shade.translation(1.5f, 0, -12).apply(
-        Shade.rotation(tx, Shade.vec(1, 0, 0)).apply(
+        Shade.rotation(angle, Shade.vec(1, 0, 0)).apply(
             squareModel.getVertices())));
 
     Expression trianglePosition =
         camera.apply(
         Shade.translation(-1.5f, 0, -12).apply(
-        Shade.rotation(tx, Shade.vec(0, 1, 0)).apply(
+        Shade.rotation(angle, Shade.vec(0, 1, 0)).apply(
             triangleModel.getVertices())));
 
     Drawable square = Facet.bake(squareModel, squarePosition, Shade.vec(0.5f, 0.5f, 1));
@@ -70,8 +68,6 @@ public class JFacetDemoActivity extends Activity {
     scene.add(triangle);
 
     mSurfaceView.setRenderer(new FacetRenderer(scene));
-
-    postUpdate();
   }
 
   @Override
@@ -86,21 +82,5 @@ public class JFacetDemoActivity extends Activity {
     super.onPause();
 
     mSurfaceView.onPause();
-  }
-
-  private void postUpdate() {
-    mSurfaceView.queueEvent(new Runnable() {
-      @Override
-      public void run() {
-        tx.set(Shade.constant(tx.get() + 0.0001f));
-      }
-    });
-
-    mSurfaceView.post(new Runnable() {
-      @Override
-      public void run() {
-        postUpdate();
-      }
-    });
   }
 }
