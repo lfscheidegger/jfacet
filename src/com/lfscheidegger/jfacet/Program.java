@@ -34,19 +34,6 @@ public class Program {
   private final Set<Expression> mAttributeSet;
   private final Set<Expression> mUniformSet;
 
-  // this parent obtainer cuts the DAG away from varying's parents, to make sure we don't look
-  // at them when compiling a fragment shader.
-  private final TopologicalSorter.ParentObtainer mVaryingAwareParentObtainer = new TopologicalSorter.ParentObtainer() {
-    @Override
-    public ImmutableList<Expression> getParents(Expression exp) {
-      if (exp.getGlSlType() == GlSlType.VARYING_T) {
-        return ImmutableList.of();
-      }
-
-      return exp.getParents();
-    }
-  };
-
   public Program(Expression position, Expression fragColor) {
     mCompilationContext = new DefaultCompilationContext();
 

@@ -1,3 +1,3 @@
 package com.lfscheidegger.jfacet.shade.primitives.interfaces;
 
-public interface Mat2Like extends MatLike {}
+public interface Mat2Like {}
