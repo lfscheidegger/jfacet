@@ -11,6 +11,7 @@ import com.lfscheidegger.jfacet.shade.expression.primitives.attribute.Vec3Attrib
 import com.lfscheidegger.jfacet.shade.expression.primitives.attribute.Vec4Attribute;
 import com.lfscheidegger.jfacet.shade.primitives.*;
 import com.lfscheidegger.jfacet.shade.primitives.interfaces.*;
+import com.lfscheidegger.jfacet.shade.transform.Rotation;
 import com.lfscheidegger.jfacet.shade.transform.Transform;
 import com.lfscheidegger.jfacet.shade.transform.Translation;
 
@@ -723,7 +724,43 @@ public class Shade {
   // ===================================================================================================================
 
   public static Transform translation(float x, float y, float z) {
+    return translation(Shade.constant(x), Shade.constant(y), Shade.constant(z));
+  }
+
+  public static Transform translation(float x, float y, FloatExp z) {
+    return translation(Shade.constant(x), Shade.constant(y), z);
+  }
+
+  public static Transform translation(float x, FloatExp y, float z) {
+    return translation(Shade.constant(x), y, Shade.constant(z));
+  }
+
+  public static Transform translation(float x, FloatExp y, FloatExp z) {
+    return translation(Shade.constant(x), y, z);
+  }
+
+  public static Transform translation(FloatExp x, float y, float z) {
+    return translation(x, Shade.constant(y), Shade.constant(z));
+  }
+
+  public static Transform translation(FloatExp x, float y, FloatExp z) {
+    return translation(x, Shade.constant(y), z);
+  }
+
+  public static Transform translation(FloatExp x, FloatExp y, float z) {
+    return translation(x, y, Shade.constant(z));
+  }
+
+  public static Transform translation(FloatExp x, FloatExp y, FloatExp z) {
     return new Translation(x, y, z);
+  }
+
+  public static Transform rotation(float angle, Vec3Like axis) {
+    return rotation(Shade.constant(angle), axis);
+  }
+
+  public static Transform rotation(FloatExp angle, Vec3Like axis) {
+    return new Rotation(angle, promote(axis));
   }
 
   // ===================================================================================================================
@@ -752,22 +789,22 @@ public class Shade {
 
   public static FloatExp varying(FloatExp exp) {
     return new FloatExp(
-        Type.FLOAT_T, GlSlType.VARYING_T, ImmutableList.<Expression>of(exp), GlSlEvaluators.<Float>forAttribute());
+        Type.FLOAT_T, GlSlType.VARYING_T, ImmutableList.<Expression>of(exp), GlSlEvaluators.<Float>forGlSlQualified());
   }
 
   public static Vec2Exp varying(Vec2Exp exp) {
     return new Vec2Exp(
-        Type.VEC2_T, GlSlType.VARYING_T, ImmutableList.<Expression>of(exp), GlSlEvaluators.<Vec2>forAttribute());
+        Type.VEC2_T, GlSlType.VARYING_T, ImmutableList.<Expression>of(exp), GlSlEvaluators.<Vec2>forGlSlQualified());
   }
 
   public static Vec3Exp varying(Vec3Exp exp) {
     return new Vec3Exp(
-        Type.VEC3_T, GlSlType.VARYING_T, ImmutableList.<Expression>of(exp), GlSlEvaluators.<Vec3>forAttribute());
+        Type.VEC3_T, GlSlType.VARYING_T, ImmutableList.<Expression>of(exp), GlSlEvaluators.<Vec3>forGlSlQualified());
   }
 
   public static Vec4Exp varying(Vec4Exp exp) {
     return new Vec4Exp(
-        Type.VEC4_T, GlSlType.VARYING_T, ImmutableList.<Expression>of(exp), GlSlEvaluators.<Vec4>forAttribute());
+        Type.VEC4_T, GlSlType.VARYING_T, ImmutableList.<Expression>of(exp), GlSlEvaluators.<Vec4>forGlSlQualified());
   }
 
   // ===================================================================================================================

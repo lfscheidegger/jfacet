@@ -16,7 +16,7 @@ public class Vec4Attribute extends Vec4Exp implements Attribute {
   private final FloatBuffer mBuffer;
 
   public Vec4Attribute(FloatBuffer buffer) {
-    super(TYPE, GlSlType.ATTRIBUTE_T, ImmutableList.<Expression>of(), GlSlEvaluators.<Vec4>forAttribute());
+    super(TYPE, GlSlType.ATTRIBUTE_T, ImmutableList.<Expression>of(), GlSlEvaluators.<Vec4>forGlSlQualified());
 
     mBuffer = buffer;
   }

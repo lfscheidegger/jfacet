@@ -15,7 +15,7 @@ public class FloatAttribute extends FloatExp implements Attribute {
   private final FloatBuffer mBuffer;
 
   public FloatAttribute(FloatBuffer buffer) {
-    super(TYPE, GlSlType.ATTRIBUTE_T, ImmutableList.<Expression>of(), GlSlEvaluators.<Float>forAttribute());
+    super(TYPE, GlSlType.ATTRIBUTE_T, ImmutableList.<Expression>of(), GlSlEvaluators.<Float>forGlSlQualified());
 
     mBuffer = buffer;
   }

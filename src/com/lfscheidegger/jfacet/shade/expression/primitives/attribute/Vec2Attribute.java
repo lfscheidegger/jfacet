@@ -16,7 +16,7 @@ public class Vec2Attribute extends Vec2Exp implements Attribute {
   private final FloatBuffer mBuffer;
 
   public Vec2Attribute(FloatBuffer buffer) {
-    super(TYPE, GlSlType.ATTRIBUTE_T, ImmutableList.<Expression>of(), GlSlEvaluators.<Vec2>forAttribute());
+    super(TYPE, GlSlType.ATTRIBUTE_T, ImmutableList.<Expression>of(), GlSlEvaluators.<Vec2>forGlSlQualified());
 
     mBuffer = buffer;
   }

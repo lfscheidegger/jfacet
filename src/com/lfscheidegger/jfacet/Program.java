@@ -12,6 +12,8 @@ import com.lfscheidegger.jfacet.shade.Shade;
 import com.lfscheidegger.jfacet.shade.compiler.*;
 import com.lfscheidegger.jfacet.shade.expression.Expression;
 import com.lfscheidegger.jfacet.shade.expression.primitives.attribute.Attribute;
+import com.lfscheidegger.jfacet.shade.expression.primitives.uniform.FloatUniform;
+import com.lfscheidegger.jfacet.shade.expression.primitives.uniform.Uniform;
 import com.lfscheidegger.jfacet.shade.primitives.Vec4;
 
 import java.nio.FloatBuffer;
@@ -30,6 +32,7 @@ public class Program {
   private AndroidGL20 mAndroidGL;
 
   private final Set<Expression> mAttributeSet;
+  private final Set<Expression> mUniformSet;
 
   // this parent obtainer cuts the DAG away from varying's parents, to make sure we don't look
   // at them when compiling a fragment shader.
@@ -51,6 +54,7 @@ public class Program {
     mFragColor = Shade.fill(fragColor, new Vec4(0, 0, 0, 1));
 
     mAttributeSet = new HashSet<Expression>();
+    mUniformSet = new HashSet<Expression>();
   }
 
   public void bake() {
@@ -111,6 +115,10 @@ public class Program {
   private void linkProgram() {
     extractAttributes(mPosition);
     extractAttributes(mFragColor);
+
+    extractUniforms(mPosition);
+    extractUniforms(mFragColor);
+
     bindAttributeLocations();
 
     GLES20.glLinkProgram(mProgramHandle);
@@ -134,8 +142,18 @@ public class Program {
       mAttributeSet.add(exp);
     }
 
-    for (Expression parent : (ImmutableList<Expression>)exp.getParents()) {
+    for (Expression parent: (ImmutableList<Expression>)exp.getParents()) {
       extractAttributes(parent);
+    }
+  }
+
+  private void extractUniforms(Expression exp) {
+    if (exp.getGlSlType() == GlSlType.UNIFORM_T) {
+      mUniformSet.add(exp);
+    }
+
+    for (Expression parent: (ImmutableList<Expression>)exp.getParents()) {
+      extractUniforms(parent);
     }
   }
 
@@ -166,9 +184,22 @@ public class Program {
     }
   }
 
+  private void bindUniforms() {
+    for (Expression uniform: mUniformSet) {
+      ((Uniform)uniform).refresh();
+      int uniformHandle = GLES20.glGetUniformLocation(mProgramHandle, mCompilationContext.getExpressionName(uniform));
+      switch(uniform.getType()) {
+        case FLOAT_T:
+          GLES20.glUniform1f(uniformHandle, ((FloatUniform)uniform).get());
+          break;
+      }
+    }
+  }
+
   public void use() {
     GLES20.glUseProgram(mProgramHandle);
     bindAttributes();
+    bindUniforms();
   }
 
   public void stopUsing() {

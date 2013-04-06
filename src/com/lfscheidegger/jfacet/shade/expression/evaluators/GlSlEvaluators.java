@@ -4,16 +4,16 @@ import com.lfscheidegger.jfacet.shade.compiler.CompilationContext;
 import com.lfscheidegger.jfacet.shade.expression.Expression;
 
 public class GlSlEvaluators {
-  public static <T> Evaluator<T> forAttribute() {
+  public static <T> Evaluator<T> forGlSlQualified() {
     return new Evaluator<T>() {
       @Override
       public T evaluate(Expression expression) {
-        throw new EvaluationException("Cannot evaluate attribute expression");
+        throw new EvaluationException("Cannot evaluate qualified expression");
       }
 
       @Override
       public String getGlSlString(Expression expression) {
-        throw new EvaluationException("Cannot get literal expression for attribute expression");
+        throw new EvaluationException("Cannot get literal expression for qualified expression");
       }
 
       @Override

@@ -38,6 +38,8 @@ public abstract class AbstractCompiler implements Compiler {
         compileAttributeExpression(expression, mainBodyBuilder, preambleBuilder);
       } else if (expression.getGlSlType() == GlSlType.VARYING_T) {
         compileVaryingExpression(expression, mainBodyBuilder, preambleBuilder);
+      } else if (expression.getGlSlType() == GlSlType.UNIFORM_T) {
+        compileUniformExpression(expression, mainBodyBuilder, preambleBuilder);
       }
     }
 
@@ -70,6 +72,17 @@ public abstract class AbstractCompiler implements Compiler {
   }
 
   public void compileAttributeExpression(
+      Expression expression,
+      ImmutableList.Builder<String> mainBodyBuilder,
+      ImmutableList.Builder<String> preambleBuilder) {
+    preambleBuilder.add(CompilationHelper.getGlSlDeclarationStatement(
+        expression.getGlSlType(),
+        expression.getType(),
+        getContext().getExpressionName(expression),
+        getContext()));
+  }
+
+  public void compileUniformExpression(
       Expression expression,
       ImmutableList.Builder<String> mainBodyBuilder,
       ImmutableList.Builder<String> preambleBuilder) {

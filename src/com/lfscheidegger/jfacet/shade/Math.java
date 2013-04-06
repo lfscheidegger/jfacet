@@ -12,6 +12,7 @@ import com.lfscheidegger.jfacet.shade.primitives.Vec3;
 import com.lfscheidegger.jfacet.shade.primitives.Vec4;
 
 public class Math {
+
   public static FloatExp sqrt(FloatExp param) {
     return new FloatExp(Type.FLOAT_T, GlSlType.DEFAULT_T, ImmutableList.<Expression>of(param),
         new FunctionEvaluator<Float>(Type.FLOAT_T, "sqrt") {
@@ -19,6 +20,28 @@ public class Math {
           public Float evaluate(Expression expression) {
             FloatExp parent = (FloatExp)expression.getParents().get(0);
             return (float)java.lang.Math.sqrt(parent.evaluate());
+          }
+        });
+  }
+
+  public static FloatExp sin(FloatExp param) {
+    return new FloatExp(Type.FLOAT_T, GlSlType.DEFAULT_T, ImmutableList.<Expression>of(param),
+        new FunctionEvaluator<Float>(Type.FLOAT_T, "sin") {
+          @Override
+          public Float evaluate(Expression expression) {
+            FloatExp parent = (FloatExp)expression.getParents().get(0);
+            return (float)java.lang.Math.sin(parent.evaluate());
+          }
+        });
+  }
+
+  public static FloatExp cos(FloatExp param) {
+    return new FloatExp(Type.FLOAT_T, GlSlType.DEFAULT_T, ImmutableList.<Expression>of(param),
+        new FunctionEvaluator<Float>(Type.FLOAT_T, "cos") {
+          @Override
+          public Float evaluate(Expression expression) {
+            FloatExp parent = (FloatExp)expression.getParents().get(0);
+            return (float)java.lang.Math.cos(parent.evaluate());
           }
         });
   }

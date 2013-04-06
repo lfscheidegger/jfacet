@@ -41,4 +41,7 @@ public class FloatExp extends AbstractExpression<Float> {
   public FloatExp div(FloatExp other) { return Shade.div(this, other); }
 
   public FloatExp neg() { return Shade.neg(this); }
+
+  public FloatExp sin() { return com.lfscheidegger.jfacet.shade.Math.sin(this); }
+  public FloatExp cos() { return com.lfscheidegger.jfacet.shade.Math.cos(this); }
 }
