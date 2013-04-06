@@ -111,18 +111,12 @@ public class Shade {
     return new Vec2Exp(ImmutableList.<Expression>of(x, y), Vec2Evaluators.forComponents());
   }
 
-  public static Vec2Exp add(Vec2 left, float right) {
-    return add(vec(left), constant(right));
-  }
-  public static Vec2Exp add(Vec2Exp left, float right) {
+  public static Vec2Exp add(Vec2Like left, float right) {
     return add(left, constant(right));
   }
-  public static Vec2Exp add(Vec2 left, FloatExp right) {
-    return add(vec(left), right);
-  }
-  public static Vec2Exp add(Vec2Exp left, FloatExp right) {
+  public static Vec2Exp add(Vec2Like left, FloatExp right) {
     return new Vec2Exp(
-        ImmutableList.<Expression>of(left, right),
+        ImmutableList.<Expression>of(promote(left), right),
         Vec2Evaluators.forOperationWithFloat(Vec2Operators.forAdditionWithFloat()));
   }
   public static Vec2Exp add(Vec2Like left, Vec2Like right) {
@@ -131,18 +125,12 @@ public class Shade {
         Vec2Evaluators.forOperationWithVec2(Vec2Operators.forAdditionWithVec2()));
   }
 
-  public static Vec2Exp sub(Vec2 left, float right) {
-    return sub(vec(left), constant(right));
-  }
-  public static Vec2Exp sub(Vec2Exp left, float right) {
+  public static Vec2Exp sub(Vec2Like left, float right) {
     return sub(left, constant(right));
   }
-  public static Vec2Exp sub(Vec2 left, FloatExp right) {
-    return sub(vec(left), right);
-  }
-  public static Vec2Exp sub(Vec2Exp left, FloatExp right) {
+  public static Vec2Exp sub(Vec2Like left, FloatExp right) {
     return new Vec2Exp(
-        ImmutableList.<Expression>of(left, right),
+        ImmutableList.<Expression>of(promote(left), right),
         Vec2Evaluators.forOperationWithFloat(Vec2Operators.forSubtractionWithFloat()));
   }
   public static Vec2Exp sub(Vec2Like left, Vec2Like right) {
@@ -151,18 +139,12 @@ public class Shade {
         Vec2Evaluators.forOperationWithVec2(Vec2Operators.forSubtractionWithVec2()));
   }
 
-  public static Vec2Exp mul(Vec2 left, float right) {
-    return mul(vec(left), constant(right));
-  }
-  public static Vec2Exp mul(Vec2Exp left, float right) {
+  public static Vec2Exp mul(Vec2Like left, float right) {
     return mul(left, constant(right));
   }
-  public static Vec2Exp mul(Vec2 left, FloatExp right) {
-    return mul(vec(left), right);
-  }
-  public static Vec2Exp mul(Vec2Exp left, FloatExp right) {
+  public static Vec2Exp mul(Vec2Like left, FloatExp right) {
     return new Vec2Exp(
-        ImmutableList.<Expression>of(left, right),
+        ImmutableList.<Expression>of(promote(left), right),
         Vec2Evaluators.forOperationWithFloat(Vec2Operators.forMultiplicationWithFloat()));
   }
   public static Vec2Exp mul(Vec2Like left, Vec2Like right) {
@@ -171,18 +153,12 @@ public class Shade {
         Vec2Evaluators.forOperationWithVec2(Vec2Operators.forMultiplicationWithVec2()));
   }
 
-  public static Vec2Exp div(Vec2 left, float right) {
-    return div(vec(left), constant(right));
-  }
-  public static Vec2Exp div(Vec2Exp left, float right) {
+  public static Vec2Exp div(Vec2Like left, float right) {
     return div(left, constant(right));
   }
-  public static Vec2Exp div(Vec2 left, FloatExp right) {
-    return div(vec(left), right);
-  }
-  public static Vec2Exp div(Vec2Exp left, FloatExp right) {
+  public static Vec2Exp div(Vec2Like left, FloatExp right) {
     return new Vec2Exp(
-        ImmutableList.<Expression>of(left, right),
+        ImmutableList.<Expression>of(promote(left), right),
         Vec2Evaluators.forOperationWithFloat(Vec2Operators.forDivisionWithFloat()));
   }
   public static Vec2Exp div(Vec2Like left, Vec2Like right) {
@@ -230,18 +206,12 @@ public class Shade {
     return new Vec3Exp(ImmutableList.<Expression>of(x, y, z), Vec3Evaluators.forComponents());
   }
 
-  public static Vec3Exp add(Vec3 left, float right) {
-    return add(vec(left), constant(right));
-  }
-  public static Vec3Exp add(Vec3Exp left, float right) {
+  public static Vec3Exp add(Vec3Like left, float right) {
     return add(left, constant(right));
   }
-  public static Vec3Exp add(Vec3 left, FloatExp right) {
-    return add(vec(left), right);
-  }
-  public static Vec3Exp add(Vec3Exp left, FloatExp right) {
+  public static Vec3Exp add(Vec3Like left, FloatExp right) {
     return new Vec3Exp(
-        ImmutableList.<Expression>of(left, right),
+        ImmutableList.<Expression>of(promote(left), right),
         Vec3Evaluators.forOperationWithFloat(Vec3Operators.forAdditionWithFloat()));
   }
   public static Vec3Exp add(Vec3Like left, Vec3Like right) {
@@ -250,18 +220,12 @@ public class Shade {
         Vec3Evaluators.forOperationWithVec3(Vec3Operators.forAdditionWithVec3()));
   }
 
-  public static Vec3Exp sub(Vec3 left, float right) {
-    return sub(vec(left), constant(right));
-  }
-  public static Vec3Exp sub(Vec3Exp left, float right) {
+  public static Vec3Exp sub(Vec3Like left, float right) {
     return sub(left, constant(right));
   }
-  public static Vec3Exp sub(Vec3 left, FloatExp right) {
-    return sub(vec(left), right);
-  }
-  public static Vec3Exp sub(Vec3Exp left, FloatExp right) {
+  public static Vec3Exp sub(Vec3Like left, FloatExp right) {
     return new Vec3Exp(
-        ImmutableList.<Expression>of(left, right),
+        ImmutableList.<Expression>of(promote(left), right),
         Vec3Evaluators.forOperationWithFloat(Vec3Operators.forSubtractionWithFloat()));
   }
   public static Vec3Exp sub(Vec3Like left, Vec3Like right) {
@@ -270,18 +234,12 @@ public class Shade {
         Vec3Evaluators.forOperationWithVec3(Vec3Operators.forSubtractionWithVec3()));
   }
 
-  public static Vec3Exp mul(Vec3 left, float right) {
-    return mul(vec(left), constant(right));
-  }
-  public static Vec3Exp mul(Vec3Exp left, float right) {
+  public static Vec3Exp mul(Vec3Like left, float right) {
     return mul(left, constant(right));
   }
-  public static Vec3Exp mul(Vec3 left, FloatExp right) {
-    return mul(vec(left), right);
-  }
-  public static Vec3Exp mul(Vec3Exp left, FloatExp right) {
+  public static Vec3Exp mul(Vec3Like left, FloatExp right) {
     return new Vec3Exp(
-        ImmutableList.<Expression>of(left, right),
+        ImmutableList.<Expression>of(promote(left), right),
         Vec3Evaluators.forOperationWithFloat(Vec3Operators.forMultiplicationWithFloat()));
   }
   public static Vec3Exp mul(Vec3Like left, Vec3Like right) {
@@ -290,18 +248,12 @@ public class Shade {
         Vec3Evaluators.forOperationWithVec3(Vec3Operators.forMultiplicationWithVec3()));
   }
 
-  public static Vec3Exp div(Vec3 left, float right) {
-    return div(vec(left), constant(right));
-  }
-  public static Vec3Exp div(Vec3Exp left, float right) {
+  public static Vec3Exp div(Vec3Like left, float right) {
     return div(left, constant(right));
   }
-  public static Vec3Exp div(Vec3 left, FloatExp right) {
-    return div(vec(left), right);
-  }
-  public static Vec3Exp div(Vec3Exp left, FloatExp right) {
+  public static Vec3Exp div(Vec3Like left, FloatExp right) {
     return new Vec3Exp(
-        ImmutableList.<Expression>of(left, right),
+        ImmutableList.<Expression>of(promote(left), right),
         Vec3Evaluators.forOperationWithFloat(Vec3Operators.forDivisionWithFloat()));
   }
   public static Vec3Exp div(Vec3Like left, Vec3Like right) {
@@ -377,18 +329,12 @@ public class Shade {
     return new Vec4Exp(ImmutableList.<Expression>of(x, y, z, w), Vec4Evaluators.forComponents());
   }
 
-  public static Vec4Exp add(Vec4 left, float right) {
-    return add(vec(left), constant(right));
-  }
-  public static Vec4Exp add(Vec4Exp left, float right) {
+  public static Vec4Exp add(Vec4Like left, float right) {
     return add(left, constant(right));
   }
-  public static Vec4Exp add(Vec4 left, FloatExp right) {
-    return add(vec(left), right);
-  }
-  public static Vec4Exp add(Vec4Exp left, FloatExp right) {
+  public static Vec4Exp add(Vec4Like left, FloatExp right) {
     return new Vec4Exp(
-        ImmutableList.<Expression>of(left, right),
+        ImmutableList.<Expression>of(promote(left), right),
         Vec4Evaluators.forOperationWithFloat(Vec4Operators.forAdditionWithFloat()));
   }
   public static Vec4Exp add(Vec4Like left, Vec4Like right) {
@@ -397,18 +343,12 @@ public class Shade {
         Vec4Evaluators.forOperationWithVec4(Vec4Operators.forAdditionWithVec4()));
   }
 
-  public static Vec4Exp sub(Vec4 left, float right) {
-    return sub(vec(left), constant(right));
-  }
-  public static Vec4Exp sub(Vec4Exp left, float right) {
+  public static Vec4Exp sub(Vec4Like left, float right) {
     return sub(left, constant(right));
   }
-  public static Vec4Exp sub(Vec4 left, FloatExp right) {
-    return sub(vec(left), right);
-  }
-  public static Vec4Exp sub(Vec4Exp left, FloatExp right) {
+  public static Vec4Exp sub(Vec4Like left, FloatExp right) {
     return new Vec4Exp(
-        ImmutableList.<Expression>of(left, right),
+        ImmutableList.<Expression>of(promote(left), right),
         Vec4Evaluators.forOperationWithFloat(Vec4Operators.forSubtractionWithFloat()));
   }
   public static Vec4Exp sub(Vec4Like left, Vec4Like right) {
@@ -417,18 +357,12 @@ public class Shade {
         Vec4Evaluators.forOperationWithVec4(Vec4Operators.forSubtractionWithVec4()));
   }
 
-  public static Vec4Exp mul(Vec4 left, float right) {
-    return mul(vec(left), constant(right));
-  }
-  public static Vec4Exp mul(Vec4Exp left, float right) {
+  public static Vec4Exp mul(Vec4Like left, float right) {
     return mul(left, constant(right));
   }
-  public static Vec4Exp mul(Vec4 left, FloatExp right) {
-    return mul(vec(left), right);
-  }
-  public static Vec4Exp mul(Vec4Exp left, FloatExp right) {
+  public static Vec4Exp mul(Vec4Like left, FloatExp right) {
     return new Vec4Exp(
-        ImmutableList.<Expression>of(left, right),
+        ImmutableList.<Expression>of(promote(left), right),
         Vec4Evaluators.forOperationWithFloat(Vec4Operators.forMultiplicationWithFloat()));
   }
   public static Vec4Exp mul(Vec4Like left, Vec4Like right) {
@@ -437,18 +371,12 @@ public class Shade {
         Vec4Evaluators.forOperationWithVec4(Vec4Operators.forMultiplicationWithVec4()));
   }
 
-  public static Vec4Exp div(Vec4 left, float right) {
-    return div(vec(left), constant(right));
-  }
-  public static Vec4Exp div(Vec4Exp left, float right) {
+  public static Vec4Exp div(Vec4Like left, float right) {
     return div(left, constant(right));
   }
-  public static Vec4Exp div(Vec4 left, FloatExp right) {
-    return div(vec(left), right);
-  }
-  public static Vec4Exp div(Vec4Exp left, FloatExp right) {
+  public static Vec4Exp div(Vec4Like left, FloatExp right) {
     return new Vec4Exp(
-        ImmutableList.<Expression>of(left, right),
+        ImmutableList.<Expression>of(promote(left), right),
         Vec4Evaluators.forOperationWithFloat(Vec4Operators.forDivisionWithFloat()));
   }
   public static Vec4Exp div(Vec4Like left, Vec4Like right) {
