@@ -2,7 +2,6 @@ package com.lfscheidegger.jfacet;
 
 import android.opengl.GLES20;
 import com.badlogic.gdx.backends.android.AndroidGL20;
-import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableBiMap;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
@@ -17,7 +16,6 @@ import com.lfscheidegger.jfacet.shade.expression.primitives.uniform.Uniform;
 import com.lfscheidegger.jfacet.shade.primitives.Vec4;
 
 import java.util.HashSet;
-import java.util.Map;
 import java.util.Set;
 
 public class Program {
@@ -46,8 +44,10 @@ public class Program {
       ImmutableMap<AttribBuffer, Expression> attributeMap) {
     mCompilationContext = new DefaultCompilationContext();
 
-    mPosition = Shade.fill(position, new Vec4(0, 0, 0, 1));
-    mFragColor = Shade.fill(fragColor, new Vec4(0, 0, 0, 1));
+    ASTOptimizer optimizer = new ASTOptimizer();
+
+    mPosition = optimizer.optimize(Shade.fill(position, new Vec4(0, 0, 0, 1)));
+    mFragColor = optimizer.optimize(Shade.fill(fragColor, new Vec4(0, 0, 0, 1)));
 
     // initialize data for attributes
     int count = 0;

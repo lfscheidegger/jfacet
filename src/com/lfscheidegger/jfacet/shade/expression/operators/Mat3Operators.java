@@ -66,7 +66,7 @@ public class Mat3Operators {
     return new NamedOperator<Mat3, Mat3, Mat3>("*") {
       @Override
       public Mat3 op(Mat3 left, Mat3 right) {
-        return new Mat3(left.getC0().mul(right.getC0()), left.getC1().mul(right.getC1()), left.getC2().mul(right.getC2()));
+        return left.mul(right);
       }
     };
   }

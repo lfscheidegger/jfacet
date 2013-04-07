@@ -90,11 +90,7 @@ public class Mat4Operators {
     return new NamedOperator<Mat4, Mat4, Mat4>("*") {
       @Override
       public Mat4 op(Mat4 left, Mat4 right) {
-        return new Mat4(
-            left.getC0().mul(right.getC0()),
-            left.getC1().mul(right.getC1()),
-            left.getC2().mul(right.getC2()),
-            left.getC3().mul(right.getC3()));
+        return left.mul(right);
       }
     };
   }
