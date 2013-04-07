@@ -12,7 +12,6 @@ import com.lfscheidegger.jfacet.shade.Shade;
 import com.lfscheidegger.jfacet.shade.camera.Camera;
 import com.lfscheidegger.jfacet.shade.expression.Expression;
 import com.lfscheidegger.jfacet.shade.expression.primitives.FloatExp;
-import com.lfscheidegger.jfacet.shade.expression.primitives.Vec3Exp;
 import com.lfscheidegger.jfacet.view.FacetView;
 
 public class JFacetDemoActivity extends Activity {
@@ -69,8 +68,8 @@ public class JFacetDemoActivity extends Activity {
     );
 
     Camera camera = Camera.perspective(mSize.x, mSize.y);
-    Expression squarePosition = camera.apply(Shade.translation(1.5f, 0, -12).apply(squareModel.getVertices()));
-    Expression trianglePosition = camera.apply(Shade.translation(-1.5f, 0, -12).apply(triangleModel.getVertices()));
+    Expression squarePosition = camera.apply(Shade.translation(1.5f, 0, -12)).apply(squareModel.getVertices());
+    Expression trianglePosition = camera.apply(Shade.translation(-1.5f, 0, -12)).apply(triangleModel.getVertices());
 
     Drawable square = Facet.bake(squareModel, squarePosition);
     Drawable triangle = Facet.bake(triangleModel, trianglePosition);
@@ -92,8 +91,9 @@ public class JFacetDemoActivity extends Activity {
     );
 
     Camera camera = Camera.perspective(mSize.x, mSize.y);
-    Expression squarePosition = camera.apply(Shade.translation(1.5f, 0, -12).apply(squareModel.getVertices()));
-    Expression trianglePosition = camera.apply(Shade.translation(-1.5f, 0, -12).apply(triangleModel.getVertices()));
+
+    Expression squarePosition = camera.apply(Shade.translation(1.5f, 0, -12)).apply(squareModel.getVertices());
+    Expression trianglePosition = camera.apply(Shade.translation(-1.5f, 0, -12)).apply(triangleModel.getVertices());
 
     Drawable square = Facet.bake(squareModel, squarePosition, Shade.vec(0.5f, 0.5f, 1));
     Drawable triangle = Facet.bake(triangleModel, trianglePosition, triangleModel.getColors());
@@ -118,13 +118,13 @@ public class JFacetDemoActivity extends Activity {
     FloatExp angle = Parameter.now().mul(50).radians();
 
     Expression squarePosition = camera.apply(
-        Shade.translation(1.5f, 0, -12).apply(
-        Shade.rotation(angle, Shade.vec(1, 0, 0)).apply(
-        squareModel.getVertices())));
+        Shade.translation(1.5f, 0, -12)).apply(
+        Shade.rotation(angle, Shade.vec(1, 0, 0))).apply(
+        squareModel.getVertices());
     Expression trianglePosition = camera.apply(
-        Shade.translation(-1.5f, 0, -12).apply(
-        Shade.rotation(angle, Shade.vec(0, 1, 0)).apply(
-        triangleModel.getVertices())));
+        Shade.translation(-1.5f, 0, -12)).apply(
+        Shade.rotation(angle, Shade.vec(0, 1, 0))).apply(
+        triangleModel.getVertices());
 
     Drawable square = Facet.bake(squareModel, squarePosition, Shade.vec(0.5f, 0.5f, 1));
     Drawable triangle = Facet.bake(triangleModel, trianglePosition, triangleModel.getColors());
@@ -185,15 +185,15 @@ public class JFacetDemoActivity extends Activity {
 
     Expression cubePosition =
         camera.apply(
-        Shade.translation(1.5f, 0, -12).apply(
-        Shade.rotation(angle, Shade.vec(1, 1, 1)).apply(
-        cubeModel.getVertices())));
+        Shade.translation(1.5f, 0, -12)).apply(
+        Shade.rotation(angle, Shade.vec(1, 1, 1))).apply(
+        cubeModel.getVertices());
 
     Expression pyramidPosition =
         camera.apply(
-        Shade.translation(-1.5f, 0, -12).apply(
-        Shade.rotation(angle, Shade.vec(0, 1, 0)).apply(
-        cubeModel.getVertices())));
+        Shade.translation(-1.5f, 0, -12)).apply(
+        Shade.rotation(angle, Shade.vec(0, 1, 0))).apply(
+        cubeModel.getVertices());
 
     scene.add(Facet.bake(cubeModel, cubePosition, cubeModel.getColors()));
     scene.add(Facet.bake(pyramidModel, pyramidPosition, pyramidModel.getColors()));
