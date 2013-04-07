@@ -29,6 +29,10 @@ public class Drawable {
     Preconditions.checkNotNull(mProgram);
 
     mProgram.use();
-    GLES20.glDrawArrays(GLES20.GL_TRIANGLES, 0, mGeometry.getElementCount());
+    GLES20.glDrawElements(
+        GLES20.GL_TRIANGLES,
+        mGeometry.getIndexBuffer().getElementCount(),
+        GLES20.GL_UNSIGNED_INT,
+        mGeometry.getIndexBuffer().getBuffer());
   }
 }

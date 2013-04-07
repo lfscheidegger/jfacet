@@ -59,9 +59,11 @@ public class JFacetDemoActivity extends Activity {
   private void prepareLesson2(Scene scene) {
     Geometry squareModel = Facet.model(
         ModelType.TRIANGLES,
-        new float[] {-1, -1, 1, -1, 1, 1, -1, -1, 1, 1, -1, 1}, 2
+        new int[] {0, 1, 2, 0, 2, 3},
+        new float[] {-1, -1, 1, -1, 1, 1, -1, 1}, 2
     ), triangleModel = Facet.model(
         ModelType.TRIANGLES,
+        new int[] {0, 1, 2},
         new float[] {0, 1, -1, -1, 1, -1}, 2
     );
 
@@ -79,9 +81,11 @@ public class JFacetDemoActivity extends Activity {
   private void prepareLesson3(Scene scene) {
     Geometry squareModel = Facet.model(
         ModelType.TRIANGLES,
-        new float[] {-1, -1, 1, -1, 1, 1, -1, -1, 1, 1, -1, 1}, 2
+        new int[] {0, 1, 2, 0, 2, 3},
+        new float[] {-1, -1, 1, -1, 1, 1, -1, 1}, 2
     ), triangleModel = Facet.model(
         ModelType.TRIANGLES,
+        new int[] {0, 1, 2},
         new float[] {0, 1, -1, -1, 1, -1}, 2,
         new float[] {1, 0, 0, 0, 1, 0, 0, 0, 1}, 3
     );
@@ -100,9 +104,11 @@ public class JFacetDemoActivity extends Activity {
   private void prepareLesson4(Scene scene) {
     Geometry squareModel = Facet.model(
         ModelType.TRIANGLES,
-        new float[] {-1, -1, 1, -1, 1, 1, -1, -1, 1, 1, -1, 1}, 2
+        new int[] {0, 1, 2, 0, 2, 3},
+        new float[] {-1, -1, 1, -1, 1, 1, -1, 1}, 2
     ), triangleModel = Facet.model(
         ModelType.TRIANGLES,
+        new int[] {0, 1, 2},
         new float[] {0, 1, -1, -1, 1, -1}, 2,
         new float[] {1, 0, 0, 0, 1, 0, 0, 0, 1}, 3
     );

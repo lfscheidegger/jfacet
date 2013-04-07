@@ -6,6 +6,8 @@ import com.google.common.collect.ImmutableMap;
 import com.lfscheidegger.jfacet.shade.Shade;
 import com.lfscheidegger.jfacet.shade.expression.Expression;
 
+import java.nio.IntBuffer;
+
 public class Geometry {
 
   private final ModelType mType;
@@ -16,25 +18,35 @@ public class Geometry {
   //   .get(1) contains colors,
   private final ImmutableMap<AttribBuffer, Expression> mAttributeMap;
 
+  private final IndexBuffer mIndexBuffer;
   private final AttribBuffer mVertexBuffer;
   private final AttribBuffer mColorBuffer;
 
-  public Geometry(ModelType type, AttribBuffer vertexPositionBuffer) {
+  public Geometry(
+      ModelType type,
+      IndexBuffer indexBuffer,
+      AttribBuffer vertexPositionBuffer) {
     mType = type;
+
     mElementCount = vertexPositionBuffer.getElementCount();
     mAttributeMap = buildAttributeMap(ImmutableList.<AttribBuffer>of(vertexPositionBuffer));
+
+    mIndexBuffer = indexBuffer;
     mVertexBuffer = vertexPositionBuffer;
     mColorBuffer = null;
   }
 
   public Geometry(
       ModelType type,
+      IndexBuffer indexBufer,
       AttribBuffer vertexPositionBuffer,
       AttribBuffer colorBuffer) {
     mType = type;
+
     mElementCount = vertexPositionBuffer.getElementCount();
-    mAttributeMap = buildAttributeMap(ImmutableList.<AttribBuffer>of(
-        vertexPositionBuffer, colorBuffer));
+    mAttributeMap = buildAttributeMap(ImmutableList.<AttribBuffer>of(vertexPositionBuffer, colorBuffer));
+
+    mIndexBuffer = indexBufer;
     mVertexBuffer = vertexPositionBuffer;
     mColorBuffer = colorBuffer;
   }
@@ -51,6 +63,10 @@ public class Geometry {
 
   public ImmutableMap<AttribBuffer, Expression> getAttributeMap() {
     return mAttributeMap;
+  }
+
+  public IndexBuffer getIndexBuffer() {
+    return mIndexBuffer;
   }
 
   public Expression getVertices() {
