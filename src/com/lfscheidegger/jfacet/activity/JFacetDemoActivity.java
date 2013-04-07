@@ -91,7 +91,7 @@ public class JFacetDemoActivity extends Activity {
     Expression trianglePosition = camera.apply(Shade.translation(-1.5f, 0, -12).apply(triangleModel.getVertices()));
 
     Drawable square = Facet.bake(squareModel, squarePosition, Shade.vec(0.5f, 0.5f, 1));
-    Drawable triangle = Facet.bake(triangleModel, trianglePosition, Shade.varying((Vec3Exp)triangleModel.getColors()));
+    Drawable triangle = Facet.bake(triangleModel, trianglePosition, triangleModel.getColors());
 
     scene.add(square);
     scene.add(triangle);
