@@ -36,11 +36,6 @@ public abstract class AbstractExpression<T> implements Expression<T> {
   }
 
   @Override
-  public final String getGlSlString() {
-    return mEvaluator.getGlSlString(this);
-  }
-
-  @Override
   public final String getGlSlString(CompilationContext context) {
     return mEvaluator.getGlSlString(this, context);
   }

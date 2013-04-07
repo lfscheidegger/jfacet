@@ -1,6 +1,8 @@
 package com.lfscheidegger.jfacet.shade.expression.primitives;
 
+import com.lfscheidegger.jfacet.shade.FakeCompilationContext;
 import com.lfscheidegger.jfacet.shade.Shade;
+import com.lfscheidegger.jfacet.shade.compiler.CompilationContext;
 import com.lfscheidegger.jfacet.shade.primitives.Mat3;
 import com.lfscheidegger.jfacet.shade.primitives.Vec3;
 import org.junit.Test;
@@ -11,6 +13,8 @@ import static org.junit.Assert.assertEquals;
  * Unit tests for {@code Mat3Exp}
  */
 public class Mat3ExpTest {
+
+  private final CompilationContext mContext = new FakeCompilationContext();
 
   @Test
   public void testConstructors() {
@@ -74,23 +78,23 @@ public class Mat3ExpTest {
     assertEquals(Shade.add(Shade.mat(new Mat3()), Shade.mat(new Mat3())).getC0().evaluate(), new Vec3(2, 0, 0));
     assertEquals(Shade.add(Shade.mat(new Mat3()), Shade.mat(new Mat3())).get(0).evaluate(), new Vec3(2, 0, 0));
 
-    assertEquals(Shade.mat(new Mat3()).getC0().getGlSlString(), "vec3(mat3(vec3(float(1.0), float(0.0), float(0.0)), vec3(float(0.0), float(1.0), float(0.0)), vec3(float(0.0), float(0.0), float(1.0)))[0])");
-    assertEquals(Shade.mat(new Mat3()).get(0).getGlSlString(), "vec3(mat3(vec3(float(1.0), float(0.0), float(0.0)), vec3(float(0.0), float(1.0), float(0.0)), vec3(float(0.0), float(0.0), float(1.0)))[0])");
+    assertEquals(Shade.mat(new Mat3()).getC0().getGlSlString(mContext), "vec3(mat3(vec3(float(1.0), float(0.0), float(0.0)), vec3(float(0.0), float(1.0), float(0.0)), vec3(float(0.0), float(0.0), float(1.0)))[0])");
+    assertEquals(Shade.mat(new Mat3()).get(0).getGlSlString(mContext), "vec3(mat3(vec3(float(1.0), float(0.0), float(0.0)), vec3(float(0.0), float(1.0), float(0.0)), vec3(float(0.0), float(0.0), float(1.0)))[0])");
 
     assertEquals(Shade.mat(new Mat3()).getC1().evaluate(), new Vec3(0, 1, 0));
     assertEquals(Shade.mat(new Mat3()).get(1).evaluate(), new Vec3(0, 1, 0));
     assertEquals(Shade.add(Shade.mat(new Mat3()), Shade.mat(new Mat3())).getC1().evaluate(), new Vec3(0, 2, 0));
     assertEquals(Shade.add(Shade.mat(new Mat3()), Shade.mat(new Mat3())).get(1).evaluate(), new Vec3(0, 2, 0));
 
-    assertEquals(Shade.mat(new Mat3()).getC1().getGlSlString(), "vec3(mat3(vec3(float(1.0), float(0.0), float(0.0)), vec3(float(0.0), float(1.0), float(0.0)), vec3(float(0.0), float(0.0), float(1.0)))[1])");
-    assertEquals(Shade.mat(new Mat3()).get(1).getGlSlString(), "vec3(mat3(vec3(float(1.0), float(0.0), float(0.0)), vec3(float(0.0), float(1.0), float(0.0)), vec3(float(0.0), float(0.0), float(1.0)))[1])");
+    assertEquals(Shade.mat(new Mat3()).getC1().getGlSlString(mContext), "vec3(mat3(vec3(float(1.0), float(0.0), float(0.0)), vec3(float(0.0), float(1.0), float(0.0)), vec3(float(0.0), float(0.0), float(1.0)))[1])");
+    assertEquals(Shade.mat(new Mat3()).get(1).getGlSlString(mContext), "vec3(mat3(vec3(float(1.0), float(0.0), float(0.0)), vec3(float(0.0), float(1.0), float(0.0)), vec3(float(0.0), float(0.0), float(1.0)))[1])");
 
     assertEquals(Shade.mat(new Mat3()).getC2().evaluate(), new Vec3(0, 0, 1));
     assertEquals(Shade.mat(new Mat3()).get(2).evaluate(), new Vec3(0, 0, 1));
     assertEquals(Shade.add(Shade.mat(new Mat3()), Shade.mat(new Mat3())).getC2().evaluate(), new Vec3(0, 0, 2));
     assertEquals(Shade.add(Shade.mat(new Mat3()), Shade.mat(new Mat3())).get(2).evaluate(), new Vec3(0, 0, 2));
 
-    assertEquals(Shade.mat(new Mat3()).getC2().getGlSlString(), "vec3(mat3(vec3(float(1.0), float(0.0), float(0.0)), vec3(float(0.0), float(1.0), float(0.0)), vec3(float(0.0), float(0.0), float(1.0)))[2])");
-    assertEquals(Shade.mat(new Mat3()).get(2).getGlSlString(), "vec3(mat3(vec3(float(1.0), float(0.0), float(0.0)), vec3(float(0.0), float(1.0), float(0.0)), vec3(float(0.0), float(0.0), float(1.0)))[2])");
+    assertEquals(Shade.mat(new Mat3()).getC2().getGlSlString(mContext), "vec3(mat3(vec3(float(1.0), float(0.0), float(0.0)), vec3(float(0.0), float(1.0), float(0.0)), vec3(float(0.0), float(0.0), float(1.0)))[2])");
+    assertEquals(Shade.mat(new Mat3()).get(2).getGlSlString(mContext), "vec3(mat3(vec3(float(1.0), float(0.0), float(0.0)), vec3(float(0.0), float(1.0), float(0.0)), vec3(float(0.0), float(0.0), float(1.0)))[2])");
   }
 }

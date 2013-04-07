@@ -18,28 +18,13 @@ import static org.junit.Assert.*;
  */
 public class TestMath {
 
-  private CompilationContext mContext = new CompilationContext() {
-    @Override
-    public String getExpressionName(Expression exp) {
-      return "a";
-    }
-
-    @Override
-    public int getScopeLevel() {
-      return 0;
-    }
-
-    @Override
-    public void pushScope() {}
-    @Override
-    public void popScope() {}
-  };
+  private CompilationContext mContext = new FakeCompilationContext();
 
   @Test
   public void testSqrt() {
     FloatExp f = Shade.constant(4);
 
-    assertEquals(Math.sqrt(f).getGlSlString(), "float(sqrt(float(4.0)))");
+    assertEquals(Math.sqrt(f).getGlSlString(mContext), "float(sqrt(float(4.0)))");
     assertTrue(Math.sqrt(f).evaluate() == 2);
   }
 
@@ -47,8 +32,7 @@ public class TestMath {
   public void testNormalizeVec2() {
     Vec2Exp vec = Shade.vec(2, 0);
 
-    assertEquals(Math.normalize(vec).getGlSlString(), "vec2(normalize(vec2(float(2.0), float(0.0))))");
-    assertEquals(Math.normalize(vec).getGlSlString(mContext), "vec2(normalize(a))");
+    assertEquals(Math.normalize(vec).getGlSlString(mContext), "vec2(normalize(vec2(float(2.0), float(0.0))))");
     assertTrue(Math.normalize(vec).evaluate().equals(new Vec2(1, 0)));
   }
 
@@ -56,8 +40,7 @@ public class TestMath {
   public void testNormalizeVec3() {
     Vec3Exp vec = Shade.vec(2, 0, 0);
 
-    assertEquals(Math.normalize(vec).getGlSlString(), "vec3(normalize(vec3(float(2.0), float(0.0), float(0.0))))");
-    assertEquals(Math.normalize(vec).getGlSlString(mContext), "vec3(normalize(a))");
+    assertEquals(Math.normalize(vec).getGlSlString(mContext), "vec3(normalize(vec3(float(2.0), float(0.0), float(0.0))))");
     assertTrue(Math.normalize(vec).evaluate().equals(new Vec3(1, 0, 0)));
   }
 
@@ -65,8 +48,7 @@ public class TestMath {
   public void testNormalizeVec4() {
     Vec4Exp vec = Shade.vec(2, 0, 0, 0);
 
-    assertEquals(Math.normalize(vec).getGlSlString(), "vec4(normalize(vec4(float(2.0), float(0.0), float(0.0), float(0.0))))");
-    assertEquals(Math.normalize(vec).getGlSlString(mContext), "vec4(normalize(a))");
+    assertEquals(Math.normalize(vec).getGlSlString(mContext), "vec4(normalize(vec4(float(2.0), float(0.0), float(0.0), float(0.0))))");
     assertTrue(Math.normalize(vec).evaluate().equals(new Vec4(1, 0, 0, 0)));
   }
 }

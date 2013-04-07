@@ -16,7 +16,5 @@ public interface Evaluator<T> {
 
   public T evaluate(Expression expression);
 
-  public String getGlSlString(Expression expression);
-
   public String getGlSlString(Expression expression, CompilationContext context);
 }

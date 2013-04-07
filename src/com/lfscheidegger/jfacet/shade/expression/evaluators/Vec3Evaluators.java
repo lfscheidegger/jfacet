@@ -26,13 +26,8 @@ public class Vec3Evaluators {
       }
 
       @Override
-      public String getGlSlString(Expression expression) {
-        return c.toString();
-      }
-
-      @Override
       public String getGlSlString(Expression expression, CompilationContext context) {
-        return getGlSlString(expression);
+        return c.toString();
       }
     };
   }
@@ -50,21 +45,12 @@ public class Vec3Evaluators {
       }
 
       @Override
-      public String getGlSlString(Expression expression) {
-        ImmutableList<Expression> parents = expression.getParents();
-        return GlSlExpressionHelper.getCommaExpression(TYPE,
-            parents.get(0).getGlSlString(),
-            parents.get(1).getGlSlString(),
-            parents.get(2).getGlSlString());
-      }
-
-      @Override
       public String getGlSlString(Expression expression, CompilationContext context) {
         ImmutableList<Expression> parents = expression.getParents();
         return GlSlExpressionHelper.getCommaExpression(TYPE,
-            context.getExpressionName(parents.get(0)),
-            context.getExpressionName(parents.get(1)),
-            context.getExpressionName(parents.get(2)));
+            parents.get(0).getGlSlString(context),
+            parents.get(1).getGlSlString(context),
+            parents.get(2).getGlSlString(context));
       }
     };
   }
@@ -77,15 +63,9 @@ public class Vec3Evaluators {
       }
 
       @Override
-      public String getGlSlString(Expression expression) {
-        return GlSlExpressionHelper.getComponentExpression(TYPE,
-            ((Expression)expression.getParents().get(0)).getGlSlString(), idx);
-      }
-
-      @Override
       public String getGlSlString(Expression expression, CompilationContext context) {
         return GlSlExpressionHelper.getComponentExpression(TYPE,
-            context.getExpressionName((Expression)expression.getParents().get(0)), idx);
+            ((Expression)expression.getParents().get(0)).getGlSlString(context), idx);
       }
     };
   }
@@ -125,15 +105,9 @@ public class Vec3Evaluators {
       }
 
       @Override
-      public String getGlSlString(Expression expression) {
-        return GlSlExpressionHelper.getUnOpExpression(
-            TYPE, "-", ((Expression)expression.getParents().get(0)).getGlSlString());
-      }
-
-      @Override
       public String getGlSlString(Expression expression, CompilationContext context) {
         return GlSlExpressionHelper.getUnOpExpression(
-            TYPE, "-", context.getExpressionName((Expression)expression.getParents().get(0)));
+            TYPE, "-", ((Expression)expression.getParents().get(0)).getGlSlString(context));
       }
     };
   }

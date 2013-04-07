@@ -1,6 +1,8 @@
 package com.lfscheidegger.jfacet.shade.expression.primitives;
 
+import com.lfscheidegger.jfacet.shade.FakeCompilationContext;
 import com.lfscheidegger.jfacet.shade.Shade;
+import com.lfscheidegger.jfacet.shade.compiler.CompilationContext;
 import com.lfscheidegger.jfacet.shade.primitives.Mat4;
 import com.lfscheidegger.jfacet.shade.primitives.Vec4;
 import org.junit.Test;
@@ -11,6 +13,8 @@ import static org.junit.Assert.assertEquals;
  * Unit tests for {@code Mat4Exp}
  */
 public class Mat4ExpTest {
+
+  private final CompilationContext mContext = new FakeCompilationContext();
 
   @Test
   public void testConstructors() {
@@ -82,31 +86,31 @@ public class Mat4ExpTest {
     assertEquals(Shade.add(Shade.mat(new Mat4()), Shade.mat(new Mat4())).getC0().evaluate(), new Vec4(2, 0, 0, 0));
     assertEquals(Shade.add(Shade.mat(new Mat4()), Shade.mat(new Mat4())).get(0).evaluate(), new Vec4(2, 0, 0, 0));
 
-    assertEquals(Shade.mat(new Mat4()).getC0().getGlSlString(), "vec4(mat4(vec4(float(1.0), float(0.0), float(0.0), float(0.0)), vec4(float(0.0), float(1.0), float(0.0), float(0.0)), vec4(float(0.0), float(0.0), float(1.0), float(0.0)), vec4(float(0.0), float(0.0), float(0.0), float(1.0)))[0])");
-    assertEquals(Shade.mat(new Mat4()).get(0).getGlSlString(), "vec4(mat4(vec4(float(1.0), float(0.0), float(0.0), float(0.0)), vec4(float(0.0), float(1.0), float(0.0), float(0.0)), vec4(float(0.0), float(0.0), float(1.0), float(0.0)), vec4(float(0.0), float(0.0), float(0.0), float(1.0)))[0])");
+    assertEquals(Shade.mat(new Mat4()).getC0().getGlSlString(mContext), "vec4(mat4(vec4(float(1.0), float(0.0), float(0.0), float(0.0)), vec4(float(0.0), float(1.0), float(0.0), float(0.0)), vec4(float(0.0), float(0.0), float(1.0), float(0.0)), vec4(float(0.0), float(0.0), float(0.0), float(1.0)))[0])");
+    assertEquals(Shade.mat(new Mat4()).get(0).getGlSlString(mContext), "vec4(mat4(vec4(float(1.0), float(0.0), float(0.0), float(0.0)), vec4(float(0.0), float(1.0), float(0.0), float(0.0)), vec4(float(0.0), float(0.0), float(1.0), float(0.0)), vec4(float(0.0), float(0.0), float(0.0), float(1.0)))[0])");
 
     assertEquals(Shade.mat(new Mat4()).getC1().evaluate(), new Vec4(0, 1, 0, 0));
     assertEquals(Shade.mat(new Mat4()).get(1).evaluate(), new Vec4(0, 1, 0, 0));
     assertEquals(Shade.add(Shade.mat(new Mat4()), Shade.mat(new Mat4())).getC1().evaluate(), new Vec4(0, 2, 0, 0));
     assertEquals(Shade.add(Shade.mat(new Mat4()), Shade.mat(new Mat4())).get(1).evaluate(), new Vec4(0, 2, 0, 0));
 
-    assertEquals(Shade.mat(new Mat4()).getC1().getGlSlString(), "vec4(mat4(vec4(float(1.0), float(0.0), float(0.0), float(0.0)), vec4(float(0.0), float(1.0), float(0.0), float(0.0)), vec4(float(0.0), float(0.0), float(1.0), float(0.0)), vec4(float(0.0), float(0.0), float(0.0), float(1.0)))[1])");
-    assertEquals(Shade.mat(new Mat4()).get(1).getGlSlString(), "vec4(mat4(vec4(float(1.0), float(0.0), float(0.0), float(0.0)), vec4(float(0.0), float(1.0), float(0.0), float(0.0)), vec4(float(0.0), float(0.0), float(1.0), float(0.0)), vec4(float(0.0), float(0.0), float(0.0), float(1.0)))[1])");
+    assertEquals(Shade.mat(new Mat4()).getC1().getGlSlString(mContext), "vec4(mat4(vec4(float(1.0), float(0.0), float(0.0), float(0.0)), vec4(float(0.0), float(1.0), float(0.0), float(0.0)), vec4(float(0.0), float(0.0), float(1.0), float(0.0)), vec4(float(0.0), float(0.0), float(0.0), float(1.0)))[1])");
+    assertEquals(Shade.mat(new Mat4()).get(1).getGlSlString(mContext), "vec4(mat4(vec4(float(1.0), float(0.0), float(0.0), float(0.0)), vec4(float(0.0), float(1.0), float(0.0), float(0.0)), vec4(float(0.0), float(0.0), float(1.0), float(0.0)), vec4(float(0.0), float(0.0), float(0.0), float(1.0)))[1])");
 
     assertEquals(Shade.mat(new Mat4()).getC2().evaluate(), new Vec4(0, 0, 1, 0));
     assertEquals(Shade.mat(new Mat4()).get(2).evaluate(), new Vec4(0, 0, 1, 0));
     assertEquals(Shade.add(Shade.mat(new Mat4()), Shade.mat(new Mat4())).getC2().evaluate(), new Vec4(0, 0, 2, 0));
     assertEquals(Shade.add(Shade.mat(new Mat4()), Shade.mat(new Mat4())).get(2).evaluate(), new Vec4(0, 0, 2, 0));
 
-    assertEquals(Shade.mat(new Mat4()).getC2().getGlSlString(), "vec4(mat4(vec4(float(1.0), float(0.0), float(0.0), float(0.0)), vec4(float(0.0), float(1.0), float(0.0), float(0.0)), vec4(float(0.0), float(0.0), float(1.0), float(0.0)), vec4(float(0.0), float(0.0), float(0.0), float(1.0)))[2])");
-    assertEquals(Shade.mat(new Mat4()).get(2).getGlSlString(), "vec4(mat4(vec4(float(1.0), float(0.0), float(0.0), float(0.0)), vec4(float(0.0), float(1.0), float(0.0), float(0.0)), vec4(float(0.0), float(0.0), float(1.0), float(0.0)), vec4(float(0.0), float(0.0), float(0.0), float(1.0)))[2])");
+    assertEquals(Shade.mat(new Mat4()).getC2().getGlSlString(mContext), "vec4(mat4(vec4(float(1.0), float(0.0), float(0.0), float(0.0)), vec4(float(0.0), float(1.0), float(0.0), float(0.0)), vec4(float(0.0), float(0.0), float(1.0), float(0.0)), vec4(float(0.0), float(0.0), float(0.0), float(1.0)))[2])");
+    assertEquals(Shade.mat(new Mat4()).get(2).getGlSlString(mContext), "vec4(mat4(vec4(float(1.0), float(0.0), float(0.0), float(0.0)), vec4(float(0.0), float(1.0), float(0.0), float(0.0)), vec4(float(0.0), float(0.0), float(1.0), float(0.0)), vec4(float(0.0), float(0.0), float(0.0), float(1.0)))[2])");
 
     assertEquals(Shade.mat(new Mat4()).getC3().evaluate(), new Vec4(0, 0, 0, 1));
     assertEquals(Shade.mat(new Mat4()).get(3).evaluate(), new Vec4(0, 0, 0, 1));
     assertEquals(Shade.add(Shade.mat(new Mat4()), Shade.mat(new Mat4())).getC3().evaluate(), new Vec4(0, 0, 0, 2));
     assertEquals(Shade.add(Shade.mat(new Mat4()), Shade.mat(new Mat4())).get(3).evaluate(), new Vec4(0, 0, 0, 2));
 
-    assertEquals(Shade.mat(new Mat4()).getC3().getGlSlString(), "vec4(mat4(vec4(float(1.0), float(0.0), float(0.0), float(0.0)), vec4(float(0.0), float(1.0), float(0.0), float(0.0)), vec4(float(0.0), float(0.0), float(1.0), float(0.0)), vec4(float(0.0), float(0.0), float(0.0), float(1.0)))[3])");
-    assertEquals(Shade.mat(new Mat4()).get(3).getGlSlString(), "vec4(mat4(vec4(float(1.0), float(0.0), float(0.0), float(0.0)), vec4(float(0.0), float(1.0), float(0.0), float(0.0)), vec4(float(0.0), float(0.0), float(1.0), float(0.0)), vec4(float(0.0), float(0.0), float(0.0), float(1.0)))[3])");
+    assertEquals(Shade.mat(new Mat4()).getC3().getGlSlString(mContext), "vec4(mat4(vec4(float(1.0), float(0.0), float(0.0), float(0.0)), vec4(float(0.0), float(1.0), float(0.0), float(0.0)), vec4(float(0.0), float(0.0), float(1.0), float(0.0)), vec4(float(0.0), float(0.0), float(0.0), float(1.0)))[3])");
+    assertEquals(Shade.mat(new Mat4()).get(3).getGlSlString(mContext), "vec4(mat4(vec4(float(1.0), float(0.0), float(0.0), float(0.0)), vec4(float(0.0), float(1.0), float(0.0), float(0.0)), vec4(float(0.0), float(0.0), float(1.0), float(0.0)), vec4(float(0.0), float(0.0), float(0.0), float(1.0)))[3])");
   }
 }

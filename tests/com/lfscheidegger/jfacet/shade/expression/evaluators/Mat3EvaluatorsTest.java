@@ -1,5 +1,6 @@
 package com.lfscheidegger.jfacet.shade.expression.evaluators;
 
+import com.lfscheidegger.jfacet.shade.FakeCompilationContext;
 import com.lfscheidegger.jfacet.shade.Shade;
 import com.lfscheidegger.jfacet.shade.compiler.CompilationContext;
 import com.lfscheidegger.jfacet.shade.expression.Expression;
@@ -15,30 +16,12 @@ import static org.junit.Assert.assertEquals;
  */
 public class Mat3EvaluatorsTest {
 
-  private CompilationContext mContext = new CompilationContext() {
-    @Override
-    public String getExpressionName(Expression exp) {
-      return "a";
-    }
-
-    @Override
-    public int getScopeLevel() {
-      return 0;
-    }
-
-    @Override
-    public void pushScope() {}
-    @Override
-    public void popScope() {}
-  };
+  private CompilationContext mContext = new FakeCompilationContext();
 
   @Test
   public void testForConstant() {
     Mat3 mat = new Mat3();
     Evaluator<Mat3> eval = Mat3Evaluators.forConstant(mat);
-
-    assertEquals(eval.getGlSlString(Shade.mat(mat)),
-        "mat3(vec3(float(1.0), float(0.0), float(0.0)), vec3(float(0.0), float(1.0), float(0.0)), vec3(float(0.0), float(0.0), float(1.0)))");
 
     assertEquals(eval.getGlSlString(Shade.mat(mat), mContext),
         "mat3(vec3(float(1.0), float(0.0), float(0.0)), vec3(float(0.0), float(1.0), float(0.0)), vec3(float(0.0), float(0.0), float(1.0)))");
@@ -48,83 +31,72 @@ public class Mat3EvaluatorsTest {
   public void testForComponents() {
     Evaluator<Mat3> eval = Mat3Evaluators.forComponents();
     assertEquals(
-        eval.getGlSlString(Shade.mat(Shade.vec(1, 0, 0), Shade.vec(0, 1, 0), Shade.vec(0, 0, 1))),
-        "mat3(vec3(float(1.0), float(0.0), float(0.0)), vec3(float(0.0), float(1.0), float(0.0)), vec3(float(0.0), float(0.0), float(1.0)))");
-    assertEquals(
         eval.getGlSlString(Shade.mat(Shade.vec(1, 0, 0), Shade.vec(0, 1, 0), Shade.vec(0, 0, 1)), mContext),
-        "mat3(a, a, a)");
+        "mat3(vec3(float(1.0), float(0.0), float(0.0)), vec3(float(0.0), float(1.0), float(0.0)), vec3(float(0.0), float(0.0), float(1.0)))");
   }
 
   @Test
   public void testForAdditionWithFloat() {
     Evaluator<Mat3> eval = Mat3Evaluators.forOperationWithFloat(Mat3Operators.forAdditionWithFloat());
     assertEquals(
-        eval.getGlSlString(Shade.add(Shade.mat(new Mat3()), 3)),
+        eval.getGlSlString(Shade.add(Shade.mat(new Mat3()), 3), mContext),
         "mat3(mat3(vec3(float(1.0), float(0.0), float(0.0)), vec3(float(0.0), float(1.0), float(0.0)), vec3(float(0.0), float(0.0), float(1.0))) + float(3.0))");
-    assertEquals(eval.getGlSlString(Shade.add(Shade.mat(new Mat3()), 3), mContext), "mat3(a + a)");
   }
 
   @Test
   public void testForSubtractionWithFloat() {
     Evaluator<Mat3> eval = Mat3Evaluators.forOperationWithFloat(Mat3Operators.forSubtractionWithFloat());
     assertEquals(
-        eval.getGlSlString(Shade.sub(Shade.mat(new Mat3()), 3)),
+        eval.getGlSlString(Shade.sub(Shade.mat(new Mat3()), 3), mContext),
         "mat3(mat3(vec3(float(1.0), float(0.0), float(0.0)), vec3(float(0.0), float(1.0), float(0.0)), vec3(float(0.0), float(0.0), float(1.0))) - float(3.0))");
-    assertEquals(eval.getGlSlString(Shade.sub(Shade.mat(new Mat3()), 3), mContext), "mat3(a - a)");
   }
 
   @Test
   public void testForMultiplicationWithFloat() {
     Evaluator<Mat3> eval = Mat3Evaluators.forOperationWithFloat(Mat3Operators.forMultiplicationWithFloat());
     assertEquals(
-        eval.getGlSlString(Shade.mul(Shade.mat(new Mat3()), 3)),
+        eval.getGlSlString(Shade.mul(Shade.mat(new Mat3()), 3), mContext),
         "mat3(mat3(vec3(float(1.0), float(0.0), float(0.0)), vec3(float(0.0), float(1.0), float(0.0)), vec3(float(0.0), float(0.0), float(1.0))) * float(3.0))");
-    assertEquals(eval.getGlSlString(Shade.mul(Shade.mat(new Mat3()), 3), mContext), "mat3(a * a)");
   }
 
   @Test
   public void testForDivisionWithFloat() {
     Evaluator<Mat3> eval = Mat3Evaluators.forOperationWithFloat(Mat3Operators.forDivisionWithFloat());
     assertEquals(
-        eval.getGlSlString(Shade.div(Shade.mat(new Mat3()), 3)),
+        eval.getGlSlString(Shade.div(Shade.mat(new Mat3()), 3), mContext),
         "mat3(mat3(vec3(float(1.0), float(0.0), float(0.0)), vec3(float(0.0), float(1.0), float(0.0)), vec3(float(0.0), float(0.0), float(1.0))) / float(3.0))");
-    assertEquals(eval.getGlSlString(Shade.div(Shade.mat(new Mat3()), 3), mContext), "mat3(a / a)");
   }
 
   @Test
   public void testForAdditionWithMat3() {
     Evaluator<Mat3> eval = Mat3Evaluators.forOperationWithMat3(Mat3Operators.forAdditionWithMat3());
     assertEquals(
-        eval.getGlSlString(Shade.add(new Mat3(), new Mat3())),
+        eval.getGlSlString(Shade.add(new Mat3(), new Mat3()), mContext),
         "mat3(mat3(vec3(float(1.0), float(0.0), float(0.0)), vec3(float(0.0), float(1.0), float(0.0)), vec3(float(0.0), float(0.0), float(1.0))) + mat3(vec3(float(1.0), float(0.0), float(0.0)), vec3(float(0.0), float(1.0), float(0.0)), vec3(float(0.0), float(0.0), float(1.0))))");
-    assertEquals(eval.getGlSlString(Shade.add(Shade.mat(new Mat3()), Shade.mat(new Mat3())), mContext), "mat3(a + a)");
   }
 
   @Test
   public void testForSubtractionWithMat3() {
     Evaluator<Mat3> eval = Mat3Evaluators.forOperationWithMat3(Mat3Operators.forSubtractionWithMat3());
     assertEquals(
-        eval.getGlSlString(Shade.sub(new Mat3(), new Mat3())),
+        eval.getGlSlString(Shade.sub(new Mat3(), new Mat3()), mContext),
         "mat3(mat3(vec3(float(1.0), float(0.0), float(0.0)), vec3(float(0.0), float(1.0), float(0.0)), vec3(float(0.0), float(0.0), float(1.0))) - mat3(vec3(float(1.0), float(0.0), float(0.0)), vec3(float(0.0), float(1.0), float(0.0)), vec3(float(0.0), float(0.0), float(1.0))))");
-    assertEquals(eval.getGlSlString(Shade.sub(Shade.mat(new Mat3()), Shade.mat(new Mat3())), mContext), "mat3(a - a)");
   }
 
   @Test
   public void testForMultiplicationWithMat3() {
     Evaluator<Mat3> eval = Mat3Evaluators.forOperationWithMat3(Mat3Operators.forMultiplicationWithMat3());
     assertEquals(
-        eval.getGlSlString(Shade.mul(new Mat3(), new Mat3())),
+        eval.getGlSlString(Shade.mul(new Mat3(), new Mat3()), mContext),
         "mat3(mat3(vec3(float(1.0), float(0.0), float(0.0)), vec3(float(0.0), float(1.0), float(0.0)), vec3(float(0.0), float(0.0), float(1.0))) * mat3(vec3(float(1.0), float(0.0), float(0.0)), vec3(float(0.0), float(1.0), float(0.0)), vec3(float(0.0), float(0.0), float(1.0))))");
-    assertEquals(eval.getGlSlString(Shade.mul(Shade.mat(new Mat3()), Shade.mat(new Mat3())), mContext), "mat3(a * a)");
   }
 
   @Test
   public void testForDivisionWithMat3() {
     Evaluator<Mat3> eval = Mat3Evaluators.forOperationWithMat3(Mat3Operators.forDivisionWithMat3());
     assertEquals(
-        eval.getGlSlString(Shade.div(new Mat3(), new Mat3())),
+        eval.getGlSlString(Shade.div(new Mat3(), new Mat3()), mContext),
         "mat3(mat3(vec3(float(1.0), float(0.0), float(0.0)), vec3(float(0.0), float(1.0), float(0.0)), vec3(float(0.0), float(0.0), float(1.0))) / mat3(vec3(float(1.0), float(0.0), float(0.0)), vec3(float(0.0), float(1.0), float(0.0)), vec3(float(0.0), float(0.0), float(1.0))))");
-    assertEquals(eval.getGlSlString(Shade.div(Shade.mat(new Mat3()), Shade.mat(new Mat3())), mContext), "mat3(a / a)");
   }
 
   @Test

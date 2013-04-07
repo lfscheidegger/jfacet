@@ -32,11 +32,6 @@ public interface Expression<T> {
   public T evaluate();
 
   /**
-   * Returns a string representing this {@code Expression} in GLSL.
-   */
-  public String getGlSlString();
-
-  /**
    * Returns a string representing this {@code Expression} in GLSL, using the provided {@code CompilationContext}
    * object to obtain names for its subexpressions
    */

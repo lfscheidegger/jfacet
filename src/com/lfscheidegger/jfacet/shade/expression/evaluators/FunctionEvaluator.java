@@ -18,19 +18,6 @@ public abstract class FunctionEvaluator<T> implements Evaluator<T> {
   }
 
   @Override
-  public String getGlSlString(Expression expression) {
-    return GlSlExpressionHelper.getFunctionExpression(
-        mType,
-        mFunctionName,
-        (String[])Collections2.transform(expression.getParents(), new Function<Expression, String>() {
-          @Override
-          public String apply(Expression parent) {
-            return parent.getGlSlString();
-          }
-        }).toArray(new String[expression.getParents().size()]));
-  }
-
-  @Override
   public String getGlSlString(Expression expression, final CompilationContext compilationContext) {
     return GlSlExpressionHelper.getFunctionExpression(
         mType,
@@ -38,7 +25,7 @@ public abstract class FunctionEvaluator<T> implements Evaluator<T> {
         (String[])Collections2.transform(expression.getParents(), new Function<Expression, String>() {
           @Override
           public String apply(Expression parent) {
-            return compilationContext.getExpressionName(parent);
+            return parent.getGlSlString(compilationContext);
           }
         }).toArray(new String[expression.getParents().size()]));
   }

@@ -1,6 +1,8 @@
 package com.lfscheidegger.jfacet.shade.expression.primitives;
 
+import com.lfscheidegger.jfacet.shade.FakeCompilationContext;
 import com.lfscheidegger.jfacet.shade.Shade;
+import com.lfscheidegger.jfacet.shade.compiler.CompilationContext;
 import com.lfscheidegger.jfacet.shade.primitives.Mat2;
 import com.lfscheidegger.jfacet.shade.primitives.Vec2;
 import org.junit.Test;
@@ -11,6 +13,8 @@ import static org.junit.Assert.assertEquals;
  * Unit tests for {@code Mat2Exp}
  */
 public class Mat2ExpTest {
+
+  private final CompilationContext mContext = new FakeCompilationContext();
 
   @Test
   public void testConstructors() {
@@ -69,15 +73,15 @@ public class Mat2ExpTest {
     assertEquals(Shade.add(Shade.mat(new Mat2()), Shade.mat(new Mat2())).getC0().evaluate(), new Vec2(2, 0));
     assertEquals(Shade.add(Shade.mat(new Mat2()), Shade.mat(new Mat2())).get(0).evaluate(), new Vec2(2, 0));
 
-    assertEquals(Shade.mat(new Mat2()).getC0().getGlSlString(), "vec2(mat2(vec2(float(1.0), float(0.0)), vec2(float(0.0), float(1.0)))[0])");
-    assertEquals(Shade.mat(new Mat2()).get(0).getGlSlString(), "vec2(mat2(vec2(float(1.0), float(0.0)), vec2(float(0.0), float(1.0)))[0])");
+    assertEquals(Shade.mat(new Mat2()).getC0().getGlSlString(mContext), "vec2(mat2(vec2(float(1.0), float(0.0)), vec2(float(0.0), float(1.0)))[0])");
+    assertEquals(Shade.mat(new Mat2()).get(0).getGlSlString(mContext), "vec2(mat2(vec2(float(1.0), float(0.0)), vec2(float(0.0), float(1.0)))[0])");
 
     assertEquals(Shade.mat(new Mat2()).getC1().evaluate(), new Vec2(0, 1));
     assertEquals(Shade.mat(new Mat2()).get(1).evaluate(), new Vec2(0, 1));
     assertEquals(Shade.add(Shade.mat(new Mat2()), Shade.mat(new Mat2())).getC1().evaluate(), new Vec2(0, 2));
     assertEquals(Shade.add(Shade.mat(new Mat2()), Shade.mat(new Mat2())).get(1).evaluate(), new Vec2(0, 2));
 
-    assertEquals(Shade.mat(new Mat2()).getC1().getGlSlString(), "vec2(mat2(vec2(float(1.0), float(0.0)), vec2(float(0.0), float(1.0)))[1])");
-    assertEquals(Shade.mat(new Mat2()).get(1).getGlSlString(), "vec2(mat2(vec2(float(1.0), float(0.0)), vec2(float(0.0), float(1.0)))[1])");
+    assertEquals(Shade.mat(new Mat2()).getC1().getGlSlString(mContext), "vec2(mat2(vec2(float(1.0), float(0.0)), vec2(float(0.0), float(1.0)))[1])");
+    assertEquals(Shade.mat(new Mat2()).get(1).getGlSlString(mContext), "vec2(mat2(vec2(float(1.0), float(0.0)), vec2(float(0.0), float(1.0)))[1])");
   }
 }

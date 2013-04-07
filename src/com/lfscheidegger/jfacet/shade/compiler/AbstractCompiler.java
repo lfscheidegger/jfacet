@@ -64,11 +64,14 @@ public abstract class AbstractCompiler implements Compiler {
       Expression expression,
       ImmutableList.Builder<String> mainBodyBuilder,
       ImmutableList.Builder<String> preambleBuilder) {
-    mainBodyBuilder.add(CompilationHelper.getDeclarationAndAssignmentStatement(
-        expression.getType(),
-        getContext().getExpressionName(expression),
-        expression.getGlSlString(getContext()),
-        getContext()));
+
+    if (mOutputExpressions.containsValue(expression)) {
+      mainBodyBuilder.add(CompilationHelper.getDeclarationAndAssignmentStatement(
+          expression.getType(),
+          getContext().getExpressionName(expression),
+          expression.getGlSlString(getContext()),
+          getContext()));
+    }
   }
 
   public void compileAttributeExpression(

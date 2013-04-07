@@ -1,5 +1,6 @@
 package com.lfscheidegger.jfacet.shade.expression.evaluators;
 
+import com.lfscheidegger.jfacet.shade.FakeCompilationContext;
 import com.lfscheidegger.jfacet.shade.Shade;
 import com.lfscheidegger.jfacet.shade.compiler.CompilationContext;
 import com.lfscheidegger.jfacet.shade.expression.Expression;
@@ -15,29 +16,13 @@ import static org.junit.Assert.assertEquals;
  */
 public class Mat2EvaluatorsTest {
 
-  private CompilationContext mContext = new CompilationContext() {
-    @Override
-    public String getExpressionName(Expression exp) {
-      return "a";
-    }
-
-    @Override
-    public int getScopeLevel() {
-      return 0;
-    }
-
-    @Override
-    public void pushScope() {}
-    @Override
-    public void popScope() {}
-  };
+  private CompilationContext mContext = new FakeCompilationContext();
 
   @Test
   public void testForConstant() {
     Mat2 mat = new Mat2();
     Evaluator<Mat2> eval = Mat2Evaluators.forConstant(mat);
 
-    assertEquals(eval.getGlSlString(Shade.mat(mat)), "mat2(vec2(float(1.0), float(0.0)), vec2(float(0.0), float(1.0)))");
     assertEquals(eval.getGlSlString(Shade.mat(mat), mContext), "mat2(vec2(float(1.0), float(0.0)), vec2(float(0.0), float(1.0)))");
   }
 
@@ -45,82 +30,72 @@ public class Mat2EvaluatorsTest {
   public void testForComponents() {
     Evaluator<Mat2> eval = Mat2Evaluators.forComponents();
     assertEquals(
-        eval.getGlSlString(Shade.mat(Shade.vec(1, 0), Shade.vec(0, 1))),
+        eval.getGlSlString(Shade.mat(Shade.vec(1, 0), Shade.vec(0, 1)), mContext),
         "mat2(vec2(float(1.0), float(0.0)), vec2(float(0.0), float(1.0)))");
-    assertEquals(
-        eval.getGlSlString(Shade.mat(Shade.vec(1, 0), Shade.vec(0, 1)), mContext), "mat2(a, a)");
   }
 
   @Test
   public void testForAdditionWithFloat() {
     Evaluator<Mat2> eval = Mat2Evaluators.forOperationWithFloat(Mat2Operators.forAdditionWithFloat());
     assertEquals(
-        eval.getGlSlString(Shade.add(Shade.mat(new Mat2()), 3)),
+        eval.getGlSlString(Shade.add(Shade.mat(new Mat2()), 3), mContext),
         "mat2(mat2(vec2(float(1.0), float(0.0)), vec2(float(0.0), float(1.0))) + float(3.0))");
-    assertEquals(eval.getGlSlString(Shade.add(Shade.mat(new Mat2()), 3), mContext), "mat2(a + a)");
   }
 
   @Test
   public void testForSubtractionWithFloat() {
     Evaluator<Mat2> eval = Mat2Evaluators.forOperationWithFloat(Mat2Operators.forSubtractionWithFloat());
     assertEquals(
-        eval.getGlSlString(Shade.sub(Shade.mat(new Mat2()), 3)),
+        eval.getGlSlString(Shade.sub(Shade.mat(new Mat2()), 3), mContext),
         "mat2(mat2(vec2(float(1.0), float(0.0)), vec2(float(0.0), float(1.0))) - float(3.0))");
-    assertEquals(eval.getGlSlString(Shade.sub(Shade.mat(new Mat2()), 3), mContext), "mat2(a - a)");
   }
 
   @Test
   public void testForMultiplicationWithFloat() {
     Evaluator<Mat2> eval = Mat2Evaluators.forOperationWithFloat(Mat2Operators.forMultiplicationWithFloat());
     assertEquals(
-        eval.getGlSlString(Shade.mul(Shade.mat(new Mat2()), 3)),
+        eval.getGlSlString(Shade.mul(Shade.mat(new Mat2()), 3), mContext),
         "mat2(mat2(vec2(float(1.0), float(0.0)), vec2(float(0.0), float(1.0))) * float(3.0))");
-    assertEquals(eval.getGlSlString(Shade.mul(Shade.mat(new Mat2()), 3), mContext), "mat2(a * a)");
   }
 
   @Test
   public void testForDivisionWithFloat() {
     Evaluator<Mat2> eval = Mat2Evaluators.forOperationWithFloat(Mat2Operators.forDivisionWithFloat());
     assertEquals(
-        eval.getGlSlString(Shade.div(Shade.mat(new Mat2()), 3)),
+        eval.getGlSlString(Shade.div(Shade.mat(new Mat2()), 3), mContext),
         "mat2(mat2(vec2(float(1.0), float(0.0)), vec2(float(0.0), float(1.0))) / float(3.0))");
-    assertEquals(eval.getGlSlString(Shade.div(Shade.mat(new Mat2()), 3), mContext), "mat2(a / a)");
   }
 
   @Test
   public void testForAdditionWithMat2() {
     Evaluator<Mat2> eval = Mat2Evaluators.forOperationWithMat2(Mat2Operators.forAdditionWithMat2());
     assertEquals(
-        eval.getGlSlString(Shade.add(new Mat2(), new Mat2())),
+        eval.getGlSlString(Shade.add(new Mat2(), new Mat2()), mContext),
         "mat2(mat2(vec2(float(1.0), float(0.0)), vec2(float(0.0), float(1.0))) + mat2(vec2(float(1.0), float(0.0)), vec2(float(0.0), float(1.0))))");
-    assertEquals(eval.getGlSlString(Shade.add(Shade.mat(new Mat2()), Shade.mat(new Mat2())), mContext), "mat2(a + a)");
   }
 
   @Test
   public void testForSubtractionWithMat2() {
     Evaluator<Mat2> eval = Mat2Evaluators.forOperationWithMat2(Mat2Operators.forSubtractionWithMat2());
     assertEquals(
-        eval.getGlSlString(Shade.sub(new Mat2(), new Mat2())),
+        eval.getGlSlString(Shade.sub(new Mat2(), new Mat2()), mContext),
         "mat2(mat2(vec2(float(1.0), float(0.0)), vec2(float(0.0), float(1.0))) - mat2(vec2(float(1.0), float(0.0)), vec2(float(0.0), float(1.0))))");
-    assertEquals(eval.getGlSlString(Shade.sub(Shade.mat(new Mat2()), Shade.mat(new Mat2())), mContext), "mat2(a - a)");
   }
 
   @Test
   public void testForMultiplicationWithMat2() {
     Evaluator<Mat2> eval = Mat2Evaluators.forOperationWithMat2(Mat2Operators.forMultiplicationWithMat2());
     assertEquals(
-        eval.getGlSlString(Shade.mul(new Mat2(), new Mat2())),
+        eval.getGlSlString(Shade.mul(new Mat2(), new Mat2()), mContext),
         "mat2(mat2(vec2(float(1.0), float(0.0)), vec2(float(0.0), float(1.0))) * mat2(vec2(float(1.0), float(0.0)), vec2(float(0.0), float(1.0))))");
-    assertEquals(eval.getGlSlString(Shade.mul(Shade.mat(new Mat2()), Shade.mat(new Mat2())), mContext), "mat2(a * a)");
   }
 
   @Test
   public void testForDivisionWithMat2() {
     Evaluator<Mat2> eval = Mat2Evaluators.forOperationWithMat2(Mat2Operators.forDivisionWithMat2());
     assertEquals(
-        eval.getGlSlString(Shade.div(new Mat2(), new Mat2())),
+        eval.getGlSlString(Shade.div(new Mat2(), new Mat2()), mContext),
         "mat2(mat2(vec2(float(1.0), float(0.0)), vec2(float(0.0), float(1.0))) / mat2(vec2(float(1.0), float(0.0)), vec2(float(0.0), float(1.0))))");
-    assertEquals(eval.getGlSlString(Shade.div(Shade.mat(new Mat2()), Shade.mat(new Mat2())), mContext), "mat2(a / a)");
   }
 
   @Test

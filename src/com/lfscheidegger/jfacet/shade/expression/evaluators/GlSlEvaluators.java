@@ -12,11 +12,6 @@ public class GlSlEvaluators {
       }
 
       @Override
-      public String getGlSlString(Expression expression) {
-        throw new EvaluationException("Cannot get literal expression for qualified expression");
-      }
-
-      @Override
       public String getGlSlString(Expression expression, CompilationContext context) {
         return context.getExpressionName(expression);
       }
