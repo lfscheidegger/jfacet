@@ -3,9 +3,6 @@ package com.lfscheidegger.jfacet.facet.renderer;
 import android.opengl.GLES20;
 import android.opengl.GLSurfaceView;
 import com.lfscheidegger.jfacet.facet.*;
-import com.lfscheidegger.jfacet.shade.Shade;
-import com.lfscheidegger.jfacet.shade.Type;
-import com.lfscheidegger.jfacet.shade.expression.Expression;
 import com.lfscheidegger.jfacet.shade.primitives.Vec4;
 
 import javax.microedition.khronos.egl.EGLConfig;
@@ -35,7 +32,6 @@ public class FacetRenderer implements GLSurfaceView.Renderer {
   @Override
   public void onDrawFrame(GL10 gl) {
     GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT | GLES20.GL_DEPTH_BUFFER_BIT);
-
     mScene.draw();
   }
 }

@@ -20,12 +20,5 @@ public class VertexShaderCompiler extends AbstractCompiler {
         expression.getType(),
         getContext().getExpressionName(expression),
         getContext()));
-
-    Expression parent = (Expression)expression.getParents().get(0);
-    mainBodyBuilder.add(CompilationHelper.getDeclarationAndAssignmentStatement(
-        parent.getType(),
-        getContext().getExpressionName(parent),
-        parent.getGlSlString(getContext()),
-        getContext()));
   }
 }

@@ -31,8 +31,14 @@ public class Program {
 
   private AndroidGL20 mAndroidGL;
 
-  private final Map<AttribBuffer, Expression> mAttributeMap;
-  private final Set<Expression> mUniformSet;
+  // Attribute data
+  private final AttribBuffer[] mAttribBuffers;
+  private final Expression[] mAttribExpressions;
+  private final int[] mAttribLocations;
+
+  // Uniform data
+  private final Expression[] mUniformExpressions;
+  private final int[] mUniformLocations;
 
   public Program(
       Expression position,
@@ -43,8 +49,29 @@ public class Program {
     mPosition = Shade.fill(position, new Vec4(0, 0, 0, 1));
     mFragColor = Shade.fill(fragColor, new Vec4(0, 0, 0, 1));
 
-    mAttributeMap = attributeMap;
-    mUniformSet = new HashSet<Expression>();
+    // initialize data for attributes
+    int count = 0;
+    mAttribBuffers = new AttribBuffer[attributeMap.size()];
+    for (AttribBuffer attribBuffer: attributeMap.keySet()) {
+      mAttribBuffers[count++] = attribBuffer;
+    }
+    mAttribExpressions = new Expression[attributeMap.size()];
+    for (int i = 0; i < mAttribBuffers.length; i++) {
+      mAttribExpressions[i] = attributeMap.get(mAttribBuffers[i]);
+    }
+    mAttribLocations = new int[attributeMap.size()];
+
+    // initialize data for uniforms
+    Set<Expression> uniformExpressions = new HashSet<Expression>();
+    extractUniforms(mPosition, uniformExpressions);
+    extractUniforms(mFragColor, uniformExpressions);
+
+    mUniformExpressions = new Expression[uniformExpressions.size()];
+    count = 0;
+    for (Expression expression: uniformExpressions) {
+      mUniformExpressions[count++] = expression;
+    }
+    mUniformLocations = new int[uniformExpressions.size()];
   }
 
   public void bake() {
@@ -103,12 +130,11 @@ public class Program {
   }
 
   private void linkProgram() {
-    extractUniforms(mPosition);
-    extractUniforms(mFragColor);
-
     bindAttributeLocations();
 
     GLES20.glLinkProgram(mProgramHandle);
+
+    bindUniformLocations();
 
     // Get the link status.
     final int[] linkStatus = new int[1];
@@ -124,46 +150,49 @@ public class Program {
     }
   }
 
-  private void extractUniforms(Expression exp) {
+  private Set<Expression> extractUniforms(Expression exp, Set<Expression> existing) {
     if (exp.getGlSlType() == GlSlType.UNIFORM_T) {
-      mUniformSet.add(exp);
+      existing.add(exp);
     }
 
     for (Expression parent: (ImmutableList<Expression>)exp.getParents()) {
-      extractUniforms(parent);
+      extractUniforms(parent, existing);
     }
+
+    return existing;
   }
 
   private void bindAttributeLocations() {
-    Preconditions.checkState(mAttributeMap.size() <= GLES20.GL_MAX_VERTEX_ATTRIBS);
+    for (int i = 0; i < mAttribExpressions.length; i++) {
+      GLES20.glBindAttribLocation(mProgramHandle, i, mCompilationContext.getExpressionName(mAttribExpressions[i]));
+      mAttribLocations[i] = i;
+    }
+  }
 
-    int count = 0;
-    for (Expression attribute: mAttributeMap.values()) {
-      GLES20.glBindAttribLocation(mProgramHandle, count++, mCompilationContext.getExpressionName(attribute));
+  private void bindUniformLocations() {
+    for (int i = 0; i < mUniformExpressions.length; i++) {
+      int location =
+          GLES20.glGetUniformLocation(mProgramHandle, mCompilationContext.getExpressionName(mUniformExpressions[i]));
+      mUniformLocations[i] = location;
     }
   }
 
   private void bindAttributes() {
-    for (AttribBuffer buffer: mAttributeMap.keySet()) {
-      Expression attribute = mAttributeMap.get(buffer);
-      int attribHandle = GLES20.glGetAttribLocation(mProgramHandle, mCompilationContext.getExpressionName(attribute));
+    for (int i = 0; i < mAttribExpressions.length; i++) {
+      int attribHandle = mAttribLocations[i];
+      AttribBuffer buffer = mAttribBuffers[i];
       int size = buffer.getDimension();
-      GLES20.glEnableVertexAttribArray(attribHandle);
-      GLES20.glVertexAttribPointer(attribHandle, size, GLES20.GL_FLOAT, false, 0, buffer.getBuffer());
-    }
-  }
 
-  private void unbindAttributes() {
-    for (Expression attribute: mAttributeMap.values()) {
-      int attribHandle = GLES20.glGetAttribLocation(mProgramHandle, mCompilationContext.getExpressionName(attribute));
-      GLES20.glDisableVertexAttribArray(attribHandle);
+      GLES20.glVertexAttribPointer(attribHandle, size, GLES20.GL_FLOAT, false, 0, buffer.getBuffer());
+      GLES20.glEnableVertexAttribArray(attribHandle);
     }
   }
 
   private void bindUniforms() {
-    for (Expression uniform: mUniformSet) {
+    for (int i = 0; i < mUniformLocations.length; i++) {
+      Expression uniform = mUniformExpressions[i];
       ((Uniform)uniform).refresh();
-      int uniformHandle = GLES20.glGetUniformLocation(mProgramHandle, mCompilationContext.getExpressionName(uniform));
+      int uniformHandle = mUniformLocations[i];
       switch(uniform.getType()) {
         case FLOAT_T:
           GLES20.glUniform1f(uniformHandle, ((FloatUniform)uniform).get());
@@ -176,9 +205,5 @@ public class Program {
     GLES20.glUseProgram(mProgramHandle);
     bindAttributes();
     bindUniforms();
-  }
-
-  public void stopUsing() {
-    unbindAttributes();
   }
 }

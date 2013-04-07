@@ -44,6 +44,7 @@ public class Scene {
 
   private final SceneConfig mSceneConfig;
   private final Set<Drawable> mDrawables;
+  private Drawable[] mDrawableCache;
 
   public Scene(SceneConfig sceneConfig) {
     mSceneConfig = sceneConfig;
@@ -57,14 +58,18 @@ public class Scene {
   }
 
   public void bake() {
+    mDrawableCache = new Drawable[mDrawables.size()];
+
+    int count = 0;
     for (Drawable drawable: mDrawables) {
       drawable.bake();
+      mDrawableCache[count++] = drawable;
     }
   }
 
   public void draw() {
-    for (Drawable drawable: mDrawables) {
-      drawable.draw();
+    for (int i = 0; i < mDrawableCache.length; i++) {
+      mDrawableCache[i].draw();
     }
   }
 

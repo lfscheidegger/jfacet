@@ -24,7 +24,7 @@ public abstract class AbstractCompiler implements Compiler {
   }
 
   @Override
-  public final String compile() {
+  public String compile() {
     ImmutableList.Builder<String> mainBodyBuilder = new ImmutableList.Builder<String>();
     ImmutableList.Builder<String> preambleBuilder = new ImmutableList.Builder<String>();
 
@@ -100,6 +100,8 @@ public abstract class AbstractCompiler implements Compiler {
 
   private String getPreamble(ImmutableList<String> preambleStatements) {
     StringBuilder builder = new StringBuilder();
+
+    builder.append("precision highp float;\n");
 
     for (String statement: preambleStatements) {
       builder.append(statement);

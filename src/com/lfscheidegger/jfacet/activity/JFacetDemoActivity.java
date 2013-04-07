@@ -47,14 +47,12 @@ public class JFacetDemoActivity extends Activity {
   @Override
   public void onResume() {
     super.onResume();
-
     mView.onResume();
   }
 
   @Override
   public void onPause() {
     super.onPause();
-
     mView.onPause();
   }
 
