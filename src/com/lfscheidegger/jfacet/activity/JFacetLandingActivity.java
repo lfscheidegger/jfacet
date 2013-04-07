@@ -49,7 +49,8 @@ public class JFacetLandingActivity extends Activity {
     mListView.setAdapter(new DemoSelectorAdapter(this, R.layout.landing_item, ImmutableList.<String>of(
         "Lesson 2",
         "Lesson 3",
-        "Lesson 4"
+        "Lesson 4",
+        "Lesson 5"
     )));
 
     mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -61,61 +62,5 @@ public class JFacetLandingActivity extends Activity {
         startActivity(intent);
       }
     });
-
-    /**mSurfaceView = (GLSurfaceView) findViewById(R.id.gl_view);
-
-     Scene scene = new Scene(new Scene.SceneConfig.Builder().build());
-
-    Geometry squareModel = Facet.model(
-        ModelType.TRIANGLES,
-        new float[] {-1, -1, 1, -1, 1, 1, -1, -1, 1, 1, -1, 1}, 2);
-    Geometry triangleModel = Facet.model(
-        ModelType.TRIANGLES,
-        new float[] {0, 1, -1, -1, 1, -1}, 2,
-        new float[] {1, 0, 0, 0, 1, 0, 0, 0, 1}, 3);
-
-     Display display = getWindowManager().getDefaultDisplay();
-     Point size = new Point();
-     display.getSize(size);
-
-     Camera camera = Camera.perspective(size.x, size.y);
-
-    FloatExp angle = Parameter.now().mul(50).radians();
-
-        new FloatUniform(Shade.constant(0));
-    Expression squarePosition =
-        camera.apply(
-        Shade.translation(1.5f, 0, -12).apply(
-        Shade.rotation(angle, Shade.vec(1, 0, 0)).apply(
-            squareModel.getVertices())));
-
-    Expression trianglePosition =
-        camera.apply(
-        Shade.translation(-1.5f, 0, -12).apply(
-        Shade.rotation(angle, Shade.vec(0, 1, 0)).apply(
-            triangleModel.getVertices())));
-
-    Drawable square = Facet.bake(squareModel, squarePosition, Shade.vec(0.5f, 0.5f, 1));
-    Drawable triangle = Facet.bake(triangleModel, trianglePosition, Shade.varying((Vec3Exp) triangleModel.getColors()));
-
-    scene.add(square);
-    scene.add(triangle);
-
-     mSurfaceView.setRenderer(new FacetRenderer(scene));
-     */
   }
-
-  /*@Override
-  public void onResume() {
-    super.onStart();
-
-    mSurfaceView.onResume();
-  }
-
-  @Override
-  public void onPause() {
-    super.onPause();
-
-    mSurfaceView.onPause();
-  }*/
 }
