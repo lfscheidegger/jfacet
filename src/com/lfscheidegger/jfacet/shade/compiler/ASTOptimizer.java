@@ -29,6 +29,10 @@ public class ASTOptimizer {
   }
 
   private boolean isConstant(Expression expression) {
+    if (expression.getGlSlType() != GlSlType.DEFAULT_T) {
+      return false;
+    }
+
     ImmutableList<Expression> parents = expression.getParents();
 
     if (parents.size() == 0) {

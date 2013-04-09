@@ -5,6 +5,7 @@ import com.lfscheidegger.jfacet.shade.expression.*;
 import com.lfscheidegger.jfacet.shade.expression.evaluators.*;
 import com.lfscheidegger.jfacet.shade.expression.operators.*;
 import com.lfscheidegger.jfacet.shade.expression.primitives.*;
+import com.lfscheidegger.jfacet.shade.expression.primitives.uniform.Uniform;
 import com.lfscheidegger.jfacet.shade.primitives.*;
 import com.lfscheidegger.jfacet.shade.primitives.interfaces.*;
 import com.lfscheidegger.jfacet.shade.transform.Rotation;

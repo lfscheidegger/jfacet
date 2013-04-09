@@ -11,8 +11,7 @@ import com.lfscheidegger.jfacet.shade.GlSlType;
 import com.lfscheidegger.jfacet.shade.Shade;
 import com.lfscheidegger.jfacet.shade.compiler.*;
 import com.lfscheidegger.jfacet.shade.expression.Expression;
-import com.lfscheidegger.jfacet.shade.expression.primitives.uniform.FloatUniform;
-import com.lfscheidegger.jfacet.shade.expression.primitives.uniform.Uniform;
+import com.lfscheidegger.jfacet.shade.expression.evaluators.UniformEvaluator;
 import com.lfscheidegger.jfacet.shade.primitives.Vec4;
 
 import java.util.HashSet;
@@ -153,6 +152,7 @@ public class Program {
   private Set<Expression> extractUniforms(Expression exp, Set<Expression> existing) {
     if (exp.getGlSlType() == GlSlType.UNIFORM_T) {
       existing.add(exp);
+      return existing;
     }
 
     for (Expression parent: (ImmutableList<Expression>)exp.getParents()) {
@@ -190,13 +190,13 @@ public class Program {
 
   private void bindUniforms() {
     for (int i = 0; i < mUniformLocations.length; i++) {
-      Expression uniform = mUniformExpressions[i];
-      ((Uniform)uniform).refresh();
       int uniformHandle = mUniformLocations[i];
-      switch(uniform.getType()) {
+
+      UniformEvaluator evaluator = (UniformEvaluator)mUniformExpressions[i].getEvaluator();
+      evaluator.refresh();
+      switch(mUniformExpressions[i].getType()) {
         case FLOAT_T:
-          GLES20.glUniform1f(uniformHandle, ((FloatUniform)uniform).get());
-          break;
+          GLES20.glUniform1f(uniformHandle, (Float)evaluator.get());
       }
     }
   }

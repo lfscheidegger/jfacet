@@ -3,23 +3,11 @@ package com.lfscheidegger.jfacet.activity;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Point;
-import android.opengl.GLSurfaceView;
 import android.os.Bundle;
-import android.view.Display;
 import android.view.View;
 import android.widget.*;
 import com.google.common.collect.ImmutableList;
 import com.lfscheidegger.jfacet.R;
-import com.lfscheidegger.jfacet.facet.*;
-import com.lfscheidegger.jfacet.facet.renderer.FacetRenderer;
-import com.lfscheidegger.jfacet.shade.Parameter;
-import com.lfscheidegger.jfacet.shade.Shade;
-import com.lfscheidegger.jfacet.shade.camera.Camera;
-import com.lfscheidegger.jfacet.shade.expression.Expression;
-import com.lfscheidegger.jfacet.shade.expression.primitives.FloatExp;
-import com.lfscheidegger.jfacet.shade.expression.primitives.Vec3Exp;
-import com.lfscheidegger.jfacet.shade.expression.primitives.uniform.FloatUniform;
 
 import java.util.List;
 
