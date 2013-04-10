@@ -10,8 +10,6 @@ import com.lfscheidegger.jfacet.shade.primitives.Vec3;
  */
 public class Vec3Evaluators {
 
-  private static final Type TYPE = Type.VEC3_T;
-
   public static Evaluator<Vec3> forCrossProduct() {
     return new FunctionEvaluator<Vec3>(Type.VEC3_T, "cross") {
       @Override

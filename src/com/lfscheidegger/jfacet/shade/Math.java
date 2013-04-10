@@ -88,5 +88,41 @@ public class Math {
           }
         });
   }
+
+  public static FloatExp dot(Vec2Exp left, Vec2Exp right) {
+    return new FloatExp(ImmutableList.<Expression>of(left, right), new FunctionEvaluator<Float>(Type.FLOAT_T, "dot") {
+      @Override
+      public Float evaluate(Expression expression) {
+        Vec2Exp left = (Vec2Exp)expression.getParents().get(0);
+        Vec2Exp right = (Vec2Exp)expression.getParents().get(1);
+
+        return left.evaluate().dot(right.evaluate());
+      }
+    });
+  }
+
+  public static FloatExp dot(Vec3Exp left, Vec3Exp right) {
+    return new FloatExp(ImmutableList.<Expression>of(left, right), new FunctionEvaluator<Float>(Type.FLOAT_T, "dot") {
+      @Override
+      public Float evaluate(Expression expression) {
+        Vec3Exp left = (Vec3Exp)expression.getParents().get(0);
+        Vec3Exp right = (Vec3Exp)expression.getParents().get(1);
+
+        return left.evaluate().dot(right.evaluate());
+      }
+    });
+  }
+
+  public static FloatExp dot(Vec4Exp left, Vec4Exp right) {
+    return new FloatExp(ImmutableList.<Expression>of(left, right), new FunctionEvaluator<Float>(Type.FLOAT_T, "dot") {
+      @Override
+      public Float evaluate(Expression expression) {
+        Vec4Exp left = (Vec4Exp)expression.getParents().get(0);
+        Vec4Exp right = (Vec4Exp)expression.getParents().get(1);
+
+        return left.evaluate().dot(right.evaluate());
+      }
+    });
+  }
 }
 

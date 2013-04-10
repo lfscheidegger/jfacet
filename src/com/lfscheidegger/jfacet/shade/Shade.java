@@ -167,7 +167,7 @@ public class Shade {
   }
 
   public static FloatExp dot(Vec2Like left, Vec2Like right) {
-    return new FloatExp(ImmutableList.<Expression>of(promote(left), promote(right)), FloatEvaluators.forVec2Dot());
+    return Math.dot(promote(left), promote(right));
   }
 
   // ===================================================================================================================
@@ -262,7 +262,7 @@ public class Shade {
   }
 
   public static FloatExp dot(Vec3Like left, Vec3Like right) {
-    return new FloatExp(ImmutableList.<Expression>of(promote(left), promote(right)), FloatEvaluators.forVec3Dot());
+    return Math.dot(promote(left), promote(right));
   }
 
   public static Vec3Exp cross(Vec3Like left, Vec3Like right) {
@@ -385,7 +385,7 @@ public class Shade {
   }
 
   public static FloatExp dot(Vec4Like left, Vec4Like right) {
-    return new FloatExp(ImmutableList.<Expression>of(promote(left), promote(right)), FloatEvaluators.forVec4Dot());
+    return Math.dot(promote(left), promote(right));
   }
 
   // ===================================================================================================================
