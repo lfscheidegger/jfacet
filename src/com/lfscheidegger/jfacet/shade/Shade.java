@@ -3,6 +3,7 @@ package com.lfscheidegger.jfacet.shade;
 import com.google.common.collect.ImmutableList;
 import com.lfscheidegger.jfacet.shade.expression.*;
 import com.lfscheidegger.jfacet.shade.expression.evaluators.*;
+import com.lfscheidegger.jfacet.shade.expression.evaluators.glsl.QualifiedGlSlEvaluator;
 import com.lfscheidegger.jfacet.shade.expression.operators.*;
 import com.lfscheidegger.jfacet.shade.expression.primitives.*;
 import com.lfscheidegger.jfacet.shade.primitives.*;
@@ -726,7 +727,7 @@ public class Shade {
     return new Vec4Exp(GlSlType.VARYING_T, ImmutableList.<Expression>of(exp), new QualifiedGlSlEvaluator<Vec4>());
   }
 
-  public static Vec4Exp texture2D(Sampler2Exp texture, Expression texCoords) {
+  public static Vec4Exp texture2D(Sampler2DExp texture, Expression texCoords) {
     return new Vec4Exp(
         ImmutableList.<Expression>of(texture, texCoords),
         new FunctionEvaluator<Vec4>(Type.VEC4_T, "texture2D") {

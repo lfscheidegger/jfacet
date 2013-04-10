@@ -25,13 +25,17 @@ public abstract class AbstractTransform implements Transform {
   @Override
   public Vec4Exp apply(Expression exp) {
     Vec4Exp result = Shade.fill(exp, new Vec4(0, 0, 0, 1));
-    for (int i = mQueuedTransforms.size() - 1; i >= 0; i--) {
-      result = mQueuedTransforms.get(i).getMatrix().mul(result);
+
+    Mat4Exp mat = mQueuedTransforms.get(0).getMatrix();
+
+    for (int i = 1; i < mQueuedTransforms.size(); i++) {
+      mat = mat.mul(mQueuedTransforms.get(i).getMatrix());
     }
 
     mQueuedTransforms.clear();
     mQueuedTransforms.add(this);
-    return result;
+
+    return mat.mul(result);
   }
 
   @Override

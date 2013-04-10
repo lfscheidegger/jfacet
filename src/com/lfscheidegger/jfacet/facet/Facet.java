@@ -51,14 +51,14 @@ public class Facet {
         new AttribBuffer(colors, colorDimension));
   }
 
-  public static Sampler2Exp texture(Resources resources, int resId) {
+  public static Sampler2DExp texture(Resources resources, int resId) {
     Matrix matrix = new Matrix();
     matrix.preScale(1, -1);
     Bitmap bitmap = BitmapFactory.decodeResource(resources, resId);
     return texture(Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true));
   }
 
-  public static Sampler2Exp texture(Bitmap texture) {
-    return new Sampler2Exp(texture);
+  public static Sampler2DExp texture(Bitmap texture) {
+    return new Sampler2DExp(texture);
   }
 }

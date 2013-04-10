@@ -14,8 +14,8 @@ import com.lfscheidegger.jfacet.shade.Shade;
 import com.lfscheidegger.jfacet.shade.Type;
 import com.lfscheidegger.jfacet.shade.compiler.*;
 import com.lfscheidegger.jfacet.shade.expression.Expression;
-import com.lfscheidegger.jfacet.shade.expression.evaluators.UniformEvaluator;
-import com.lfscheidegger.jfacet.shade.expression.primitives.Sampler2Exp;
+import com.lfscheidegger.jfacet.shade.expression.evaluators.glsl.UniformEvaluator;
+import com.lfscheidegger.jfacet.shade.expression.primitives.Sampler2DExp;
 import com.lfscheidegger.jfacet.shade.primitives.*;
 
 import java.util.HashSet;
@@ -197,7 +197,7 @@ public class Program {
         continue;
       }
 
-      ((Sampler2Exp)mUniformExpressions[i]).bake();
+      ((Sampler2DExp)mUniformExpressions[i]).bake();
     }
   }
 

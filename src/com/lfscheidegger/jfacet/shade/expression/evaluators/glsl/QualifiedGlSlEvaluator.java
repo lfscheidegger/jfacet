@@ -1,9 +1,10 @@
-package com.lfscheidegger.jfacet.shade.expression.evaluators;
+package com.lfscheidegger.jfacet.shade.expression.evaluators.glsl;
 
 import com.lfscheidegger.jfacet.shade.compiler.CompilationContext;
 import com.lfscheidegger.jfacet.shade.expression.Expression;
+import com.lfscheidegger.jfacet.shade.expression.evaluators.Evaluator;
 
-public class QualifiedGlSlEvaluator<T> implements Evaluator<T>{
+public class QualifiedGlSlEvaluator<T> implements Evaluator<T> {
 
   @Override
   public T evaluate(Expression expression) {

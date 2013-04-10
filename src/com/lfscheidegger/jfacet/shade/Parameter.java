@@ -1,9 +1,8 @@
 package com.lfscheidegger.jfacet.shade;
 
 import android.os.SystemClock;
-import com.google.common.collect.ImmutableList;
 import com.lfscheidegger.jfacet.shade.expression.Expression;
-import com.lfscheidegger.jfacet.shade.expression.evaluators.UniformEvaluator;
+import com.lfscheidegger.jfacet.shade.expression.evaluators.glsl.UniformEvaluator;
 import com.lfscheidegger.jfacet.shade.expression.primitives.*;
 import com.lfscheidegger.jfacet.shade.primitives.*;
 
