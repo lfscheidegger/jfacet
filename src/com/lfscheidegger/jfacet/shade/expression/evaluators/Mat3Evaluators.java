@@ -19,19 +19,6 @@ public class Mat3Evaluators {
 
   private static final Type TYPE = Type.MAT3_T;
 
-  public static Evaluator<Mat3> forOperationWithFloat(final Operator<Mat3, Float, Mat3> operator) {
-    return new BinaryOpEvaluator<Mat3, Float, Mat3>(TYPE, operator) {
-      @Override
-      public Mat3 evaluate(Expression expression) {
-        ImmutableList<Expression> parents = expression.getParents();
-        Mat3Exp left = (Mat3Exp)parents.get(0);
-        FloatExp right = (FloatExp)parents.get(1);
-
-        return operator.op(left.evaluate(), right.evaluate());
-      }
-    };
-  }
-
   public static Evaluator<Mat3> forOperationWithMat3(final Operator<Mat3, Mat3, Mat3> operator) {
     return new BinaryOpEvaluator<Mat3, Mat3, Mat3>(TYPE, operator) {
       @Override

@@ -38,7 +38,7 @@ public class Mat3EvaluatorsTest {
 
   @Test
   public void testForAdditionWithFloat() {
-    Evaluator<Mat3> eval = Mat3Evaluators.forOperationWithFloat(Mat3Operators.forAdditionWithFloat());
+    Evaluator<Mat3> eval = new FloatOperationEvaluator<Mat3>(Type.MAT3_T, Mat3Operators.forAdditionWithFloat());
     assertEquals(
         eval.getGlSlString(Shade.add(Shade.mat(new Mat3()), 3), mContext),
         "mat3(mat3(vec3(float(1.0), float(0.0), float(0.0)), vec3(float(0.0), float(1.0), float(0.0)), vec3(float(0.0), float(0.0), float(1.0))) + float(3.0))");
@@ -46,7 +46,7 @@ public class Mat3EvaluatorsTest {
 
   @Test
   public void testForSubtractionWithFloat() {
-    Evaluator<Mat3> eval = Mat3Evaluators.forOperationWithFloat(Mat3Operators.forSubtractionWithFloat());
+    Evaluator<Mat3> eval = new FloatOperationEvaluator<Mat3>(Type.MAT3_T, Mat3Operators.forSubtractionWithFloat());
     assertEquals(
         eval.getGlSlString(Shade.sub(Shade.mat(new Mat3()), 3), mContext),
         "mat3(mat3(vec3(float(1.0), float(0.0), float(0.0)), vec3(float(0.0), float(1.0), float(0.0)), vec3(float(0.0), float(0.0), float(1.0))) - float(3.0))");
@@ -54,7 +54,7 @@ public class Mat3EvaluatorsTest {
 
   @Test
   public void testForMultiplicationWithFloat() {
-    Evaluator<Mat3> eval = Mat3Evaluators.forOperationWithFloat(Mat3Operators.forMultiplicationWithFloat());
+    Evaluator<Mat3> eval = new FloatOperationEvaluator<Mat3>(Type.MAT3_T, Mat3Operators.forMultiplicationWithFloat());
     assertEquals(
         eval.getGlSlString(Shade.mul(Shade.mat(new Mat3()), 3), mContext),
         "mat3(mat3(vec3(float(1.0), float(0.0), float(0.0)), vec3(float(0.0), float(1.0), float(0.0)), vec3(float(0.0), float(0.0), float(1.0))) * float(3.0))");
@@ -62,7 +62,7 @@ public class Mat3EvaluatorsTest {
 
   @Test
   public void testForDivisionWithFloat() {
-    Evaluator<Mat3> eval = Mat3Evaluators.forOperationWithFloat(Mat3Operators.forDivisionWithFloat());
+    Evaluator<Mat3> eval = new FloatOperationEvaluator<Mat3>(Type.MAT3_T, Mat3Operators.forDivisionWithFloat());
     assertEquals(
         eval.getGlSlString(Shade.div(Shade.mat(new Mat3()), 3), mContext),
         "mat3(mat3(vec3(float(1.0), float(0.0), float(0.0)), vec3(float(0.0), float(1.0), float(0.0)), vec3(float(0.0), float(0.0), float(1.0))) / float(3.0))");

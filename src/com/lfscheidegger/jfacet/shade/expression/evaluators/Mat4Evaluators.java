@@ -19,19 +19,6 @@ public class Mat4Evaluators {
 
   private static final Type TYPE = Type.MAT4_T;
 
-  public static Evaluator<Mat4> forOperationWithFloat(final Operator<Mat4, Float, Mat4> operator) {
-    return new BinaryOpEvaluator<Mat4, Float, Mat4>(TYPE, operator) {
-      @Override
-      public Mat4 evaluate(Expression expression) {
-        ImmutableList<Expression> parents = expression.getParents();
-        Mat4Exp left = (Mat4Exp)parents.get(0);
-        FloatExp right = (FloatExp)parents.get(1);
-
-        return operator.op(left.evaluate(), right.evaluate());
-      }
-    };
-  }
-
   public static Evaluator<Mat4> forOperationWithMat4(final Operator<Mat4, Mat4, Mat4> operator) {
     return new BinaryOpEvaluator<Mat4, Mat4, Mat4>(TYPE, operator) {
       @Override

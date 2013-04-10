@@ -18,19 +18,6 @@ public class Vec4Evaluators {
 
   private static final Type TYPE = Type.VEC4_T;
 
-  public static Evaluator<Vec4> forOperationWithFloat(final Operator<Vec4, Float, Vec4> operator) {
-    return new BinaryOpEvaluator<Vec4, Float, Vec4>(TYPE, operator) {
-      @Override
-      public Vec4 evaluate(Expression expression) {
-        ImmutableList<Expression> parents = expression.getParents();
-        Vec4Exp left = (Vec4Exp)parents.get(0);
-        FloatExp right = (FloatExp)parents.get(1);
-
-        return operator.op(left.evaluate(), right.evaluate());
-      }
-    };
-  }
-
   public static Evaluator<Vec4> forOperationWithVec4(final Operator<Vec4, Vec4, Vec4> operator) {
     return new BinaryOpEvaluator<Vec4, Vec4, Vec4>(TYPE, operator) {
       @Override

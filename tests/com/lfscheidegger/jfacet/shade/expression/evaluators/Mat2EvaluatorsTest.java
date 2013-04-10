@@ -37,7 +37,7 @@ public class Mat2EvaluatorsTest {
 
   @Test
   public void testForAdditionWithFloat() {
-    Evaluator<Mat2> eval = Mat2Evaluators.forOperationWithFloat(Mat2Operators.forAdditionWithFloat());
+    Evaluator<Mat2> eval = new FloatOperationEvaluator<Mat2>(Type.MAT2_T, Mat2Operators.forAdditionWithFloat());
     assertEquals(
         eval.getGlSlString(Shade.add(Shade.mat(new Mat2()), 3), mContext),
         "mat2(mat2(vec2(float(1.0), float(0.0)), vec2(float(0.0), float(1.0))) + float(3.0))");
@@ -45,7 +45,7 @@ public class Mat2EvaluatorsTest {
 
   @Test
   public void testForSubtractionWithFloat() {
-    Evaluator<Mat2> eval = Mat2Evaluators.forOperationWithFloat(Mat2Operators.forSubtractionWithFloat());
+    Evaluator<Mat2> eval = new FloatOperationEvaluator<Mat2>(Type.MAT2_T, Mat2Operators.forSubtractionWithFloat());
     assertEquals(
         eval.getGlSlString(Shade.sub(Shade.mat(new Mat2()), 3), mContext),
         "mat2(mat2(vec2(float(1.0), float(0.0)), vec2(float(0.0), float(1.0))) - float(3.0))");
@@ -53,7 +53,7 @@ public class Mat2EvaluatorsTest {
 
   @Test
   public void testForMultiplicationWithFloat() {
-    Evaluator<Mat2> eval = Mat2Evaluators.forOperationWithFloat(Mat2Operators.forMultiplicationWithFloat());
+    Evaluator<Mat2> eval = new FloatOperationEvaluator<Mat2>(Type.MAT2_T, Mat2Operators.forMultiplicationWithFloat());
     assertEquals(
         eval.getGlSlString(Shade.mul(Shade.mat(new Mat2()), 3), mContext),
         "mat2(mat2(vec2(float(1.0), float(0.0)), vec2(float(0.0), float(1.0))) * float(3.0))");
@@ -61,7 +61,7 @@ public class Mat2EvaluatorsTest {
 
   @Test
   public void testForDivisionWithFloat() {
-    Evaluator<Mat2> eval = Mat2Evaluators.forOperationWithFloat(Mat2Operators.forDivisionWithFloat());
+    Evaluator<Mat2> eval = new FloatOperationEvaluator<Mat2>(Type.MAT2_T, Mat2Operators.forDivisionWithFloat());
     assertEquals(
         eval.getGlSlString(Shade.div(Shade.mat(new Mat2()), 3), mContext),
         "mat2(mat2(vec2(float(1.0), float(0.0)), vec2(float(0.0), float(1.0))) / float(3.0))");

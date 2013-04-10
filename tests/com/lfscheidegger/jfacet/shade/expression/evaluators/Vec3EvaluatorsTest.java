@@ -35,28 +35,28 @@ public class Vec3EvaluatorsTest {
 
   @Test
   public void testForAdditionWithFloat() {
-    Evaluator<Vec3> eval = Vec3Evaluators.forOperationWithFloat(Vec3Operators.forAdditionWithFloat());
+    Evaluator<Vec3> eval = new FloatOperationEvaluator<Vec3>(Type.VEC3_T, Vec3Operators.forAdditionWithFloat());
     assertEquals(eval.getGlSlString(Shade.add(Shade.vec(1, 2, 3), 3), mContext),
         "vec3(vec3(float(1.0), float(2.0), float(3.0)) + float(3.0))");
   }
 
   @Test
   public void testForSubtractionWithFloat() {
-    Evaluator<Vec3> eval = Vec3Evaluators.forOperationWithFloat(Vec3Operators.forSubtractionWithFloat());
+    Evaluator<Vec3> eval = new FloatOperationEvaluator<Vec3>(Type.VEC3_T, Vec3Operators.forSubtractionWithFloat());
     assertEquals(eval.getGlSlString(Shade.sub(Shade.vec(1, 2, 3), 3), mContext),
         "vec3(vec3(float(1.0), float(2.0), float(3.0)) - float(3.0))");
   }
 
   @Test
   public void testForMultiplicationWithFloat() {
-    Evaluator<Vec3> eval = Vec3Evaluators.forOperationWithFloat(Vec3Operators.forMultiplicationWithFloat());
+    Evaluator<Vec3> eval = new FloatOperationEvaluator<Vec3>(Type.VEC3_T, Vec3Operators.forMultiplicationWithFloat());
     assertEquals(eval.getGlSlString(Shade.mul(Shade.vec(1, 2, 3), 3), mContext),
         "vec3(vec3(float(1.0), float(2.0), float(3.0)) * float(3.0))");
   }
 
   @Test
   public void testForDivisionWithFloat() {
-    Evaluator<Vec3> eval = Vec3Evaluators.forOperationWithFloat(Vec3Operators.forDivisionWithFloat());
+    Evaluator<Vec3> eval = new FloatOperationEvaluator<Vec3>(Type.VEC3_T, Vec3Operators.forDivisionWithFloat());
     assertEquals(eval.getGlSlString(Shade.div(Shade.vec(1, 2, 3), 3), mContext),
         "vec3(vec3(float(1.0), float(2.0), float(3.0)) / float(3.0))");
   }

@@ -18,19 +18,6 @@ public class Vec2Evaluators {
 
   private static final Type TYPE = Type.VEC2_T;
 
-  public static Evaluator<Vec2> forOperationWithFloat(final Operator<Vec2, Float, Vec2> operator) {
-    return new BinaryOpEvaluator<Vec2, Float, Vec2>(TYPE, operator) {
-      @Override
-      public Vec2 evaluate(Expression expression) {
-        ImmutableList<Expression> parents = expression.getParents();
-        Vec2Exp left = (Vec2Exp)parents.get(0);
-        FloatExp right = (FloatExp)parents.get(1);
-
-        return operator.op(left.evaluate(), right.evaluate());
-      }
-    };
-  }
-
   public static Evaluator<Vec2> forOperationWithVec2(final Operator<Vec2, Vec2, Vec2> operator) {
     return new BinaryOpEvaluator<Vec2, Vec2, Vec2>(TYPE, operator) {
       @Override

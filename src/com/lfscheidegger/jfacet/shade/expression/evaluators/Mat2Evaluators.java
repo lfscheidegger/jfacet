@@ -19,19 +19,6 @@ public class Mat2Evaluators {
 
   private static final Type TYPE = Type.MAT2_T;
 
-  public static Evaluator<Mat2> forOperationWithFloat(final Operator<Mat2, Float, Mat2> operator) {
-    return new BinaryOpEvaluator<Mat2, Float, Mat2>(TYPE, operator) {
-      @Override
-      public Mat2 evaluate(Expression expression) {
-        ImmutableList<Expression> parents = expression.getParents();
-        Mat2Exp left = (Mat2Exp)parents.get(0);
-        FloatExp right = (FloatExp)parents.get(1);
-
-        return operator.op(left.evaluate(), right.evaluate());
-      }
-    };
-  }
-
   public static Evaluator<Mat2> forOperationWithMat2(final Operator<Mat2, Mat2, Mat2> operator) {
     return new BinaryOpEvaluator<Mat2, Mat2, Mat2>(TYPE, operator) {
       @Override
