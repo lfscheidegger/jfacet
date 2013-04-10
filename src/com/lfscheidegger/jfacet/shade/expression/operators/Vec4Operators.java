@@ -11,7 +11,7 @@ public class Vec4Operators {
     return new NamedOperator<Vec4, Float, Vec4>("+") {
       @Override
       public Vec4 op(Vec4 left, Float right) {
-        return new Vec4(left.getX() + right, left.getY() + right, left.getZ() + right, left.getW() + right);
+        return left.add(right);
       }
     };
   }
@@ -20,7 +20,7 @@ public class Vec4Operators {
     return new NamedOperator<Vec4, Float, Vec4>("-") {
       @Override
       public Vec4 op(Vec4 left, Float right) {
-        return new Vec4(left.getX() - right, left.getY() - right, left.getZ() - right, left.getW() - right);
+        return left.sub(right);
       }
     };
   }
@@ -29,7 +29,7 @@ public class Vec4Operators {
     return new NamedOperator<Vec4, Float, Vec4>("*") {
       @Override
       public Vec4 op(Vec4 left, Float right) {
-        return new Vec4(left.getX() * right, left.getY() * right, left.getZ() * right, left.getW() * right);
+        return left.mul(right);
       }
     };
   }
@@ -38,7 +38,7 @@ public class Vec4Operators {
     return new NamedOperator<Vec4, Float, Vec4>("/") {
       @Override
       public Vec4 op(Vec4 left, Float right) {
-        return new Vec4(left.getX() / right, left.getY() / right, left.getZ() / right, left.getW() / right);
+        return left.div(right);
       }
     };
   }
@@ -47,7 +47,7 @@ public class Vec4Operators {
     return new NamedOperator<Vec4, Vec4, Vec4>("+") {
       @Override
       public Vec4 op(Vec4 left, Vec4 right) {
-        return new Vec4(left.getX() + right.getX(), left.getY() + right.getY(), left.getZ() + right.getZ(), left.getW() + right.getW());
+        return left.add(right);
       }
     };
   }
@@ -56,7 +56,7 @@ public class Vec4Operators {
     return new NamedOperator<Vec4, Vec4, Vec4>("-") {
       @Override
       public Vec4 op(Vec4 left, Vec4 right) {
-        return new Vec4(left.getX() - right.getX(), left.getY() - right.getY(), left.getZ() - right.getZ(), left.getW() - right.getW());
+        return left.sub(right);
       }
     };
   }
@@ -65,7 +65,7 @@ public class Vec4Operators {
     return new NamedOperator<Vec4, Vec4, Vec4>("*") {
       @Override
       public Vec4 op(Vec4 left, Vec4 right) {
-        return new Vec4(left.getX() * right.getX(), left.getY() * right.getY(), left.getZ() * right.getZ(), left.getW() * right.getW());
+        return left.mul(right);
       }
     };
   }
@@ -74,7 +74,7 @@ public class Vec4Operators {
     return new NamedOperator<Vec4, Vec4, Vec4>("/") {
       @Override
       public Vec4 op(Vec4 left, Vec4 right) {
-        return new Vec4(left.getX() / right.getX(), left.getY() / right.getY(), left.getZ() / right.getZ(), left.getW() / right.getW());
+        return left.div(right);
       }
     };
   }

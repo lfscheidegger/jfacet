@@ -11,7 +11,7 @@ public class Vec2Operators {
     return new NamedOperator<Vec2, Float, Vec2>("+") {
       @Override
       public Vec2 op(Vec2 left, Float right) {
-        return new Vec2(left.getX() + right, left.getY() + right);
+        return left.add(right);
       }
     };
   }
@@ -20,7 +20,7 @@ public class Vec2Operators {
     return new NamedOperator<Vec2, Float, Vec2>("-") {
       @Override
       public Vec2 op(Vec2 left, Float right) {
-        return new Vec2(left.getX() - right, left.getY() - right);
+        return left.sub(right);
       }
     };
   }
@@ -29,7 +29,7 @@ public class Vec2Operators {
     return new NamedOperator<Vec2, Float, Vec2>("*") {
       @Override
       public Vec2 op(Vec2 left, Float right) {
-        return new Vec2(left.getX() * right, left.getY() * right);
+        return left.mul(right);
       }
     };
   }
@@ -38,7 +38,7 @@ public class Vec2Operators {
     return new NamedOperator<Vec2, Float, Vec2>("/") {
       @Override
       public Vec2 op(Vec2 left, Float right) {
-        return new Vec2(left.getX() / right, left.getY() / right);
+        return left.div(right);
       }
     };
   }
@@ -47,7 +47,7 @@ public class Vec2Operators {
     return new NamedOperator<Vec2, Vec2, Vec2>("+") {
       @Override
       public Vec2 op(Vec2 left, Vec2 right) {
-        return new Vec2(left.getX() + right.getX(), left.getY() + right.getY());
+        return left.add(right);
       }
     };
   }
@@ -56,7 +56,7 @@ public class Vec2Operators {
     return new NamedOperator<Vec2, Vec2, Vec2>("-") {
       @Override
       public Vec2 op(Vec2 left, Vec2 right) {
-        return new Vec2(left.getX() - right.getX(), left.getY() - right.getY());
+        return left.sub(right);
       }
     };
   }
@@ -65,7 +65,7 @@ public class Vec2Operators {
     return new NamedOperator<Vec2, Vec2, Vec2>("*") {
       @Override
       public Vec2 op(Vec2 left, Vec2 right) {
-        return new Vec2(left.getX() * right.getX(), left.getY() * right.getY());
+        return left.mul(right);
       }
     };
   }
@@ -74,7 +74,7 @@ public class Vec2Operators {
     return new NamedOperator<Vec2, Vec2, Vec2>("/") {
       @Override
       public Vec2 op(Vec2 left, Vec2 right) {
-        return new Vec2(left.getX() / right.getX(), left.getY() / right.getY());
+        return left.div(right);
       }
     };
   }

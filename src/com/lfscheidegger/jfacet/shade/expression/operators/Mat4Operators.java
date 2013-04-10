@@ -12,11 +12,7 @@ public class Mat4Operators {
     return new NamedOperator<Mat4, Float, Mat4>("+") {
       @Override
       public Mat4 op(Mat4 left, Float right) {
-        return new Mat4(
-            left.getC0().add(right),
-            left.getC1().add(right),
-            left.getC2().add(right),
-            left.getC3().add(right));
+        return left.add(right);
       }
     };
   }
@@ -25,11 +21,7 @@ public class Mat4Operators {
     return new NamedOperator<Mat4, Float, Mat4>("-") {
       @Override
       public Mat4 op(Mat4 left, Float right) {
-        return new Mat4(
-            left.getC0().sub(right),
-            left.getC1().sub(right),
-            left.getC2().sub(right),
-            left.getC3().sub(right));
+        return left.sub(right);
       }
     };
   }
@@ -38,11 +30,7 @@ public class Mat4Operators {
     return new NamedOperator<Mat4, Float, Mat4>("*") {
       @Override
       public Mat4 op(Mat4 left, Float right) {
-        return new Mat4(
-            left.getC0().mul(right),
-            left.getC1().mul(right),
-            left.getC2().mul(right),
-            left.getC3().mul(right));
+        return left.mul(right);
       }
     };
   }
@@ -51,11 +39,7 @@ public class Mat4Operators {
     return new NamedOperator<Mat4, Float, Mat4>("/") {
       @Override
       public Mat4 op(Mat4 left, Float right) {
-        return new Mat4(
-            left.getC0().div(right),
-            left.getC1().div(right),
-            left.getC2().div(right),
-            left.getC3().div(right));
+        return left.div(right);
       }
     };
   }
@@ -64,11 +48,7 @@ public class Mat4Operators {
     return new NamedOperator<Mat4, Mat4, Mat4>("+") {
       @Override
       public Mat4 op(Mat4 left, Mat4 right) {
-        return new Mat4(
-            left.getC0().add(right.getC0()),
-            left.getC1().add(right.getC1()),
-            left.getC2().add(right.getC2()),
-            left.getC3().add(right.getC3()));
+        return left.add(right);
       }
     };
   }
@@ -77,11 +57,7 @@ public class Mat4Operators {
     return new NamedOperator<Mat4, Mat4, Mat4>("-") {
       @Override
       public Mat4 op(Mat4 left, Mat4 right) {
-        return new Mat4(
-            left.getC0().sub(right.getC0()),
-            left.getC1().sub(right.getC1()),
-            left.getC2().sub(right.getC2()),
-            left.getC3().sub(right.getC3()));
+        return left.sub(right);
       }
     };
   }
@@ -99,11 +75,7 @@ public class Mat4Operators {
     return new NamedOperator<Mat4, Mat4, Mat4>("/") {
       @Override
       public Mat4 op(Mat4 left, Mat4 right) {
-        return new Mat4(
-            left.getC0().div(right.getC0()),
-            left.getC1().div(right.getC1()),
-            left.getC2().div(right.getC2()),
-            left.getC3().div(right.getC3()));
+        return left.div(right);
       }
     };
   }

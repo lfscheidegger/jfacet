@@ -11,7 +11,7 @@ public class Vec3Operators {
     return new NamedOperator<Vec3, Float, Vec3>("+") {
       @Override
       public Vec3 op(Vec3 left, Float right) {
-        return new Vec3(left.getX() + right, left.getY() + right, left.getZ() + right);
+        return left.add(right);
       }
     };
   }
@@ -20,7 +20,7 @@ public class Vec3Operators {
     return new NamedOperator<Vec3, Float, Vec3>("-") {
       @Override
       public Vec3 op(Vec3 left, Float right) {
-        return new Vec3(left.getX() - right, left.getY() - right, left.getZ() - right);
+        return left.sub(right);
       }
     };
   }
@@ -29,7 +29,7 @@ public class Vec3Operators {
     return new NamedOperator<Vec3, Float, Vec3>("*") {
       @Override
       public Vec3 op(Vec3 left, Float right) {
-        return new Vec3(left.getX() * right, left.getY() * right, left.getZ() * right);
+        return left.mul(right);
       }
     };
   }
@@ -38,7 +38,7 @@ public class Vec3Operators {
     return new NamedOperator<Vec3, Float, Vec3>("/") {
       @Override
       public Vec3 op(Vec3 left, Float right) {
-        return new Vec3(left.getX() / right, left.getY() / right, left.getZ() / right);
+        return left.div(right);
       }
     };
   }
@@ -47,7 +47,7 @@ public class Vec3Operators {
     return new NamedOperator<Vec3, Vec3, Vec3>("+") {
       @Override
       public Vec3 op(Vec3 left, Vec3 right) {
-        return new Vec3(left.getX() + right.getX(), left.getY() + right.getY(), left.getZ() + right.getZ());
+        return left.add(right);
       }
     };
   }
@@ -56,7 +56,7 @@ public class Vec3Operators {
     return new NamedOperator<Vec3, Vec3, Vec3>("-") {
       @Override
       public Vec3 op(Vec3 left, Vec3 right) {
-        return new Vec3(left.getX() - right.getX(), left.getY() - right.getY(), left.getZ() - right.getZ());
+        return left.sub(right);
       }
     };
   }
@@ -65,7 +65,7 @@ public class Vec3Operators {
     return new NamedOperator<Vec3, Vec3, Vec3>("*") {
       @Override
       public Vec3 op(Vec3 left, Vec3 right) {
-        return new Vec3(left.getX() * right.getX(), left.getY() * right.getY(), left.getZ() * right.getZ());
+        return left.mul(right);
       }
     };
   }
@@ -74,7 +74,7 @@ public class Vec3Operators {
     return new NamedOperator<Vec3, Vec3, Vec3>("/") {
       @Override
       public Vec3 op(Vec3 left, Vec3 right) {
-        return new Vec3(left.getX() / right.getX(), left.getY() / right.getY(), left.getZ() / right.getZ());
+        return left.div(right);
       }
     };
   }

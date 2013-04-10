@@ -12,7 +12,7 @@ public class Mat2Operators {
     return new NamedOperator<Mat2, Float, Mat2>("+") {
       @Override
       public Mat2 op(Mat2 left, Float right) {
-        return new Mat2(left.getC0().add(right), left.getC1().add(right));
+        return left.add(right);
       }
     };
   }
@@ -21,7 +21,7 @@ public class Mat2Operators {
     return new NamedOperator<Mat2, Float, Mat2>("-") {
       @Override
       public Mat2 op(Mat2 left, Float right) {
-        return new Mat2(left.getC0().sub(right), left.getC1().sub(right));
+        return left.sub(right);
       }
     };
   }
@@ -30,7 +30,7 @@ public class Mat2Operators {
     return new NamedOperator<Mat2, Float, Mat2>("*") {
       @Override
       public Mat2 op(Mat2 left, Float right) {
-        return new Mat2(left.getC0().mul(right), left.getC1().mul(right));
+        return left.mul(right);
       }
     };
   }
@@ -39,7 +39,7 @@ public class Mat2Operators {
     return new NamedOperator<Mat2, Float, Mat2>("/") {
       @Override
       public Mat2 op(Mat2 left, Float right) {
-        return new Mat2(left.getC0().div(right), left.getC1().div(right));
+        return left.div(right);
       }
     };
   }
@@ -48,7 +48,7 @@ public class Mat2Operators {
     return new NamedOperator<Mat2, Mat2, Mat2>("+") {
       @Override
       public Mat2 op(Mat2 left, Mat2 right) {
-        return new Mat2(left.getC0().add(right.getC0()), left.getC1().add(right.getC1()));
+        return left.add(right);
       }
     };
   }
@@ -57,7 +57,7 @@ public class Mat2Operators {
     return new NamedOperator<Mat2, Mat2, Mat2>("-") {
       @Override
       public Mat2 op(Mat2 left, Mat2 right) {
-        return new Mat2(left.getC0().sub(right.getC0()), left.getC1().sub(right.getC1()));
+        return left.sub(right);
       }
     };
   }
@@ -75,7 +75,7 @@ public class Mat2Operators {
     return new NamedOperator<Mat2, Mat2, Mat2>("/") {
       @Override
       public Mat2 op(Mat2 left, Mat2 right) {
-        return new Mat2(left.getC0().div(right.getC0()), left.getC1().div(right.getC1()));
+        return left.div(right);
       }
     };
   }
