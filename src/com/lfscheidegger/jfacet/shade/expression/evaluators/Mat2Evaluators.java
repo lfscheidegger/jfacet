@@ -19,26 +19,6 @@ public class Mat2Evaluators {
 
   private static final Type TYPE = Type.MAT2_T;
 
-  public static Evaluator<Mat2> forComponents() {
-    return new Evaluator<Mat2>() {
-      @Override
-      public Mat2 evaluate(Expression expression) {
-        ImmutableList<Expression> parents = expression.getParents();
-        Vec2Exp left = (Vec2Exp)parents.get(0);
-        Vec2Exp right = (Vec2Exp)parents.get(1);
-
-        return new Mat2(left.evaluate(), right.evaluate());
-      }
-
-      @Override
-      public String getGlSlString(Expression expression, CompilationContext context) {
-        ImmutableList<Expression> parents = expression.getParents();
-        return GlSlExpressionHelper.getCommaExpression(
-            TYPE, parents.get(0).getGlSlString(context), parents.get(1).getGlSlString(context));
-      }
-    };
-  }
-
   public static Evaluator<Mat2> forOperationWithFloat(final Operator<Mat2, Float, Mat2> operator) {
     return new BinaryOpEvaluator<Mat2, Float, Mat2>(TYPE, operator) {
       @Override

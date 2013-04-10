@@ -19,27 +19,6 @@ public class Mat3Evaluators {
 
   private static final Type TYPE = Type.MAT3_T;
 
-  public static Evaluator<Mat3> forComponents() {
-    return new Evaluator<Mat3>() {
-      @Override
-      public Mat3 evaluate(Expression expression) {
-        ImmutableList<Expression> parents = expression.getParents();
-        Vec3Exp x = (Vec3Exp)parents.get(0);
-        Vec3Exp y = (Vec3Exp)parents.get(1);
-        Vec3Exp z = (Vec3Exp)parents.get(2);
-
-        return new Mat3(x.evaluate(), y.evaluate(), z.evaluate());
-      }
-
-      @Override
-      public String getGlSlString(Expression expression, CompilationContext context) {
-        ImmutableList<Expression> parents = expression.getParents();
-        return GlSlExpressionHelper.getCommaExpression(
-            TYPE, parents.get(0).getGlSlString(context), parents.get(1).getGlSlString(context), parents.get(2).getGlSlString(context));
-      }
-    };
-  }
-
   public static Evaluator<Mat3> forOperationWithFloat(final Operator<Mat3, Float, Mat3> operator) {
     return new BinaryOpEvaluator<Mat3, Float, Mat3>(TYPE, operator) {
       @Override

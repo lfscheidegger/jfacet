@@ -103,7 +103,7 @@ public class Shade {
     return vec(new FloatExp(x), y);
   }
   public static Vec2Exp vec(FloatExp x, FloatExp y) {
-    return new Vec2Exp(ImmutableList.<Expression>of(x, y), Vec2Evaluators.forComponents());
+    return new Vec2Exp(ImmutableList.<Expression>of(x, y), new ConstructorEvaluator<Vec2>(Type.VEC2_T));
   }
 
   public static Vec2Exp add(Vec2Like left, float right) {
@@ -198,7 +198,7 @@ public class Shade {
     return vec(x, y, new FloatExp(z));
   }
   public static Vec3Exp vec(FloatExp x, FloatExp y, FloatExp z) {
-    return new Vec3Exp(ImmutableList.<Expression>of(x, y, z), Vec3Evaluators.forComponents());
+    return new Vec3Exp(ImmutableList.<Expression>of(x, y, z), new ConstructorEvaluator<Vec3>(Type.VEC3_T));
   }
 
   public static Vec3Exp add(Vec3Like left, float right) {
@@ -321,7 +321,7 @@ public class Shade {
     return vec(x, y, z, new FloatExp(w));
   }
   public static Vec4Exp vec(FloatExp x, FloatExp y, FloatExp z, FloatExp w) {
-    return new Vec4Exp(ImmutableList.<Expression>of(x, y, z, w), Vec4Evaluators.forComponents());
+    return new Vec4Exp(ImmutableList.<Expression>of(x, y, z, w), new ConstructorEvaluator<Vec4>(Type.VEC4_T));
   }
 
   public static Vec4Exp add(Vec4Like left, float right) {
@@ -395,7 +395,8 @@ public class Shade {
     return new Mat2Exp(val);
   }
   public static Mat2Exp mat(Vec2Like x, Vec2Like y) {
-    return new Mat2Exp(ImmutableList.<Expression>of(promote(x), promote(y)), Mat2Evaluators.forComponents());
+    return new Mat2Exp(
+        ImmutableList.<Expression>of(promote(x), promote(y)), new ConstructorEvaluator<Mat2>(Type.MAT2_T));
   }
 
   public static Mat2Exp add(Mat2Like left, float right) {
@@ -472,8 +473,7 @@ public class Shade {
   }
   public static Mat3Exp mat(Vec3Like x, Vec3Like y, Vec3Like z) {
     return new Mat3Exp(
-        ImmutableList.<Expression>of(promote(x), promote(y), promote(z)),
-        Mat3Evaluators.forComponents());
+        ImmutableList.<Expression>of(promote(x), promote(y), promote(z)), new ConstructorEvaluator<Mat3>(Type.MAT3_T));
   }
 
   public static Mat3Exp add(Mat3Like left, float right) {
@@ -551,7 +551,7 @@ public class Shade {
   public static Mat4Exp mat(Vec4Like x, Vec4Like y, Vec4Like z, Vec4Like w) {
     return new Mat4Exp(
         ImmutableList.<Expression>of(promote(x), promote(y), promote(z), promote(w)),
-        Mat4Evaluators.forComponents());
+        new ConstructorEvaluator<Mat4>(Type.MAT4_T));
   }
 
   public static Mat4Exp add(Mat4Like left, float right) {

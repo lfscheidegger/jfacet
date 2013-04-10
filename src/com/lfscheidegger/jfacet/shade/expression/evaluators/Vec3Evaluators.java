@@ -18,29 +18,6 @@ public class Vec3Evaluators {
 
   private static final Type TYPE = Type.VEC3_T;
 
-  public static Evaluator<Vec3> forComponents() {
-    return new Evaluator<Vec3>() {
-      @Override
-      public Vec3 evaluate(Expression expression) {
-        ImmutableList<Expression> parents = expression.getParents();
-        FloatExp x = (FloatExp)parents.get(0);
-        FloatExp y = (FloatExp)parents.get(1);
-        FloatExp z = (FloatExp)parents.get(2);
-
-        return new Vec3(x.evaluate(), y.evaluate(), z.evaluate());
-      }
-
-      @Override
-      public String getGlSlString(Expression expression, CompilationContext context) {
-        ImmutableList<Expression> parents = expression.getParents();
-        return GlSlExpressionHelper.getCommaExpression(TYPE,
-            parents.get(0).getGlSlString(context),
-            parents.get(1).getGlSlString(context),
-            parents.get(2).getGlSlString(context));
-      }
-    };
-  }
-
   public static Evaluator<Vec3> forMat3Component(final int idx) {
     return new Evaluator<Vec3>() {
       @Override

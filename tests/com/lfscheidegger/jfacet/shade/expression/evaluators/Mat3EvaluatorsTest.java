@@ -2,6 +2,7 @@ package com.lfscheidegger.jfacet.shade.expression.evaluators;
 
 import com.lfscheidegger.jfacet.shade.FakeCompilationContext;
 import com.lfscheidegger.jfacet.shade.Shade;
+import com.lfscheidegger.jfacet.shade.Type;
 import com.lfscheidegger.jfacet.shade.compiler.CompilationContext;
 import com.lfscheidegger.jfacet.shade.expression.Expression;
 import com.lfscheidegger.jfacet.shade.expression.operators.Mat3Operators;
@@ -29,7 +30,7 @@ public class Mat3EvaluatorsTest {
 
   @Test
   public void testForComponents() {
-    Evaluator<Mat3> eval = Mat3Evaluators.forComponents();
+    Evaluator<Mat3> eval = new ConstructorEvaluator<Mat3>(Type.MAT3_T);
     assertEquals(
         eval.getGlSlString(Shade.mat(Shade.vec(1, 0, 0), Shade.vec(0, 1, 0), Shade.vec(0, 0, 1)), mContext),
         "mat3(vec3(float(1.0), float(0.0), float(0.0)), vec3(float(0.0), float(1.0), float(0.0)), vec3(float(0.0), float(0.0), float(1.0)))");

@@ -2,6 +2,7 @@ package com.lfscheidegger.jfacet.shade.expression.evaluators;
 
 import com.lfscheidegger.jfacet.shade.FakeCompilationContext;
 import com.lfscheidegger.jfacet.shade.Shade;
+import com.lfscheidegger.jfacet.shade.Type;
 import com.lfscheidegger.jfacet.shade.compiler.CompilationContext;
 import com.lfscheidegger.jfacet.shade.expression.operators.Vec3Operators;
 import com.lfscheidegger.jfacet.shade.primitives.Vec3;
@@ -26,7 +27,7 @@ public class Vec3EvaluatorsTest {
 
   @Test
   public void testForComponents() {
-    Evaluator<Vec3> eval = Vec3Evaluators.forComponents();
+    Evaluator<Vec3> eval = new ConstructorEvaluator<Vec3>(Type.VEC3_T);
     assertEquals(eval.getGlSlString(
         Shade.vec(Shade.add(1, 2), Shade.add(3, 4), Shade.add(5, 6)), mContext),
         "vec3(float(float(1.0) + float(2.0)), float(float(3.0) + float(4.0)), float(float(5.0) + float(6.0)))");

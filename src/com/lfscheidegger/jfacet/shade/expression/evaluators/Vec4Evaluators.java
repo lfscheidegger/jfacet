@@ -18,31 +18,6 @@ public class Vec4Evaluators {
 
   private static final Type TYPE = Type.VEC4_T;
 
-  public static Evaluator<Vec4> forComponents() {
-    return new Evaluator<Vec4>() {
-      @Override
-      public Vec4 evaluate(Expression expression) {
-        ImmutableList<Expression> parents = expression.getParents();
-        FloatExp x = (FloatExp)parents.get(0);
-        FloatExp y = (FloatExp)parents.get(1);
-        FloatExp z = (FloatExp)parents.get(2);
-        FloatExp w = (FloatExp)parents.get(3);
-
-        return new Vec4(x.evaluate(), y.evaluate(), z.evaluate(), w.evaluate());
-      }
-
-      @Override
-      public String getGlSlString(Expression expression, CompilationContext context) {
-        ImmutableList<Expression> parents = expression.getParents();
-        return GlSlExpressionHelper.getCommaExpression(TYPE,
-            parents.get(0).getGlSlString(context),
-            parents.get(1).getGlSlString(context),
-            parents.get(2).getGlSlString(context),
-            parents.get(3).getGlSlString(context));
-      }
-    };
-  }
-
   public static Evaluator<Vec4> forMat4Component(final int idx) {
     return new Evaluator<Vec4>() {
       @Override

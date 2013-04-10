@@ -18,26 +18,6 @@ public class Vec2Evaluators {
 
   private static final Type TYPE = Type.VEC2_T;
 
-  public static Evaluator<Vec2> forComponents() {
-    return new Evaluator<Vec2>() {
-      @Override
-      public Vec2 evaluate(Expression expression) {
-        ImmutableList<Expression> parents = expression.getParents();
-        FloatExp left = (FloatExp)parents.get(0);
-        FloatExp right = (FloatExp)parents.get(1);
-
-        return new Vec2(left.evaluate(), right.evaluate());
-      }
-
-      @Override
-      public String getGlSlString(Expression expression, CompilationContext context) {
-        ImmutableList<Expression> parents = expression.getParents();
-        return GlSlExpressionHelper.getCommaExpression(TYPE,
-            parents.get(0).getGlSlString(context), parents.get(1).getGlSlString(context));
-      }
-    };
-  }
-
   public static Evaluator<Vec2> forMat2Component(final int idx) {
     return new Evaluator<Vec2>() {
       @Override
