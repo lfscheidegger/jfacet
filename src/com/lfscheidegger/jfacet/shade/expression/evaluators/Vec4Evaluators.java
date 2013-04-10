@@ -18,21 +18,6 @@ public class Vec4Evaluators {
 
   private static final Type TYPE = Type.VEC4_T;
 
-  public static Evaluator<Vec4> forMat4Component(final int idx) {
-    return new Evaluator<Vec4>() {
-      @Override
-      public Vec4 evaluate(Expression expression) {
-        return ((Mat4Exp)expression.getParents().get(0)).evaluate().get(idx);
-      }
-
-      @Override
-      public String getGlSlString(Expression expression, CompilationContext context) {
-        return GlSlExpressionHelper.getComponentExpression(
-            TYPE, ((Expression)expression.getParents().get(0)).getGlSlString(context), idx);
-      }
-    };
-  }
-
   public static Evaluator<Vec4> forOperationWithFloat(final Operator<Vec4, Float, Vec4> operator) {
     return new BinaryOpEvaluator<Vec4, Float, Vec4>(TYPE, operator) {
       @Override

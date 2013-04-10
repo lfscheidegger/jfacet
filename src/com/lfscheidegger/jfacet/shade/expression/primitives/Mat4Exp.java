@@ -6,11 +6,9 @@ import com.lfscheidegger.jfacet.shade.Shade;
 import com.lfscheidegger.jfacet.shade.Type;
 import com.lfscheidegger.jfacet.shade.expression.AbstractExpression;
 import com.lfscheidegger.jfacet.shade.expression.Expression;
-import com.lfscheidegger.jfacet.shade.expression.evaluators.ConstantEvaluator;
-import com.lfscheidegger.jfacet.shade.expression.evaluators.Evaluator;
-import com.lfscheidegger.jfacet.shade.expression.evaluators.Mat4Evaluators;
-import com.lfscheidegger.jfacet.shade.expression.evaluators.Vec4Evaluators;
+import com.lfscheidegger.jfacet.shade.expression.evaluators.*;
 import com.lfscheidegger.jfacet.shade.primitives.Mat4;
+import com.lfscheidegger.jfacet.shade.primitives.Vec4;
 import com.lfscheidegger.jfacet.shade.primitives.interfaces.Mat4Like;
 
 public class Mat4Exp extends AbstractExpression<Mat4> implements Mat4Like {
@@ -54,7 +52,7 @@ public class Mat4Exp extends AbstractExpression<Mat4> implements Mat4Like {
   }
 
   public Vec4Exp get(int idx) {
-    return new Vec4Exp(ImmutableList.<Expression>of(this), Vec4Evaluators.forMat4Component(idx));
+    return new Vec4Exp(ImmutableList.<Expression>of(this), new ComponentEvaluator<Vec4>(idx));
   }
 
   public Mat4Exp add(float other) { return Shade.add(this, other); }

@@ -6,10 +6,7 @@ import com.lfscheidegger.jfacet.shade.Shade;
 import com.lfscheidegger.jfacet.shade.Type;
 import com.lfscheidegger.jfacet.shade.expression.AbstractExpression;
 import com.lfscheidegger.jfacet.shade.expression.Expression;
-import com.lfscheidegger.jfacet.shade.expression.evaluators.ConstantEvaluator;
-import com.lfscheidegger.jfacet.shade.expression.evaluators.Evaluator;
-import com.lfscheidegger.jfacet.shade.expression.evaluators.FloatEvaluators;
-import com.lfscheidegger.jfacet.shade.expression.evaluators.Vec2Evaluators;
+import com.lfscheidegger.jfacet.shade.expression.evaluators.*;
 import com.lfscheidegger.jfacet.shade.primitives.Vec2;
 import com.lfscheidegger.jfacet.shade.primitives.interfaces.Vec2Like;
 
@@ -46,7 +43,7 @@ public class Vec2Exp extends AbstractExpression<Vec2> implements Vec2Like {
   }
 
   public FloatExp get(int idx) {
-    return new FloatExp(ImmutableList.<Expression>of(this), FloatEvaluators.forVec2Component(idx));
+    return new FloatExp(ImmutableList.<Expression>of(this), new ComponentEvaluator<Float>(idx));
   }
 
   public Vec2Exp add(float other) { return Shade.add(this, other); }

@@ -36,7 +36,7 @@ public class Vec2EvaluatorsTest {
 
   @Test
   public void testForMat2Components() {
-    Evaluator<Vec2> eval = Vec2Evaluators.forMat2Component(0);
+    Evaluator<Vec2> eval = new ComponentEvaluator<Vec2>(0);
     assertEquals(
         eval.getGlSlString(Shade.mat(new Mat2()).getC0(), mContext),
         "vec2(mat2(vec2(float(1.0), float(0.0)), vec2(float(0.0), float(1.0)))[0])");

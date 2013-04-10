@@ -28,51 +28,6 @@ public class FloatEvaluators {
     };
   }
 
-  public static Evaluator<Float> forVec2Component(final int idx) {
-    return new Evaluator<Float>() {
-      @Override
-      public Float evaluate(Expression expression) {
-        return ((Vec2Exp)expression.getParents().get(0)).evaluate().get(idx);
-      }
-
-      @Override
-      public String getGlSlString(Expression expression, CompilationContext context) {
-        return GlSlExpressionHelper.getComponentExpression(
-            TYPE, ((Expression) expression.getParents().get(0)).getGlSlString(context), idx);
-      }
-    };
-  }
-
-  public static Evaluator<Float> forVec3Component(final int idx) {
-    return new Evaluator<Float>() {
-      @Override
-      public Float evaluate(Expression expression) {
-        return ((Vec3Exp)expression.getParents().get(0)).evaluate().get(idx);
-      }
-
-      @Override
-      public String getGlSlString(Expression expression, CompilationContext context) {
-        return GlSlExpressionHelper.getComponentExpression(
-            TYPE, ((Expression) expression.getParents().get(0)).getGlSlString(context), idx);
-      }
-    };
-  }
-
-  public static Evaluator<Float> forVec4Component(final int idx) {
-    return new Evaluator<Float>() {
-      @Override
-      public Float evaluate(Expression expression) {
-        return ((Vec4Exp)expression.getParents().get(0)).evaluate().get(idx);
-      }
-
-      @Override
-      public String getGlSlString(Expression expression, CompilationContext context) {
-        return GlSlExpressionHelper.getComponentExpression(
-            TYPE, ((Expression)expression.getParents().get(0)).getGlSlString(context), idx);
-      }
-    };
-  }
-
   public static Evaluator<Float> forVec2Dot() {
     return new FunctionEvaluator<Float>(Type.FLOAT_T, "dot") {
       @Override
