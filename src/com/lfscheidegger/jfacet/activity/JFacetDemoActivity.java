@@ -1,6 +1,7 @@
 package com.lfscheidegger.jfacet.activity;
 
 import android.app.Activity;
+import android.graphics.BitmapFactory;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.view.Display;
@@ -12,6 +13,7 @@ import com.lfscheidegger.jfacet.shade.Shade;
 import com.lfscheidegger.jfacet.shade.camera.Camera;
 import com.lfscheidegger.jfacet.shade.expression.Expression;
 import com.lfscheidegger.jfacet.shade.expression.primitives.FloatExp;
+import com.lfscheidegger.jfacet.shade.expression.primitives.Vec2Exp;
 import com.lfscheidegger.jfacet.view.FacetView;
 
 public class JFacetDemoActivity extends Activity {
@@ -27,7 +29,8 @@ public class JFacetDemoActivity extends Activity {
 
     mSize = new Point();
     Display display = getWindowManager().getDefaultDisplay();
-    display.getSize(mSize);
+    mSize.x = display.getWidth();
+    mSize.y = display.getHeight();
 
     mView = (FacetView) findViewById(R.id.gl_view);
 
@@ -39,6 +42,7 @@ public class JFacetDemoActivity extends Activity {
       case 1: prepareLesson3(scene); break;
       case 2: prepareLesson4(scene); break;
       case 3: prepareLesson5(scene); break;
+      case 4: prepareLesson6(scene); break;
     }
 
     mView.setRenderer(new FacetRenderer(scene));
@@ -197,5 +201,20 @@ public class JFacetDemoActivity extends Activity {
 
     scene.add(Facet.bake(cubeModel, cubePosition, cubeModel.getColors()));
     scene.add(Facet.bake(pyramidModel, pyramidPosition, pyramidModel.getColors()));
+  }
+
+  private void prepareLesson6(Scene scene) {
+
+    Geometry square = Facet.model(ModelType.TRIANGLES,
+        new int[] {0, 1, 2, 0, 2, 3},
+        new float[] {-1, -1, 1, -1, 1, 1, -1, 1}, 2,
+        new float[] {0, 0, 1, 0, 1, 1, 0, 1}, 2);
+
+    scene.add(Facet.bake(
+        square,
+        square.getVertices(),
+        Shade.texture2D(
+            Facet.texture(getResources(), R.drawable.nehe),
+            Shade.varying((Vec2Exp)square.getColors()))));
   }
 }

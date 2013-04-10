@@ -2,6 +2,7 @@ package com.lfscheidegger.jfacet;
 
 import android.opengl.GLES20;
 import com.badlogic.gdx.backends.android.AndroidGL20;
+import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableBiMap;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
@@ -9,10 +10,12 @@ import com.google.common.collect.ImmutableSet;
 import com.lfscheidegger.jfacet.facet.AttribBuffer;
 import com.lfscheidegger.jfacet.shade.GlSlType;
 import com.lfscheidegger.jfacet.shade.Shade;
+import com.lfscheidegger.jfacet.shade.Type;
 import com.lfscheidegger.jfacet.shade.compiler.*;
 import com.lfscheidegger.jfacet.shade.expression.Expression;
 import com.lfscheidegger.jfacet.shade.expression.evaluators.UniformEvaluator;
-import com.lfscheidegger.jfacet.shade.primitives.Vec4;
+import com.lfscheidegger.jfacet.shade.expression.primitives.Sampler2Exp;
+import com.lfscheidegger.jfacet.shade.primitives.*;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -90,6 +93,15 @@ public class Program {
     int fragmentShaderHandle = GLES20.glCreateShader(GLES20.GL_FRAGMENT_SHADER);
     mProgramHandle = GLES20.glCreateProgram();
 
+    /*fragmentShaderSource =
+        "precision highp float;\n" +
+            "uniform sampler2D glsl_name0;\n" +
+            "varying vec2 glsl_name1;\n" +
+            "void main(){\n" +
+            "    vec4 glsl_name2 = vec4(texture2D(glsl_name0, glsl_name1));\n" +
+            "    gl_FragColor = vec4(glsl_name1, 1.0, 1.0);\n" +
+            "}\n";*/
+
     compileShader(vertexShaderHandle, vertexShaderSource);
     compileShader(fragmentShaderHandle, fragmentShaderSource);
 
@@ -134,6 +146,7 @@ public class Program {
     GLES20.glLinkProgram(mProgramHandle);
 
     bindUniformLocations();
+    loadTextures();
 
     // Get the link status.
     final int[] linkStatus = new int[1];
@@ -177,6 +190,16 @@ public class Program {
     }
   }
 
+  private void loadTextures() {
+    for (int i = 0; i < mUniformExpressions.length; i++) {
+      if (mUniformExpressions[i].getType() != Type.SAMPLER2D_T) {
+        continue;
+      }
+
+      ((Sampler2Exp)mUniformExpressions[i]).bake();
+    }
+  }
+
   private void bindAttributes() {
     for (int i = 0; i < mAttribExpressions.length; i++) {
       int attribHandle = mAttribLocations[i];
@@ -189,14 +212,37 @@ public class Program {
   }
 
   private void bindUniforms() {
+    int textureUnitCounter = 0;
+
     for (int i = 0; i < mUniformLocations.length; i++) {
+      Preconditions.checkState(textureUnitCounter < GLES20.GL_MAX_COMBINED_TEXTURE_IMAGE_UNITS);
+
       int uniformHandle = mUniformLocations[i];
 
       UniformEvaluator evaluator = (UniformEvaluator)mUniformExpressions[i].getEvaluator();
       evaluator.refresh();
       switch(mUniformExpressions[i].getType()) {
         case FLOAT_T:
-          GLES20.glUniform1f(uniformHandle, (Float)evaluator.get());
+          GLES20.glUniform1f(uniformHandle, (Float)evaluator.get()); break;
+        case VEC2_T:
+          GLES20.glUniform2fv(uniformHandle, 1, ((Vec2) evaluator.get()).getArray(), 0); break;
+        case VEC3_T:
+          GLES20.glUniform3fv(uniformHandle, 1, ((Vec3) evaluator.get()).getArray(), 0); break;
+        case VEC4_T:
+          GLES20.glUniform4fv(uniformHandle, 1, ((Vec4) evaluator.get()).getArray(), 0); break;
+        case MAT2_T:
+          GLES20.glUniformMatrix2fv(uniformHandle, 1, false, ((Mat2) evaluator.get()).getArray(), 0); break;
+        case MAT3_T:
+          GLES20.glUniformMatrix3fv(uniformHandle, 1, false, ((Mat3) evaluator.get()).getArray(), 0); break;
+        case MAT4_T:
+          GLES20.glUniformMatrix4fv(uniformHandle, 1, false, ((Mat4) evaluator.get()).getArray(), 0); break;
+        case SAMPLER2D_T:
+          GLES20.glActiveTexture(GLES20.GL_TEXTURE0 + textureUnitCounter);
+          GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, ((Sampler2Exp)mUniformExpressions[i]).getTextureHandle());
+          GLES20.glUniform1i(uniformHandle, textureUnitCounter);
+          textureUnitCounter++;
+          break;
+
       }
     }
   }

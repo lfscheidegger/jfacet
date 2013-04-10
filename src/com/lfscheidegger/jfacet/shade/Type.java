@@ -37,7 +37,12 @@ public enum Type {
   /**
    * 4x4-dimensional floating-point matrix
    */
-  MAT4_T("mat4", -1);
+  MAT4_T("mat4", -1),
+
+  /**
+   * opaque type for 2D texture sampler
+   */
+  SAMPLER2D_T("sampler2D", -1);
 
   private final String mValue;
   private final int mDimension;

@@ -5,14 +5,11 @@ import com.lfscheidegger.jfacet.shade.expression.*;
 import com.lfscheidegger.jfacet.shade.expression.evaluators.*;
 import com.lfscheidegger.jfacet.shade.expression.operators.*;
 import com.lfscheidegger.jfacet.shade.expression.primitives.*;
-import com.lfscheidegger.jfacet.shade.expression.primitives.uniform.Uniform;
 import com.lfscheidegger.jfacet.shade.primitives.*;
 import com.lfscheidegger.jfacet.shade.primitives.interfaces.*;
 import com.lfscheidegger.jfacet.shade.transform.Rotation;
 import com.lfscheidegger.jfacet.shade.transform.Transform;
 import com.lfscheidegger.jfacet.shade.transform.Translation;
-
-import java.nio.FloatBuffer;
 
 /**
  * Convenience methods to fill primitive types into expressions
@@ -748,8 +745,21 @@ public class Shade {
         Type.VEC4_T, GlSlType.VARYING_T, ImmutableList.<Expression>of(exp), GlSlEvaluators.<Vec4>forGlSlQualified());
   }
 
+  public static Vec4Exp texture2D(Sampler2Exp texture, Expression texCoords) {
+    return new Vec4Exp(
+        Type.VEC4_T,
+        GlSlType.DEFAULT_T,
+        ImmutableList.<Expression>of(texture, texCoords),
+        new FunctionEvaluator<Vec4>(Type.VEC4_T, "texture2D") {
+      @Override
+      public Vec4 evaluate(Expression<Vec4> expression) {
+        throw new RuntimeException("Cannot evaluate texture2D expression");
+      }
+    });
+  }
+
   // ===================================================================================================================
-  //
+  // Fill functions
   // ===================================================================================================================
   public static Vec2Exp fill(Expression vector, Vec2Like defaultValues) {
     Vec2Exp defaultExp = promote(defaultValues);

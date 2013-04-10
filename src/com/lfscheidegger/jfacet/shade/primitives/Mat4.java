@@ -105,6 +105,10 @@ public final class Mat4 implements Mat4Like {
     return new Vec4(mValues[4 * idx], mValues[4 * idx + 1], mValues[4 * idx + 2], mValues[4 * idx + 3]);
   }
 
+  public float[] getArray() {
+    return mValues;
+  }
+
   @Override
   public boolean equals(Object other) {
     if (!(other instanceof Mat4)) {

@@ -53,6 +53,10 @@ public final class Vec2 implements Vec2Like {
     return mValues[idx];
   }
 
+  public float[] getArray() {
+    return mValues;
+  }
+
   public Vec2 add(Vec2 other) {
     return new Vec2(mValues[0] + other.mValues[0], mValues[1] + other.mValues[1]);
   }

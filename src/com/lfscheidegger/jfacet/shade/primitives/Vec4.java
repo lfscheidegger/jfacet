@@ -95,6 +95,10 @@ public final class Vec4 implements Vec4Like {
     return mValues[idx];
   }
 
+  public float[] getArray() {
+    return mValues;
+  }
+
   @Override
   public boolean equals(Object other) {
     if (!(other instanceof Vec4)) {

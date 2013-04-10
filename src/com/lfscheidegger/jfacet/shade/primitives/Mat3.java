@@ -83,6 +83,10 @@ public final class Mat3 implements Mat3Like {
     return new Vec3(mValues[3 * idx], mValues[3 * idx + 1], mValues[3 * idx + 2]);
   }
 
+  public float[] getArray() {
+    return mValues;
+  }
+
   public boolean equals(Object other) {
     if (!(other instanceof Mat3)) {
       return false;

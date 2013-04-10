@@ -61,6 +61,10 @@ public final class Mat2 implements Mat2Like {
     return new Vec2(mValues[2 * idx], mValues[2 * idx + 1]);
   }
 
+  public float[] getArray() {
+    return mValues;
+  }
+
   @Override
   public boolean equals(Object other) {
     if (!(other instanceof Mat2)) {

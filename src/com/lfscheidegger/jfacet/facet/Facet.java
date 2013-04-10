@@ -1,12 +1,13 @@
 package com.lfscheidegger.jfacet.facet;
 
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
 import com.lfscheidegger.jfacet.shade.GlSlType;
 import com.lfscheidegger.jfacet.shade.Shade;
 import com.lfscheidegger.jfacet.shade.expression.Expression;
-import com.lfscheidegger.jfacet.shade.expression.primitives.FloatExp;
-import com.lfscheidegger.jfacet.shade.expression.primitives.Vec2Exp;
-import com.lfscheidegger.jfacet.shade.expression.primitives.Vec3Exp;
-import com.lfscheidegger.jfacet.shade.expression.primitives.Vec4Exp;
+import com.lfscheidegger.jfacet.shade.expression.primitives.*;
 
 public class Facet {
 
@@ -15,7 +16,6 @@ public class Facet {
   }
 
   public static Drawable bake(Geometry geometry, Expression position, Expression fragColor) {
-
     if (fragColor.getGlSlType() == GlSlType.ATTRIBUTE_T) {
       switch(fragColor.getType()) {
         case FLOAT_T:
@@ -49,5 +49,16 @@ public class Facet {
         new IndexBuffer(indices),
         new AttribBuffer(vertices, vertexDimension),
         new AttribBuffer(colors, colorDimension));
+  }
+
+  public static Sampler2Exp texture(Resources resources, int resId) {
+    Matrix matrix = new Matrix();
+    matrix.preScale(1, -1);
+    Bitmap bitmap = BitmapFactory.decodeResource(resources, resId);
+    return texture(Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true));
+  }
+
+  public static Sampler2Exp texture(Bitmap texture) {
+    return new Sampler2Exp(texture);
   }
 }
