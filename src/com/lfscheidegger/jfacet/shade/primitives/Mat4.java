@@ -3,6 +3,7 @@ package com.lfscheidegger.jfacet.shade.primitives;
 import com.google.common.base.Objects;
 import com.lfscheidegger.jfacet.shade.Type;
 import com.lfscheidegger.jfacet.shade.primitives.interfaces.Mat4Like;
+import com.lfscheidegger.jfacet.shade.primitives.interfaces.SupportsBasicArithmetic;
 import com.lfscheidegger.jfacet.shade.utils.ArrayUtils;
 import com.lfscheidegger.jfacet.shade.utils.StringUtils;
 
@@ -11,7 +12,7 @@ import java.util.Arrays;
 /**
  * Aggregate type for mat4
  */
-public final class Mat4 implements Mat4Like {
+public final class Mat4 implements Mat4Like, SupportsBasicArithmetic<Mat4> {
 
   private final float[] mValues;
 

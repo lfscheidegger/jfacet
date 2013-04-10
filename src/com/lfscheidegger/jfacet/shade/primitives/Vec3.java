@@ -2,6 +2,7 @@ package com.lfscheidegger.jfacet.shade.primitives;
 
 import com.google.common.base.Objects;
 import com.lfscheidegger.jfacet.shade.Type;
+import com.lfscheidegger.jfacet.shade.primitives.interfaces.SupportsBasicArithmetic;
 import com.lfscheidegger.jfacet.shade.primitives.interfaces.Vec3Like;
 import com.lfscheidegger.jfacet.shade.utils.StringUtils;
 
@@ -10,7 +11,7 @@ import java.util.Arrays;
 /**
  * Aggregate type for vec3.
  */
-public final class Vec3 implements Vec3Like {
+public final class Vec3 implements Vec3Like, SupportsBasicArithmetic<Vec3> {
 
   private float[] mValues;
 

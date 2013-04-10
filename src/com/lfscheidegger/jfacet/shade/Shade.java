@@ -112,12 +112,12 @@ public class Shade {
   public static Vec2Exp add(Vec2Like left, FloatExp right) {
     return new Vec2Exp(
         ImmutableList.<Expression>of(promote(left), right),
-        new BinaryOperationEvaluator<Vec2, Float, Vec2>(Type.VEC2_T, Vec2Operators.forAdditionWithFloat()));
+        new BinaryOperationEvaluator<Vec2, Float, Vec2>(Type.VEC2_T, BasicArithmeticOperators.<Vec2>forAdditionWithFloat()));
   }
   public static Vec2Exp add(Vec2Like left, Vec2Like right) {
     return new Vec2Exp(
         ImmutableList.<Expression>of(promote(left), promote(right)),
-        new BinaryOperationEvaluator<Vec2, Vec2, Vec2>(Type.VEC2_T, Vec2Operators.forAdditionWithVec2()));
+        new BinaryOperationEvaluator<Vec2, Vec2, Vec2>(Type.VEC2_T, BasicArithmeticOperators.<Vec2>forAdditionWithSame()));
   }
 
   public static Vec2Exp sub(Vec2Like left, float right) {
@@ -126,12 +126,12 @@ public class Shade {
   public static Vec2Exp sub(Vec2Like left, FloatExp right) {
     return new Vec2Exp(
         ImmutableList.<Expression>of(promote(left), right),
-        new BinaryOperationEvaluator<Vec2, Float, Vec2>(Type.VEC2_T, Vec2Operators.forSubtractionWithFloat()));
+        new BinaryOperationEvaluator<Vec2, Float, Vec2>(Type.VEC2_T, BasicArithmeticOperators.<Vec2>forSubtractionWithFloat()));
   }
   public static Vec2Exp sub(Vec2Like left, Vec2Like right) {
     return new Vec2Exp(
         ImmutableList.<Expression>of(promote(left), promote(right)),
-        new BinaryOperationEvaluator<Vec2, Vec2, Vec2>(Type.VEC2_T, Vec2Operators.forSubtractionWithVec2()));
+        new BinaryOperationEvaluator<Vec2, Vec2, Vec2>(Type.VEC2_T, BasicArithmeticOperators.<Vec2>forSubtractionWithSame()));
   }
 
   public static Vec2Exp mul(Vec2Like left, float right) {
@@ -140,12 +140,12 @@ public class Shade {
   public static Vec2Exp mul(Vec2Like left, FloatExp right) {
     return new Vec2Exp(
         ImmutableList.<Expression>of(promote(left), right),
-        new BinaryOperationEvaluator<Vec2, Float, Vec2>(Type.VEC2_T, Vec2Operators.forMultiplicationWithFloat()));
+        new BinaryOperationEvaluator<Vec2, Float, Vec2>(Type.VEC2_T, BasicArithmeticOperators.<Vec2>forMultiplicationWithFloat()));
   }
   public static Vec2Exp mul(Vec2Like left, Vec2Like right) {
     return new Vec2Exp(
         ImmutableList.<Expression>of(promote(left), promote(right)),
-        new BinaryOperationEvaluator<Vec2, Vec2, Vec2>(Type.VEC2_T, Vec2Operators.forMultiplicationWithVec2()));
+        new BinaryOperationEvaluator<Vec2, Vec2, Vec2>(Type.VEC2_T, BasicArithmeticOperators.<Vec2>forMultiplicationWithSame()));
   }
 
   public static Vec2Exp div(Vec2Like left, float right) {
@@ -154,12 +154,12 @@ public class Shade {
   public static Vec2Exp div(Vec2Like left, FloatExp right) {
     return new Vec2Exp(
         ImmutableList.<Expression>of(promote(left), right),
-        new BinaryOperationEvaluator<Vec2, Float, Vec2>(Type.VEC2_T, Vec2Operators.forDivisionWithFloat()));
+        new BinaryOperationEvaluator<Vec2, Float, Vec2>(Type.VEC2_T, BasicArithmeticOperators.<Vec2>forDivisionWithFloat()));
   }
   public static Vec2Exp div(Vec2Like left, Vec2Like right) {
     return new Vec2Exp(
         ImmutableList.<Expression>of(promote(left), promote(right)),
-        new BinaryOperationEvaluator<Vec2, Vec2, Vec2>(Type.VEC2_T, Vec2Operators.forDivisionWithVec2()));
+        new BinaryOperationEvaluator<Vec2, Vec2, Vec2>(Type.VEC2_T, BasicArithmeticOperators.<Vec2>forDivisionWithSame()));
   }
 
   public static Vec2Exp neg(Vec2Like exp) {
@@ -207,12 +207,12 @@ public class Shade {
   public static Vec3Exp add(Vec3Like left, FloatExp right) {
     return new Vec3Exp(
         ImmutableList.<Expression>of(promote(left), right),
-        new BinaryOperationEvaluator<Vec3, Float, Vec3>(Type.VEC3_T, Vec3Operators.forAdditionWithFloat()));
+        new BinaryOperationEvaluator<Vec3, Float, Vec3>(Type.VEC3_T, BasicArithmeticOperators.<Vec3>forAdditionWithFloat()));
   }
   public static Vec3Exp add(Vec3Like left, Vec3Like right) {
     return new Vec3Exp(
         ImmutableList.<Expression>of(promote(left), promote(right)),
-        new BinaryOperationEvaluator<Vec3, Vec3, Vec3>(Type.VEC3_T, Vec3Operators.forAdditionWithVec3()));
+        new BinaryOperationEvaluator<Vec3, Vec3, Vec3>(Type.VEC3_T, BasicArithmeticOperators.<Vec3>forAdditionWithSame()));
   }
 
   public static Vec3Exp sub(Vec3Like left, float right) {
@@ -221,12 +221,12 @@ public class Shade {
   public static Vec3Exp sub(Vec3Like left, FloatExp right) {
     return new Vec3Exp(
         ImmutableList.<Expression>of(promote(left), right),
-        new BinaryOperationEvaluator<Vec3, Float, Vec3>(Type.VEC3_T, Vec3Operators.forSubtractionWithFloat()));
+        new BinaryOperationEvaluator<Vec3, Float, Vec3>(Type.VEC3_T, BasicArithmeticOperators.<Vec3>forSubtractionWithFloat()));
   }
   public static Vec3Exp sub(Vec3Like left, Vec3Like right) {
     return new Vec3Exp(
         ImmutableList.<Expression>of(promote(left), promote(right)),
-        new BinaryOperationEvaluator<Vec3, Vec3, Vec3>(Type.VEC3_T, Vec3Operators.forSubtractionWithVec3()));
+        new BinaryOperationEvaluator<Vec3, Vec3, Vec3>(Type.VEC3_T, BasicArithmeticOperators.<Vec3>forSubtractionWithSame()));
   }
 
   public static Vec3Exp mul(Vec3Like left, float right) {
@@ -235,12 +235,12 @@ public class Shade {
   public static Vec3Exp mul(Vec3Like left, FloatExp right) {
     return new Vec3Exp(
         ImmutableList.<Expression>of(promote(left), right),
-        new BinaryOperationEvaluator<Vec3, Float, Vec3>(Type.VEC3_T, Vec3Operators.forMultiplicationWithFloat()));
+        new BinaryOperationEvaluator<Vec3, Float, Vec3>(Type.VEC3_T, BasicArithmeticOperators.<Vec3>forMultiplicationWithFloat()));
   }
   public static Vec3Exp mul(Vec3Like left, Vec3Like right) {
     return new Vec3Exp(
         ImmutableList.<Expression>of(promote(left), promote(right)),
-        new BinaryOperationEvaluator<Vec3, Vec3, Vec3>(Type.VEC3_T, Vec3Operators.forMultiplicationWithVec3()));
+        new BinaryOperationEvaluator<Vec3, Vec3, Vec3>(Type.VEC3_T, BasicArithmeticOperators.<Vec3>forMultiplicationWithSame()));
   }
 
   public static Vec3Exp div(Vec3Like left, float right) {
@@ -249,12 +249,12 @@ public class Shade {
   public static Vec3Exp div(Vec3Like left, FloatExp right) {
     return new Vec3Exp(
         ImmutableList.<Expression>of(promote(left), right),
-        new BinaryOperationEvaluator<Vec3, Float, Vec3>(Type.VEC3_T, Vec3Operators.forDivisionWithFloat()));
+        new BinaryOperationEvaluator<Vec3, Float, Vec3>(Type.VEC3_T, BasicArithmeticOperators.<Vec3>forDivisionWithFloat()));
   }
   public static Vec3Exp div(Vec3Like left, Vec3Like right) {
     return new Vec3Exp(
         ImmutableList.<Expression>of(promote(left), promote(right)),
-        new BinaryOperationEvaluator<Vec3, Vec3, Vec3>(Type.VEC3_T, Vec3Operators.forDivisionWithVec3()));
+        new BinaryOperationEvaluator<Vec3, Vec3, Vec3>(Type.VEC3_T, BasicArithmeticOperators.<Vec3>forDivisionWithSame()));
   }
 
   public static Vec3Exp neg(Vec3Like exp) {
@@ -330,12 +330,12 @@ public class Shade {
   public static Vec4Exp add(Vec4Like left, FloatExp right) {
     return new Vec4Exp(
         ImmutableList.<Expression>of(promote(left), right),
-        new BinaryOperationEvaluator<Vec4, Float, Vec4>(Type.VEC4_T, Vec4Operators.forAdditionWithFloat()));
+        new BinaryOperationEvaluator<Vec4, Float, Vec4>(Type.VEC4_T, BasicArithmeticOperators.<Vec4>forAdditionWithFloat()));
   }
   public static Vec4Exp add(Vec4Like left, Vec4Like right) {
     return new Vec4Exp(
         ImmutableList.<Expression>of(promote(left), promote(right)),
-        new BinaryOperationEvaluator<Vec4, Vec4, Vec4>(Type.VEC4_T, Vec4Operators.forAdditionWithVec4()));
+        new BinaryOperationEvaluator<Vec4, Vec4, Vec4>(Type.VEC4_T, BasicArithmeticOperators.<Vec4>forAdditionWithSame()));
   }
 
   public static Vec4Exp sub(Vec4Like left, float right) {
@@ -344,12 +344,12 @@ public class Shade {
   public static Vec4Exp sub(Vec4Like left, FloatExp right) {
     return new Vec4Exp(
         ImmutableList.<Expression>of(promote(left), right),
-        new BinaryOperationEvaluator<Vec4, Float, Vec4>(Type.VEC4_T, Vec4Operators.forSubtractionWithFloat()));
+        new BinaryOperationEvaluator<Vec4, Float, Vec4>(Type.VEC4_T, BasicArithmeticOperators.<Vec4>forSubtractionWithFloat()));
   }
   public static Vec4Exp sub(Vec4Like left, Vec4Like right) {
     return new Vec4Exp(
         ImmutableList.<Expression>of(promote(left), promote(right)),
-        new BinaryOperationEvaluator<Vec4, Vec4, Vec4>(Type.VEC4_T, Vec4Operators.forSubtractionWithVec4()));
+        new BinaryOperationEvaluator<Vec4, Vec4, Vec4>(Type.VEC4_T, BasicArithmeticOperators.<Vec4>forSubtractionWithSame()));
   }
 
   public static Vec4Exp mul(Vec4Like left, float right) {
@@ -358,12 +358,12 @@ public class Shade {
   public static Vec4Exp mul(Vec4Like left, FloatExp right) {
     return new Vec4Exp(
         ImmutableList.<Expression>of(promote(left), right),
-        new BinaryOperationEvaluator<Vec4, Float, Vec4>(Type.VEC4_T, Vec4Operators.forMultiplicationWithFloat()));
+        new BinaryOperationEvaluator<Vec4, Float, Vec4>(Type.VEC4_T, BasicArithmeticOperators.<Vec4>forMultiplicationWithFloat()));
   }
   public static Vec4Exp mul(Vec4Like left, Vec4Like right) {
     return new Vec4Exp(
         ImmutableList.<Expression>of(promote(left), promote(right)),
-        new BinaryOperationEvaluator<Vec4, Vec4, Vec4>(Type.VEC4_T, Vec4Operators.forMultiplicationWithVec4()));
+        new BinaryOperationEvaluator<Vec4, Vec4, Vec4>(Type.VEC4_T, BasicArithmeticOperators.<Vec4>forMultiplicationWithSame()));
   }
 
   public static Vec4Exp div(Vec4Like left, float right) {
@@ -372,12 +372,12 @@ public class Shade {
   public static Vec4Exp div(Vec4Like left, FloatExp right) {
     return new Vec4Exp(
         ImmutableList.<Expression>of(promote(left), right),
-        new BinaryOperationEvaluator<Vec4, Float, Vec4>(Type.VEC4_T, Vec4Operators.forDivisionWithFloat()));
+        new BinaryOperationEvaluator<Vec4, Float, Vec4>(Type.VEC4_T, BasicArithmeticOperators.<Vec4>forDivisionWithFloat()));
   }
   public static Vec4Exp div(Vec4Like left, Vec4Like right) {
     return new Vec4Exp(
         ImmutableList.<Expression>of(promote(left), promote(right)),
-        new BinaryOperationEvaluator<Vec4, Vec4, Vec4>(Type.VEC4_T, Vec4Operators.forDivisionWithVec4()));
+        new BinaryOperationEvaluator<Vec4, Vec4, Vec4>(Type.VEC4_T, BasicArithmeticOperators.<Vec4>forDivisionWithSame()));
   }
 
   public static Vec4Exp neg(Vec4Like exp) {
@@ -405,12 +405,12 @@ public class Shade {
   public static Mat2Exp add(Mat2Like left, FloatExp right) {
     return new Mat2Exp(
         ImmutableList.<Expression>of(promote(left), right),
-        new BinaryOperationEvaluator<Mat2, Float, Mat2>(Type.MAT2_T, Mat2Operators.forAdditionWithFloat()));
+        new BinaryOperationEvaluator<Mat2, Float, Mat2>(Type.MAT2_T, BasicArithmeticOperators.<Mat2>forAdditionWithFloat()));
   }
   public static Mat2Exp add(Mat2Like left, Mat2Like right) {
     return new Mat2Exp(
         ImmutableList.<Expression>of(promote(left), promote(right)),
-        new BinaryOperationEvaluator<Mat2, Mat2, Mat2>(Type.MAT2_T, Mat2Operators.forAdditionWithMat2()));
+        new BinaryOperationEvaluator<Mat2, Mat2, Mat2>(Type.MAT2_T, BasicArithmeticOperators.<Mat2>forAdditionWithSame()));
   }
 
   public static Mat2Exp sub(Mat2Like left, float right) {
@@ -419,12 +419,12 @@ public class Shade {
   public static Mat2Exp sub(Mat2Like left, FloatExp right) {
     return new Mat2Exp(
         ImmutableList.<Expression>of(promote(left), right),
-        new BinaryOperationEvaluator<Mat2, Float, Mat2>(Type.MAT2_T, Mat2Operators.forSubtractionWithFloat()));
+        new BinaryOperationEvaluator<Mat2, Float, Mat2>(Type.MAT2_T, BasicArithmeticOperators.<Mat2>forSubtractionWithFloat()));
   }
   public static Mat2Exp sub(Mat2Like left, Mat2Like right) {
     return new Mat2Exp(
         ImmutableList.<Expression>of(promote(left), promote(right)),
-        new BinaryOperationEvaluator<Mat2, Mat2, Mat2>(Type.MAT2_T, Mat2Operators.forSubtractionWithMat2()));
+        new BinaryOperationEvaluator<Mat2, Mat2, Mat2>(Type.MAT2_T, BasicArithmeticOperators.<Mat2>forSubtractionWithSame()));
   }
 
   public static Mat2Exp mul(Mat2Like left, float right) {
@@ -433,12 +433,12 @@ public class Shade {
   public static Mat2Exp mul(Mat2Like left, FloatExp right) {
     return new Mat2Exp(
         ImmutableList.<Expression>of(promote(left), right),
-        new BinaryOperationEvaluator<Mat2, Float, Mat2>(Type.MAT2_T, Mat2Operators.forMultiplicationWithFloat()));
+        new BinaryOperationEvaluator<Mat2, Float, Mat2>(Type.MAT2_T, BasicArithmeticOperators.<Mat2>forMultiplicationWithFloat()));
   }
   public static Mat2Exp mul(Mat2Like left, Mat2Like right) {
     return new Mat2Exp(
         ImmutableList.<Expression>of(promote(left), promote(right)),
-        new BinaryOperationEvaluator<Mat2, Mat2, Mat2>(Type.MAT2_T, Mat2Operators.forMultiplicationWithMat2()));
+        new BinaryOperationEvaluator<Mat2, Mat2, Mat2>(Type.MAT2_T, BasicArithmeticOperators.<Mat2>forMultiplicationWithSame()));
   }
 
   public static Mat2Exp div(Mat2Like left, float right) {
@@ -447,12 +447,12 @@ public class Shade {
   public static Mat2Exp div(Mat2Like left, FloatExp right) {
     return new Mat2Exp(
         ImmutableList.<Expression>of(promote(left), right),
-        new BinaryOperationEvaluator<Mat2, Float, Mat2>(Type.MAT2_T, Mat2Operators.forDivisionWithFloat()));
+        new BinaryOperationEvaluator<Mat2, Float, Mat2>(Type.MAT2_T, BasicArithmeticOperators.<Mat2>forDivisionWithFloat()));
   }
   public static Mat2Exp div(Mat2Like left, Mat2Like right) {
     return new Mat2Exp(
         ImmutableList.<Expression>of(promote(left), promote(right)),
-        new BinaryOperationEvaluator<Mat2, Mat2, Mat2>(Type.MAT2_T, Mat2Operators.forDivisionWithMat2()));
+        new BinaryOperationEvaluator<Mat2, Mat2, Mat2>(Type.MAT2_T, BasicArithmeticOperators.<Mat2>forDivisionWithSame()));
   }
 
   public static Mat2Exp neg(Mat2Like exp) {
@@ -482,12 +482,12 @@ public class Shade {
   public static Mat3Exp add(Mat3Like left, FloatExp right) {
     return new Mat3Exp(
         ImmutableList.<Expression>of(promote(left), right),
-        new BinaryOperationEvaluator<Mat3, Float, Mat3>(Type.MAT3_T, Mat3Operators.forAdditionWithFloat()));
+        new BinaryOperationEvaluator<Mat3, Float, Mat3>(Type.MAT3_T, BasicArithmeticOperators.<Mat3>forAdditionWithFloat()));
   }
   public static Mat3Exp add(Mat3Like left, Mat3Like right) {
     return new Mat3Exp(
         ImmutableList.<Expression>of(promote(left), promote(right)),
-        new BinaryOperationEvaluator<Mat3, Mat3, Mat3>(Type.MAT3_T, Mat3Operators.forAdditionWithMat3()));
+        new BinaryOperationEvaluator<Mat3, Mat3, Mat3>(Type.MAT3_T, BasicArithmeticOperators.<Mat3>forAdditionWithSame()));
   }
 
   public static Mat3Exp sub(Mat3Like left, float right) {
@@ -496,12 +496,12 @@ public class Shade {
   public static Mat3Exp sub(Mat3Like left, FloatExp right) {
     return new Mat3Exp(
         ImmutableList.<Expression>of(promote(left), right),
-        new BinaryOperationEvaluator<Mat3, Float, Mat3>(Type.MAT3_T, Mat3Operators.forSubtractionWithFloat()));
+        new BinaryOperationEvaluator<Mat3, Float, Mat3>(Type.MAT3_T, BasicArithmeticOperators.<Mat3>forSubtractionWithFloat()));
   }
   public static Mat3Exp sub(Mat3Like left, Mat3Like right) {
     return new Mat3Exp(
         ImmutableList.<Expression>of(promote(left), promote(right)),
-        new BinaryOperationEvaluator<Mat3, Mat3, Mat3>(Type.MAT3_T, Mat3Operators.forSubtractionWithMat3()));
+        new BinaryOperationEvaluator<Mat3, Mat3, Mat3>(Type.MAT3_T, BasicArithmeticOperators.<Mat3>forSubtractionWithSame()));
   }
 
   public static Mat3Exp mul(Mat3Like left, float right) {
@@ -510,12 +510,12 @@ public class Shade {
   public static Mat3Exp mul(Mat3Like left, FloatExp right) {
     return new Mat3Exp(
         ImmutableList.<Expression>of(promote(left), right),
-        new BinaryOperationEvaluator<Mat3, Float, Mat3>(Type.MAT3_T, Mat3Operators.forMultiplicationWithFloat()));
+        new BinaryOperationEvaluator<Mat3, Float, Mat3>(Type.MAT3_T, BasicArithmeticOperators.<Mat3>forMultiplicationWithFloat()));
   }
   public static Mat3Exp mul(Mat3Like left, Mat3Like right) {
     return new Mat3Exp(
         ImmutableList.<Expression>of(promote(left), promote(right)),
-        new BinaryOperationEvaluator<Mat3, Mat3, Mat3>(Type.MAT3_T, Mat3Operators.forMultiplicationWithMat3()));
+        new BinaryOperationEvaluator<Mat3, Mat3, Mat3>(Type.MAT3_T, BasicArithmeticOperators.<Mat3>forMultiplicationWithSame()));
   }
 
   public static Mat3Exp div(Mat3Like left, float right) {
@@ -524,12 +524,12 @@ public class Shade {
   public static Mat3Exp div(Mat3Like left, FloatExp right) {
     return new Mat3Exp(
         ImmutableList.<Expression>of(promote(left), right),
-        new BinaryOperationEvaluator<Mat3, Float, Mat3>(Type.MAT3_T, Mat3Operators.forDivisionWithFloat()));
+        new BinaryOperationEvaluator<Mat3, Float, Mat3>(Type.MAT3_T, BasicArithmeticOperators.<Mat3>forDivisionWithFloat()));
   }
   public static Mat3Exp div(Mat3Like left, Mat3Like right) {
     return new Mat3Exp(
         ImmutableList.<Expression>of(promote(left), promote(right)),
-        new BinaryOperationEvaluator<Mat3, Mat3, Mat3>(Type.MAT3_T, Mat3Operators.forDivisionWithMat3()));
+        new BinaryOperationEvaluator<Mat3, Mat3, Mat3>(Type.MAT3_T, BasicArithmeticOperators.<Mat3>forDivisionWithSame()));
   }
 
   public static Mat3Exp neg(Mat3Like exp) {
@@ -560,12 +560,12 @@ public class Shade {
   public static Mat4Exp add(Mat4Like left, FloatExp right) {
     return new Mat4Exp(
         ImmutableList.<Expression>of(promote(left), right),
-        new BinaryOperationEvaluator<Mat4, Float, Mat4>(Type.MAT4_T, Mat4Operators.forAdditionWithFloat()));
+        new BinaryOperationEvaluator<Mat4, Float, Mat4>(Type.MAT4_T, BasicArithmeticOperators.<Mat4>forAdditionWithFloat()));
   }
   public static Mat4Exp add(Mat4Like left, Mat4Like right) {
     return new Mat4Exp(
         ImmutableList.<Expression>of(promote(left), promote(right)),
-        new BinaryOperationEvaluator<Mat4, Mat4, Mat4>(Type.MAT4_T, Mat4Operators.forAdditionWithMat4()));
+        new BinaryOperationEvaluator<Mat4, Mat4, Mat4>(Type.MAT4_T, BasicArithmeticOperators.<Mat4>forAdditionWithSame()));
   }
 
   public static Mat4Exp sub(Mat4Like left, float right) {
@@ -574,12 +574,12 @@ public class Shade {
   public static Mat4Exp sub(Mat4Like left, FloatExp right) {
     return new Mat4Exp(
         ImmutableList.<Expression>of(promote(left), right),
-        new BinaryOperationEvaluator<Mat4, Float, Mat4>(Type.MAT4_T, Mat4Operators.forSubtractionWithFloat()));
+        new BinaryOperationEvaluator<Mat4, Float, Mat4>(Type.MAT4_T, BasicArithmeticOperators.<Mat4>forSubtractionWithFloat()));
   }
   public static Mat4Exp sub(Mat4Like left, Mat4Like right) {
     return new Mat4Exp(
         ImmutableList.<Expression>of(promote(left), promote(right)),
-        new BinaryOperationEvaluator<Mat4, Mat4, Mat4>(Type.MAT4_T, Mat4Operators.forSubtractionWithMat4()));
+        new BinaryOperationEvaluator<Mat4, Mat4, Mat4>(Type.MAT4_T, BasicArithmeticOperators.<Mat4>forSubtractionWithSame()));
   }
 
   public static Mat4Exp mul(Mat4Like left, float right) {
@@ -588,12 +588,12 @@ public class Shade {
   public static Mat4Exp mul(Mat4Like left, FloatExp right) {
     return new Mat4Exp(
         ImmutableList.<Expression>of(promote(left), right),
-        new BinaryOperationEvaluator<Mat4, Float, Mat4>(Type.MAT4_T, Mat4Operators.forMultiplicationWithFloat()));
+        new BinaryOperationEvaluator<Mat4, Float, Mat4>(Type.MAT4_T, BasicArithmeticOperators.<Mat4>forMultiplicationWithFloat()));
   }
   public static Mat4Exp mul(Mat4Like left, Mat4Like right) {
     return new Mat4Exp(
         ImmutableList.<Expression>of(promote(left), promote(right)),
-        new BinaryOperationEvaluator<Mat4, Mat4, Mat4>(Type.MAT4_T, Mat4Operators.forMultiplicationWithMat4()));
+        new BinaryOperationEvaluator<Mat4, Mat4, Mat4>(Type.MAT4_T, BasicArithmeticOperators.<Mat4>forMultiplicationWithSame()));
   }
 
   public static Mat4Exp div(Mat4Like left, float right) {
@@ -602,12 +602,12 @@ public class Shade {
   public static Mat4Exp div(Mat4Like left, FloatExp right) {
     return new Mat4Exp(
         ImmutableList.<Expression>of(promote(left), right),
-        new BinaryOperationEvaluator<Mat4, Float, Mat4>(Type.MAT4_T, Mat4Operators.forDivisionWithFloat()));
+        new BinaryOperationEvaluator<Mat4, Float, Mat4>(Type.MAT4_T, BasicArithmeticOperators.<Mat4>forDivisionWithFloat()));
   }
   public static Mat4Exp div(Mat4Like left, Mat4Like right) {
     return new Mat4Exp(
         ImmutableList.<Expression>of(promote(left), promote(right)),
-        new BinaryOperationEvaluator<Mat4, Mat4, Mat4>(Type.MAT4_T, Mat4Operators.forDivisionWithMat4()));
+        new BinaryOperationEvaluator<Mat4, Mat4, Mat4>(Type.MAT4_T, BasicArithmeticOperators.<Mat4>forDivisionWithSame()));
   }
 
   // ===================================================================================================================
