@@ -4,7 +4,7 @@ import com.lfscheidegger.jfacet.shade.FakeCompilationContext;
 import com.lfscheidegger.jfacet.shade.Shade;
 import com.lfscheidegger.jfacet.shade.Type;
 import com.lfscheidegger.jfacet.shade.compiler.CompilationContext;
-import com.lfscheidegger.jfacet.shade.expression.operators.Vec3Operators;
+import com.lfscheidegger.jfacet.shade.expression.operators.BasicArithmeticOperators;
 import com.lfscheidegger.jfacet.shade.primitives.Vec3;
 import org.junit.Test;
 
@@ -35,56 +35,56 @@ public class Vec3EvaluatorsTest {
 
   @Test
   public void testForAdditionWithFloat() {
-    Evaluator<Vec3> eval = new BinaryOperationEvaluator<Vec3, Float, Vec3>(Type.VEC3_T, Vec3Operators.forAdditionWithFloat());
+    Evaluator<Vec3> eval = new BinaryOperationEvaluator<Vec3, Float, Vec3>(Type.VEC3_T, BasicArithmeticOperators.<Vec3>forAdditionWithFloat());
     assertEquals(eval.getGlSlString(Shade.add(Shade.vec(1, 2, 3), 3), mContext),
         "vec3(vec3(float(1.0), float(2.0), float(3.0)) + float(3.0))");
   }
 
   @Test
   public void testForSubtractionWithFloat() {
-    Evaluator<Vec3> eval = new BinaryOperationEvaluator<Vec3, Float, Vec3>(Type.VEC3_T, Vec3Operators.forSubtractionWithFloat());
+    Evaluator<Vec3> eval = new BinaryOperationEvaluator<Vec3, Float, Vec3>(Type.VEC3_T, BasicArithmeticOperators.<Vec3>forSubtractionWithFloat());
     assertEquals(eval.getGlSlString(Shade.sub(Shade.vec(1, 2, 3), 3), mContext),
         "vec3(vec3(float(1.0), float(2.0), float(3.0)) - float(3.0))");
   }
 
   @Test
   public void testForMultiplicationWithFloat() {
-    Evaluator<Vec3> eval = new BinaryOperationEvaluator<Vec3, Float, Vec3>(Type.VEC3_T, Vec3Operators.forMultiplicationWithFloat());
+    Evaluator<Vec3> eval = new BinaryOperationEvaluator<Vec3, Float, Vec3>(Type.VEC3_T, BasicArithmeticOperators.<Vec3>forMultiplicationWithFloat());
     assertEquals(eval.getGlSlString(Shade.mul(Shade.vec(1, 2, 3), 3), mContext),
         "vec3(vec3(float(1.0), float(2.0), float(3.0)) * float(3.0))");
   }
 
   @Test
   public void testForDivisionWithFloat() {
-    Evaluator<Vec3> eval = new BinaryOperationEvaluator<Vec3, Float, Vec3>(Type.VEC3_T, Vec3Operators.forDivisionWithFloat());
+    Evaluator<Vec3> eval = new BinaryOperationEvaluator<Vec3, Float, Vec3>(Type.VEC3_T, BasicArithmeticOperators.<Vec3>forDivisionWithFloat());
     assertEquals(eval.getGlSlString(Shade.div(Shade.vec(1, 2, 3), 3), mContext),
         "vec3(vec3(float(1.0), float(2.0), float(3.0)) / float(3.0))");
   }
 
   @Test
   public void testForAdditionWithVec3() {
-    Evaluator<Vec3> eval = new BinaryOperationEvaluator<Vec3, Vec3, Vec3>(Type.VEC3_T, Vec3Operators.forAdditionWithVec3());
+    Evaluator<Vec3> eval = new BinaryOperationEvaluator<Vec3, Vec3, Vec3>(Type.VEC3_T, BasicArithmeticOperators.<Vec3>forAdditionWithSame());
     assertEquals(eval.getGlSlString(Shade.add(Shade.vec(1, 2, 3), Shade.vec(3, 4, 5)), mContext),
         "vec3(vec3(float(1.0), float(2.0), float(3.0)) + vec3(float(3.0), float(4.0), float(5.0)))");
   }
 
   @Test
   public void testForSubtractionWithVec3() {
-    Evaluator<Vec3> eval = new BinaryOperationEvaluator<Vec3, Vec3, Vec3>(Type.VEC3_T, Vec3Operators.forSubtractionWithVec3());
+    Evaluator<Vec3> eval = new BinaryOperationEvaluator<Vec3, Vec3, Vec3>(Type.VEC3_T, BasicArithmeticOperators.<Vec3>forSubtractionWithSame());
     assertEquals(eval.getGlSlString(Shade.sub(Shade.vec(1, 2, 3), Shade.vec(3, 4, 5)), mContext),
         "vec3(vec3(float(1.0), float(2.0), float(3.0)) - vec3(float(3.0), float(4.0), float(5.0)))");
   }
 
   @Test
   public void testForMultiplicationWithVec3() {
-    Evaluator<Vec3> eval = new BinaryOperationEvaluator<Vec3, Vec3, Vec3>(Type.VEC3_T, Vec3Operators.forMultiplicationWithVec3());
+    Evaluator<Vec3> eval = new BinaryOperationEvaluator<Vec3, Vec3, Vec3>(Type.VEC3_T, BasicArithmeticOperators.<Vec3>forMultiplicationWithSame());
     assertEquals(eval.getGlSlString(Shade.mul(Shade.vec(1, 2, 3), Shade.vec(3, 4, 5)), mContext),
         "vec3(vec3(float(1.0), float(2.0), float(3.0)) * vec3(float(3.0), float(4.0), float(5.0)))");
   }
 
   @Test
   public void testForDivisionWithVec3() {
-    Evaluator<Vec3> eval = new BinaryOperationEvaluator<Vec3, Vec3, Vec3>(Type.VEC3_T, Vec3Operators.forDivisionWithVec3());
+    Evaluator<Vec3> eval = new BinaryOperationEvaluator<Vec3, Vec3, Vec3>(Type.VEC3_T, BasicArithmeticOperators.<Vec3>forDivisionWithSame());
     assertEquals(eval.getGlSlString(Shade.div(Shade.vec(1, 2, 3), Shade.vec(3, 4, 5)), mContext),
         "vec3(vec3(float(1.0), float(2.0), float(3.0)) / vec3(float(3.0), float(4.0), float(5.0)))");
   }

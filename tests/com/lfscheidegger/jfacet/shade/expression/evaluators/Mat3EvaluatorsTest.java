@@ -4,6 +4,7 @@ import com.lfscheidegger.jfacet.shade.FakeCompilationContext;
 import com.lfscheidegger.jfacet.shade.Shade;
 import com.lfscheidegger.jfacet.shade.Type;
 import com.lfscheidegger.jfacet.shade.compiler.CompilationContext;
+import com.lfscheidegger.jfacet.shade.expression.operators.BasicArithmeticOperators;
 import com.lfscheidegger.jfacet.shade.expression.operators.Mat3Operators;
 import com.lfscheidegger.jfacet.shade.primitives.Mat3;
 import com.lfscheidegger.jfacet.shade.primitives.Vec3;
@@ -37,7 +38,7 @@ public class Mat3EvaluatorsTest {
 
   @Test
   public void testForAdditionWithFloat() {
-    Evaluator<Mat3> eval = new BinaryOperationEvaluator<Mat3, Float, Mat3>(Type.MAT3_T, Mat3Operators.forAdditionWithFloat());
+    Evaluator<Mat3> eval = new BinaryOperationEvaluator<Mat3, Float, Mat3>(Type.MAT3_T, BasicArithmeticOperators.<Mat3>forAdditionWithFloat());
     assertEquals(
         eval.getGlSlString(Shade.add(Shade.mat(new Mat3()), 3), mContext),
         "mat3(mat3(vec3(float(1.0), float(0.0), float(0.0)), vec3(float(0.0), float(1.0), float(0.0)), vec3(float(0.0), float(0.0), float(1.0))) + float(3.0))");
@@ -45,7 +46,7 @@ public class Mat3EvaluatorsTest {
 
   @Test
   public void testForSubtractionWithFloat() {
-    Evaluator<Mat3> eval = new BinaryOperationEvaluator<Mat3, Float, Mat3>(Type.MAT3_T, Mat3Operators.forSubtractionWithFloat());
+    Evaluator<Mat3> eval = new BinaryOperationEvaluator<Mat3, Float, Mat3>(Type.MAT3_T, BasicArithmeticOperators.<Mat3>forSubtractionWithFloat());
     assertEquals(
         eval.getGlSlString(Shade.sub(Shade.mat(new Mat3()), 3), mContext),
         "mat3(mat3(vec3(float(1.0), float(0.0), float(0.0)), vec3(float(0.0), float(1.0), float(0.0)), vec3(float(0.0), float(0.0), float(1.0))) - float(3.0))");
@@ -53,7 +54,7 @@ public class Mat3EvaluatorsTest {
 
   @Test
   public void testForMultiplicationWithFloat() {
-    Evaluator<Mat3> eval = new BinaryOperationEvaluator<Mat3, Float, Mat3>(Type.MAT3_T, Mat3Operators.forMultiplicationWithFloat());
+    Evaluator<Mat3> eval = new BinaryOperationEvaluator<Mat3, Float, Mat3>(Type.MAT3_T, BasicArithmeticOperators.<Mat3>forMultiplicationWithFloat());
     assertEquals(
         eval.getGlSlString(Shade.mul(Shade.mat(new Mat3()), 3), mContext),
         "mat3(mat3(vec3(float(1.0), float(0.0), float(0.0)), vec3(float(0.0), float(1.0), float(0.0)), vec3(float(0.0), float(0.0), float(1.0))) * float(3.0))");
@@ -61,7 +62,7 @@ public class Mat3EvaluatorsTest {
 
   @Test
   public void testForDivisionWithFloat() {
-    Evaluator<Mat3> eval = new BinaryOperationEvaluator<Mat3, Float, Mat3>(Type.MAT3_T, Mat3Operators.forDivisionWithFloat());
+    Evaluator<Mat3> eval = new BinaryOperationEvaluator<Mat3, Float, Mat3>(Type.MAT3_T, BasicArithmeticOperators.<Mat3>forDivisionWithFloat());
     assertEquals(
         eval.getGlSlString(Shade.div(Shade.mat(new Mat3()), 3), mContext),
         "mat3(mat3(vec3(float(1.0), float(0.0), float(0.0)), vec3(float(0.0), float(1.0), float(0.0)), vec3(float(0.0), float(0.0), float(1.0))) / float(3.0))");
@@ -69,7 +70,7 @@ public class Mat3EvaluatorsTest {
 
   @Test
   public void testForAdditionWithMat3() {
-    Evaluator<Mat3> eval = new BinaryOperationEvaluator<Mat3, Mat3, Mat3>(Type.MAT3_T, Mat3Operators.forAdditionWithMat3());
+    Evaluator<Mat3> eval = new BinaryOperationEvaluator<Mat3, Mat3, Mat3>(Type.MAT3_T, BasicArithmeticOperators.<Mat3>forAdditionWithSame());
     assertEquals(
         eval.getGlSlString(Shade.add(new Mat3(), new Mat3()), mContext),
         "mat3(mat3(vec3(float(1.0), float(0.0), float(0.0)), vec3(float(0.0), float(1.0), float(0.0)), vec3(float(0.0), float(0.0), float(1.0))) + mat3(vec3(float(1.0), float(0.0), float(0.0)), vec3(float(0.0), float(1.0), float(0.0)), vec3(float(0.0), float(0.0), float(1.0))))");
@@ -77,7 +78,7 @@ public class Mat3EvaluatorsTest {
 
   @Test
   public void testForSubtractionWithMat3() {
-    Evaluator<Mat3> eval = new BinaryOperationEvaluator<Mat3, Mat3, Mat3>(Type.MAT3_T, Mat3Operators.forSubtractionWithMat3());
+    Evaluator<Mat3> eval = new BinaryOperationEvaluator<Mat3, Mat3, Mat3>(Type.MAT3_T, BasicArithmeticOperators.<Mat3>forSubtractionWithSame());
     assertEquals(
         eval.getGlSlString(Shade.sub(new Mat3(), new Mat3()), mContext),
         "mat3(mat3(vec3(float(1.0), float(0.0), float(0.0)), vec3(float(0.0), float(1.0), float(0.0)), vec3(float(0.0), float(0.0), float(1.0))) - mat3(vec3(float(1.0), float(0.0), float(0.0)), vec3(float(0.0), float(1.0), float(0.0)), vec3(float(0.0), float(0.0), float(1.0))))");
@@ -85,7 +86,7 @@ public class Mat3EvaluatorsTest {
 
   @Test
   public void testForMultiplicationWithMat3() {
-    Evaluator<Mat3> eval = new BinaryOperationEvaluator<Mat3, Mat3, Mat3>(Type.MAT3_T, Mat3Operators.forMultiplicationWithMat3());
+    Evaluator<Mat3> eval = new BinaryOperationEvaluator<Mat3, Mat3, Mat3>(Type.MAT3_T, BasicArithmeticOperators.<Mat3>forMultiplicationWithSame());
     assertEquals(
         eval.getGlSlString(Shade.mul(new Mat3(), new Mat3()), mContext),
         "mat3(mat3(vec3(float(1.0), float(0.0), float(0.0)), vec3(float(0.0), float(1.0), float(0.0)), vec3(float(0.0), float(0.0), float(1.0))) * mat3(vec3(float(1.0), float(0.0), float(0.0)), vec3(float(0.0), float(1.0), float(0.0)), vec3(float(0.0), float(0.0), float(1.0))))");
@@ -93,7 +94,7 @@ public class Mat3EvaluatorsTest {
 
   @Test
   public void testForDivisionWithMat3() {
-    Evaluator<Mat3> eval = new BinaryOperationEvaluator<Mat3, Mat3, Mat3>(Type.MAT3_T, Mat3Operators.forDivisionWithMat3());
+    Evaluator<Mat3> eval = new BinaryOperationEvaluator<Mat3, Mat3, Mat3>(Type.MAT3_T, BasicArithmeticOperators.<Mat3>forDivisionWithSame());
     assertEquals(
         eval.getGlSlString(Shade.div(new Mat3(), new Mat3()), mContext),
         "mat3(mat3(vec3(float(1.0), float(0.0), float(0.0)), vec3(float(0.0), float(1.0), float(0.0)), vec3(float(0.0), float(0.0), float(1.0))) / mat3(vec3(float(1.0), float(0.0), float(0.0)), vec3(float(0.0), float(1.0), float(0.0)), vec3(float(0.0), float(0.0), float(1.0))))");

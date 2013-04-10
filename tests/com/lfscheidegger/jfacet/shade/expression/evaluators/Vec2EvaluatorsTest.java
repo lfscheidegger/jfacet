@@ -4,7 +4,7 @@ import com.lfscheidegger.jfacet.shade.FakeCompilationContext;
 import com.lfscheidegger.jfacet.shade.Shade;
 import com.lfscheidegger.jfacet.shade.Type;
 import com.lfscheidegger.jfacet.shade.compiler.CompilationContext;
-import com.lfscheidegger.jfacet.shade.expression.operators.Vec2Operators;
+import com.lfscheidegger.jfacet.shade.expression.operators.BasicArithmeticOperators;
 import com.lfscheidegger.jfacet.shade.primitives.Mat2;
 import com.lfscheidegger.jfacet.shade.primitives.Vec2;
 import org.junit.Test;
@@ -44,52 +44,52 @@ public class Vec2EvaluatorsTest {
 
   @Test
   public void testForAdditionWithFloat() {
-    Evaluator<Vec2> eval = new BinaryOperationEvaluator<Vec2, Float, Vec2>(Type.VEC2_T, Vec2Operators.forAdditionWithFloat());
+    Evaluator<Vec2> eval = new BinaryOperationEvaluator<Vec2, Float, Vec2>(Type.VEC2_T, BasicArithmeticOperators.<Vec2>forAdditionWithFloat());
     assertEquals(eval.getGlSlString(Shade.add(Shade.vec(1, 2), 3), mContext), "vec2(vec2(float(1.0), float(2.0)) + float(3.0))");
   }
 
   @Test
   public void testForSubtractionWithFloat() {
-    Evaluator<Vec2> eval = new BinaryOperationEvaluator<Vec2, Float, Vec2>(Type.VEC2_T, Vec2Operators.forSubtractionWithFloat());
+    Evaluator<Vec2> eval = new BinaryOperationEvaluator<Vec2, Float, Vec2>(Type.VEC2_T, BasicArithmeticOperators.<Vec2>forSubtractionWithFloat());
     assertEquals(eval.getGlSlString(Shade.sub(Shade.vec(1, 2), 3), mContext), "vec2(vec2(float(1.0), float(2.0)) - float(3.0))");
   }
 
   @Test
   public void testForMultiplicationWithFloat() {
-    Evaluator<Vec2> eval = new BinaryOperationEvaluator<Vec2, Float, Vec2>(Type.VEC2_T, Vec2Operators.forMultiplicationWithFloat());
+    Evaluator<Vec2> eval = new BinaryOperationEvaluator<Vec2, Float, Vec2>(Type.VEC2_T, BasicArithmeticOperators.<Vec2>forMultiplicationWithFloat());
     assertEquals(eval.getGlSlString(Shade.mul(Shade.vec(1, 2), 3), mContext), "vec2(vec2(float(1.0), float(2.0)) * float(3.0))");
   }
 
   @Test
   public void testForDivisionWithFloat() {
-    Evaluator<Vec2> eval = new BinaryOperationEvaluator<Vec2, Float, Vec2>(Type.VEC2_T, Vec2Operators.forDivisionWithFloat());
+    Evaluator<Vec2> eval = new BinaryOperationEvaluator<Vec2, Float, Vec2>(Type.VEC2_T, BasicArithmeticOperators.<Vec2>forDivisionWithFloat());
     assertEquals(eval.getGlSlString(Shade.div(Shade.vec(1, 2), 3), mContext), "vec2(vec2(float(1.0), float(2.0)) / float(3.0))");
   }
 
   @Test
   public void testForAdditionWithVec2() {
-    Evaluator<Vec2> eval = new BinaryOperationEvaluator<Vec2, Vec2, Vec2>(Type.VEC2_T, Vec2Operators.forAdditionWithVec2());
+    Evaluator<Vec2> eval = new BinaryOperationEvaluator<Vec2, Vec2, Vec2>(Type.VEC2_T, BasicArithmeticOperators.<Vec2>forAdditionWithSame());
     assertEquals(eval.getGlSlString(Shade.add(Shade.vec(1, 2), Shade.vec(3, 4)), mContext),
         "vec2(vec2(float(1.0), float(2.0)) + vec2(float(3.0), float(4.0)))");
   }
 
   @Test
   public void testForSubtractionWithVec2() {
-    Evaluator<Vec2> eval = new BinaryOperationEvaluator<Vec2, Vec2, Vec2>(Type.VEC2_T, Vec2Operators.forSubtractionWithVec2());
+    Evaluator<Vec2> eval = new BinaryOperationEvaluator<Vec2, Vec2, Vec2>(Type.VEC2_T, BasicArithmeticOperators.<Vec2>forSubtractionWithSame());
     assertEquals(eval.getGlSlString(Shade.sub(Shade.vec(1, 2), Shade.vec(3, 4)), mContext),
         "vec2(vec2(float(1.0), float(2.0)) - vec2(float(3.0), float(4.0)))");
   }
 
   @Test
   public void testForMultiplicationWithVec2() {
-    Evaluator<Vec2> eval = new BinaryOperationEvaluator<Vec2, Vec2, Vec2>(Type.VEC2_T, Vec2Operators.forMultiplicationWithVec2());
+    Evaluator<Vec2> eval = new BinaryOperationEvaluator<Vec2, Vec2, Vec2>(Type.VEC2_T, BasicArithmeticOperators.<Vec2>forMultiplicationWithSame());
     assertEquals(eval.getGlSlString(Shade.mul(Shade.vec(1, 2), Shade.vec(3, 4)), mContext),
         "vec2(vec2(float(1.0), float(2.0)) * vec2(float(3.0), float(4.0)))");
   }
 
   @Test
   public void testForDivisionWithVec2() {
-    Evaluator<Vec2> eval = new BinaryOperationEvaluator<Vec2, Vec2, Vec2>(Type.VEC2_T, Vec2Operators.forDivisionWithVec2());
+    Evaluator<Vec2> eval = new BinaryOperationEvaluator<Vec2, Vec2, Vec2>(Type.VEC2_T, BasicArithmeticOperators.<Vec2>forDivisionWithSame());
     assertEquals(eval.getGlSlString(Shade.div(Shade.vec(1, 2), Shade.vec(3, 4)), mContext),
         "vec2(vec2(float(1.0), float(2.0)) / vec2(float(3.0), float(4.0)))");
   }

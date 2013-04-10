@@ -4,7 +4,7 @@ import com.lfscheidegger.jfacet.shade.FakeCompilationContext;
 import com.lfscheidegger.jfacet.shade.Shade;
 import com.lfscheidegger.jfacet.shade.Type;
 import com.lfscheidegger.jfacet.shade.compiler.CompilationContext;
-import com.lfscheidegger.jfacet.shade.expression.operators.Vec4Operators;
+import com.lfscheidegger.jfacet.shade.expression.operators.BasicArithmeticOperators;
 import com.lfscheidegger.jfacet.shade.primitives.Vec4;
 import org.junit.Test;
 
@@ -35,56 +35,56 @@ public class Vec4EvaluatorsTest {
 
   @Test
   public void testForAdditionWithFloat() {
-    Evaluator<Vec4> eval = new BinaryOperationEvaluator<Vec4, Float, Vec4>(Type.VEC4_T, Vec4Operators.forAdditionWithFloat());
+    Evaluator<Vec4> eval = new BinaryOperationEvaluator<Vec4, Float, Vec4>(Type.VEC4_T, BasicArithmeticOperators.<Vec4>forAdditionWithFloat());
     assertEquals(eval.getGlSlString(Shade.add(Shade.vec(1, 2, 3, 4), 3), mContext),
         "vec4(vec4(float(1.0), float(2.0), float(3.0), float(4.0)) + float(3.0))");
   }
 
   @Test
   public void testForSubtractionWithFloat() {
-    Evaluator<Vec4> eval = new BinaryOperationEvaluator<Vec4, Float, Vec4>(Type.VEC4_T, Vec4Operators.forSubtractionWithFloat());
+    Evaluator<Vec4> eval = new BinaryOperationEvaluator<Vec4, Float, Vec4>(Type.VEC4_T, BasicArithmeticOperators.<Vec4>forSubtractionWithFloat());
     assertEquals(eval.getGlSlString(Shade.add(Shade.vec(1, 2, 3, 4), 3), mContext),
         "vec4(vec4(float(1.0), float(2.0), float(3.0), float(4.0)) - float(3.0))");
   }
 
   @Test
   public void testForMultiplicationWithFloat() {
-    Evaluator<Vec4> eval = new BinaryOperationEvaluator<Vec4, Float, Vec4>(Type.VEC4_T, Vec4Operators.forMultiplicationWithFloat());
+    Evaluator<Vec4> eval = new BinaryOperationEvaluator<Vec4, Float, Vec4>(Type.VEC4_T, BasicArithmeticOperators.<Vec4>forMultiplicationWithFloat());
     assertEquals(eval.getGlSlString(Shade.add(Shade.vec(1, 2, 3, 4), 3), mContext),
         "vec4(vec4(float(1.0), float(2.0), float(3.0), float(4.0)) * float(3.0))");
   }
 
   @Test
   public void testForDivisionWithFloat() {
-    Evaluator<Vec4> eval = new BinaryOperationEvaluator<Vec4, Float, Vec4>(Type.VEC4_T, Vec4Operators.forDivisionWithFloat());
+    Evaluator<Vec4> eval = new BinaryOperationEvaluator<Vec4, Float, Vec4>(Type.VEC4_T, BasicArithmeticOperators.<Vec4>forDivisionWithFloat());
     assertEquals(eval.getGlSlString(Shade.add(Shade.vec(1, 2, 3, 4), 3), mContext),
         "vec4(vec4(float(1.0), float(2.0), float(3.0), float(4.0)) / float(3.0))");
   }
 
   @Test
   public void testForAdditionWithVec4() {
-    Evaluator<Vec4> eval = new BinaryOperationEvaluator<Vec4, Vec4, Vec4>(Type.VEC4_T, Vec4Operators.forAdditionWithVec4());
+    Evaluator<Vec4> eval = new BinaryOperationEvaluator<Vec4, Vec4, Vec4>(Type.VEC4_T, BasicArithmeticOperators.<Vec4>forAdditionWithSame());
     assertEquals(eval.getGlSlString(Shade.add(Shade.vec(1, 2, 3, 4), Shade.vec(3, 4, 5, 6)), mContext),
         "vec4(vec4(float(1.0), float(2.0), float(3.0), float(4.0)) + vec4(float(3.0), float(4.0), float(5.0), float(6.0)))");
   }
 
   @Test
   public void testForSubtractionWithVec4() {
-    Evaluator<Vec4> eval = new BinaryOperationEvaluator<Vec4, Vec4, Vec4>(Type.VEC4_T, Vec4Operators.forSubtractionWithVec4());
+    Evaluator<Vec4> eval = new BinaryOperationEvaluator<Vec4, Vec4, Vec4>(Type.VEC4_T, BasicArithmeticOperators.<Vec4>forSubtractionWithSame());
     assertEquals(eval.getGlSlString(Shade.add(Shade.vec(1, 2, 3, 4), Shade.vec(3, 4, 5, 6)), mContext),
         "vec4(vec4(float(1.0), float(2.0), float(3.0), float(4.0)) - vec4(float(3.0), float(4.0), float(5.0), float(6.0)))");
   }
 
   @Test
   public void testForMultiplicationWithVec4() {
-    Evaluator<Vec4> eval = new BinaryOperationEvaluator<Vec4, Vec4, Vec4>(Type.VEC4_T, Vec4Operators.forMultiplicationWithVec4());
+    Evaluator<Vec4> eval = new BinaryOperationEvaluator<Vec4, Vec4, Vec4>(Type.VEC4_T, BasicArithmeticOperators.<Vec4>forMultiplicationWithSame());
     assertEquals(eval.getGlSlString(Shade.add(Shade.vec(1, 2, 3, 4), Shade.vec(3, 4, 5, 6)), mContext),
         "vec4(vec4(float(1.0), float(2.0), float(3.0), float(4.0)) * vec4(float(3.0), float(4.0), float(5.0), float(6.0)))");
   }
 
   @Test
   public void testForDivisionWithVec4() {
-    Evaluator<Vec4> eval = new BinaryOperationEvaluator<Vec4, Vec4, Vec4>(Type.VEC4_T, Vec4Operators.forDivisionWithVec4());
+    Evaluator<Vec4> eval = new BinaryOperationEvaluator<Vec4, Vec4, Vec4>(Type.VEC4_T, BasicArithmeticOperators.<Vec4>forDivisionWithSame());
     assertEquals(eval.getGlSlString(Shade.add(Shade.vec(1, 2, 3, 4), Shade.vec(3, 4, 5, 6)), mContext),
         "vec4(vec4(float(1.0), float(2.0), float(3.0), float(4.0)) / vec4(float(3.0), float(4.0), float(5.0), float(6.0)))");
   }
