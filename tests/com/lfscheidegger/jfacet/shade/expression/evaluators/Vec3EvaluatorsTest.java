@@ -90,7 +90,7 @@ public class Vec3EvaluatorsTest {
 
   @Test
   public void testForNegation() {
-    Evaluator<Vec3> eval = Vec3Evaluators.forNegation();
+    Evaluator<Vec3> eval = new NegationEvaluator<Vec3>();
 
     assertEquals(eval.evaluate(Shade.neg(Shade.vec(1, 2, 3))), new Vec3(1, 2, 3).neg());
   }

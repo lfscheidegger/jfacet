@@ -28,22 +28,6 @@ public class FloatEvaluators {
     };
   }
 
-  public static Evaluator<Float> forNegation() {
-    return new Evaluator<Float>() {
-      @Override
-      public Float evaluate(Expression expression) {
-        ImmutableList<Expression> parents = expression.getParents();
-        return - ((FloatExp)parents.get(0)).evaluate();
-      }
-
-      @Override
-      public String getGlSlString(Expression expression, CompilationContext context) {
-        ImmutableList<Expression> parents = expression.getParents();
-        return GlSlExpressionHelper.getUnOpExpression(TYPE, "-", parents.get(0).getGlSlString(context));
-      }
-    };
-  }
-
   public static Evaluator<Float> forVec2Component(final int idx) {
     return new Evaluator<Float>() {
       @Override

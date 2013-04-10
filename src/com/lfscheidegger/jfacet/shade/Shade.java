@@ -84,7 +84,7 @@ public class Shade {
   }
 
   public static FloatExp neg(FloatExp exp) {
-    return new FloatExp(ImmutableList.<Expression>of(exp), FloatEvaluators.forNegation());
+    return new FloatExp(ImmutableList.<Expression>of(exp), new NegationEvaluator<Float>());
   }
 
   // ===================================================================================================================
@@ -163,7 +163,7 @@ public class Shade {
   }
 
   public static Vec2Exp neg(Vec2Like exp) {
-    return new Vec2Exp(ImmutableList.<Expression>of(promote(exp)), Vec2Evaluators.forNegation());
+    return new Vec2Exp(ImmutableList.<Expression>of(promote(exp)), new NegationEvaluator<Vec2>());
   }
 
   public static FloatExp dot(Vec2Like left, Vec2Like right) {
@@ -258,7 +258,7 @@ public class Shade {
   }
 
   public static Vec3Exp neg(Vec3Like exp) {
-    return new Vec3Exp(ImmutableList.<Expression>of(promote(exp)), Vec3Evaluators.forNegation());
+    return new Vec3Exp(ImmutableList.<Expression>of(promote(exp)), new NegationEvaluator<Vec3>());
   }
 
   public static FloatExp dot(Vec3Like left, Vec3Like right) {
@@ -381,7 +381,7 @@ public class Shade {
   }
 
   public static Vec4Exp neg(Vec4Like exp) {
-    return new Vec4Exp(ImmutableList.<Expression>of(promote(exp)), Vec4Evaluators.forNegation());
+    return new Vec4Exp(ImmutableList.<Expression>of(promote(exp)), new NegationEvaluator<Vec4>());
   }
 
   public static FloatExp dot(Vec4Like left, Vec4Like right) {
@@ -455,7 +455,7 @@ public class Shade {
   }
 
   public static Mat2Exp neg(Mat2Like exp) {
-    return new Mat2Exp(ImmutableList.<Expression>of(promote(exp)), Mat2Evaluators.forNegation());
+    return new Mat2Exp(ImmutableList.<Expression>of(promote(exp)), new NegationEvaluator<Mat2>());
   }
 
   public static Vec2Exp mul(Mat2Like left, Vec2Like right) {
@@ -533,7 +533,7 @@ public class Shade {
   }
 
   public static Mat3Exp neg(Mat3Like exp) {
-    return new Mat3Exp(ImmutableList.<Expression>of(promote(exp)), Mat3Evaluators.forNegation());
+    return new Mat3Exp(ImmutableList.<Expression>of(promote(exp)), new NegationEvaluator<Mat3>());
   }
 
   public static Vec3Exp mul(Mat3Like left, Vec3Like right) {
@@ -633,7 +633,7 @@ public class Shade {
   }
 
   public static Mat4Exp neg(Mat4Like exp) {
-    return new Mat4Exp(ImmutableList.<Expression>of(promote(exp)), Mat4Evaluators.forNegation());
+    return new Mat4Exp(ImmutableList.<Expression>of(promote(exp)), new NegationEvaluator<Mat4>());
   }
 
   public static Vec4Exp mul(Mat4Like left, Vec4Like right) {

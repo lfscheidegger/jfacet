@@ -90,7 +90,7 @@ public class Vec4EvaluatorsTest {
 
   @Test
   public void testForNegation() {
-    Evaluator<Vec4> eval = Vec4Evaluators.forNegation();
+    Evaluator<Vec4> eval = new NegationEvaluator<Vec4>();
 
     assertEquals(eval.evaluate(Shade.neg(Shade.vec(1, 2, 3, 4))), new Vec4(1, 2, 3, 4).neg());
   }

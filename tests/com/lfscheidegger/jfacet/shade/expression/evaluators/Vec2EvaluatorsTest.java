@@ -95,7 +95,7 @@ public class Vec2EvaluatorsTest {
 
   @Test
   public void testForNegation() {
-    Evaluator<Vec2> eval = Vec2Evaluators.forNegation();
+    Evaluator<Vec2> eval = new NegationEvaluator<Vec2>();
 
     assertEquals(eval.evaluate(Shade.neg(Shade.vec(1, 2))), new Vec2(1, 2).neg());
   }

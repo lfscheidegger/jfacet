@@ -100,7 +100,7 @@ public class Mat2EvaluatorsTest {
 
   @Test
   public void testForNegation() {
-    Evaluator<Mat2> eval = Mat2Evaluators.forNegation();
+    Evaluator<Mat2> eval = new NegationEvaluator<Mat2>();
 
     assertEquals(eval.evaluate(Shade.neg(Shade.mat(new Mat2()))), new Mat2().neg());
   }

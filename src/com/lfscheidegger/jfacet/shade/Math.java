@@ -14,8 +14,7 @@ import com.lfscheidegger.jfacet.shade.primitives.Vec4;
 public class Math {
 
   public static FloatExp sqrt(FloatExp param) {
-    return new FloatExp(GlSlType.DEFAULT_T, ImmutableList.<Expression>of(param),
-        new FunctionEvaluator<Float>(Type.FLOAT_T, "sqrt") {
+    return new FloatExp(ImmutableList.<Expression>of(param), new FunctionEvaluator<Float>(Type.FLOAT_T, "sqrt") {
           @Override
           public Float evaluate(Expression expression) {
             FloatExp parent = (FloatExp)expression.getParents().get(0);
@@ -25,8 +24,7 @@ public class Math {
   }
 
   public static FloatExp sin(FloatExp param) {
-    return new FloatExp(GlSlType.DEFAULT_T, ImmutableList.<Expression>of(param),
-        new FunctionEvaluator<Float>(Type.FLOAT_T, "sin") {
+    return new FloatExp(ImmutableList.<Expression>of(param), new FunctionEvaluator<Float>(Type.FLOAT_T, "sin") {
           @Override
           public Float evaluate(Expression expression) {
             FloatExp parent = (FloatExp)expression.getParents().get(0);
@@ -36,8 +34,7 @@ public class Math {
   }
 
   public static FloatExp cos(FloatExp param) {
-    return new FloatExp(GlSlType.DEFAULT_T, ImmutableList.<Expression>of(param),
-        new FunctionEvaluator<Float>(Type.FLOAT_T, "cos") {
+    return new FloatExp(ImmutableList.<Expression>of(param), new FunctionEvaluator<Float>(Type.FLOAT_T, "cos") {
           @Override
           public Float evaluate(Expression expression) {
             FloatExp parent = (FloatExp)expression.getParents().get(0);
@@ -51,8 +48,7 @@ public class Math {
   }
 
   public static Vec2Exp normalize(Vec2Exp vec) {
-    return new Vec2Exp(GlSlType.DEFAULT_T, ImmutableList.<Expression>of(vec),
-        new FunctionEvaluator<Vec2>(Type.VEC2_T, "normalize") {
+    return new Vec2Exp(ImmutableList.<Expression>of(vec), new FunctionEvaluator<Vec2>(Type.VEC2_T, "normalize") {
           @Override
           public Vec2 evaluate(Expression expression) {
             Vec2Exp parent = (Vec2Exp)expression.getParents().get(0);
@@ -65,8 +61,7 @@ public class Math {
   }
 
   public static Vec3Exp normalize(Vec3Exp vec) {
-    return new Vec3Exp(GlSlType.DEFAULT_T, ImmutableList.<Expression>of(vec),
-        new FunctionEvaluator<Vec3>(Type.VEC3_T, "normalize") {
+    return new Vec3Exp(ImmutableList.<Expression>of(vec), new FunctionEvaluator<Vec3>(Type.VEC3_T, "normalize") {
           @Override
           public Vec3 evaluate(Expression expression) {
             Vec3Exp parent = (Vec3Exp)expression.getParents().get(0);
@@ -80,8 +75,7 @@ public class Math {
   }
 
   public static Vec4Exp normalize(Vec4Exp vec) {
-    return new Vec4Exp(GlSlType.DEFAULT_T, ImmutableList.<Expression>of(vec),
-        new FunctionEvaluator<Vec4>(Type.VEC4_T, "normalize") {
+    return new Vec4Exp(ImmutableList.<Expression>of(vec), new FunctionEvaluator<Vec4>(Type.VEC4_T, "normalize") {
           @Override
           public Vec4 evaluate(Expression expression) {
             Vec4Exp parent = (Vec4Exp)expression.getParents().get(0);

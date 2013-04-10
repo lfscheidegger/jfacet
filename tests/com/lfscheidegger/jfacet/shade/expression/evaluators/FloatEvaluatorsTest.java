@@ -57,7 +57,7 @@ public class FloatEvaluatorsTest {
 
   @Test
   public void testForNegation() {
-    Evaluator<Float> eval = FloatEvaluators.forNegation();
+    Evaluator<Float> eval = new NegationEvaluator<Float>();
 
     assertTrue(eval.evaluate(Shade.neg(Shade.constant(2))) == -2);
     assertEquals(eval.getGlSlString(Shade.neg(Shade.constant(2)), mContext), "float(-float(2.0))");

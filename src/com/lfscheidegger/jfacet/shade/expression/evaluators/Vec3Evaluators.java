@@ -82,22 +82,6 @@ public class Vec3Evaluators {
     };
   }
 
-  public static Evaluator<Vec3> forNegation() {
-    return new Evaluator<Vec3>() {
-      @Override
-      public Vec3 evaluate(Expression expression) {
-        Vec3Exp parent = (Vec3Exp)expression.getParents().get(0);
-        return parent.evaluate().neg();
-      }
-
-      @Override
-      public String getGlSlString(Expression expression, CompilationContext context) {
-        return GlSlExpressionHelper.getUnOpExpression(
-            TYPE, "-", ((Expression)expression.getParents().get(0)).getGlSlString(context));
-      }
-    };
-  }
-
   public static Evaluator<Vec3> forCrossProduct() {
     return new FunctionEvaluator<Vec3>(Type.VEC3_T, "cross") {
       @Override

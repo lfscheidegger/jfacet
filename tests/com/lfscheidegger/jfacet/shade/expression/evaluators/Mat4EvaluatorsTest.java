@@ -101,7 +101,7 @@ public class Mat4EvaluatorsTest {
 
   @Test
   public void testForNegation() {
-    Evaluator<Mat4> eval = Mat4Evaluators.forNegation();
+    Evaluator<Mat4> eval = new NegationEvaluator<Mat4>();
 
     assertEquals(eval.evaluate(Shade.neg(Shade.mat(new Mat4()))), new Mat4().neg());
   }

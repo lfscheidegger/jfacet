@@ -78,20 +78,4 @@ public class Vec2Evaluators {
       }
     };
   }
-
-  public static Evaluator<Vec2> forNegation() {
-    return new Evaluator<Vec2>() {
-      @Override
-      public Vec2 evaluate(Expression expression) {
-        Vec2Exp parent = (Vec2Exp)expression.getParents().get(0);
-        return parent.evaluate().neg();
-      }
-
-      @Override
-      public String getGlSlString(Expression expression, CompilationContext context) {
-        return GlSlExpressionHelper.getUnOpExpression(
-            TYPE, "-", ((Expression)expression.getParents().get(0)).getGlSlString(context));
-      }
-    };
-  }
 }

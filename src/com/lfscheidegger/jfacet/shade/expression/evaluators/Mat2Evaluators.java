@@ -77,20 +77,4 @@ public class Mat2Evaluators {
       }
     };
   }
-
-  public static Evaluator<Mat2> forNegation() {
-    return new Evaluator<Mat2>() {
-      @Override
-      public Mat2 evaluate(Expression expression) {
-        Mat2Exp parent = (Mat2Exp)expression.getParents().get(0);
-        return parent.evaluate().neg();
-      }
-
-      @Override
-      public String getGlSlString(Expression expression, CompilationContext context) {
-        return GlSlExpressionHelper.getUnOpExpression(
-            TYPE, "-", ((Expression)expression.getParents().get(0)).getGlSlString(context));
-      }
-    };
-  }
 }
