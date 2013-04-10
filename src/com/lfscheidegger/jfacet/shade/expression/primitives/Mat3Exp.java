@@ -17,15 +17,19 @@ public class Mat3Exp extends AbstractExpression<Mat3> implements Mat3Like {
   private static final Type TYPE = Type.MAT3_T;
 
   public Mat3Exp(Mat3 mat) {
-    this(TYPE, GlSlType.DEFAULT_T, ImmutableList.<Expression>of(), Mat3Evaluators.forConstant(mat));
+    this(Mat3Evaluators.forConstant(mat));
+  }
+
+  public Mat3Exp(Evaluator<Mat3> evaluator) {
+    this(ImmutableList.<Expression>of(), evaluator);
   }
 
   public Mat3Exp(ImmutableList<Expression> parents, Evaluator<Mat3> evaluator) {
-    this(TYPE, GlSlType.DEFAULT_T, parents, evaluator);
+    this(GlSlType.DEFAULT_T, parents, evaluator);
   }
 
-  public Mat3Exp(Type type, GlSlType glSlType, ImmutableList<Expression> parents, Evaluator<Mat3> evaluator) {
-    super(type, glSlType, parents, evaluator);
+  public Mat3Exp(GlSlType glSlType, ImmutableList<Expression> parents, Evaluator<Mat3> evaluator) {
+    super(TYPE, glSlType, parents, evaluator);
   }
 
   public Vec3Exp getC0() {

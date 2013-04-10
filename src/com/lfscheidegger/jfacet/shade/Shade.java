@@ -689,35 +689,19 @@ public class Shade {
   // GLSL stuff
   // ===================================================================================================================
   public static FloatExp attributef() {
-    return new FloatExp(
-        Type.FLOAT_T,
-        GlSlType.ATTRIBUTE_T,
-        ImmutableList.<Expression>of(),
-        GlSlEvaluators.<Float>forGlSlQualified());
+    return new FloatExp(GlSlType.ATTRIBUTE_T, ImmutableList.<Expression>of(), GlSlEvaluators.<Float>forGlSlQualified());
   }
 
   public static Vec2Exp attribute2f() {
-    return new Vec2Exp(
-        Type.VEC2_T,
-        GlSlType.ATTRIBUTE_T,
-        ImmutableList.<Expression>of(),
-        GlSlEvaluators.<Vec2>forGlSlQualified());
+    return new Vec2Exp(GlSlType.ATTRIBUTE_T, ImmutableList.<Expression>of(), GlSlEvaluators.<Vec2>forGlSlQualified());
   }
 
   public static Vec3Exp attribute3f() {
-    return new Vec3Exp(
-        Type.VEC3_T,
-        GlSlType.ATTRIBUTE_T,
-        ImmutableList.<Expression>of(),
-        GlSlEvaluators.<Vec3>forGlSlQualified());
+    return new Vec3Exp(GlSlType.ATTRIBUTE_T, ImmutableList.<Expression>of(), GlSlEvaluators.<Vec3>forGlSlQualified());
   }
 
   public static Vec4Exp attribute4f() {
-    return new Vec4Exp(
-        Type.VEC4_T,
-        GlSlType.ATTRIBUTE_T,
-        ImmutableList.<Expression>of(),
-        GlSlEvaluators.<Vec4>forGlSlQualified());
+    return new Vec4Exp(GlSlType.ATTRIBUTE_T, ImmutableList.<Expression>of(), GlSlEvaluators.<Vec4>forGlSlQualified());
   }
 
   public static FloatExp varying(float c) {
@@ -727,35 +711,30 @@ public class Shade {
 
   public static FloatExp varying(FloatExp exp) {
     return new FloatExp(
-        Type.FLOAT_T, GlSlType.VARYING_T, ImmutableList.<Expression>of(exp), GlSlEvaluators.<Float>forGlSlQualified());
+        GlSlType.VARYING_T, ImmutableList.<Expression>of(exp), GlSlEvaluators.<Float>forGlSlQualified());
   }
 
   public static Vec2Exp varying(Vec2Exp exp) {
-    return new Vec2Exp(
-        Type.VEC2_T, GlSlType.VARYING_T, ImmutableList.<Expression>of(exp), GlSlEvaluators.<Vec2>forGlSlQualified());
+    return new Vec2Exp(GlSlType.VARYING_T, ImmutableList.<Expression>of(exp), GlSlEvaluators.<Vec2>forGlSlQualified());
   }
 
   public static Vec3Exp varying(Vec3Exp exp) {
-    return new Vec3Exp(
-        Type.VEC3_T, GlSlType.VARYING_T, ImmutableList.<Expression>of(exp), GlSlEvaluators.<Vec3>forGlSlQualified());
+    return new Vec3Exp(GlSlType.VARYING_T, ImmutableList.<Expression>of(exp), GlSlEvaluators.<Vec3>forGlSlQualified());
   }
 
   public static Vec4Exp varying(Vec4Exp exp) {
-    return new Vec4Exp(
-        Type.VEC4_T, GlSlType.VARYING_T, ImmutableList.<Expression>of(exp), GlSlEvaluators.<Vec4>forGlSlQualified());
+    return new Vec4Exp(GlSlType.VARYING_T, ImmutableList.<Expression>of(exp), GlSlEvaluators.<Vec4>forGlSlQualified());
   }
 
   public static Vec4Exp texture2D(Sampler2Exp texture, Expression texCoords) {
     return new Vec4Exp(
-        Type.VEC4_T,
-        GlSlType.DEFAULT_T,
         ImmutableList.<Expression>of(texture, texCoords),
         new FunctionEvaluator<Vec4>(Type.VEC4_T, "texture2D") {
-      @Override
-      public Vec4 evaluate(Expression<Vec4> expression) {
-        throw new RuntimeException("Cannot evaluate texture2D expression");
-      }
-    });
+          @Override
+          public Vec4 evaluate(Expression<Vec4> expression) {
+            throw new RuntimeException("Cannot evaluate texture2D expression");
+          }
+        });
   }
 
   // ===================================================================================================================

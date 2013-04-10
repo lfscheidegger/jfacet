@@ -17,15 +17,19 @@ public class Mat4Exp extends AbstractExpression<Mat4> implements Mat4Like {
   private static final Type TYPE = Type.MAT4_T;
 
   public Mat4Exp(Mat4 mat) {
-    this(TYPE, GlSlType.DEFAULT_T, ImmutableList.<Expression>of(), Mat4Evaluators.forConstant(mat));
+    this(Mat4Evaluators.forConstant(mat));
+  }
+
+  public Mat4Exp(Evaluator<Mat4> evaluator) {
+    this(ImmutableList.<Expression>of(), evaluator);
   }
 
   public Mat4Exp(ImmutableList<Expression> parents, Evaluator<Mat4> evaluator) {
-    this(TYPE, GlSlType.DEFAULT_T, parents, evaluator);
+    this(GlSlType.DEFAULT_T, parents, evaluator);
   }
 
-  public Mat4Exp(Type type, GlSlType glSlType, ImmutableList<Expression> parents, Evaluator<Mat4> evaluator) {
-    super(type, glSlType, parents, evaluator);
+  public Mat4Exp(GlSlType glSlType, ImmutableList<Expression> parents, Evaluator<Mat4> evaluator) {
+    super(TYPE, glSlType, parents, evaluator);
   }
 
   public Vec4Exp getC0() {

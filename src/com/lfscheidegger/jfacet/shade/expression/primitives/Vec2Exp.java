@@ -17,15 +17,19 @@ public class Vec2Exp extends AbstractExpression<Vec2> implements Vec2Like {
   private static final Type TYPE = Type.VEC2_T;
 
   public Vec2Exp(Vec2 vec) {
-    this(TYPE, GlSlType.DEFAULT_T, ImmutableList.<Expression>of(), Vec2Evaluators.forConstant(vec));
+    this(Vec2Evaluators.forConstant(vec));
+  }
+
+  public Vec2Exp(Evaluator<Vec2> evaluator) {
+    this(ImmutableList.<Expression>of(), evaluator);
   }
 
   public Vec2Exp(ImmutableList<Expression> parents, Evaluator<Vec2> evaluator) {
-    this(TYPE, GlSlType.DEFAULT_T, parents, evaluator);
+    this(GlSlType.DEFAULT_T, parents, evaluator);
   }
 
-  public Vec2Exp(Type type, GlSlType glSlType, ImmutableList<Expression> parents, Evaluator<Vec2> evaluator) {
-    super(type, glSlType, parents, evaluator);
+  public Vec2Exp(GlSlType glSlType, ImmutableList<Expression> parents, Evaluator<Vec2> evaluator) {
+    super(TYPE, glSlType, parents, evaluator);
   }
 
   public FloatExp getX() {

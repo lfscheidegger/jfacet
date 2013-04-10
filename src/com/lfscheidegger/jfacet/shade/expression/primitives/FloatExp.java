@@ -17,15 +17,19 @@ public class FloatExp extends AbstractExpression<Float> {
   private static final Type TYPE = Type.FLOAT_T;
 
   public FloatExp(float c) {
-    this(TYPE, GlSlType.DEFAULT_T, ImmutableList.<Expression>of(), FloatEvaluators.forConstant(c));
+    this(FloatEvaluators.forConstant(c));
   }
 
-  public FloatExp(ImmutableList<Expression> parents, Evaluator<Float> operationEvaluator) {
-    this(TYPE, GlSlType.DEFAULT_T, parents, operationEvaluator);
+  public FloatExp(Evaluator<Float> evaluator) {
+    this(ImmutableList.<Expression>of(), evaluator);
   }
 
-  public FloatExp(Type type, GlSlType glSlType, ImmutableList<Expression> parents, Evaluator<Float> evaluator) {
-    super(type, glSlType, parents, evaluator);
+  public FloatExp(ImmutableList<Expression> parents, Evaluator<Float> evaluator) {
+    this(GlSlType.DEFAULT_T, parents, evaluator);
+  }
+
+  public FloatExp(GlSlType glSlType, ImmutableList<Expression> parents, Evaluator<Float> evaluator) {
+    super(TYPE, glSlType, parents, evaluator);
   }
 
   public FloatExp add(float other) { return Shade.add(this, other); }

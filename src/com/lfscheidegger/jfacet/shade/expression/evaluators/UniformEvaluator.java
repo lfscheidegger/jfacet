@@ -13,6 +13,11 @@ public class UniformEvaluator<T> implements Evaluator<T> {
 
   }
 
+  public UniformEvaluator() {
+    mValue = null;
+    mRefreshable = null;
+  }
+
   public UniformEvaluator(Expression<T> value) {
     this(value, null);
   }
@@ -20,6 +25,10 @@ public class UniformEvaluator<T> implements Evaluator<T> {
   public UniformEvaluator(Expression<T> value, Refreshable<T> refreshable) {
     mValue = value.evaluate();
     mRefreshable = refreshable;
+  }
+
+  public void set(T value) {
+    mValue = value;
   }
 
   public void set(Expression<T> value) {
@@ -40,8 +49,7 @@ public class UniformEvaluator<T> implements Evaluator<T> {
 
   @Override
   public T evaluate(Expression<T> expression) {
-
-    return null;
+    return get();
   }
 
   @Override

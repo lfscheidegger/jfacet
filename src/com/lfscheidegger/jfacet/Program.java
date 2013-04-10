@@ -9,6 +9,7 @@ import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
 import com.lfscheidegger.jfacet.facet.AttribBuffer;
 import com.lfscheidegger.jfacet.shade.GlSlType;
+import com.lfscheidegger.jfacet.shade.Parameter;
 import com.lfscheidegger.jfacet.shade.Shade;
 import com.lfscheidegger.jfacet.shade.Type;
 import com.lfscheidegger.jfacet.shade.compiler.*;
@@ -238,7 +239,7 @@ public class Program {
           GLES20.glUniformMatrix4fv(uniformHandle, 1, false, ((Mat4) evaluator.get()).getArray(), 0); break;
         case SAMPLER2D_T:
           GLES20.glActiveTexture(GLES20.GL_TEXTURE0 + textureUnitCounter);
-          GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, ((Sampler2Exp)mUniformExpressions[i]).getTextureHandle());
+          GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, Parameter.<Integer>get(mUniformExpressions[i]));
           GLES20.glUniform1i(uniformHandle, textureUnitCounter);
           textureUnitCounter++;
           break;

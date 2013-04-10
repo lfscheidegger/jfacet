@@ -17,15 +17,19 @@ public class Vec3Exp extends AbstractExpression<Vec3> implements Vec3Like {
   private static final Type TYPE = Type.VEC3_T;
 
   public Vec3Exp(Vec3 vec) {
-    this(TYPE, GlSlType.DEFAULT_T, ImmutableList.<Expression>of(), Vec3Evaluators.forConstant(vec));
+    this(Vec3Evaluators.forConstant(vec));
+  }
+
+  public Vec3Exp(Evaluator<Vec3> evaluator) {
+    this(ImmutableList.<Expression>of(), evaluator);
   }
 
   public Vec3Exp(ImmutableList<Expression> parents, Evaluator<Vec3> evaluator) {
-    this(TYPE, GlSlType.DEFAULT_T, parents, evaluator);
+    this(GlSlType.DEFAULT_T, parents, evaluator);
   }
 
-  public Vec3Exp(Type type, GlSlType glSlType, ImmutableList<Expression> parents, Evaluator<Vec3> evaluator) {
-    super(type, glSlType, parents, evaluator);
+  public Vec3Exp(GlSlType glSlType, ImmutableList<Expression> parents, Evaluator<Vec3> evaluator) {
+    super(TYPE, glSlType, parents, evaluator);
   }
 
   public FloatExp getX() {
