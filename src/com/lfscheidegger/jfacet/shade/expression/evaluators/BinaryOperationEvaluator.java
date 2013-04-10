@@ -7,14 +7,23 @@ import com.lfscheidegger.jfacet.shade.compiler.GlSlExpressionHelper;
 import com.lfscheidegger.jfacet.shade.expression.Expression;
 import com.lfscheidegger.jfacet.shade.expression.operators.Operator;
 
-public abstract class BinaryOpEvaluator<LEFT_T, RIGHT_T, RESULT_T> implements Evaluator<RESULT_T> {
+public class BinaryOperationEvaluator<LEFT_T, RIGHT_T, RESULT_T> implements Evaluator<RESULT_T> {
 
   private final Type mType;
   private final Operator<LEFT_T, RIGHT_T, RESULT_T> mOperator;
 
-  public BinaryOpEvaluator(Type type, Operator<LEFT_T, RIGHT_T, RESULT_T> operator) {
+  public BinaryOperationEvaluator(Type type, Operator<LEFT_T, RIGHT_T, RESULT_T> operator) {
     mType = type;
     mOperator = operator;
+  }
+
+  @Override
+  @SuppressWarnings("unchecked")
+  public RESULT_T evaluate(Expression expression) {
+    ImmutableList<Expression> parents = expression.getParents();
+    Expression left = parents.get(0);
+    Expression right = parents.get(1);
+    return mOperator.op((LEFT_T)left.evaluate(), (RIGHT_T)right.evaluate());
   }
 
   @Override

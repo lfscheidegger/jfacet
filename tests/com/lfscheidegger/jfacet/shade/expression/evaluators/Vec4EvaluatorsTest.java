@@ -35,56 +35,56 @@ public class Vec4EvaluatorsTest {
 
   @Test
   public void testForAdditionWithFloat() {
-    Evaluator<Vec4> eval = new FloatOperationEvaluator<Vec4, Float, Vec4>(Type.VEC4_T, Vec4Operators.forAdditionWithFloat());
+    Evaluator<Vec4> eval = new BinaryOperationEvaluator<Vec4, Float, Vec4>(Type.VEC4_T, Vec4Operators.forAdditionWithFloat());
     assertEquals(eval.getGlSlString(Shade.add(Shade.vec(1, 2, 3, 4), 3), mContext),
         "vec4(vec4(float(1.0), float(2.0), float(3.0), float(4.0)) + float(3.0))");
   }
 
   @Test
   public void testForSubtractionWithFloat() {
-    Evaluator<Vec4> eval = new FloatOperationEvaluator<Vec4, Float, Vec4>(Type.VEC4_T, Vec4Operators.forSubtractionWithFloat());
+    Evaluator<Vec4> eval = new BinaryOperationEvaluator<Vec4, Float, Vec4>(Type.VEC4_T, Vec4Operators.forSubtractionWithFloat());
     assertEquals(eval.getGlSlString(Shade.add(Shade.vec(1, 2, 3, 4), 3), mContext),
         "vec4(vec4(float(1.0), float(2.0), float(3.0), float(4.0)) - float(3.0))");
   }
 
   @Test
   public void testForMultiplicationWithFloat() {
-    Evaluator<Vec4> eval = new FloatOperationEvaluator<Vec4, Float, Vec4>(Type.VEC4_T, Vec4Operators.forMultiplicationWithFloat());
+    Evaluator<Vec4> eval = new BinaryOperationEvaluator<Vec4, Float, Vec4>(Type.VEC4_T, Vec4Operators.forMultiplicationWithFloat());
     assertEquals(eval.getGlSlString(Shade.add(Shade.vec(1, 2, 3, 4), 3), mContext),
         "vec4(vec4(float(1.0), float(2.0), float(3.0), float(4.0)) * float(3.0))");
   }
 
   @Test
   public void testForDivisionWithFloat() {
-    Evaluator<Vec4> eval = new FloatOperationEvaluator<Vec4, Float, Vec4>(Type.VEC4_T, Vec4Operators.forDivisionWithFloat());
+    Evaluator<Vec4> eval = new BinaryOperationEvaluator<Vec4, Float, Vec4>(Type.VEC4_T, Vec4Operators.forDivisionWithFloat());
     assertEquals(eval.getGlSlString(Shade.add(Shade.vec(1, 2, 3, 4), 3), mContext),
         "vec4(vec4(float(1.0), float(2.0), float(3.0), float(4.0)) / float(3.0))");
   }
 
   @Test
   public void testForAdditionWithVec4() {
-    Evaluator<Vec4> eval = new FloatOperationEvaluator<Vec4, Vec4, Vec4>(Type.VEC4_T, Vec4Operators.forAdditionWithVec4());
+    Evaluator<Vec4> eval = new BinaryOperationEvaluator<Vec4, Vec4, Vec4>(Type.VEC4_T, Vec4Operators.forAdditionWithVec4());
     assertEquals(eval.getGlSlString(Shade.add(Shade.vec(1, 2, 3, 4), Shade.vec(3, 4, 5, 6)), mContext),
         "vec4(vec4(float(1.0), float(2.0), float(3.0), float(4.0)) + vec4(float(3.0), float(4.0), float(5.0), float(6.0)))");
   }
 
   @Test
   public void testForSubtractionWithVec4() {
-    Evaluator<Vec4> eval = new FloatOperationEvaluator<Vec4, Vec4, Vec4>(Type.VEC4_T, Vec4Operators.forSubtractionWithVec4());
+    Evaluator<Vec4> eval = new BinaryOperationEvaluator<Vec4, Vec4, Vec4>(Type.VEC4_T, Vec4Operators.forSubtractionWithVec4());
     assertEquals(eval.getGlSlString(Shade.add(Shade.vec(1, 2, 3, 4), Shade.vec(3, 4, 5, 6)), mContext),
         "vec4(vec4(float(1.0), float(2.0), float(3.0), float(4.0)) - vec4(float(3.0), float(4.0), float(5.0), float(6.0)))");
   }
 
   @Test
   public void testForMultiplicationWithVec4() {
-    Evaluator<Vec4> eval = new FloatOperationEvaluator<Vec4, Vec4, Vec4>(Type.VEC4_T, Vec4Operators.forMultiplicationWithVec4());
+    Evaluator<Vec4> eval = new BinaryOperationEvaluator<Vec4, Vec4, Vec4>(Type.VEC4_T, Vec4Operators.forMultiplicationWithVec4());
     assertEquals(eval.getGlSlString(Shade.add(Shade.vec(1, 2, 3, 4), Shade.vec(3, 4, 5, 6)), mContext),
         "vec4(vec4(float(1.0), float(2.0), float(3.0), float(4.0)) * vec4(float(3.0), float(4.0), float(5.0), float(6.0)))");
   }
 
   @Test
   public void testForDivisionWithVec4() {
-    Evaluator<Vec4> eval = new FloatOperationEvaluator<Vec4, Vec4, Vec4>(Type.VEC4_T, Vec4Operators.forDivisionWithVec4());
+    Evaluator<Vec4> eval = new BinaryOperationEvaluator<Vec4, Vec4, Vec4>(Type.VEC4_T, Vec4Operators.forDivisionWithVec4());
     assertEquals(eval.getGlSlString(Shade.add(Shade.vec(1, 2, 3, 4), Shade.vec(3, 4, 5, 6)), mContext),
         "vec4(vec4(float(1.0), float(2.0), float(3.0), float(4.0)) / vec4(float(3.0), float(4.0), float(5.0), float(6.0)))");
   }
