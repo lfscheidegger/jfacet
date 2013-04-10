@@ -21,7 +21,7 @@ public class FloatEvaluatorsTest {
 
   @Test
   public void testForConstant() {
-    Evaluator<Float> eval = FloatEvaluators.forConstant(2);
+    Evaluator<Float> eval = new ConstantEvaluator<Float>(2.0f);
     FloatExp exp = Shade.constant(2);
 
     assertEquals(eval.getGlSlString(exp, mContext), "float(2.0)");

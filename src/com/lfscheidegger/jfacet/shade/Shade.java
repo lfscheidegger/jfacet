@@ -689,19 +689,19 @@ public class Shade {
   // GLSL stuff
   // ===================================================================================================================
   public static FloatExp attributef() {
-    return new FloatExp(GlSlType.ATTRIBUTE_T, GlSlEvaluators.<Float>forGlSlQualified());
+    return new FloatExp(GlSlType.ATTRIBUTE_T, new QualifiedGlSlEvaluator<Float>());
   }
 
   public static Vec2Exp attribute2f() {
-    return new Vec2Exp(GlSlType.ATTRIBUTE_T, GlSlEvaluators.<Vec2>forGlSlQualified());
+    return new Vec2Exp(GlSlType.ATTRIBUTE_T, new QualifiedGlSlEvaluator<Vec2>());
   }
 
   public static Vec3Exp attribute3f() {
-    return new Vec3Exp(GlSlType.ATTRIBUTE_T, GlSlEvaluators.<Vec3>forGlSlQualified());
+    return new Vec3Exp(GlSlType.ATTRIBUTE_T, new QualifiedGlSlEvaluator<Vec3>());
   }
 
   public static Vec4Exp attribute4f() {
-    return new Vec4Exp(GlSlType.ATTRIBUTE_T, GlSlEvaluators.<Vec4>forGlSlQualified());
+    return new Vec4Exp(GlSlType.ATTRIBUTE_T, new QualifiedGlSlEvaluator<Vec4>());
   }
 
   public static FloatExp varying(float c) {
@@ -711,19 +711,19 @@ public class Shade {
 
   public static FloatExp varying(FloatExp exp) {
     return new FloatExp(
-        GlSlType.VARYING_T, ImmutableList.<Expression>of(exp), GlSlEvaluators.<Float>forGlSlQualified());
+        GlSlType.VARYING_T, ImmutableList.<Expression>of(exp), new QualifiedGlSlEvaluator<Float>());
   }
 
   public static Vec2Exp varying(Vec2Exp exp) {
-    return new Vec2Exp(GlSlType.VARYING_T, ImmutableList.<Expression>of(exp), GlSlEvaluators.<Vec2>forGlSlQualified());
+    return new Vec2Exp(GlSlType.VARYING_T, ImmutableList.<Expression>of(exp), new QualifiedGlSlEvaluator<Vec2>());
   }
 
   public static Vec3Exp varying(Vec3Exp exp) {
-    return new Vec3Exp(GlSlType.VARYING_T, ImmutableList.<Expression>of(exp), GlSlEvaluators.<Vec3>forGlSlQualified());
+    return new Vec3Exp(GlSlType.VARYING_T, ImmutableList.<Expression>of(exp), new QualifiedGlSlEvaluator<Vec3>());
   }
 
   public static Vec4Exp varying(Vec4Exp exp) {
-    return new Vec4Exp(GlSlType.VARYING_T, ImmutableList.<Expression>of(exp), GlSlEvaluators.<Vec4>forGlSlQualified());
+    return new Vec4Exp(GlSlType.VARYING_T, ImmutableList.<Expression>of(exp), new QualifiedGlSlEvaluator<Vec4>());
   }
 
   public static Vec4Exp texture2D(Sampler2Exp texture, Expression texCoords) {

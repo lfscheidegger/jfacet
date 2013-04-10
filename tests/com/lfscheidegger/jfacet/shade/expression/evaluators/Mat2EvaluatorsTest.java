@@ -21,7 +21,7 @@ public class Mat2EvaluatorsTest {
   @Test
   public void testForConstant() {
     Mat2 mat = new Mat2();
-    Evaluator<Mat2> eval = Mat2Evaluators.forConstant(mat);
+    Evaluator<Mat2> eval = new ConstantEvaluator<Mat2>(mat);
 
     assertEquals(eval.getGlSlString(Shade.mat(mat), mContext), "mat2(vec2(float(1.0), float(0.0)), vec2(float(0.0), float(1.0)))");
   }

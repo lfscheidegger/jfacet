@@ -6,6 +6,7 @@ import com.lfscheidegger.jfacet.shade.Shade;
 import com.lfscheidegger.jfacet.shade.Type;
 import com.lfscheidegger.jfacet.shade.expression.AbstractExpression;
 import com.lfscheidegger.jfacet.shade.expression.Expression;
+import com.lfscheidegger.jfacet.shade.expression.evaluators.ConstantEvaluator;
 import com.lfscheidegger.jfacet.shade.expression.evaluators.Evaluator;
 import com.lfscheidegger.jfacet.shade.expression.evaluators.FloatEvaluators;
 import com.lfscheidegger.jfacet.shade.expression.evaluators.Vec4Evaluators;
@@ -17,7 +18,7 @@ public class Vec4Exp extends AbstractExpression<Vec4> implements Vec4Like {
   private static final Type TYPE = Type.VEC4_T;
 
   public Vec4Exp(Vec4 vec) {
-    this(Vec4Evaluators.forConstant(vec));
+    this(new ConstantEvaluator<Vec4>(vec));
   }
 
   public Vec4Exp(Evaluator<Vec4> evaluator) {

@@ -19,20 +19,6 @@ public class Mat3Evaluators {
 
   private static final Type TYPE = Type.MAT3_T;
 
-  public static Evaluator<Mat3> forConstant(final Mat3 c) {
-    return new Evaluator<Mat3>() {
-      @Override
-      public Mat3 evaluate(Expression expression) {
-        return c;
-      }
-
-      @Override
-      public String getGlSlString(Expression expression, CompilationContext context) {
-        return c.toString();
-      }
-    };
-  }
-
   public static Evaluator<Mat3> forComponents() {
     return new Evaluator<Mat3>() {
       @Override

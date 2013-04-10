@@ -6,6 +6,7 @@ import com.lfscheidegger.jfacet.shade.Shade;
 import com.lfscheidegger.jfacet.shade.Type;
 import com.lfscheidegger.jfacet.shade.expression.AbstractExpression;
 import com.lfscheidegger.jfacet.shade.expression.Expression;
+import com.lfscheidegger.jfacet.shade.expression.evaluators.ConstantEvaluator;
 import com.lfscheidegger.jfacet.shade.expression.evaluators.Evaluator;
 import com.lfscheidegger.jfacet.shade.expression.evaluators.Mat4Evaluators;
 import com.lfscheidegger.jfacet.shade.expression.evaluators.Vec4Evaluators;
@@ -17,7 +18,7 @@ public class Mat4Exp extends AbstractExpression<Mat4> implements Mat4Like {
   private static final Type TYPE = Type.MAT4_T;
 
   public Mat4Exp(Mat4 mat) {
-    this(Mat4Evaluators.forConstant(mat));
+    this(new ConstantEvaluator<Mat4>(mat));
   }
 
   public Mat4Exp(Evaluator<Mat4> evaluator) {

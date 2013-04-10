@@ -20,7 +20,7 @@ public class Vec2EvaluatorsTest {
   @Test
   public void testForConstant() {
     Vec2 vec = new Vec2(1, 2);
-    Evaluator<Vec2> eval = Vec2Evaluators.forConstant(vec);
+    Evaluator<Vec2> eval = new ConstantEvaluator<Vec2>(vec);
 
     assertEquals(eval.getGlSlString(Shade.vec(vec), mContext), "vec2(float(1.0), float(2.0))");
   }

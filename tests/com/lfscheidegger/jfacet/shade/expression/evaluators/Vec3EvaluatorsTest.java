@@ -19,7 +19,7 @@ public class Vec3EvaluatorsTest {
   @Test
   public void testForConstant() {
     Vec3 vec = new Vec3(1, 2, 3);
-    Evaluator<Vec3> eval = Vec3Evaluators.forConstant(vec);
+    Evaluator<Vec3> eval = new ConstantEvaluator<Vec3>(vec);
 
     assertEquals(eval.getGlSlString(Shade.vec(vec), mContext), "vec3(float(1.0), float(2.0), float(3.0))");
   }

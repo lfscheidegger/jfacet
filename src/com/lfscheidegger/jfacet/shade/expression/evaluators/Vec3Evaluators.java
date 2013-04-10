@@ -18,20 +18,6 @@ public class Vec3Evaluators {
 
   private static final Type TYPE = Type.VEC3_T;
 
-  public static Evaluator<Vec3> forConstant(final Vec3 c) {
-    return new Evaluator<Vec3>() {
-      @Override
-      public Vec3 evaluate(Expression expression) {
-        return c;
-      }
-
-      @Override
-      public String getGlSlString(Expression expression, CompilationContext context) {
-        return c.toString();
-      }
-    };
-  }
-
   public static Evaluator<Vec3> forComponents() {
     return new Evaluator<Vec3>() {
       @Override

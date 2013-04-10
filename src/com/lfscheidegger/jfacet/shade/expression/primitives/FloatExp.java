@@ -6,6 +6,7 @@ import com.lfscheidegger.jfacet.shade.Shade;
 import com.lfscheidegger.jfacet.shade.Type;
 import com.lfscheidegger.jfacet.shade.expression.AbstractExpression;
 import com.lfscheidegger.jfacet.shade.expression.Expression;
+import com.lfscheidegger.jfacet.shade.expression.evaluators.ConstantEvaluator;
 import com.lfscheidegger.jfacet.shade.expression.evaluators.Evaluator;
 import com.lfscheidegger.jfacet.shade.expression.evaluators.FloatEvaluators;
 
@@ -17,7 +18,7 @@ public class FloatExp extends AbstractExpression<Float> {
   private static final Type TYPE = Type.FLOAT_T;
 
   public FloatExp(float c) {
-    this(FloatEvaluators.forConstant(c));
+    this(new ConstantEvaluator<Float>(c));
   }
 
   public FloatExp(Evaluator<Float> evaluator) {

@@ -16,20 +16,6 @@ public class FloatEvaluators {
 
   private final static Type TYPE = Type.FLOAT_T;
 
-  public static Evaluator<Float> forConstant(final float c) {
-    return new Evaluator<Float>() {
-      @Override
-      public Float evaluate(Expression expression) {
-        return c;
-      }
-
-      @Override
-      public String getGlSlString(Expression expression, CompilationContext context) {
-        return GlSlExpressionHelper.getWrappedExpression(TYPE, String.valueOf(c));
-      }
-    };
-  }
-
   public static Evaluator<Float> forOperation(final Operator<Float, Float, Float> operator) {
     return new BinaryOpEvaluator<Float, Float, Float>(TYPE, operator) {
       @Override

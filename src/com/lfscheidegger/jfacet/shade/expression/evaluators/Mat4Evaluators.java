@@ -19,20 +19,6 @@ public class Mat4Evaluators {
 
   private static final Type TYPE = Type.MAT4_T;
 
-  public static Evaluator<Mat4> forConstant(final Mat4 c) {
-    return new Evaluator<Mat4>() {
-      @Override
-      public Mat4 evaluate(Expression expression) {
-        return c;
-      }
-
-      @Override
-      public String getGlSlString(Expression expression, CompilationContext context) {
-        return c.toString();
-      }
-    };
-  }
-
   public static Evaluator<Mat4> forComponents() {
     return new Evaluator<Mat4>() {
       @Override

@@ -19,20 +19,6 @@ public class Mat2Evaluators {
 
   private static final Type TYPE = Type.MAT2_T;
 
-  public static Evaluator<Mat2> forConstant(final Mat2 c) {
-    return new Evaluator<Mat2>() {
-      @Override
-      public Mat2 evaluate(Expression expression) {
-        return c;
-      }
-
-      @Override
-      public String getGlSlString(Expression expression, CompilationContext context) {
-        return c.toString();
-      }
-    };
-  }
-
   public static Evaluator<Mat2> forComponents() {
     return new Evaluator<Mat2>() {
       @Override
