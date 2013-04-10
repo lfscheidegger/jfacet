@@ -124,5 +124,16 @@ public class Math {
       }
     });
   }
+
+  public static Vec3Exp cross(Vec3Exp left, Vec3Exp right) {
+    return new Vec3Exp(ImmutableList.<Expression>of(left, right), new FunctionEvaluator<Vec3>(Type.VEC3_T, "cross") {
+      @Override
+      public Vec3 evaluate(Expression expression) {
+        Vec3Exp left = (Vec3Exp)expression.getParents().get(0);
+        Vec3Exp right = (Vec3Exp)expression.getParents().get(1);
+        return left.evaluate().cross(right.evaluate());
+      }
+    });
+  }
 }
 

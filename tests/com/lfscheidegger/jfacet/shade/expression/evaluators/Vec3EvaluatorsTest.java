@@ -98,9 +98,7 @@ public class Vec3EvaluatorsTest {
 
   @Test
   public void testForCross() {
-    Evaluator<Vec3> eval = Vec3Evaluators.forCrossProduct();
-
-    assertEquals(eval.evaluate(Shade.cross(Shade.vec(1, 0, 0), Shade.vec(0, 1, 0))), new Vec3(0, 0, 1));
-    assertEquals(eval.getGlSlString(Shade.cross(Shade.vec(1, 0, 0), Shade.vec(0, 1, 0)), mContext), "vec3(cross(vec3(float(1.0), float(0.0), float(0.0)), vec3(float(0.0), float(1.0), float(0.0))))");
+    assertEquals(Shade.cross(Shade.vec(1, 0, 0), Shade.vec(0, 1, 0)).evaluate(), new Vec3(0, 0, 1));
+    assertEquals(Shade.cross(Shade.vec(1, 0, 0), Shade.vec(0, 1, 0)).getGlSlString(mContext), "vec3(cross(vec3(float(1.0), float(0.0), float(0.0)), vec3(float(0.0), float(1.0), float(0.0))))");
   }
 }

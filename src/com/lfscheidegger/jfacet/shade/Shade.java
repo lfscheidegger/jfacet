@@ -266,7 +266,7 @@ public class Shade {
   }
 
   public static Vec3Exp cross(Vec3Like left, Vec3Like right) {
-    return new Vec3Exp(ImmutableList.<Expression>of(promote(left), promote(right)), Vec3Evaluators.forCrossProduct());
+    return Math.cross(promote(left), promote(right));
   }
 
   // ===================================================================================================================
