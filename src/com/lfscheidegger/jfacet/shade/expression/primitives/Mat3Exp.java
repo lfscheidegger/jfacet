@@ -28,6 +28,10 @@ public class Mat3Exp extends AbstractExpression<Mat3> implements Mat3Like {
     this(GlSlType.DEFAULT_T, parents, evaluator);
   }
 
+  public Mat3Exp(GlSlType glSlType, Evaluator<Mat3> evaluator) {
+    this(glSlType, ImmutableList.<Expression>of(), evaluator);
+  }
+
   public Mat3Exp(GlSlType glSlType, ImmutableList<Expression> parents, Evaluator<Mat3> evaluator) {
     super(TYPE, glSlType, parents, evaluator);
   }

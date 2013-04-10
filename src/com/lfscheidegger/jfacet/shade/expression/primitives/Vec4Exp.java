@@ -28,6 +28,10 @@ public class Vec4Exp extends AbstractExpression<Vec4> implements Vec4Like {
     this(GlSlType.DEFAULT_T, parents, evaluator);
   }
 
+  public Vec4Exp(GlSlType glSlType, Evaluator<Vec4> evaluator) {
+    this(glSlType, ImmutableList.<Expression>of(), evaluator);
+  }
+
   public Vec4Exp(GlSlType glSlType, ImmutableList<Expression> parents, Evaluator<Vec4> evaluator) {
     super(TYPE, glSlType, parents, evaluator);
   }

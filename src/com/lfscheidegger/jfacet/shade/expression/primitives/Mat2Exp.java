@@ -28,6 +28,10 @@ public class Mat2Exp extends AbstractExpression<Mat2> implements Mat2Like {
     this(GlSlType.DEFAULT_T, parents, evaluator);
   }
 
+  public Mat2Exp(GlSlType glSlType, Evaluator<Mat2> evaluator) {
+    this(glSlType, ImmutableList.<Expression>of(), evaluator);
+  }
+
   public Mat2Exp(GlSlType glSlType, ImmutableList<Expression> parents, Evaluator<Mat2> evaluator) {
     super(TYPE, glSlType, parents, evaluator);
   }

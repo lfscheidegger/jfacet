@@ -689,19 +689,19 @@ public class Shade {
   // GLSL stuff
   // ===================================================================================================================
   public static FloatExp attributef() {
-    return new FloatExp(GlSlType.ATTRIBUTE_T, ImmutableList.<Expression>of(), GlSlEvaluators.<Float>forGlSlQualified());
+    return new FloatExp(GlSlType.ATTRIBUTE_T, GlSlEvaluators.<Float>forGlSlQualified());
   }
 
   public static Vec2Exp attribute2f() {
-    return new Vec2Exp(GlSlType.ATTRIBUTE_T, ImmutableList.<Expression>of(), GlSlEvaluators.<Vec2>forGlSlQualified());
+    return new Vec2Exp(GlSlType.ATTRIBUTE_T, GlSlEvaluators.<Vec2>forGlSlQualified());
   }
 
   public static Vec3Exp attribute3f() {
-    return new Vec3Exp(GlSlType.ATTRIBUTE_T, ImmutableList.<Expression>of(), GlSlEvaluators.<Vec3>forGlSlQualified());
+    return new Vec3Exp(GlSlType.ATTRIBUTE_T, GlSlEvaluators.<Vec3>forGlSlQualified());
   }
 
   public static Vec4Exp attribute4f() {
-    return new Vec4Exp(GlSlType.ATTRIBUTE_T, ImmutableList.<Expression>of(), GlSlEvaluators.<Vec4>forGlSlQualified());
+    return new Vec4Exp(GlSlType.ATTRIBUTE_T, GlSlEvaluators.<Vec4>forGlSlQualified());
   }
 
   public static FloatExp varying(float c) {

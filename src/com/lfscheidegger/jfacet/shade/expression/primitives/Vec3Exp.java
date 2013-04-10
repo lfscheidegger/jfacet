@@ -28,6 +28,10 @@ public class Vec3Exp extends AbstractExpression<Vec3> implements Vec3Like {
     this(GlSlType.DEFAULT_T, parents, evaluator);
   }
 
+  public Vec3Exp(GlSlType glSlType, Evaluator<Vec3> evaluator) {
+    this(glSlType, ImmutableList.<Expression>of(), evaluator);
+  }
+
   public Vec3Exp(GlSlType glSlType, ImmutableList<Expression> parents, Evaluator<Vec3> evaluator) {
     super(TYPE, glSlType, parents, evaluator);
   }

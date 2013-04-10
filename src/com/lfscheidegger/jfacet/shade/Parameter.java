@@ -19,80 +19,59 @@ public class Parameter {
   }
 
   public static FloatExp parameter(FloatExp value) {
-    return new FloatExp(GlSlType.UNIFORM_T, ImmutableList.<Expression>of(), new UniformEvaluator<Float>(value));
+    return new FloatExp(GlSlType.UNIFORM_T, new UniformEvaluator<Float>(value));
   }
 
   public static FloatExp parameter(FloatExp value, UniformEvaluator.Refreshable<Float> refresher) {
-    return new FloatExp(
-        GlSlType.UNIFORM_T,
-        ImmutableList.<Expression>of(),
-        new UniformEvaluator<Float>(value, refresher));
+    return new FloatExp(GlSlType.UNIFORM_T, new UniformEvaluator<Float>(value, refresher));
   }
 
   public static Vec2Exp parameter(Vec2Exp value) {
-    return new Vec2Exp(GlSlType.UNIFORM_T, ImmutableList.<Expression>of(), new UniformEvaluator<Vec2>(value));
+    return new Vec2Exp(GlSlType.UNIFORM_T, new UniformEvaluator<Vec2>(value));
   }
 
   public static Vec2Exp parameter(Vec2Exp value, UniformEvaluator.Refreshable<Vec2> refresher) {
-    return new Vec2Exp(
-        GlSlType.UNIFORM_T,
-        ImmutableList.<Expression>of(),
-        new UniformEvaluator<Vec2>(value, refresher));
+    return new Vec2Exp(GlSlType.UNIFORM_T, new UniformEvaluator<Vec2>(value, refresher));
   }
 
   public static Vec3Exp parameter(Vec3Exp value) {
-    return new Vec3Exp(GlSlType.UNIFORM_T, ImmutableList.<Expression>of(), new UniformEvaluator<Vec3>(value));
+    return new Vec3Exp(GlSlType.UNIFORM_T, new UniformEvaluator<Vec3>(value));
   }
 
   public static Vec3Exp parameter(Vec3Exp value, UniformEvaluator.Refreshable<Vec3> refresher) {
-    return new Vec3Exp(
-        GlSlType.UNIFORM_T,
-        ImmutableList.<Expression>of(),
-        new UniformEvaluator<Vec3>(value, refresher));
+    return new Vec3Exp(GlSlType.UNIFORM_T, new UniformEvaluator<Vec3>(value, refresher));
   }
 
   public static Vec4Exp parameter(Vec4Exp value) {
-    return new Vec4Exp(GlSlType.UNIFORM_T, ImmutableList.<Expression>of(), new UniformEvaluator<Vec4>(value));
+    return new Vec4Exp(GlSlType.UNIFORM_T, new UniformEvaluator<Vec4>(value));
   }
 
   public static Vec4Exp parameter(Vec4Exp value, UniformEvaluator.Refreshable<Vec4> refresher) {
-    return new Vec4Exp(
-        GlSlType.UNIFORM_T,
-        ImmutableList.<Expression>of(),
-        new UniformEvaluator<Vec4>(value, refresher));
+    return new Vec4Exp(GlSlType.UNIFORM_T, new UniformEvaluator<Vec4>(value, refresher));
   }
 
   public static Mat2Exp parameter(Mat2Exp value) {
-    return new Mat2Exp(GlSlType.UNIFORM_T, ImmutableList.<Expression>of(), new UniformEvaluator<Mat2>(value));
+    return new Mat2Exp(GlSlType.UNIFORM_T, new UniformEvaluator<Mat2>(value));
   }
 
   public static Mat2Exp parameter(Mat2Exp value, UniformEvaluator.Refreshable<Mat2> refresher) {
-    return new Mat2Exp(
-        GlSlType.UNIFORM_T,
-        ImmutableList.<Expression>of(),
-        new UniformEvaluator<Mat2>(value, refresher));
+    return new Mat2Exp(GlSlType.UNIFORM_T, new UniformEvaluator<Mat2>(value, refresher));
   }
 
   public static Mat3Exp parameter(Mat3Exp value) {
-    return new Mat3Exp(GlSlType.UNIFORM_T, ImmutableList.<Expression>of(), new UniformEvaluator<Mat3>(value));
+    return new Mat3Exp(GlSlType.UNIFORM_T, new UniformEvaluator<Mat3>(value));
   }
 
   public static Mat3Exp parameter(Mat3Exp value, UniformEvaluator.Refreshable<Mat3> refresher) {
-    return new Mat3Exp(
-        GlSlType.UNIFORM_T,
-        ImmutableList.<Expression>of(),
-        new UniformEvaluator<Mat3>(value, refresher));
+    return new Mat3Exp(GlSlType.UNIFORM_T, new UniformEvaluator<Mat3>(value, refresher));
   }
 
   public static Mat4Exp parameter(Mat4Exp value) {
-    return new Mat4Exp(GlSlType.UNIFORM_T, ImmutableList.<Expression>of(), new UniformEvaluator<Mat4>(value));
+    return new Mat4Exp(GlSlType.UNIFORM_T, new UniformEvaluator<Mat4>(value));
   }
 
   public static Mat4Exp parameter(Mat4Exp value, UniformEvaluator.Refreshable<Mat4> refresher) {
-    return new Mat4Exp(
-        GlSlType.UNIFORM_T,
-        ImmutableList.<Expression>of(),
-        new UniformEvaluator<Mat4>(value, refresher));
+    return new Mat4Exp(GlSlType.UNIFORM_T, new UniformEvaluator<Mat4>(value, refresher));
   }
 
   public static void set(Expression param, Expression value) {

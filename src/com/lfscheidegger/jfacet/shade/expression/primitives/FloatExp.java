@@ -28,6 +28,10 @@ public class FloatExp extends AbstractExpression<Float> {
     this(GlSlType.DEFAULT_T, parents, evaluator);
   }
 
+  public FloatExp(GlSlType glSlType, Evaluator<Float> evaluator) {
+    this(glSlType, ImmutableList.<Expression>of(), evaluator);
+  }
+
   public FloatExp(GlSlType glSlType, ImmutableList<Expression> parents, Evaluator<Float> evaluator) {
     super(TYPE, glSlType, parents, evaluator);
   }
