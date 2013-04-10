@@ -38,7 +38,7 @@ public class Mat4EvaluatorsTest {
 
   @Test
   public void testForAdditionWithFloat() {
-    Evaluator<Mat4> eval = new FloatOperationEvaluator<Mat4>(Type.MAT4_T, Mat4Operators.forAdditionWithFloat());
+    Evaluator<Mat4> eval = new FloatOperationEvaluator<Mat4, Float, Mat4>(Type.MAT4_T, Mat4Operators.forAdditionWithFloat());
     assertEquals(
         eval.getGlSlString(Shade.add(Shade.mat(new Mat4()), 3), mContext),
         "mat4(mat4(vec4(float(1.0), float(0.0), float(0.0), float(0.0)), vec4(float(0.0), float(1.0), float(0.0), float(0.0)), vec4(float(0.0), float(0.0), float(1.0), float(0.0)), vec4(float(0.0), float(0.0), float(0.0), float(1.0))) + float(3.0))");
@@ -46,7 +46,7 @@ public class Mat4EvaluatorsTest {
 
   @Test
   public void testForSubtractionWithFloat() {
-    Evaluator<Mat4> eval = new FloatOperationEvaluator<Mat4>(Type.MAT4_T, Mat4Operators.forSubtractionWithFloat());
+    Evaluator<Mat4> eval = new FloatOperationEvaluator<Mat4, Float, Mat4>(Type.MAT4_T, Mat4Operators.forSubtractionWithFloat());
     assertEquals(
         eval.getGlSlString(Shade.sub(Shade.mat(new Mat4()), 3), mContext),
         "mat4(mat4(vec4(float(1.0), float(0.0), float(0.0), float(0.0)), vec4(float(0.0), float(1.0), float(0.0), float(0.0)), vec4(float(0.0), float(0.0), float(1.0), float(0.0)), vec4(float(0.0), float(0.0), float(0.0), float(1.0))) - float(3.0))");
@@ -54,7 +54,7 @@ public class Mat4EvaluatorsTest {
 
   @Test
   public void testForMultiplicationWithFloat() {
-    Evaluator<Mat4> eval = new FloatOperationEvaluator<Mat4>(Type.MAT4_T, Mat4Operators.forMultiplicationWithFloat());
+    Evaluator<Mat4> eval = new FloatOperationEvaluator<Mat4, Float, Mat4>(Type.MAT4_T, Mat4Operators.forMultiplicationWithFloat());
     assertEquals(
         eval.getGlSlString(Shade.mul(Shade.mat(new Mat4()), 3), mContext),
         "mat4(mat4(vec4(float(1.0), float(0.0), float(0.0), float(0.0)), vec4(float(0.0), float(1.0), float(0.0), float(0.0)), vec4(float(0.0), float(0.0), float(1.0), float(0.0)), vec4(float(0.0), float(0.0), float(0.0), float(1.0))) * float(3.0))");
@@ -62,7 +62,7 @@ public class Mat4EvaluatorsTest {
 
   @Test
   public void testForDivisionWithFloat() {
-    Evaluator<Mat4> eval = new FloatOperationEvaluator<Mat4>(Type.MAT4_T, Mat4Operators.forDivisionWithFloat());
+    Evaluator<Mat4> eval = new FloatOperationEvaluator<Mat4, Float, Mat4>(Type.MAT4_T, Mat4Operators.forDivisionWithFloat());
     assertEquals(
         eval.getGlSlString(Shade.div(Shade.mat(new Mat4()), 3), mContext),
         "mat4(mat4(vec4(float(1.0), float(0.0), float(0.0), float(0.0)), vec4(float(0.0), float(1.0), float(0.0), float(0.0)), vec4(float(0.0), float(0.0), float(1.0), float(0.0)), vec4(float(0.0), float(0.0), float(0.0), float(1.0))) / float(3.0))");

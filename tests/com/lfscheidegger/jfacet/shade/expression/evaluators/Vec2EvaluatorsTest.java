@@ -44,25 +44,25 @@ public class Vec2EvaluatorsTest {
 
   @Test
   public void testForAdditionWithFloat() {
-    Evaluator<Vec2> eval = new FloatOperationEvaluator<Vec2>(Type.VEC2_T, Vec2Operators.forAdditionWithFloat());
+    Evaluator<Vec2> eval = new FloatOperationEvaluator<Vec2, Float, Vec2>(Type.VEC2_T, Vec2Operators.forAdditionWithFloat());
     assertEquals(eval.getGlSlString(Shade.add(Shade.vec(1, 2), 3), mContext), "vec2(vec2(float(1.0), float(2.0)) + float(3.0))");
   }
 
   @Test
   public void testForSubtractionWithFloat() {
-    Evaluator<Vec2> eval = new FloatOperationEvaluator<Vec2>(Type.VEC2_T, Vec2Operators.forSubtractionWithFloat());
+    Evaluator<Vec2> eval = new FloatOperationEvaluator<Vec2, Float, Vec2>(Type.VEC2_T, Vec2Operators.forSubtractionWithFloat());
     assertEquals(eval.getGlSlString(Shade.sub(Shade.vec(1, 2), 3), mContext), "vec2(vec2(float(1.0), float(2.0)) - float(3.0))");
   }
 
   @Test
   public void testForMultiplicationWithFloat() {
-    Evaluator<Vec2> eval = new FloatOperationEvaluator<Vec2>(Type.VEC2_T, Vec2Operators.forMultiplicationWithFloat());
+    Evaluator<Vec2> eval = new FloatOperationEvaluator<Vec2, Float, Vec2>(Type.VEC2_T, Vec2Operators.forMultiplicationWithFloat());
     assertEquals(eval.getGlSlString(Shade.mul(Shade.vec(1, 2), 3), mContext), "vec2(vec2(float(1.0), float(2.0)) * float(3.0))");
   }
 
   @Test
   public void testForDivisionWithFloat() {
-    Evaluator<Vec2> eval = new FloatOperationEvaluator<Vec2>(Type.VEC2_T, Vec2Operators.forDivisionWithFloat());
+    Evaluator<Vec2> eval = new FloatOperationEvaluator<Vec2, Float, Vec2>(Type.VEC2_T, Vec2Operators.forDivisionWithFloat());
     assertEquals(eval.getGlSlString(Shade.div(Shade.vec(1, 2), 3), mContext), "vec2(vec2(float(1.0), float(2.0)) / float(3.0))");
   }
 

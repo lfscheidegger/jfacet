@@ -35,28 +35,28 @@ public class Vec4EvaluatorsTest {
 
   @Test
   public void testForAdditionWithFloat() {
-    Evaluator<Vec4> eval = new FloatOperationEvaluator<Vec4>(Type.VEC4_T, Vec4Operators.forAdditionWithFloat());
+    Evaluator<Vec4> eval = new FloatOperationEvaluator<Vec4, Float, Vec4>(Type.VEC4_T, Vec4Operators.forAdditionWithFloat());
     assertEquals(eval.getGlSlString(Shade.add(Shade.vec(1, 2, 3, 4), 3), mContext),
         "vec4(vec4(float(1.0), float(2.0), float(3.0), float(4.0)) + float(3.0))");
   }
 
   @Test
   public void testForSubtractionWithFloat() {
-    Evaluator<Vec4> eval = new FloatOperationEvaluator<Vec4>(Type.VEC4_T, Vec4Operators.forSubtractionWithFloat());
+    Evaluator<Vec4> eval = new FloatOperationEvaluator<Vec4, Float, Vec4>(Type.VEC4_T, Vec4Operators.forSubtractionWithFloat());
     assertEquals(eval.getGlSlString(Shade.add(Shade.vec(1, 2, 3, 4), 3), mContext),
         "vec4(vec4(float(1.0), float(2.0), float(3.0), float(4.0)) - float(3.0))");
   }
 
   @Test
   public void testForMultiplicationWithFloat() {
-    Evaluator<Vec4> eval = new FloatOperationEvaluator<Vec4>(Type.VEC4_T, Vec4Operators.forMultiplicationWithFloat());
+    Evaluator<Vec4> eval = new FloatOperationEvaluator<Vec4, Float, Vec4>(Type.VEC4_T, Vec4Operators.forMultiplicationWithFloat());
     assertEquals(eval.getGlSlString(Shade.add(Shade.vec(1, 2, 3, 4), 3), mContext),
         "vec4(vec4(float(1.0), float(2.0), float(3.0), float(4.0)) * float(3.0))");
   }
 
   @Test
   public void testForDivisionWithFloat() {
-    Evaluator<Vec4> eval = new FloatOperationEvaluator<Vec4>(Type.VEC4_T, Vec4Operators.forDivisionWithFloat());
+    Evaluator<Vec4> eval = new FloatOperationEvaluator<Vec4, Float, Vec4>(Type.VEC4_T, Vec4Operators.forDivisionWithFloat());
     assertEquals(eval.getGlSlString(Shade.add(Shade.vec(1, 2, 3, 4), 3), mContext),
         "vec4(vec4(float(1.0), float(2.0), float(3.0), float(4.0)) / float(3.0))");
   }
