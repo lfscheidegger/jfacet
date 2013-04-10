@@ -1,6 +1,5 @@
 package com.lfscheidegger.jfacet.shade.compiler;
 
-import com.google.common.collect.ImmutableList;
 import com.lfscheidegger.jfacet.shade.Type;
 
 public class GlSlExpressionHelper {

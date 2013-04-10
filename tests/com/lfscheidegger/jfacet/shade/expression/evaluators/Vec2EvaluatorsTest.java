@@ -9,7 +9,7 @@ import com.lfscheidegger.jfacet.shade.primitives.Mat2;
 import com.lfscheidegger.jfacet.shade.primitives.Vec2;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 /**
  * Unit tests for {@code Evaluator} objects for {@code Vec2} objects.
@@ -67,29 +67,29 @@ public class Vec2EvaluatorsTest {
   }
 
   @Test
-     public void testForAdditionWithVec2() {
-    Evaluator<Vec2> eval = Vec2Evaluators.forOperationWithVec2(Vec2Operators.forAdditionWithVec2());
+  public void testForAdditionWithVec2() {
+    Evaluator<Vec2> eval = new FloatOperationEvaluator<Vec2, Vec2, Vec2>(Type.VEC2_T, Vec2Operators.forAdditionWithVec2());
     assertEquals(eval.getGlSlString(Shade.add(Shade.vec(1, 2), Shade.vec(3, 4)), mContext),
         "vec2(vec2(float(1.0), float(2.0)) + vec2(float(3.0), float(4.0)))");
   }
 
   @Test
   public void testForSubtractionWithVec2() {
-    Evaluator<Vec2> eval = Vec2Evaluators.forOperationWithVec2(Vec2Operators.forSubtractionWithVec2());
+    Evaluator<Vec2> eval = new FloatOperationEvaluator<Vec2, Vec2, Vec2>(Type.VEC2_T, Vec2Operators.forSubtractionWithVec2());
     assertEquals(eval.getGlSlString(Shade.sub(Shade.vec(1, 2), Shade.vec(3, 4)), mContext),
         "vec2(vec2(float(1.0), float(2.0)) - vec2(float(3.0), float(4.0)))");
   }
 
   @Test
   public void testForMultiplicationWithVec2() {
-    Evaluator<Vec2> eval = Vec2Evaluators.forOperationWithVec2(Vec2Operators.forMultiplicationWithVec2());
+    Evaluator<Vec2> eval = new FloatOperationEvaluator<Vec2, Vec2, Vec2>(Type.VEC2_T, Vec2Operators.forMultiplicationWithVec2());
     assertEquals(eval.getGlSlString(Shade.mul(Shade.vec(1, 2), Shade.vec(3, 4)), mContext),
         "vec2(vec2(float(1.0), float(2.0)) * vec2(float(3.0), float(4.0)))");
   }
 
   @Test
   public void testForDivisionWithVec2() {
-    Evaluator<Vec2> eval = Vec2Evaluators.forOperationWithVec2(Vec2Operators.forDivisionWithVec2());
+    Evaluator<Vec2> eval = new FloatOperationEvaluator<Vec2, Vec2, Vec2>(Type.VEC2_T, Vec2Operators.forDivisionWithVec2());
     assertEquals(eval.getGlSlString(Shade.div(Shade.vec(1, 2), Shade.vec(3, 4)), mContext),
         "vec2(vec2(float(1.0), float(2.0)) / vec2(float(3.0), float(4.0)))");
   }

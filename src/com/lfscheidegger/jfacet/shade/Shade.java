@@ -1,7 +1,7 @@
 package com.lfscheidegger.jfacet.shade;
 
 import com.google.common.collect.ImmutableList;
-import com.lfscheidegger.jfacet.shade.expression.*;
+import com.lfscheidegger.jfacet.shade.expression.Expression;
 import com.lfscheidegger.jfacet.shade.expression.evaluators.*;
 import com.lfscheidegger.jfacet.shade.expression.evaluators.glsl.QualifiedGlSlEvaluator;
 import com.lfscheidegger.jfacet.shade.expression.operators.*;
@@ -117,7 +117,7 @@ public class Shade {
   public static Vec2Exp add(Vec2Like left, Vec2Like right) {
     return new Vec2Exp(
         ImmutableList.<Expression>of(promote(left), promote(right)),
-        Vec2Evaluators.forOperationWithVec2(Vec2Operators.forAdditionWithVec2()));
+        new FloatOperationEvaluator<Vec2, Vec2, Vec2>(Type.VEC2_T, Vec2Operators.forAdditionWithVec2()));
   }
 
   public static Vec2Exp sub(Vec2Like left, float right) {
@@ -131,7 +131,7 @@ public class Shade {
   public static Vec2Exp sub(Vec2Like left, Vec2Like right) {
     return new Vec2Exp(
         ImmutableList.<Expression>of(promote(left), promote(right)),
-        Vec2Evaluators.forOperationWithVec2(Vec2Operators.forSubtractionWithVec2()));
+        new FloatOperationEvaluator<Vec2, Vec2, Vec2>(Type.VEC2_T, Vec2Operators.forSubtractionWithVec2()));
   }
 
   public static Vec2Exp mul(Vec2Like left, float right) {
@@ -145,7 +145,7 @@ public class Shade {
   public static Vec2Exp mul(Vec2Like left, Vec2Like right) {
     return new Vec2Exp(
         ImmutableList.<Expression>of(promote(left), promote(right)),
-        Vec2Evaluators.forOperationWithVec2(Vec2Operators.forMultiplicationWithVec2()));
+        new FloatOperationEvaluator<Vec2, Vec2, Vec2>(Type.VEC2_T, Vec2Operators.forMultiplicationWithVec2()));
   }
 
   public static Vec2Exp div(Vec2Like left, float right) {
@@ -159,7 +159,7 @@ public class Shade {
   public static Vec2Exp div(Vec2Like left, Vec2Like right) {
     return new Vec2Exp(
         ImmutableList.<Expression>of(promote(left), promote(right)),
-        Vec2Evaluators.forOperationWithVec2(Vec2Operators.forDivisionWithVec2()));
+        new FloatOperationEvaluator<Vec2, Vec2, Vec2>(Type.VEC2_T, Vec2Operators.forDivisionWithVec2()));
   }
 
   public static Vec2Exp neg(Vec2Like exp) {
@@ -212,7 +212,7 @@ public class Shade {
   public static Vec3Exp add(Vec3Like left, Vec3Like right) {
     return new Vec3Exp(
         ImmutableList.<Expression>of(promote(left), promote(right)),
-        Vec3Evaluators.forOperationWithVec3(Vec3Operators.forAdditionWithVec3()));
+        new FloatOperationEvaluator<Vec3, Vec3, Vec3>(Type.VEC3_T, Vec3Operators.forAdditionWithVec3()));
   }
 
   public static Vec3Exp sub(Vec3Like left, float right) {
@@ -226,7 +226,7 @@ public class Shade {
   public static Vec3Exp sub(Vec3Like left, Vec3Like right) {
     return new Vec3Exp(
         ImmutableList.<Expression>of(promote(left), promote(right)),
-        Vec3Evaluators.forOperationWithVec3(Vec3Operators.forSubtractionWithVec3()));
+        new FloatOperationEvaluator<Vec3, Vec3, Vec3>(Type.VEC3_T, Vec3Operators.forSubtractionWithVec3()));
   }
 
   public static Vec3Exp mul(Vec3Like left, float right) {
@@ -240,7 +240,7 @@ public class Shade {
   public static Vec3Exp mul(Vec3Like left, Vec3Like right) {
     return new Vec3Exp(
         ImmutableList.<Expression>of(promote(left), promote(right)),
-        Vec3Evaluators.forOperationWithVec3(Vec3Operators.forMultiplicationWithVec3()));
+        new FloatOperationEvaluator<Vec3, Vec3, Vec3>(Type.VEC3_T, Vec3Operators.forMultiplicationWithVec3()));
   }
 
   public static Vec3Exp div(Vec3Like left, float right) {
@@ -254,7 +254,7 @@ public class Shade {
   public static Vec3Exp div(Vec3Like left, Vec3Like right) {
     return new Vec3Exp(
         ImmutableList.<Expression>of(promote(left), promote(right)),
-        Vec3Evaluators.forOperationWithVec3(Vec3Operators.forDivisionWithVec3()));
+        new FloatOperationEvaluator<Vec3, Vec3, Vec3>(Type.VEC3_T, Vec3Operators.forDivisionWithVec3()));
   }
 
   public static Vec3Exp neg(Vec3Like exp) {
@@ -335,7 +335,7 @@ public class Shade {
   public static Vec4Exp add(Vec4Like left, Vec4Like right) {
     return new Vec4Exp(
         ImmutableList.<Expression>of(promote(left), promote(right)),
-        Vec4Evaluators.forOperationWithVec4(Vec4Operators.forAdditionWithVec4()));
+        new FloatOperationEvaluator<Vec4, Vec4, Vec4>(Type.VEC4_T, Vec4Operators.forAdditionWithVec4()));
   }
 
   public static Vec4Exp sub(Vec4Like left, float right) {
@@ -349,7 +349,7 @@ public class Shade {
   public static Vec4Exp sub(Vec4Like left, Vec4Like right) {
     return new Vec4Exp(
         ImmutableList.<Expression>of(promote(left), promote(right)),
-        Vec4Evaluators.forOperationWithVec4(Vec4Operators.forSubtractionWithVec4()));
+        new FloatOperationEvaluator<Vec4, Vec4, Vec4>(Type.VEC4_T, Vec4Operators.forSubtractionWithVec4()));
   }
 
   public static Vec4Exp mul(Vec4Like left, float right) {
@@ -363,7 +363,7 @@ public class Shade {
   public static Vec4Exp mul(Vec4Like left, Vec4Like right) {
     return new Vec4Exp(
         ImmutableList.<Expression>of(promote(left), promote(right)),
-        Vec4Evaluators.forOperationWithVec4(Vec4Operators.forMultiplicationWithVec4()));
+        new FloatOperationEvaluator<Vec4, Vec4, Vec4>(Type.VEC4_T, Vec4Operators.forMultiplicationWithVec4()));
   }
 
   public static Vec4Exp div(Vec4Like left, float right) {
@@ -377,7 +377,7 @@ public class Shade {
   public static Vec4Exp div(Vec4Like left, Vec4Like right) {
     return new Vec4Exp(
         ImmutableList.<Expression>of(promote(left), promote(right)),
-        Vec4Evaluators.forOperationWithVec4(Vec4Operators.forDivisionWithVec4()));
+        new FloatOperationEvaluator<Vec4, Vec4, Vec4>(Type.VEC4_T, Vec4Operators.forDivisionWithVec4()));
   }
 
   public static Vec4Exp neg(Vec4Like exp) {
@@ -410,7 +410,7 @@ public class Shade {
   public static Mat2Exp add(Mat2Like left, Mat2Like right) {
     return new Mat2Exp(
         ImmutableList.<Expression>of(promote(left), promote(right)),
-        Mat2Evaluators.forOperationWithMat2(Mat2Operators.forAdditionWithMat2()));
+        new FloatOperationEvaluator<Mat2, Mat2, Mat2>(Type.MAT2_T, Mat2Operators.forAdditionWithMat2()));
   }
 
   public static Mat2Exp sub(Mat2Like left, float right) {
@@ -424,7 +424,7 @@ public class Shade {
   public static Mat2Exp sub(Mat2Like left, Mat2Like right) {
     return new Mat2Exp(
         ImmutableList.<Expression>of(promote(left), promote(right)),
-        Mat2Evaluators.forOperationWithMat2(Mat2Operators.forSubtractionWithMat2()));
+        new FloatOperationEvaluator<Mat2, Mat2, Mat2>(Type.MAT2_T, Mat2Operators.forSubtractionWithMat2()));
   }
 
   public static Mat2Exp mul(Mat2Like left, float right) {
@@ -438,7 +438,7 @@ public class Shade {
   public static Mat2Exp mul(Mat2Like left, Mat2Like right) {
     return new Mat2Exp(
         ImmutableList.<Expression>of(promote(left), promote(right)),
-        Mat2Evaluators.forOperationWithMat2(Mat2Operators.forMultiplicationWithMat2()));
+        new FloatOperationEvaluator<Mat2, Mat2, Mat2>(Type.MAT2_T, Mat2Operators.forMultiplicationWithMat2()));
   }
 
   public static Mat2Exp div(Mat2Like left, float right) {
@@ -452,7 +452,7 @@ public class Shade {
   public static Mat2Exp div(Mat2Like left, Mat2Like right) {
     return new Mat2Exp(
         ImmutableList.<Expression>of(promote(left), promote(right)),
-        Mat2Evaluators.forOperationWithMat2(Mat2Operators.forDivisionWithMat2()));
+        new FloatOperationEvaluator<Mat2, Mat2, Mat2>(Type.MAT2_T, Mat2Operators.forDivisionWithMat2()));
   }
 
   public static Mat2Exp neg(Mat2Like exp) {
@@ -462,7 +462,7 @@ public class Shade {
   public static Vec2Exp mul(Mat2Like left, Vec2Like right) {
     return new Vec2Exp(
         ImmutableList.<Expression>of(promote(left), promote(right)),
-        Mat2Evaluators.forOperationWithVec2(Mat2Operators.forMultiplicationWithVec2()));
+        new FloatOperationEvaluator<Mat2, Vec2, Vec2>(Type.VEC2_T, Mat2Operators.forMultiplicationWithVec2()));
   }
 
   // ===================================================================================================================
@@ -487,7 +487,7 @@ public class Shade {
   public static Mat3Exp add(Mat3Like left, Mat3Like right) {
     return new Mat3Exp(
         ImmutableList.<Expression>of(promote(left), promote(right)),
-        Mat3Evaluators.forOperationWithMat3(Mat3Operators.forAdditionWithMat3()));
+        new FloatOperationEvaluator<Mat3, Mat3, Mat3>(Type.MAT3_T, Mat3Operators.forAdditionWithMat3()));
   }
 
   public static Mat3Exp sub(Mat3Like left, float right) {
@@ -501,7 +501,7 @@ public class Shade {
   public static Mat3Exp sub(Mat3Like left, Mat3Like right) {
     return new Mat3Exp(
         ImmutableList.<Expression>of(promote(left), promote(right)),
-        Mat3Evaluators.forOperationWithMat3(Mat3Operators.forSubtractionWithMat3()));
+        new FloatOperationEvaluator<Mat3, Mat3, Mat3>(Type.MAT3_T, Mat3Operators.forSubtractionWithMat3()));
   }
 
   public static Mat3Exp mul(Mat3Like left, float right) {
@@ -515,7 +515,7 @@ public class Shade {
   public static Mat3Exp mul(Mat3Like left, Mat3Like right) {
     return new Mat3Exp(
         ImmutableList.<Expression>of(promote(left), promote(right)),
-        Mat3Evaluators.forOperationWithMat3(Mat3Operators.forMultiplicationWithMat3()));
+        new FloatOperationEvaluator<Mat3, Mat3, Mat3>(Type.MAT3_T, Mat3Operators.forMultiplicationWithMat3()));
   }
 
   public static Mat3Exp div(Mat3Like left, float right) {
@@ -529,7 +529,7 @@ public class Shade {
   public static Mat3Exp div(Mat3Like left, Mat3Like right) {
     return new Mat3Exp(
         ImmutableList.<Expression>of(promote(left), promote(right)),
-        Mat3Evaluators.forOperationWithMat3(Mat3Operators.forDivisionWithMat3()));
+        new FloatOperationEvaluator<Mat3, Mat3, Mat3>(Type.MAT3_T, Mat3Operators.forDivisionWithMat3()));
   }
 
   public static Mat3Exp neg(Mat3Like exp) {
@@ -539,7 +539,7 @@ public class Shade {
   public static Vec3Exp mul(Mat3Like left, Vec3Like right) {
     return new Vec3Exp(
         ImmutableList.<Expression>of(promote(left), promote(right)),
-        Mat3Evaluators.forOperationWithVec3(Mat3Operators.forMultiplicationWithVec3()));
+        new FloatOperationEvaluator<Mat3, Vec3, Vec3>(Type.VEC3_T, Mat3Operators.forMultiplicationWithVec3()));
   }
 
   // ===================================================================================================================
@@ -565,7 +565,7 @@ public class Shade {
   public static Mat4Exp add(Mat4Like left, Mat4Like right) {
     return new Mat4Exp(
         ImmutableList.<Expression>of(promote(left), promote(right)),
-        Mat4Evaluators.forOperationWithMat4(Mat4Operators.forAdditionWithMat4()));
+        new FloatOperationEvaluator<Mat4, Mat4, Mat4>(Type.MAT4_T, Mat4Operators.forAdditionWithMat4()));
   }
 
   public static Mat4Exp sub(Mat4Like left, float right) {
@@ -579,7 +579,7 @@ public class Shade {
   public static Mat4Exp sub(Mat4Like left, Mat4Like right) {
     return new Mat4Exp(
         ImmutableList.<Expression>of(promote(left), promote(right)),
-        Mat4Evaluators.forOperationWithMat4(Mat4Operators.forSubtractionWithMat4()));
+        new FloatOperationEvaluator<Mat4, Mat4, Mat4>(Type.MAT4_T, Mat4Operators.forSubtractionWithMat4()));
   }
 
   public static Mat4Exp mul(Mat4Like left, float right) {
@@ -593,7 +593,7 @@ public class Shade {
   public static Mat4Exp mul(Mat4Like left, Mat4Like right) {
     return new Mat4Exp(
         ImmutableList.<Expression>of(promote(left), promote(right)),
-        Mat4Evaluators.forOperationWithMat4(Mat4Operators.forMultiplicationWithMat4()));
+        new FloatOperationEvaluator<Mat4, Mat4, Mat4>(Type.MAT4_T, Mat4Operators.forMultiplicationWithMat4()));
   }
 
   public static Mat4Exp div(Mat4Like left, float right) {
@@ -607,7 +607,7 @@ public class Shade {
   public static Mat4Exp div(Mat4Like left, Mat4Like right) {
     return new Mat4Exp(
         ImmutableList.<Expression>of(promote(left), promote(right)),
-        Mat4Evaluators.forOperationWithMat4(Mat4Operators.forDivisionWithMat4()));
+        new FloatOperationEvaluator<Mat4, Mat4, Mat4>(Type.MAT4_T, Mat4Operators.forDivisionWithMat4()));
   }
 
   // ===================================================================================================================
@@ -639,7 +639,7 @@ public class Shade {
   public static Vec4Exp mul(Mat4Like left, Vec4Like right) {
     return new Vec4Exp(
         ImmutableList.<Expression>of(promote(left), promote(right)),
-        Mat4Evaluators.forOperationWithVec4(Mat4Operators.forMultiplicationWithVec4()));
+        new FloatOperationEvaluator<Mat4, Vec4, Vec4>(Type.VEC4_T, Mat4Operators.forMultiplicationWithVec4()));
   }
 
   // ===================================================================================================================

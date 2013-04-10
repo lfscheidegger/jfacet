@@ -2,6 +2,7 @@ package com.lfscheidegger.jfacet.shade.expression.evaluators;
 
 import com.lfscheidegger.jfacet.shade.FakeCompilationContext;
 import com.lfscheidegger.jfacet.shade.Shade;
+import com.lfscheidegger.jfacet.shade.Type;
 import com.lfscheidegger.jfacet.shade.compiler.CompilationContext;
 import com.lfscheidegger.jfacet.shade.expression.operators.FloatOperators;
 import com.lfscheidegger.jfacet.shade.expression.primitives.FloatExp;
@@ -10,7 +11,8 @@ import com.lfscheidegger.jfacet.shade.primitives.Vec3;
 import com.lfscheidegger.jfacet.shade.primitives.Vec4;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Unit tests for {@code Evaluators} for {@code FloatExp} objects.
@@ -29,28 +31,28 @@ public class FloatEvaluatorsTest {
 
   @Test
   public void testForAddition() {
-    Evaluator<Float> eval = FloatEvaluators.forOperation(FloatOperators.forAddition());
+    Evaluator<Float> eval = new FloatOperationEvaluator<Float, Float, Float>(Type.FLOAT_T, FloatOperators.forAddition());
 
     assertEquals(eval.getGlSlString(Shade.add(2, 3), mContext), "float(float(2.0) + float(3.0))");
   }
 
   @Test
   public void testForSubtraction() {
-    Evaluator<Float> eval = FloatEvaluators.forOperation(FloatOperators.forSubtraction());
+    Evaluator<Float> eval = new FloatOperationEvaluator<Float, Float, Float>(Type.FLOAT_T, FloatOperators.forSubtraction());
 
     assertEquals(eval.getGlSlString(Shade.sub(2, 3), mContext), "float(float(2.0) - float(3.0))");
   }
 
   @Test
   public void testForMultiplication() {
-    Evaluator<Float> eval = FloatEvaluators.forOperation(FloatOperators.forMultiplication());
+    Evaluator<Float> eval = new FloatOperationEvaluator<Float, Float, Float>(Type.FLOAT_T, FloatOperators.forMultiplication());
 
     assertEquals(eval.getGlSlString(Shade.mul(2, 3), mContext), "float(float(2.0) * float(3.0))");
   }
 
   @Test
   public void testForDivision() {
-    Evaluator<Float> eval = FloatEvaluators.forOperation(FloatOperators.forDivision());
+    Evaluator<Float> eval = new FloatOperationEvaluator<Float, Float, Float>(Type.FLOAT_T, FloatOperators.forDivision());
 
     assertEquals(eval.getGlSlString(Shade.div(2, 3), mContext), "float(float(2.0) / float(3.0))");
   }

@@ -2,7 +2,7 @@ package com.lfscheidegger.jfacet.facet.renderer;
 
 import android.opengl.GLES20;
 import android.opengl.GLSurfaceView;
-import com.lfscheidegger.jfacet.facet.*;
+import com.lfscheidegger.jfacet.facet.Scene;
 import com.lfscheidegger.jfacet.shade.primitives.Vec4;
 
 import javax.microedition.khronos.egl.EGLConfig;

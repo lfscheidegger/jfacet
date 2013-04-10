@@ -4,7 +4,6 @@ import com.lfscheidegger.jfacet.shade.FakeCompilationContext;
 import com.lfscheidegger.jfacet.shade.Shade;
 import com.lfscheidegger.jfacet.shade.Type;
 import com.lfscheidegger.jfacet.shade.compiler.CompilationContext;
-import com.lfscheidegger.jfacet.shade.expression.Expression;
 import com.lfscheidegger.jfacet.shade.expression.operators.Mat2Operators;
 import com.lfscheidegger.jfacet.shade.primitives.Mat2;
 import com.lfscheidegger.jfacet.shade.primitives.Vec2;
@@ -69,7 +68,7 @@ public class Mat2EvaluatorsTest {
 
   @Test
   public void testForAdditionWithMat2() {
-    Evaluator<Mat2> eval = Mat2Evaluators.forOperationWithMat2(Mat2Operators.forAdditionWithMat2());
+    Evaluator<Mat2> eval = new FloatOperationEvaluator<Mat2, Mat2, Mat2>(Type.MAT2_T, Mat2Operators.forAdditionWithMat2());
     assertEquals(
         eval.getGlSlString(Shade.add(new Mat2(), new Mat2()), mContext),
         "mat2(mat2(vec2(float(1.0), float(0.0)), vec2(float(0.0), float(1.0))) + mat2(vec2(float(1.0), float(0.0)), vec2(float(0.0), float(1.0))))");
@@ -77,7 +76,7 @@ public class Mat2EvaluatorsTest {
 
   @Test
   public void testForSubtractionWithMat2() {
-    Evaluator<Mat2> eval = Mat2Evaluators.forOperationWithMat2(Mat2Operators.forSubtractionWithMat2());
+    Evaluator<Mat2> eval = new FloatOperationEvaluator<Mat2, Mat2, Mat2>(Type.MAT2_T, Mat2Operators.forSubtractionWithMat2());
     assertEquals(
         eval.getGlSlString(Shade.sub(new Mat2(), new Mat2()), mContext),
         "mat2(mat2(vec2(float(1.0), float(0.0)), vec2(float(0.0), float(1.0))) - mat2(vec2(float(1.0), float(0.0)), vec2(float(0.0), float(1.0))))");
@@ -85,7 +84,7 @@ public class Mat2EvaluatorsTest {
 
   @Test
   public void testForMultiplicationWithMat2() {
-    Evaluator<Mat2> eval = Mat2Evaluators.forOperationWithMat2(Mat2Operators.forMultiplicationWithMat2());
+    Evaluator<Mat2> eval = new FloatOperationEvaluator<Mat2, Mat2, Mat2>(Type.MAT2_T, Mat2Operators.forMultiplicationWithMat2());
     assertEquals(
         eval.getGlSlString(Shade.mul(new Mat2(), new Mat2()), mContext),
         "mat2(mat2(vec2(float(1.0), float(0.0)), vec2(float(0.0), float(1.0))) * mat2(vec2(float(1.0), float(0.0)), vec2(float(0.0), float(1.0))))");
@@ -93,7 +92,7 @@ public class Mat2EvaluatorsTest {
 
   @Test
   public void testForDivisionWithMat2() {
-    Evaluator<Mat2> eval = Mat2Evaluators.forOperationWithMat2(Mat2Operators.forDivisionWithMat2());
+    Evaluator<Mat2> eval = new FloatOperationEvaluator<Mat2, Mat2, Mat2>(Type.MAT2_T, Mat2Operators.forDivisionWithMat2());
     assertEquals(
         eval.getGlSlString(Shade.div(new Mat2(), new Mat2()), mContext),
         "mat2(mat2(vec2(float(1.0), float(0.0)), vec2(float(0.0), float(1.0))) / mat2(vec2(float(1.0), float(0.0)), vec2(float(0.0), float(1.0))))");
@@ -108,7 +107,7 @@ public class Mat2EvaluatorsTest {
 
   @Test
   public void testForMultiplicationWithVec2() {
-    Evaluator<Vec2> eval = Mat2Evaluators.forOperationWithVec2(Mat2Operators.forMultiplicationWithVec2());
+    Evaluator<Vec2> eval = new FloatOperationEvaluator<Mat2, Vec2, Vec2>(Type.VEC2_T, Mat2Operators.forMultiplicationWithVec2());
 
     assertEquals(eval.evaluate(Shade.mul(Shade.mat(new Mat2().mul(2)), Shade.vec(1, 1))), new Vec2(2, 2));
   }

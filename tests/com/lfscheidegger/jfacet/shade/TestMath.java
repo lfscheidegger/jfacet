@@ -1,7 +1,6 @@
 package com.lfscheidegger.jfacet.shade;
 
 import com.lfscheidegger.jfacet.shade.compiler.CompilationContext;
-import com.lfscheidegger.jfacet.shade.expression.Expression;
 import com.lfscheidegger.jfacet.shade.expression.primitives.FloatExp;
 import com.lfscheidegger.jfacet.shade.expression.primitives.Vec2Exp;
 import com.lfscheidegger.jfacet.shade.expression.primitives.Vec3Exp;
@@ -11,7 +10,8 @@ import com.lfscheidegger.jfacet.shade.primitives.Vec3;
 import com.lfscheidegger.jfacet.shade.primitives.Vec4;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Unit tests for {@code Math}

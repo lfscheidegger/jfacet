@@ -6,8 +6,6 @@ import com.google.common.collect.ImmutableMap;
 import com.lfscheidegger.jfacet.shade.Shade;
 import com.lfscheidegger.jfacet.shade.expression.Expression;
 
-import java.nio.IntBuffer;
-
 public class Geometry {
 
   private final ModelType mType;

@@ -1,7 +1,6 @@
 package com.lfscheidegger.jfacet.activity;
 
 import android.app.Activity;
-import android.graphics.BitmapFactory;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.view.Display;
@@ -215,6 +214,6 @@ public class JFacetDemoActivity extends Activity {
         square.getVertices(),
         Shade.texture2D(
             Facet.texture(getResources(), R.drawable.nehe),
-            Shade.varying((Vec2Exp)square.getColors()))));
+            Shade.varying((Vec2Exp) square.getColors()))));
   }
 }

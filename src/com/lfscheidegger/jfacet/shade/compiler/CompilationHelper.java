@@ -1,6 +1,5 @@
 package com.lfscheidegger.jfacet.shade.compiler;
 
-import com.google.common.base.Strings;
 import com.lfscheidegger.jfacet.shade.GlSlType;
 import com.lfscheidegger.jfacet.shade.Type;
 
