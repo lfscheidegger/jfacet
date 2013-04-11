@@ -31,23 +31,8 @@ public class Facet {
     return new Drawable(geometry, position, fragColor);
   }
 
-  public static Geometry model(
-      ModelType type,
-      int[] indices,
-      float[] vertices, int dimension) {
-    return new Geometry(type, new IndexBuffer(indices), new AttribBuffer(vertices, dimension));
-  }
-
-  public static Geometry model(
-      ModelType type,
-      int[] indices,
-      float[] vertices, int vertexDimension,
-      float[] colors, int colorDimension) {
-    return new Geometry(
-        type,
-        new IndexBuffer(indices),
-        new AttribBuffer(vertices, vertexDimension),
-        new AttribBuffer(colors, colorDimension));
+  public static Geometry model(GeometryConfig config) {
+    return new Geometry(config);
   }
 
   public static Sampler2DExp texture(Resources resources, int resId) {

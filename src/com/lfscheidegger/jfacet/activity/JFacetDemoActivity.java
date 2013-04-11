@@ -60,15 +60,12 @@ public class JFacetDemoActivity extends Activity {
   }
 
   private void prepareLesson2(Scene scene) {
-    Geometry squareModel = Facet.model(
-        ModelType.TRIANGLES,
+    Geometry squareModel = Facet.model(new GeometryConfig(
         new int[] {0, 1, 2, 0, 2, 3},
-        new float[] {-1, -1, 1, -1, 1, 1, -1, 1}, 2
-    ), triangleModel = Facet.model(
-        ModelType.TRIANGLES,
+        new float[] {-1, -1, 1, -1, 1, 1, -1, 1}, 2)
+    ), triangleModel = Facet.model(new GeometryConfig(
         new int[] {0, 1, 2},
-        new float[] {0, 1, -1, -1, 1, -1}, 2
-    );
+        new float[] {0, 1, -1, -1, 1, -1}, 2));
 
     Camera camera = Camera.perspective(mSize.x, mSize.y);
     Expression squarePosition = camera.apply(Shade.translation(1.5f, 0, -12)).apply(squareModel.getVertices());
@@ -82,16 +79,13 @@ public class JFacetDemoActivity extends Activity {
   }
 
   private void prepareLesson3(Scene scene) {
-    Geometry squareModel = Facet.model(
-        ModelType.TRIANGLES,
+    Geometry squareModel = Facet.model(new GeometryConfig(
         new int[] {0, 1, 2, 0, 2, 3},
         new float[] {-1, -1, 1, -1, 1, 1, -1, 1}, 2
-    ), triangleModel = Facet.model(
-        ModelType.TRIANGLES,
+    )), triangleModel = Facet.model(new GeometryConfig(
         new int[] {0, 1, 2},
-        new float[] {0, 1, -1, -1, 1, -1}, 2,
-        new float[] {1, 0, 0, 0, 1, 0, 0, 0, 1}, 3
-    );
+        new float[] {0, 1, -1, -1, 1, -1}, 2)
+        .setColors(new float[] {1, 0, 0, 0, 1, 0, 0, 0, 1}, 3));
 
     Camera camera = Camera.perspective(mSize.x, mSize.y);
 
@@ -99,23 +93,20 @@ public class JFacetDemoActivity extends Activity {
     Expression trianglePosition = camera.apply(Shade.translation(-1.5f, 0, -12)).apply(triangleModel.getVertices());
 
     Drawable square = Facet.bake(squareModel, squarePosition, Shade.vec(0.5f, 0.5f, 1));
-    Drawable triangle = Facet.bake(triangleModel, trianglePosition, triangleModel.getColors());
+    Drawable triangle = Facet.bake(triangleModel, triangleModel.getColors());
 
     scene.add(square);
     scene.add(triangle);
   }
 
   private void prepareLesson4(Scene scene) {
-    Geometry squareModel = Facet.model(
-        ModelType.TRIANGLES,
+    Geometry squareModel = Facet.model(new GeometryConfig(
         new int[] {0, 1, 2, 0, 2, 3},
         new float[] {-1, -1, 1, -1, 1, 1, -1, 1}, 2
-    ), triangleModel = Facet.model(
-        ModelType.TRIANGLES,
+    )), triangleModel = Facet.model(new GeometryConfig(
         new int[] {0, 1, 2},
-        new float[] {0, 1, -1, -1, 1, -1}, 2,
-        new float[] {1, 0, 0, 0, 1, 0, 0, 0, 1}, 3
-    );
+        new float[] {0, 1, -1, -1, 1, -1}, 2)
+        .setColors(new float[] {1, 0, 0, 0, 1, 0, 0, 0, 1}, 3));
 
     Camera camera = Camera.perspective(mSize.x, mSize.y);
     FloatExp angle = Parameter.now().mul(50).radians();
@@ -137,8 +128,7 @@ public class JFacetDemoActivity extends Activity {
   }
 
   private void prepareLesson5(Scene scene) {
-    Geometry cubeModel = Facet.model(
-        ModelType.TRIANGLES,
+    Geometry cubeModel = Facet.model(new GeometryConfig(
         new int[] {
             0,  1,  2,  0,  2,  3,
             4,  5,  6,  4,  6,  7,
@@ -152,18 +142,17 @@ public class JFacetDemoActivity extends Activity {
             1, 1, 1, -1, 1, 1, -1,-1, 1,  1,-1, 1,
             1,-1,-1, -1,-1,-1, -1, 1,-1,  1, 1,-1,
             -1, 1, 1, -1, 1,-1, -1,-1,-1, -1,-1, 1,
-            1, 1,-1,  1, 1, 1,  1,-1, 1,  1,-1,-1}, 3,
-        new float[] {
+            1, 1,-1,  1, 1, 1,  1,-1, 1,  1,-1,-1}, 3)
+        .setColors(new float[] {
             0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0,
             1, 0.5f, 0, 1, 0.5f, 0, 1, 0.5f, 0, 1, 0.5f, 0,
             1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0,
             1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 0,
             0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1,
-            1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1}, 3);
+            1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1}, 3));
 
 
-    Geometry pyramidModel = Facet.model(
-        ModelType.TRIANGLES,
+    Geometry pyramidModel = Facet.model(new GeometryConfig(
         new int[] {
             0, 1, 2,
             0, 2, 3,
@@ -174,14 +163,14 @@ public class JFacetDemoActivity extends Activity {
             -1, -1,  1,
             -1, -1, -1,
             1, -1, -1,
-            1, -1,  1}, 3,
-        new float[] {
+            1, -1,  1}, 3)
+        .setColors(new float[] {
             1, 0, 0,
             0, 1, 0,
             0, 0, 1,
             0, 1, 0,
             0, 0, 1
-        }, 3);
+        }, 3));
 
     Camera camera = Camera.perspective(mSize.x, mSize.y);
     FloatExp angle = Parameter.now().mul(50).radians();
@@ -204,16 +193,16 @@ public class JFacetDemoActivity extends Activity {
 
   private void prepareLesson6(Scene scene) {
 
-    Geometry square = Facet.model(ModelType.TRIANGLES,
+    Geometry square = Facet.model(new GeometryConfig(
         new int[] {0, 1, 2, 0, 2, 3},
-        new float[] {-1, -1, 1, -1, 1, 1, -1, 1}, 2,
-        new float[] {0, 0, 1, 0, 1, 1, 0, 1}, 2);
+        new float[] {-1, -1, 1, -1, 1, 1, -1, 1}, 2)
+        .setTexCoords(new float[] {0, 0, 1, 0, 1, 1, 0, 1}, 2));
 
     scene.add(Facet.bake(
         square,
         square.getVertices(),
         Shade.texture2D(
             Facet.texture(getResources(), R.drawable.nehe),
-            Shade.varying2f((Vec2Exp) square.getColors()))));
+            Shade.varying2f((Vec2Exp) square.getTexCoords()))));
   }
 }
