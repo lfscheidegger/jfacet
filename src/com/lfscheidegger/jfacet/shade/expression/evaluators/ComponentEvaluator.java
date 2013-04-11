@@ -2,8 +2,7 @@ package com.lfscheidegger.jfacet.shade.expression.evaluators;
 
 import com.lfscheidegger.jfacet.shade.compiler.CompilationContext;
 import com.lfscheidegger.jfacet.shade.compiler.GlSlExpressionHelper;
-import com.lfscheidegger.jfacet.shade.expression.Expression;
-import com.lfscheidegger.jfacet.shade.expression.primitives.*;
+import com.lfscheidegger.jfacet.shade.expression.*;
 
 public class ComponentEvaluator<T> implements Evaluator<T>{
 

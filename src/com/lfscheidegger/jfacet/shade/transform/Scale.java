@@ -1,7 +1,7 @@
 package com.lfscheidegger.jfacet.shade.transform;
 
 import com.lfscheidegger.jfacet.shade.Shade;
-import com.lfscheidegger.jfacet.shade.expression.primitives.FloatExp;
+import com.lfscheidegger.jfacet.shade.expression.FloatExp;
 
 public class Scale extends AbstractTransform {
 

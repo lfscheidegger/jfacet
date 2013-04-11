@@ -1,11 +1,11 @@
-package com.lfscheidegger.jfacet.facet;
+package com.lfscheidegger.jfacet.utils;
 
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
 
-public class BufferHelper {
+public class BufferUtils {
 
   public static final int BYTES_PER_FLOAT = 4;
 

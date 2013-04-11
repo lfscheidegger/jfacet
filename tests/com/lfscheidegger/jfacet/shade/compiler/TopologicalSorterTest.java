@@ -3,7 +3,7 @@ package com.lfscheidegger.jfacet.shade.compiler;
 import com.google.common.collect.ImmutableList;
 import com.lfscheidegger.jfacet.shade.Shade;
 import com.lfscheidegger.jfacet.shade.expression.Expression;
-import com.lfscheidegger.jfacet.shade.expression.primitives.FloatExp;
+import com.lfscheidegger.jfacet.shade.expression.FloatExp;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;

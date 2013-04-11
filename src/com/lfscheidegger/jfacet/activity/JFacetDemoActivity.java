@@ -11,8 +11,8 @@ import com.lfscheidegger.jfacet.shade.Parameter;
 import com.lfscheidegger.jfacet.shade.Shade;
 import com.lfscheidegger.jfacet.shade.camera.Camera;
 import com.lfscheidegger.jfacet.shade.expression.Expression;
-import com.lfscheidegger.jfacet.shade.expression.primitives.FloatExp;
-import com.lfscheidegger.jfacet.shade.expression.primitives.Vec2Exp;
+import com.lfscheidegger.jfacet.shade.expression.FloatExp;
+import com.lfscheidegger.jfacet.shade.expression.Vec2Exp;
 import com.lfscheidegger.jfacet.view.FacetView;
 
 public class JFacetDemoActivity extends Activity {
@@ -214,6 +214,6 @@ public class JFacetDemoActivity extends Activity {
         square.getVertices(),
         Shade.texture2D(
             Facet.texture(getResources(), R.drawable.nehe),
-            Shade.varying((Vec2Exp) square.getColors()))));
+            Shade.varying2f((Vec2Exp) square.getColors()))));
   }
 }

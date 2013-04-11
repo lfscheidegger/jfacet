@@ -1,7 +1,7 @@
 package com.lfscheidegger.jfacet.shade.camera;
 
 import com.lfscheidegger.jfacet.shade.Shade;
-import com.lfscheidegger.jfacet.shade.expression.primitives.Mat4Exp;
+import com.lfscheidegger.jfacet.shade.expression.Mat4Exp;
 
 public class PerspectiveConfig implements CameraConfig {
 

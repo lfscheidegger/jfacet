@@ -16,9 +16,9 @@ public enum GlSlType {
   ATTRIBUTE_T("attribute"),
 
   /**
-   * Type for varying variables
+   * Type for varying2f variables
    */
-  VARYING_T("varying"),
+  VARYING_T("varying2f"),
 
   /**
    * Type for default (evaluable) variables

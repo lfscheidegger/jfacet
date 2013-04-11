@@ -5,7 +5,7 @@ import com.lfscheidegger.jfacet.shade.Shade;
 import com.lfscheidegger.jfacet.shade.Type;
 import com.lfscheidegger.jfacet.shade.compiler.CompilationContext;
 import com.lfscheidegger.jfacet.shade.expression.operators.FloatOperators;
-import com.lfscheidegger.jfacet.shade.expression.primitives.FloatExp;
+import com.lfscheidegger.jfacet.shade.expression.FloatExp;
 import com.lfscheidegger.jfacet.shade.primitives.Vec2;
 import com.lfscheidegger.jfacet.shade.primitives.Vec3;
 import com.lfscheidegger.jfacet.shade.primitives.Vec4;

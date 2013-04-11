@@ -2,8 +2,8 @@ package com.lfscheidegger.jfacet.shade.transform;
 
 import com.lfscheidegger.jfacet.shade.Shade;
 import com.lfscheidegger.jfacet.shade.expression.Expression;
-import com.lfscheidegger.jfacet.shade.expression.primitives.Mat4Exp;
-import com.lfscheidegger.jfacet.shade.expression.primitives.Vec4Exp;
+import com.lfscheidegger.jfacet.shade.expression.Mat4Exp;
+import com.lfscheidegger.jfacet.shade.expression.Vec4Exp;
 import com.lfscheidegger.jfacet.shade.primitives.Vec4;
 
 import java.util.ArrayList;

@@ -15,7 +15,7 @@ import com.lfscheidegger.jfacet.shade.Type;
 import com.lfscheidegger.jfacet.shade.compiler.*;
 import com.lfscheidegger.jfacet.shade.expression.Expression;
 import com.lfscheidegger.jfacet.shade.expression.evaluators.glsl.UniformEvaluator;
-import com.lfscheidegger.jfacet.shade.expression.primitives.Sampler2DExp;
+import com.lfscheidegger.jfacet.shade.expression.Sampler2DExp;
 import com.lfscheidegger.jfacet.shade.primitives.*;
 
 import java.util.HashSet;
@@ -93,15 +93,6 @@ public class Program {
     int vertexShaderHandle = GLES20.glCreateShader(GLES20.GL_VERTEX_SHADER);
     int fragmentShaderHandle = GLES20.glCreateShader(GLES20.GL_FRAGMENT_SHADER);
     mProgramHandle = GLES20.glCreateProgram();
-
-    /*fragmentShaderSource =
-        "precision highp float;\n" +
-            "uniform sampler2D glsl_name0;\n" +
-            "varying vec2 glsl_name1;\n" +
-            "void main(){\n" +
-            "    vec4 glsl_name2 = vec4(texture2D(glsl_name0, glsl_name1));\n" +
-            "    gl_FragColor = vec4(glsl_name1, 1.0, 1.0);\n" +
-            "}\n";*/
 
     compileShader(vertexShaderHandle, vertexShaderSource);
     compileShader(fragmentShaderHandle, fragmentShaderSource);

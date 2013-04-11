@@ -3,8 +3,7 @@ package com.lfscheidegger.jfacet.shade.expression.evaluators;
 import com.google.common.collect.ImmutableList;
 import com.lfscheidegger.jfacet.shade.compiler.CompilationContext;
 import com.lfscheidegger.jfacet.shade.compiler.GlSlExpressionHelper;
-import com.lfscheidegger.jfacet.shade.expression.Expression;
-import com.lfscheidegger.jfacet.shade.expression.primitives.*;
+import com.lfscheidegger.jfacet.shade.expression.*;
 
 public class NegationEvaluator<T> implements Evaluator<T> {
 

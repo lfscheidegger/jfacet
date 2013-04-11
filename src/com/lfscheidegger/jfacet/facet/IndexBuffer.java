@@ -1,5 +1,7 @@
 package com.lfscheidegger.jfacet.facet;
 
+import com.lfscheidegger.jfacet.utils.BufferUtils;
+
 import java.nio.IntBuffer;
 
 public class IndexBuffer {
@@ -8,7 +10,7 @@ public class IndexBuffer {
   private final int mElementCount;
 
   public IndexBuffer(int[] indices) {
-    mBuffer = BufferHelper.getBufferFromArray(indices);
+    mBuffer = BufferUtils.getBufferFromArray(indices);
     mElementCount = indices.length;
   }
 

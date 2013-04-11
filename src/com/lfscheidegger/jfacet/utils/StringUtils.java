@@ -1,4 +1,4 @@
-package com.lfscheidegger.jfacet.shade.utils;
+package com.lfscheidegger.jfacet.utils;
 
 import com.lfscheidegger.jfacet.shade.Type;
 

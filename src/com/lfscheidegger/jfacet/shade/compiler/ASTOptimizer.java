@@ -2,9 +2,7 @@ package com.lfscheidegger.jfacet.shade.compiler;
 
 import com.google.common.collect.ImmutableList;
 import com.lfscheidegger.jfacet.shade.GlSlType;
-import com.lfscheidegger.jfacet.shade.expression.AbstractExpression;
-import com.lfscheidegger.jfacet.shade.expression.Expression;
-import com.lfscheidegger.jfacet.shade.expression.primitives.*;
+import com.lfscheidegger.jfacet.shade.expression.*;
 import com.lfscheidegger.jfacet.shade.primitives.*;
 
 import java.util.List;

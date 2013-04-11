@@ -6,8 +6,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import com.lfscheidegger.jfacet.shade.GlSlType;
 import com.lfscheidegger.jfacet.shade.Shade;
-import com.lfscheidegger.jfacet.shade.expression.Expression;
-import com.lfscheidegger.jfacet.shade.expression.primitives.*;
+import com.lfscheidegger.jfacet.shade.expression.*;
 
 public class Facet {
 
@@ -19,13 +18,13 @@ public class Facet {
     if (fragColor.getGlSlType() == GlSlType.ATTRIBUTE_T) {
       switch(fragColor.getType()) {
         case FLOAT_T:
-          fragColor = Shade.varying((FloatExp)fragColor); break;
+          fragColor = Shade.varyingf((FloatExp) fragColor); break;
         case VEC2_T:
-          fragColor = Shade.varying((Vec2Exp)fragColor); break;
+          fragColor = Shade.varying2f((Vec2Exp) fragColor); break;
         case VEC3_T:
-          fragColor = Shade.varying((Vec3Exp)fragColor); break;
+          fragColor = Shade.varying3f((Vec3Exp) fragColor); break;
         case VEC4_T:
-          fragColor = Shade.varying((Vec4Exp)fragColor); break;
+          fragColor = Shade.varying4f((Vec4Exp) fragColor); break;
       }
     }
 

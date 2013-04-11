@@ -1,4 +1,4 @@
-package com.lfscheidegger.jfacet.shade.expression.primitives;
+package com.lfscheidegger.jfacet.shade.expression;
 
 import android.graphics.Bitmap;
 import android.opengl.GLES20;

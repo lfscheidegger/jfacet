@@ -1,5 +1,7 @@
 package com.lfscheidegger.jfacet.facet;
 
+import com.lfscheidegger.jfacet.utils.BufferUtils;
+
 import java.nio.FloatBuffer;
 
 /**
@@ -12,7 +14,7 @@ public class AttribBuffer {
   private final int mElementCount;
 
   public AttribBuffer(float[] array, int dimension) {
-    mBuffer = BufferHelper.getBufferFromArray(array);
+    mBuffer = BufferUtils.getBufferFromArray(array);
     mDimension = dimension;
     mElementCount = array.length / dimension;
   }

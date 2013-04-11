@@ -4,8 +4,8 @@ import com.google.common.base.Objects;
 import com.lfscheidegger.jfacet.shade.Type;
 import com.lfscheidegger.jfacet.shade.primitives.interfaces.Mat2Like;
 import com.lfscheidegger.jfacet.shade.primitives.interfaces.SupportsBasicArithmetic;
-import com.lfscheidegger.jfacet.shade.utils.ArrayUtils;
-import com.lfscheidegger.jfacet.shade.utils.StringUtils;
+import com.lfscheidegger.jfacet.utils.ArrayUtils;
+import com.lfscheidegger.jfacet.utils.StringUtils;
 
 import java.util.Arrays;
 

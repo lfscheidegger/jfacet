@@ -1,11 +1,9 @@
-package com.lfscheidegger.jfacet.shade.expression.primitives;
+package com.lfscheidegger.jfacet.shade.expression;
 
 import com.google.common.collect.ImmutableList;
 import com.lfscheidegger.jfacet.shade.GlSlType;
 import com.lfscheidegger.jfacet.shade.Shade;
 import com.lfscheidegger.jfacet.shade.Type;
-import com.lfscheidegger.jfacet.shade.expression.AbstractExpression;
-import com.lfscheidegger.jfacet.shade.expression.Expression;
 import com.lfscheidegger.jfacet.shade.expression.evaluators.ComponentEvaluator;
 import com.lfscheidegger.jfacet.shade.expression.evaluators.ConstantEvaluator;
 import com.lfscheidegger.jfacet.shade.expression.evaluators.Evaluator;

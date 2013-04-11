@@ -3,6 +3,7 @@ package com.lfscheidegger.jfacet.shade.expression.primitives;
 import com.lfscheidegger.jfacet.shade.FakeCompilationContext;
 import com.lfscheidegger.jfacet.shade.Shade;
 import com.lfscheidegger.jfacet.shade.compiler.CompilationContext;
+import com.lfscheidegger.jfacet.shade.expression.Vec4Exp;
 import com.lfscheidegger.jfacet.shade.primitives.Mat4;
 import com.lfscheidegger.jfacet.shade.primitives.Vec4;
 import org.junit.Test;

@@ -1,11 +1,10 @@
 package com.lfscheidegger.jfacet.shade;
 
 import com.google.common.collect.ImmutableList;
-import com.lfscheidegger.jfacet.shade.expression.Expression;
+import com.lfscheidegger.jfacet.shade.expression.*;
 import com.lfscheidegger.jfacet.shade.expression.evaluators.*;
 import com.lfscheidegger.jfacet.shade.expression.evaluators.glsl.QualifiedGlSlEvaluator;
 import com.lfscheidegger.jfacet.shade.expression.operators.*;
-import com.lfscheidegger.jfacet.shade.expression.primitives.*;
 import com.lfscheidegger.jfacet.shade.primitives.*;
 import com.lfscheidegger.jfacet.shade.primitives.interfaces.*;
 import com.lfscheidegger.jfacet.shade.transform.Rotation;
@@ -632,6 +631,10 @@ public class Shade {
     return (param instanceof Mat4Exp) ? (Mat4Exp)param : new Mat4Exp((Mat4)param);
   }
 
+  public static FloatExp promotef(Object param) {
+    return (param instanceof FloatExp) ? (FloatExp)param : new FloatExp((Float)param);
+  }
+
   public static Mat4Exp neg(Mat4Like exp) {
     return new Mat4Exp(ImmutableList.<Expression>of(promote(exp)), new NegationEvaluator<Mat4>());
   }
@@ -705,25 +708,25 @@ public class Shade {
     return new Vec4Exp(GlSlType.ATTRIBUTE_T, new QualifiedGlSlEvaluator<Vec4>());
   }
 
-  public static FloatExp varying(float c) {
+  public static FloatExp varyingf(float c) {
     FloatExp exp = Shade.constant(c);
-    return Shade.varying(exp);
+    return Shade.varyingf(exp);
   }
 
-  public static FloatExp varying(FloatExp exp) {
+  public static FloatExp varyingf(FloatExp exp) {
     return new FloatExp(
         GlSlType.VARYING_T, ImmutableList.<Expression>of(exp), new QualifiedGlSlEvaluator<Float>());
   }
 
-  public static Vec2Exp varying(Vec2Exp exp) {
+  public static Vec2Exp varying2f(Vec2Exp exp) {
     return new Vec2Exp(GlSlType.VARYING_T, ImmutableList.<Expression>of(exp), new QualifiedGlSlEvaluator<Vec2>());
   }
 
-  public static Vec3Exp varying(Vec3Exp exp) {
+  public static Vec3Exp varying3f(Vec3Exp exp) {
     return new Vec3Exp(GlSlType.VARYING_T, ImmutableList.<Expression>of(exp), new QualifiedGlSlEvaluator<Vec3>());
   }
 
-  public static Vec4Exp varying(Vec4Exp exp) {
+  public static Vec4Exp varying4f(Vec4Exp exp) {
     return new Vec4Exp(GlSlType.VARYING_T, ImmutableList.<Expression>of(exp), new QualifiedGlSlEvaluator<Vec4>());
   }
 
@@ -738,30 +741,6 @@ public class Shade {
         });
   }
 
-  // ===================================================================================================================
-  // Fill functions
-  // ===================================================================================================================
-  public static Vec2Exp fill(Expression vector, Vec2Like defaultValues) {
-    Vec2Exp defaultExp = promote(defaultValues);
-
-    switch(vector.getType()) {
-      case FLOAT_T: return Shade.vec((FloatExp)vector, defaultExp.getY());
-      case VEC2_T: return (Vec2Exp)vector;
-      default: throw new RuntimeException("Cannot fill " + vector.getType() + " to vec2");
-    }
-  }
-
-  public static Vec3Exp fill(Expression vector, Vec3Like defaultValues) {
-    Vec3Exp defaultExp = promote(defaultValues);
-
-    switch(vector.getType()) {
-      case FLOAT_T: return Shade.vec((FloatExp) vector, defaultExp.getY(), defaultExp.getZ());
-      case VEC2_T: return Shade.vec(((Vec2Exp) vector).getX(), ((Vec2Exp) vector).getY(), defaultExp.getZ());
-      case VEC3_T: return (Vec3Exp)vector;
-      default: throw new RuntimeException("Cannot fill " + vector.getType() + " to vec3");
-    }
-  }
-
   public static Vec4Exp fill(Expression vector, Vec4Like defaultValues) {
     Vec4Exp defaultExp = promote(defaultValues);
 
@@ -769,11 +748,7 @@ public class Shade {
       case FLOAT_T:
         return Shade.vec((FloatExp)vector, defaultExp.getY(), defaultExp.getZ(), defaultExp.getW());
       case VEC2_T:
-        return Shade.vec(
-            ((Vec2Exp)vector).getX(),
-            ((Vec2Exp)vector).getY(),
-            defaultExp.getZ(),
-            defaultExp.getW());
+        return Shade.vec(((Vec2Exp)vector).getX(), ((Vec2Exp)vector).getY(), defaultExp.getZ(), defaultExp.getW());
       case VEC3_T:
         return Shade.vec(
             ((Vec3Exp)vector).getX(),

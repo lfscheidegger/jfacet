@@ -1,9 +1,9 @@
 package com.lfscheidegger.jfacet.shade.transform;
 
 import com.lfscheidegger.jfacet.shade.Shade;
-import com.lfscheidegger.jfacet.shade.expression.primitives.FloatExp;
-import com.lfscheidegger.jfacet.shade.expression.primitives.Mat4Exp;
-import com.lfscheidegger.jfacet.shade.expression.primitives.Vec3Exp;
+import com.lfscheidegger.jfacet.shade.expression.FloatExp;
+import com.lfscheidegger.jfacet.shade.expression.Mat4Exp;
+import com.lfscheidegger.jfacet.shade.expression.Vec3Exp;
 
 public class Rotation extends AbstractTransform {
 

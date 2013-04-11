@@ -1,6 +1,7 @@
 package com.lfscheidegger.jfacet.shade.expression.primitives;
 
 import com.lfscheidegger.jfacet.shade.Shade;
+import com.lfscheidegger.jfacet.shade.expression.FloatExp;
 import com.lfscheidegger.jfacet.shade.primitives.Vec3;
 import org.junit.Test;
 

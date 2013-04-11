@@ -1,8 +1,8 @@
 package com.lfscheidegger.jfacet.shade.camera;
 
 import com.lfscheidegger.jfacet.shade.Shade;
-import com.lfscheidegger.jfacet.shade.expression.primitives.Mat4Exp;
-import com.lfscheidegger.jfacet.shade.expression.primitives.Vec3Exp;
+import com.lfscheidegger.jfacet.shade.expression.Mat4Exp;
+import com.lfscheidegger.jfacet.shade.expression.Vec3Exp;
 import com.lfscheidegger.jfacet.shade.primitives.interfaces.Vec3Like;
 
 public class LookAtConfig implements CameraConfig {
