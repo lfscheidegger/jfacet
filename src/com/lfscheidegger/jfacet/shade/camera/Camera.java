@@ -9,8 +9,6 @@ public class Camera extends AbstractTransform {
   }
 
   public static Camera perspective(int width, int height) {
-    return new Camera(
-        new LookAtConfig.Builder().build(),
-        new PerspectiveConfig.Builder(width, height).build());
+    return new Camera(new LookAtConfig(), new PerspectiveConfig(width, height));
   }
 }

@@ -5,50 +5,29 @@ import com.lfscheidegger.jfacet.shade.expression.primitives.Mat4Exp;
 
 public class PerspectiveConfig implements CameraConfig {
 
-  public static final class Builder {
-
-    private float mFieldOfViewY = 45;
-    private float mNearDistance = 0.1f;
-    private float mFarDistance = 100;
-
-    private final float mAspectRatio;
-
-    public Builder(int width, int height) {
-      mAspectRatio = width / (float)height;
-    }
-
-    public Builder setFieldOfViewY(float fieldOfViewY) {
-      mFieldOfViewY = fieldOfViewY;
-      return this;
-    }
-
-    public Builder setNearDistance(float nearDistance) {
-      mNearDistance = nearDistance;
-      return this;
-    }
-
-    public Builder setFarDistance(float farDistance) {
-      mFarDistance = farDistance;
-      return this;
-    }
-
-    public PerspectiveConfig build() {
-      return new PerspectiveConfig(this);
-    }
-  }
-
-  private final float mFieldOfViewY;
-  private final float mNearDistance;
-  private final float mFarDistance;
+  private float mFieldOfViewY = 45;
+  private float mNearDistance = 0.1f;
+  private float mFarDistance = 100;
 
   private final float mAspectRatio;
 
-  PerspectiveConfig(Builder builder) {
-    mFieldOfViewY = builder.mFieldOfViewY;
-    mNearDistance = builder.mNearDistance;
-    mFarDistance = builder.mFarDistance;
+  PerspectiveConfig(int width, int height) {
+    mAspectRatio = width / (float)height;
+  }
 
-    mAspectRatio = builder.mAspectRatio;
+  public PerspectiveConfig setFieldOfViewY(float fieldOfViewY) {
+    mFieldOfViewY = fieldOfViewY;
+    return this;
+  }
+
+  public PerspectiveConfig setNearDistance(float nearDistance) {
+    mNearDistance = nearDistance;
+    return this;
+  }
+
+  public PerspectiveConfig setFarDistance(float farDistance) {
+    mFarDistance = farDistance;
+    return this;
   }
 
   @Override
