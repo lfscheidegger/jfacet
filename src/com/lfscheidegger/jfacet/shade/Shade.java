@@ -462,7 +462,7 @@ public class Shade {
   public static Vec2Exp mul(Mat2Like left, Vec2Like right) {
     return new Vec2Exp(
         ImmutableList.<Expression>of(promote(left), promote(right)),
-        new BinaryOperationEvaluator<Mat2, Vec2, Vec2>(Type.VEC2_T, Mat2Operators.forMultiplicationWithVec2()));
+        new BinaryOperationEvaluator<Mat2, Vec2, Vec2>(Type.VEC2_T, BasicArithmeticOperators.forLinearTransform()));
   }
 
   // ===================================================================================================================
@@ -539,7 +539,7 @@ public class Shade {
   public static Vec3Exp mul(Mat3Like left, Vec3Like right) {
     return new Vec3Exp(
         ImmutableList.<Expression>of(promote(left), promote(right)),
-        new BinaryOperationEvaluator<Mat3, Vec3, Vec3>(Type.VEC3_T, Mat3Operators.forMultiplicationWithVec3()));
+        new BinaryOperationEvaluator<Mat3, Vec3, Vec3>(Type.VEC3_T, BasicArithmeticOperators.forLinearTransform()));
   }
 
   // ===================================================================================================================
@@ -643,7 +643,7 @@ public class Shade {
   public static Vec4Exp mul(Mat4Like left, Vec4Like right) {
     return new Vec4Exp(
         ImmutableList.<Expression>of(promote(left), promote(right)),
-        new BinaryOperationEvaluator<Mat4, Vec4, Vec4>(Type.VEC4_T, Mat4Operators.forMultiplicationWithVec4()));
+        new BinaryOperationEvaluator<Mat4, Vec4, Vec4>(Type.VEC4_T, BasicArithmeticOperators.forLinearTransform()));
   }
 
   // ===================================================================================================================

@@ -5,7 +5,6 @@ import com.lfscheidegger.jfacet.shade.Shade;
 import com.lfscheidegger.jfacet.shade.Type;
 import com.lfscheidegger.jfacet.shade.compiler.CompilationContext;
 import com.lfscheidegger.jfacet.shade.expression.operators.BasicArithmeticOperators;
-import com.lfscheidegger.jfacet.shade.expression.operators.Mat4Operators;
 import com.lfscheidegger.jfacet.shade.primitives.Mat4;
 import com.lfscheidegger.jfacet.shade.primitives.Vec4;
 import org.junit.Test;
@@ -109,7 +108,7 @@ public class Mat4EvaluatorsTest {
 
   @Test
   public void testForMultiplicationWithVec4() {
-    Evaluator<Vec4> eval = new BinaryOperationEvaluator<Mat4, Vec4, Vec4>(Type.VEC4_T, Mat4Operators.forMultiplicationWithVec4());
+    Evaluator<Vec4> eval = new BinaryOperationEvaluator<Mat4, Vec4, Vec4>(Type.VEC4_T, BasicArithmeticOperators.forLinearTransform());
 
     assertEquals(eval.evaluate(Shade.mul(Shade.mat(new Mat4().mul(2)), Shade.vec(1, 1, 1, 1))), new Vec4(2, 2, 2, 2));
   }
