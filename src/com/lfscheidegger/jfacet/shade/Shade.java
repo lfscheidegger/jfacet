@@ -8,6 +8,7 @@ import com.lfscheidegger.jfacet.shade.expression.operators.*;
 import com.lfscheidegger.jfacet.shade.primitives.*;
 import com.lfscheidegger.jfacet.shade.primitives.interfaces.*;
 import com.lfscheidegger.jfacet.shade.transform.Rotation;
+import com.lfscheidegger.jfacet.shade.transform.Scale;
 import com.lfscheidegger.jfacet.shade.transform.Transform;
 import com.lfscheidegger.jfacet.shade.transform.Translation;
 
@@ -648,6 +649,38 @@ public class Shade {
   // ===================================================================================================================
   // Basic transformations
   // ===================================================================================================================
+
+  public static Transform scale(float sx, float sy, float sz) {
+    return scale(Shade.constant(sx), Shade.constant(sy), Shade.constant(sz));
+  }
+
+  public static Transform scale(float sx, float sy, FloatExp sz) {
+    return scale(Shade.constant(sx), Shade.constant(sy), sz);
+  }
+
+  public static Transform scale(float sx, FloatExp sy, float sz) {
+    return scale(Shade.constant(sx), sy, Shade.constant(sz));
+  }
+
+  public static Transform scale(float sx, FloatExp sy, FloatExp sz) {
+    return scale(Shade.constant(sx), sy, sz);
+  }
+
+  public static Transform scale(FloatExp sx, float sy, float sz) {
+    return scale(sx, Shade.constant(sy), Shade.constant(sz));
+  }
+
+  public static Transform scale(FloatExp sx, float sy, FloatExp sz) {
+    return scale(sx, Shade.constant(sy), sz);
+  }
+
+  public static Transform scale(FloatExp sx, FloatExp sy, float sz) {
+    return scale(sx,  sy, Shade.constant(sz));
+  }
+
+  public static Transform scale(FloatExp sx, FloatExp sy, FloatExp sz) {
+    return new Scale(sx, sy, sz);
+  }
 
   public static Transform translation(float x, float y, float z) {
     return translation(Shade.constant(x), Shade.constant(y), Shade.constant(z));

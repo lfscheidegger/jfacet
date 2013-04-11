@@ -7,10 +7,6 @@ import com.lfscheidegger.jfacet.shade.expression.Vec3Exp;
 
 public class Rotation extends AbstractTransform {
 
-  public Rotation(float angle, Vec3Exp axis) {
-    this(Shade.constant(angle), axis);
-  }
-
   public Rotation(FloatExp angle, Vec3Exp axis) {
     super(getMatrix(angle, axis));
   }
