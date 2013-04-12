@@ -1,15 +1,9 @@
 package com.lfscheidegger.jfacet.shade;
 
 import com.google.common.collect.ImmutableList;
-import com.lfscheidegger.jfacet.shade.expression.Expression;
+import com.lfscheidegger.jfacet.shade.expression.*;
 import com.lfscheidegger.jfacet.shade.expression.evaluators.FunctionEvaluator;
-import com.lfscheidegger.jfacet.shade.expression.FloatExp;
-import com.lfscheidegger.jfacet.shade.expression.Vec2Exp;
-import com.lfscheidegger.jfacet.shade.expression.Vec3Exp;
-import com.lfscheidegger.jfacet.shade.expression.Vec4Exp;
-import com.lfscheidegger.jfacet.shade.primitives.Vec2;
-import com.lfscheidegger.jfacet.shade.primitives.Vec3;
-import com.lfscheidegger.jfacet.shade.primitives.Vec4;
+import com.lfscheidegger.jfacet.shade.primitives.*;
 
 public class Math {
 
@@ -132,6 +126,95 @@ public class Math {
         Vec3Exp left = (Vec3Exp)expression.getParents().get(0);
         Vec3Exp right = (Vec3Exp)expression.getParents().get(1);
         return left.evaluate().cross(right.evaluate());
+      }
+    });
+  }
+
+  public static FloatExp determinant(Mat2Exp mat) {
+    return new FloatExp(ImmutableList.<Expression>of(mat), new FunctionEvaluator<Float>(Type.FLOAT_T, "determinant") {
+      @Override
+      public Float evaluate(Expression<Float> expression) {
+        Mat2Exp parent = (Mat2Exp)expression.getParents().get(0);
+        return parent.evaluate().determinant();
+      }
+    });
+  }
+
+  public static FloatExp determinant(Mat3Exp mat) {
+    return new FloatExp(ImmutableList.<Expression>of(mat), new FunctionEvaluator<Float>(Type.FLOAT_T, "determinant") {
+      @Override
+      public Float evaluate(Expression<Float> expression) {
+        Mat3Exp parent = (Mat3Exp)expression.getParents().get(0);
+        return parent.evaluate().determinant();
+      }
+    });
+  }
+
+  public static FloatExp determinant(Mat4Exp mat) {
+    return new FloatExp(ImmutableList.<Expression>of(mat), new FunctionEvaluator<Float>(Type.FLOAT_T, "determinant") {
+      @Override
+      public Float evaluate(Expression<Float> expression) {
+        Mat4Exp parent = (Mat4Exp)expression.getParents().get(0);
+        return parent.evaluate().determinant();
+      }
+    });
+  }
+
+  public static Mat2Exp inverse(Mat2Exp mat) {
+    return new Mat2Exp(ImmutableList.<Expression>of(mat), new FunctionEvaluator<Mat2>(Type.MAT2_T, "inverse") {
+      @Override
+      public Mat2 evaluate(Expression<Mat2> expression) {
+        Mat2Exp parent = (Mat2Exp)expression.getParents().get(0);
+        return parent.evaluate().inverse();
+      }
+    });
+  }
+
+  public static Mat3Exp inverse(Mat3Exp mat) {
+    return new Mat3Exp(ImmutableList.<Expression>of(mat), new FunctionEvaluator<Mat3>(Type.MAT3_T, "inverse") {
+      @Override
+      public Mat3 evaluate(Expression<Mat3> expression) {
+        Mat3Exp parent = (Mat3Exp)expression.getParents().get(0);
+        return parent.evaluate().inverse();
+      }
+    });
+  }
+
+  public static Mat4Exp inverse(Mat4Exp mat) {
+    return new Mat4Exp(ImmutableList.<Expression>of(mat), new FunctionEvaluator<Mat4>(Type.MAT4_T, "inverse") {
+      @Override
+      public Mat4 evaluate(Expression<Mat4> expression) {
+        Mat4Exp parent = (Mat4Exp)expression.getParents().get(0);
+        return parent.evaluate().inverse();
+      }
+    });
+  }
+  public static Mat2Exp transpose(Mat2Exp mat) {
+    return new Mat2Exp(ImmutableList.<Expression>of(mat), new FunctionEvaluator<Mat2>(Type.MAT2_T, "transpose") {
+      @Override
+      public Mat2 evaluate(Expression<Mat2> expression) {
+        Mat2Exp parent = (Mat2Exp)expression.getParents().get(0);
+        return parent.evaluate().transpose();
+      }
+    });
+  }
+
+  public static Mat3Exp transpose(Mat3Exp mat) {
+    return new Mat3Exp(ImmutableList.<Expression>of(mat), new FunctionEvaluator<Mat3>(Type.MAT3_T, "transpose") {
+      @Override
+      public Mat3 evaluate(Expression<Mat3> expression) {
+        Mat3Exp parent = (Mat3Exp)expression.getParents().get(0);
+        return parent.evaluate().transpose();
+      }
+    });
+  }
+
+  public static Mat4Exp transpose(Mat4Exp mat) {
+    return new Mat4Exp(ImmutableList.<Expression>of(mat), new FunctionEvaluator<Mat4>(Type.MAT4_T, "transpose") {
+      @Override
+      public Mat4 evaluate(Expression<Mat4> expression) {
+        Mat4Exp parent = (Mat4Exp)expression.getParents().get(0);
+        return parent.evaluate().transpose();
       }
     });
   }
