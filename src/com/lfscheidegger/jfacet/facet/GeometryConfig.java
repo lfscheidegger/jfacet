@@ -16,6 +16,7 @@ public class GeometryConfig {
 
   private AttribBuffer mColors;
   private AttribBuffer mTexCoords;
+  private AttribBuffer mNormals;
 
   public GeometryConfig(int[] indices, float[] vertices, int vertexDimension) {
     mIndices = new IndexBuffer(indices);
@@ -60,6 +61,19 @@ public class GeometryConfig {
 
   public AttribBuffer getTexCoordBuffer() {
     return mTexCoords;
+  }
+
+  public GeometryConfig setNormals(float[] normals, int dimension) {
+    mNormals = new AttribBuffer(normals, dimension);
+    return this;
+  }
+
+  public Expression getNormals() {
+    return getExpressionForAttribBuffer(mNormals);
+  }
+
+  public AttribBuffer getNormalBuffer() {
+    return mNormals;
   }
 
   public GeometryConfig setAttribBuffer(String name, float[] values, int dimension) {

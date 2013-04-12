@@ -13,6 +13,9 @@ import com.lfscheidegger.jfacet.shade.camera.Camera;
 import com.lfscheidegger.jfacet.shade.camera.LookAtConfig;
 import com.lfscheidegger.jfacet.shade.expression.Expression;
 import com.lfscheidegger.jfacet.shade.expression.FloatExp;
+import com.lfscheidegger.jfacet.shade.expression.Vec3Exp;
+import com.lfscheidegger.jfacet.shade.expression.Vec4Exp;
+import com.lfscheidegger.jfacet.shade.transform.Transform;
 import com.lfscheidegger.jfacet.view.FacetView;
 
 public class JFacetDemoActivity extends Activity {
@@ -219,10 +222,25 @@ public class JFacetDemoActivity extends Activity {
 
     FloatExp angle = Parameter.now().mul(50).radians();
 
+    Transform modelTransform = Shade.rotation(angle, Shade.vec(1, 1, 1));
     scene.add(Facet.bake(
         cube,
-        camera.apply(Shade.rotation(angle, Shade.vec(1, 1, 1))).apply(cube.getVertices()),
-        Shade.texture2D(Facet.texture(getResources(), R.drawable.crate), cube.getTexCoords())));
+        camera.apply(cube.getVertices()),
+        light(cube)));
+  }
 
+  private Vec4Exp light(Geometry cube) {//}, Transform modelTransform) {
+    Vec4Exp materialColor = Shade.texture2D(Facet.texture(getResources(), R.drawable.crate), cube.getTexCoords());
+
+    Vec4Exp ambientLight = Shade.vec(0.1f, 0.1f, 0.1f, 0.1f);
+
+    Vec3Exp lightPosition = Shade.vec(2, 2, 2);
+
+    Vec3Exp fragPosition = Shade.varying3f((Vec3Exp)cube.getVertices());
+    Vec3Exp normal = (Vec3Exp)cube.getNormals();
+
+    FloatExp diffuse = lightPosition.sub(fragPosition).dot(normal);
+
+    return materialColor.mul(ambientLight).add(materialColor.mul(diffuse));
   }
 }

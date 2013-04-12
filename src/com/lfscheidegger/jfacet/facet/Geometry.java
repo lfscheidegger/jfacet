@@ -33,6 +33,10 @@ public class Geometry {
     return mGeometryConfig.getTexCoords();
   }
 
+  public Expression getNormals() {
+    return mGeometryConfig.getNormals();
+  }
+
   private ImmutableMap<AttribBuffer, Expression> buildAttributeMap() {
     ImmutableMap.Builder<AttribBuffer, Expression> builder = new ImmutableMap.Builder<AttribBuffer, Expression>();
 
