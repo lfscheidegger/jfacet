@@ -1,4 +1,4 @@
-package com.lfscheidegger.jfacet.shade.compiler;
+package com.lfscheidegger.jfacet.shade.compiler.ast;
 
 import com.google.common.collect.ImmutableList;
 import com.lfscheidegger.jfacet.shade.GlSlType;
@@ -7,9 +7,10 @@ import com.lfscheidegger.jfacet.shade.primitives.*;
 
 import java.util.List;
 
-public class ASTOptimizer {
+public class ASTOptimizer implements ASTProcessor {
 
-  public Expression optimize(Expression value) {
+  @Override
+  public Expression process(Expression value) {
     if (value.getGlSlType() != GlSlType.DEFAULT_T) {
       return value;
     }
@@ -20,10 +21,12 @@ public class ASTOptimizer {
 
     ImmutableList.Builder<Expression> parentBuilder = new ImmutableList.Builder<Expression>();
     for (Expression parent: (List<Expression>)value.getParents()) {
-      parentBuilder.add(optimize(parent));
+      parentBuilder.add(process(parent));
     }
 
-    return new AbstractExpression(value.getType(), value.getGlSlType(), parentBuilder.build(), value.getEvaluator()) {};
+    ((AbstractExpression)value).resetParents(parentBuilder.build());
+    return value;
+    //return new AbstractExpression(value.getType(), value.getGlSlType(), parentBuilder.build(), value.getEvaluator()) {};
   }
 
   private boolean isConstant(Expression expression) {

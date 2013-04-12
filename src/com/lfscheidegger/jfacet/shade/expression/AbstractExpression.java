@@ -10,8 +10,8 @@ public abstract class AbstractExpression<T> implements Expression<T> {
 
   private final Type mType;
   private final GlSlType mGlSlType;
-  private final ImmutableList<Expression> mParents;
-  private final Evaluator<T> mEvaluator;
+  private ImmutableList<Expression> mParents;
+  private Evaluator<T> mEvaluator;
 
   public AbstractExpression(Type type, GlSlType glSlType, ImmutableList<Expression> parents, Evaluator<T> evaluator) {
     mType = type;
@@ -48,5 +48,9 @@ public abstract class AbstractExpression<T> implements Expression<T> {
   @Override
   public final ImmutableList<Expression> getParents() {
     return mParents;
+  }
+
+  public void resetParents(ImmutableList<Expression> parents) {
+    mParents = parents;
   }
 }

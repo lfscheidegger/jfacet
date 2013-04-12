@@ -15,19 +15,6 @@ public class Facet {
   }
 
   public static Drawable bake(Geometry geometry, Expression position, Expression fragColor) {
-    if (fragColor.getGlSlType() == GlSlType.ATTRIBUTE_T) {
-      switch(fragColor.getType()) {
-        case FLOAT_T:
-          fragColor = Shade.varyingf((FloatExp) fragColor); break;
-        case VEC2_T:
-          fragColor = Shade.varying2f((Vec2Exp) fragColor); break;
-        case VEC3_T:
-          fragColor = Shade.varying3f((Vec3Exp) fragColor); break;
-        case VEC4_T:
-          fragColor = Shade.varying4f((Vec4Exp) fragColor); break;
-      }
-    }
-
     return new Drawable(geometry, position, fragColor);
   }
 

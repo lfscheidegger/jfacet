@@ -13,6 +13,9 @@ import com.lfscheidegger.jfacet.shade.Parameter;
 import com.lfscheidegger.jfacet.shade.Shade;
 import com.lfscheidegger.jfacet.shade.Type;
 import com.lfscheidegger.jfacet.shade.compiler.*;
+import com.lfscheidegger.jfacet.shade.compiler.ast.ASTOptimizer;
+import com.lfscheidegger.jfacet.shade.compiler.ast.ASTProcessors;
+import com.lfscheidegger.jfacet.shade.compiler.ast.FragmentAttributeExtractor;
 import com.lfscheidegger.jfacet.shade.expression.Expression;
 import com.lfscheidegger.jfacet.shade.expression.evaluators.glsl.UniformEvaluator;
 import com.lfscheidegger.jfacet.shade.expression.Sampler2DExp;
@@ -49,8 +52,12 @@ public class Program {
 
     ASTOptimizer optimizer = new ASTOptimizer();
 
-    mPosition = optimizer.optimize(Shade.fill(position, new Vec4(0, 0, 0, 1)));
-    mFragColor = optimizer.optimize(Shade.fill(fragColor, new Vec4(0, 0, 0, 1)));
+    mPosition = optimizer.process(Shade.fill(position, new Vec4(0, 0, 0, 1)));
+    mFragColor = Shade.fill(
+        new ASTProcessors().add(optimizer).add(new FragmentAttributeExtractor()).process(fragColor),
+        new Vec4(0, 0, 0, 1));
+
+    //mFragColor = optimizer.process(Shade.fill(fragColor, new Vec4(0, 0, 0, 1)));
 
     // initialize data for attributes
     int count = 0;
