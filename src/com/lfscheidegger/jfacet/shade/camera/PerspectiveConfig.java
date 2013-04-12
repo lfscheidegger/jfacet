@@ -11,7 +11,7 @@ public class PerspectiveConfig implements CameraConfig {
 
   private final float mAspectRatio;
 
-  PerspectiveConfig(int width, int height) {
+  public PerspectiveConfig(int width, int height) {
     mAspectRatio = width / (float)height;
   }
 

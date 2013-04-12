@@ -11,4 +11,8 @@ public class Camera extends AbstractTransform {
   public static Camera perspective(int width, int height) {
     return new Camera(new LookAtConfig(), new PerspectiveConfig(width, height));
   }
+
+  public static Camera perspective(CameraConfig lookAtConfig, int width, int height) {
+    return new Camera(lookAtConfig, new PerspectiveConfig(width, height));
+  }
 }

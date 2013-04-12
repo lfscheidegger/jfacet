@@ -11,7 +11,7 @@ public class LookAtConfig implements CameraConfig {
   private Vec3Exp mCenter;
   private Vec3Exp mUp;
 
-  LookAtConfig() {
+  public LookAtConfig() {
     mEye = Shade.vec(0, 0, 0);
     mCenter = Shade.vec(0, 0, -1);
     mUp = Shade.vec(0, 1, 0);

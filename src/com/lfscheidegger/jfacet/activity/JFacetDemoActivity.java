@@ -10,9 +10,11 @@ import com.lfscheidegger.jfacet.facet.renderer.FacetRenderer;
 import com.lfscheidegger.jfacet.shade.Parameter;
 import com.lfscheidegger.jfacet.shade.Shade;
 import com.lfscheidegger.jfacet.shade.camera.Camera;
+import com.lfscheidegger.jfacet.shade.camera.LookAtConfig;
 import com.lfscheidegger.jfacet.shade.expression.Expression;
 import com.lfscheidegger.jfacet.shade.expression.FloatExp;
 import com.lfscheidegger.jfacet.shade.expression.Vec2Exp;
+import com.lfscheidegger.jfacet.shade.expression.Vec4Exp;
 import com.lfscheidegger.jfacet.view.FacetView;
 
 public class JFacetDemoActivity extends Activity {
@@ -83,9 +85,9 @@ public class JFacetDemoActivity extends Activity {
         new int[] {0, 1, 2, 0, 2, 3},
         new float[] {-1, -1, 1, -1, 1, 1, -1, 1}, 2
     )), triangleModel = Facet.model(new GeometryConfig(
-        new int[] {0, 1, 2},
-        new float[] {0, 1, -1, -1, 1, -1}, 2)
-        .setColors(new float[] {1, 0, 0, 0, 1, 0, 0, 0, 1}, 3));
+        new int[]{0, 1, 2},
+        new float[]{0, 1, -1, -1, 1, -1}, 2)
+        .setColors(new float[]{1, 0, 0, 0, 1, 0, 0, 0, 1}, 3));
 
     Camera camera = Camera.perspective(mSize.x, mSize.y);
 
@@ -129,21 +131,21 @@ public class JFacetDemoActivity extends Activity {
 
   private void prepareLesson5(Scene scene) {
     Geometry cubeModel = Facet.model(new GeometryConfig(
-        new int[] {
-            0,  1,  2,  0,  2,  3,
-            4,  5,  6,  4,  6,  7,
-            8,  9,  10, 8,  10, 11,
+        new int[]{
+            0, 1, 2, 0, 2, 3,
+            4, 5, 6, 4, 6, 7,
+            8, 9, 10, 8, 10, 11,
             12, 13, 14, 12, 14, 15,
             16, 17, 18, 16, 18, 19,
             20, 21, 22, 20, 22, 23},
-        new float[] {
-            1, 1,-1, -1, 1,-1, -1, 1, 1,  1, 1, 1,
-            1,-1, 1, -1,-1, 1, -1,-1,-1,  1,-1,-1,
-            1, 1, 1, -1, 1, 1, -1,-1, 1,  1,-1, 1,
-            1,-1,-1, -1,-1,-1, -1, 1,-1,  1, 1,-1,
-            -1, 1, 1, -1, 1,-1, -1,-1,-1, -1,-1, 1,
-            1, 1,-1,  1, 1, 1,  1,-1, 1,  1,-1,-1}, 3)
-        .setColors(new float[] {
+        new float[]{
+            1, 1, -1, -1, 1, -1, -1, 1, 1, 1, 1, 1,
+            1, -1, 1, -1, -1, 1, -1, -1, -1, 1, -1, -1,
+            1, 1, 1, -1, 1, 1, -1, -1, 1, 1, -1, 1,
+            1, -1, -1, -1, -1, -1, -1, 1, -1, 1, 1, -1,
+            -1, 1, 1, -1, 1, -1, -1, -1, -1, -1, -1, 1,
+            1, 1, -1, 1, 1, 1, 1, -1, 1, 1, -1, -1}, 3)
+        .setColors(new float[]{
             0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0,
             1, 0.5f, 0, 1, 0.5f, 0, 1, 0.5f, 0, 1, 0.5f, 0,
             1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0,
@@ -177,9 +179,9 @@ public class JFacetDemoActivity extends Activity {
 
     Expression cubePosition =
         camera.apply(
-        Shade.translation(1.5f, 0, -12)).apply(
-        Shade.rotation(angle, Shade.vec(1, 1, 1))).apply(
-        cubeModel.getVertices());
+            Shade.translation(1.5f, 0, -12)).apply(
+            Shade.rotation(angle, Shade.vec(1, 1, 1))).apply(
+            cubeModel.getVertices());
 
     Expression pyramidPosition =
         camera.apply(
@@ -192,17 +194,23 @@ public class JFacetDemoActivity extends Activity {
   }
 
   private void prepareLesson6(Scene scene) {
+    Geometry cube = Model.flatCube();
 
-    Geometry square = Facet.model(new GeometryConfig(
-        new int[] {0, 1, 2, 0, 2, 3},
-        new float[] {-1, -1, 1, -1, 1, 1, -1, 1}, 2)
-        .setTexCoords(new float[] {0, 0, 1, 0, 1, 1, 0, 1}, 2));
+    Camera camera = Camera.perspective(
+        new LookAtConfig()
+            .setEye(Shade.vec(0, 0, 12))
+            .setCenter(Shade.vec(0, 0, -1))
+            .setUp(Shade.vec(0, 1, 0)), mSize.x, mSize.y);
+
+    FloatExp angle = Parameter.now().mul(50).radians();
 
     scene.add(Facet.bake(
-        square,
-        square.getVertices(),
+        cube,
+        camera
+            .apply(Shade.rotation(angle, Shade.vec(1, 1, 1)))
+            .apply(cube.getVertices()),
         Shade.texture2D(
             Facet.texture(getResources(), R.drawable.nehe),
-            Shade.varying2f((Vec2Exp) square.getTexCoords()))));
+            Shade.varying2f((Vec2Exp) cube.getTexCoords()))));
   }
 }
