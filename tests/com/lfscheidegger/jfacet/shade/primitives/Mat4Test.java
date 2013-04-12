@@ -227,4 +227,45 @@ public class Mat4Test {
         new Vec4(0, 0, 0.5f, 0),
         new Vec4(0, 0, 0, 0.5f)));
   }
+
+  @Test
+  public void testDeterminant() {
+    Mat4 mat = new Mat4(
+        new Vec4(1, 2, 3, 4),
+        new Vec4(2, 3, 2, 5),
+        new Vec4(1, 4, 5, 9),
+        new Vec4(4, 3, 6, 8));
+    assertTrue(mat.determinant() == 28);
+  }
+
+  @Test
+  public void testInverse() {
+    Mat4 mat = new Mat4(
+        new Vec4(1, 2, 3, 4),
+        new Vec4(2, 3, 2, 5),
+        new Vec4(1, 4, 5, 9),
+        new Vec4(4, 3, 6, 8));
+
+    Mat4 inverse = new Mat4(
+        new Vec4(     -0.25f,        0.25f, -0.25f,         0.25f),
+        new Vec4(       1.5f,         0.5f,  -0.5f,         -0.5f),
+        new Vec4( 1.0357143f, -0.32142857f, -0.25f, -0.035714287f),
+        new Vec4(-1.2142857f, -0.071428575f,  0.5f,   0.21428572f));
+    assertEquals(mat.inverse(), inverse);
+  }
+
+  @Test
+  public void testTranspose() {
+    Mat4 mat = new Mat4(
+        new Vec4( 1,  2,  3,  4),
+        new Vec4( 5,  6,  7,  8),
+        new Vec4( 9, 10, 11, 12),
+        new Vec4(13, 14, 15, 16));
+
+    assertEquals(mat.transpose(), new Mat4(
+        new Vec4(1, 5, 9, 13),
+        new Vec4(2, 6, 10, 14),
+        new Vec4(3, 7, 11, 15),
+        new Vec4(4, 8, 12, 16)));
+  }
 }

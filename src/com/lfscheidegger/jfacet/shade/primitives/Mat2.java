@@ -135,4 +135,37 @@ public final class Mat2 implements Mat2Like, SupportsBasicArithmetic<Mat2> {
         mValues[0] * vec.getX() + mValues[2] * vec.getY(),
         mValues[1] * vec.getY() + mValues[3] * vec.getY());
   }
+
+  public float determinant() {
+    return mValues[0] * mValues[3] - mValues[1] * mValues[2];
+  }
+
+  public  Mat2 transpose() {
+    float[] result = new float[4];
+    result[0] = mValues[0];
+    result[1] = mValues[2];
+    result[2] = mValues[1];
+    result[3] = mValues[3];
+
+    return new Mat2(result);
+  }
+
+  public Mat2 inverse() {
+    float a00 = mValues[0], a01 = mValues[1];
+    float a10 = mValues[2], a11 = mValues[3];
+
+    // Calculate the determinant (inlined to avoid double-caching)
+    float det = (a00*a11 - a01*a10);
+    if (det == 0) {
+      throw new RuntimeException("Singular matrix");
+    }
+
+    float[] result = new float[4];
+    result[0] =  a11/det;
+    result[1] = -a01/det;
+    result[2] = -a10/det;
+    result[3] =  a00/det;
+
+    return new Mat2(result);
+  }
 }

@@ -13,8 +13,6 @@ import com.lfscheidegger.jfacet.shade.camera.Camera;
 import com.lfscheidegger.jfacet.shade.camera.LookAtConfig;
 import com.lfscheidegger.jfacet.shade.expression.Expression;
 import com.lfscheidegger.jfacet.shade.expression.FloatExp;
-import com.lfscheidegger.jfacet.shade.expression.Vec2Exp;
-import com.lfscheidegger.jfacet.shade.expression.Vec4Exp;
 import com.lfscheidegger.jfacet.view.FacetView;
 
 public class JFacetDemoActivity extends Activity {
@@ -44,6 +42,7 @@ public class JFacetDemoActivity extends Activity {
       case 2: prepareLesson4(scene); break;
       case 3: prepareLesson5(scene); break;
       case 4: prepareLesson6(scene); break;
+      case 5: prepareLesson7(scene); break;
     }
 
     mView.setRenderer(new FacetRenderer(scene));
@@ -153,7 +152,6 @@ public class JFacetDemoActivity extends Activity {
             0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1,
             1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1}, 3));
 
-
     Geometry pyramidModel = Facet.model(new GeometryConfig(
         new int[] {
             0, 1, 2,
@@ -206,11 +204,25 @@ public class JFacetDemoActivity extends Activity {
 
     scene.add(Facet.bake(
         cube,
-        camera
-            .apply(Shade.rotation(angle, Shade.vec(1, 1, 1)))
-            .apply(cube.getVertices()),
-        Shade.texture2D(
-            Facet.texture(getResources(), R.drawable.nehe),
-            cube.getTexCoords())));
+        camera.apply(Shade.rotation(angle, Shade.vec(1, 1, 1))).apply(cube.getVertices()),
+        Shade.texture2D(Facet.texture(getResources(), R.drawable.nehe), cube.getTexCoords())));
+  }
+
+  private void prepareLesson7(Scene scene) {
+    Geometry cube = Model.flatCube();
+
+    Camera camera = Camera.perspective(
+        new LookAtConfig()
+            .setEye(Shade.vec(0, 0, 12))
+            .setCenter(Shade.vec(0, 0, -1))
+            .setUp(Shade.vec(0, 1, 0)), mSize.x, mSize.y);
+
+    FloatExp angle = Parameter.now().mul(50).radians();
+
+    scene.add(Facet.bake(
+        cube,
+        camera.apply(Shade.rotation(angle, Shade.vec(1, 1, 1))).apply(cube.getVertices()),
+        Shade.texture2D(Facet.texture(getResources(), R.drawable.crate), cube.getTexCoords())));
+
   }
 }

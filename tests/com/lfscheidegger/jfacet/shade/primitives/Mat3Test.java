@@ -1,5 +1,6 @@
 package com.lfscheidegger.jfacet.shade.primitives;
 
+import com.lfscheidegger.jfacet.shade.compiler.TopologicalSorterTest;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -160,5 +161,30 @@ public class Mat3Test {
     Mat3 other = new Mat3(new Vec3(2, 1, 1), new Vec3(1, 2, 1), new Vec3(1, 1, 2));
     assertEquals(mat.div(2), new Mat3(new Vec3(0.5f, 0, 0), new Vec3(0, 0.5f, 0), new Vec3(0, 0, 0.5f)));
     assertEquals(mat.div(other), new Mat3(new Vec3(0.5f, 0, 0), new Vec3(0, 0.5f, 0), new Vec3(0, 0, 0.5f)));
+  }
+
+  @Test
+  public void testDeterminant() {
+    Mat3 mat = new Mat3(new Vec3(1, 4, 7), new Vec3(2, 5, 8), new Vec3(3, 6, 10));
+    assertTrue(mat.determinant() == -3);
+  }
+
+  @Test
+  public void testInverse() {
+    Mat3 mat = new Mat3(new Vec3(1, 4, 7), new Vec3(2, 5, 8), new Vec3(3, 6, 10));
+    Mat3 inverse = new Mat3(
+        new Vec3(-0.66666667f, -0.66666667f, 1), new Vec3(-1.33333333334f, 3.666666666667f, -2), new Vec3(1, -2, 1));
+    assertEquals(mat.inverse(), inverse);
+    assertEquals(mat.mul(mat.inverse()), new Mat3());
+  }
+
+  @Test
+  public void testTranspose() {
+    Mat3 mat = new Mat3(new Vec3(1, 2, 3), new Vec3(4, 5, 6), new Vec3(7, 8, 9));
+
+    assertEquals(mat.transpose(), new Mat3(
+        new Vec3(1, 4, 7),
+        new Vec3(2, 5, 8),
+        new Vec3(3, 6, 9)));
   }
 }

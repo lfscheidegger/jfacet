@@ -137,4 +137,26 @@ public class Mat2Test {
     assertEquals(mat.div(2), new Mat2(new Vec2(0.5f, 0), new Vec2(0, 0.5f)));
     assertEquals(mat.div(other), new Mat2(new Vec2(0.5f, 0), new Vec2(0, 0.5f)));
   }
+
+  @Test
+  public void testDeterminant() {
+    Mat2 mat = new Mat2(new Vec2(1, 3), new Vec2(2, 5));
+
+    assertTrue(mat.determinant() == -1);
+  }
+
+  @Test
+  public void testInverse() {
+    Mat2 mat = new Mat2(new Vec2(1, 3), new Vec2(2, 5));
+
+    assertEquals(mat.inverse(), new Mat2(new Vec2(-5, 3), new Vec2(2, -1)));
+    assertEquals(mat.mul(mat.inverse()), new Mat2());
+  }
+
+  @Test
+  public void testTranspose() {
+    Mat2 mat = new Mat2(new Vec2(1, 2), new Vec2(3, 4));
+
+    assertEquals(mat.transpose(), new Mat2(new Vec2(1, 3), new Vec2(2, 4)));
+  }
 }

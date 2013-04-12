@@ -26,7 +26,6 @@ public class ASTOptimizer implements ASTProcessor {
 
     ((AbstractExpression)value).resetParents(parentBuilder.build());
     return value;
-    //return new AbstractExpression(value.getType(), value.getGlSlType(), parentBuilder.build(), value.getEvaluator()) {};
   }
 
   private boolean isConstant(Expression expression) {

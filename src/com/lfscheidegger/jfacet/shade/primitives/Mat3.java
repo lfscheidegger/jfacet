@@ -150,4 +150,55 @@ public final class Mat3 implements Mat3Like, SupportsBasicArithmetic<Mat3> {
         mValues[1] * vec.getX() + mValues[4] * vec.getY() + mValues[7] * vec.getZ(),
         mValues[2] * vec.getX() + mValues[5] * vec.getY() + mValues[8] * vec.getZ());
   }
+
+  public float determinant() {
+    float a00 = mValues[0], a01 = mValues[1], a02 = mValues[2];
+    float a10 = mValues[3], a11 = mValues[4], a12 = mValues[5];
+    float a20 = mValues[6], a21 = mValues[7], a22 = mValues[8];
+
+    return a00*a11*a22 + a01*a12*a20 + a02*a10*a21
+        - a02*a11*a20 - a01*a10*a22 - a00*a12*a21;
+  }
+
+  public Mat3 transpose() {
+    float[] result = new float[9];
+    result[0] = mValues[0];
+    result[1] = mValues[3];
+    result[2] = mValues[6];
+    result[3] = mValues[1];
+    result[4] = mValues[4];
+    result[5] = mValues[7];
+    result[6] = mValues[2];
+    result[7] = mValues[5];
+    result[8] =  mValues[8];
+
+    return new Mat3(result);
+  }
+
+  public Mat3 inverse() {
+    float a00 = mValues[0], a01 = mValues[3], a02 = mValues[6];
+    float a10 = mValues[1], a11 = mValues[4], a12 = mValues[7];
+    float a20 = mValues[2], a21 = mValues[5], a22 = mValues[8];
+
+    // Calculate the determinant (inlined to avoid double-caching)
+    // var det = mat3.determinant(mat);
+    float det = a00*a11*a22 + a01*a12*a20 + a02*a10*a21
+        - a02*a11*a20 - a01*a10*a22 - a00*a12*a21;
+    if (det == 0) {
+      throw new RuntimeException("Singular matrix");
+    }
+
+    float[] result = new float[9];
+    result[0] = ( a11*a22 - a12*a21)/det;
+    result[1] = (-a10*a22 + a12*a20)/det;
+    result[2] = ( a10*a21 - a11*a20)/det;
+    result[3] = (-a01*a22 + a02*a21)/det;
+    result[4] = ( a00*a22 - a02*a20)/det;
+    result[5] = (-a00*a21 + a01*a20)/det;
+    result[6] = ( a01*a12 - a02*a11)/det;
+    result[7] = (-a00*a12 + a02*a10)/det;
+    result[8] = ( a00*a11 - a01*a10)/det;
+
+    return new Mat3(result);
+  }
 }

@@ -41,7 +41,8 @@ public class JFacetLandingActivity extends Activity {
         "Lesson 3",
         "Lesson 4",
         "Lesson 5",
-        "Lesson 6"
+        "Lesson 6",
+        "Lesson 7"
     )));
 
     mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
