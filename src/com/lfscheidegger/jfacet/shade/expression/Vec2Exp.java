@@ -10,7 +10,7 @@ import com.lfscheidegger.jfacet.shade.expression.evaluators.Evaluator;
 import com.lfscheidegger.jfacet.shade.primitives.Vec2;
 import com.lfscheidegger.jfacet.shade.primitives.interfaces.Vec2Like;
 
-public class Vec2Exp extends AbstractExpression<Vec2> implements Vec2Like {
+public class Vec2Exp extends AbstractExpression<Vec2> implements Vec2Like, VectorExpression<Vec2> {
 
   private static final Type TYPE = Type.VEC2_T;
 

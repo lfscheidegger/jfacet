@@ -170,6 +170,17 @@ public class Shade {
     return Math.dot(promote(left), promote(right));
   }
 
+  /*public static Expression swizzle(Vec2Like left, String param) {
+    switch(param.length()) {
+      case 1:
+        return new FloatExp(ImmutableList.<Expression>of(promote(left)), new SwizzleEvaluator<Float>(param));
+      case 2:
+        return new Vec2Exp(ImmutableList.<Expression>of(promote(left)), new SwizzleEvaluator<Vec2>(param));
+      default:
+        throw new RuntimeException("Swizzling too long for vec2: " + param.length());
+    }
+  } */
+
   // ===================================================================================================================
   // Stuff for Vec3
   // ===================================================================================================================
@@ -268,6 +279,19 @@ public class Shade {
   public static Vec3Exp cross(Vec3Like left, Vec3Like right) {
     return Math.cross(promote(left), promote(right));
   }
+
+  /*public static Expression swizzle(Vec3Like left, String param) {
+    switch(param.length()) {
+      case 1:
+        return new FloatExp(ImmutableList.<Expression>of(promote(left)), new SwizzleEvaluator<Float>(param));
+      case 2:
+        return new Vec2Exp(ImmutableList.<Expression>of(promote(left)), new SwizzleEvaluator<Vec2>(param));
+      case 3:
+        return new Vec3Exp(ImmutableList.<Expression>of(promote(left)), new SwizzleEvaluator<Vec3>(param));
+      default:
+        throw new RuntimeException("Swizzling too long for vec2: " + param.length());
+    }
+  } */
 
   // ===================================================================================================================
   // Stuff for Vec4
@@ -387,6 +411,21 @@ public class Shade {
   public static FloatExp dot(Vec4Like left, Vec4Like right) {
     return Math.dot(promote(left), promote(right));
   }
+
+  /* public static Expression swizzle(Vec4Like left, String param) {
+    switch(param.length()) {
+      case 1:
+        return new FloatExp(ImmutableList.<Expression>of(promote(left)), new SwizzleEvaluator<Float>(param));
+      case 2:
+        return new Vec2Exp(ImmutableList.<Expression>of(promote(left)), new SwizzleEvaluator<Vec2>(param));
+      case 3:
+        return new Vec3Exp(ImmutableList.<Expression>of(promote(left)), new SwizzleEvaluator<Vec3>(param));
+      case 4:
+        return new Vec4Exp(ImmutableList.<Expression>of(promote(left)), new SwizzleEvaluator<Vec4>(param));
+      default:
+        throw new RuntimeException("Swizzling too long for vec2: " + param.length());
+    }
+  } */
 
   // ===================================================================================================================
   // Stuff for Mat2
@@ -773,6 +812,11 @@ public class Shade {
           }
         });
   }
+
+  public static FloatExp swizzle(VecLike vec, char x) {
+
+  }
+
 
   public static Vec4Exp fill(Expression vector, Vec4Like defaultValues) {
     Vec4Exp defaultExp = promote(defaultValues);

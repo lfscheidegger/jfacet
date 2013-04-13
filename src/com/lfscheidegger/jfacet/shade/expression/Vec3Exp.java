@@ -10,7 +10,7 @@ import com.lfscheidegger.jfacet.shade.expression.evaluators.Evaluator;
 import com.lfscheidegger.jfacet.shade.primitives.Vec3;
 import com.lfscheidegger.jfacet.shade.primitives.interfaces.Vec3Like;
 
-public class Vec3Exp extends AbstractExpression<Vec3> implements Vec3Like {
+public class Vec3Exp extends AbstractExpression<Vec3> implements Vec3Like, VectorExpression<Vec3> {
 
   private static final Type TYPE = Type.VEC3_T;
 
