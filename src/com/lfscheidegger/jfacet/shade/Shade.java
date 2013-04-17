@@ -370,11 +370,7 @@ public class Shade {
         new ConstructorEvaluator<Matrix>());
   }
 
-  public static MatrixExpression mat(
-      VectorLike x,
-      VectorLike y,
-      VectorLike z,
-      VectorLike w) {
+  public static MatrixExpression mat(VectorLike x, VectorLike y, VectorLike z, VectorLike w) {
     VectorExpression xExp = promote(x);
     VectorExpression yExp = promote(y);
     VectorExpression zExp = promote(z);
@@ -607,6 +603,7 @@ public class Shade {
   // ===================================================================================================================
   // GLSL stuff
   // ===================================================================================================================
+
   public static FloatExpression attributef() {
     return new FloatExpression(GlSlType.ATTRIBUTE_T, new QualifiedGlSlEvaluator<Float>());
   }
