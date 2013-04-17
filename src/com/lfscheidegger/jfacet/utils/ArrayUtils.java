@@ -2,7 +2,7 @@ package com.lfscheidegger.jfacet.utils;
 
 import com.google.common.base.Preconditions;
 
-public class ArrayUtils {
+public final class ArrayUtils {
 
   public static float[] add(float[] left, float t) {
     float[] result = new float[left.length];

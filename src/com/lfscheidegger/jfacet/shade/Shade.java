@@ -22,7 +22,7 @@ import com.lfscheidegger.jfacet.shade.transform.Translation;
 /**
  * Convenience methods to fill primitive types into expressions
  */
-public class Shade {
+public final class Shade {
 
   // ===================================================================================================================
   // Stuff for float

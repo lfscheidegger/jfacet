@@ -4,7 +4,7 @@ import com.lfscheidegger.jfacet.shade.compiler.CompilationContext;
 import com.lfscheidegger.jfacet.shade.expression.Expression;
 import com.lfscheidegger.jfacet.shade.expression.evaluators.Evaluator;
 
-public class UniformEvaluator<T> implements Evaluator<T> {
+public final class UniformEvaluator<T> implements Evaluator<T> {
 
   private T mValue;
   private Refreshable<T> mRefreshable;

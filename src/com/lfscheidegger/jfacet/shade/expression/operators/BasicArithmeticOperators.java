@@ -4,7 +4,7 @@ import com.lfscheidegger.jfacet.shade.primitives.Matrix;
 import com.lfscheidegger.jfacet.shade.primitives.Vector;
 import com.lfscheidegger.jfacet.shade.primitives.interfaces.SupportsBasicArithmetic;
 
-public class BasicArithmeticOperators {
+public final class BasicArithmeticOperators {
   public static <T extends SupportsBasicArithmetic> Operator<T, Float, T> forAdditionWithFloat() {
     return new NamedOperator<T, Float, T>("+") {
       @Override

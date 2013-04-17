@@ -5,7 +5,7 @@ import com.google.common.base.Preconditions;
 import com.lfscheidegger.jfacet.Program;
 import com.lfscheidegger.jfacet.shade.expression.Expression;
 
-public class Drawable {
+public final class Drawable {
 
   private final Geometry mGeometry;
   private Program mProgram;

@@ -8,7 +8,7 @@ import com.lfscheidegger.jfacet.shade.Shade;
 import com.lfscheidegger.jfacet.shade.expression.Expression;
 import com.lfscheidegger.jfacet.shade.expression.SamplerExpression;
 
-public class Facet {
+public final class Facet {
 
   public static Drawable bake(Geometry geometry, Expression position) {
     return bake(geometry, position, Shade.vec(1, 1, 1));

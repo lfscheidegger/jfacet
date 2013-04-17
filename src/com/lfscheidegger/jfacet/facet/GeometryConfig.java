@@ -7,7 +7,7 @@ import com.lfscheidegger.jfacet.shade.expression.Expression;
 import java.util.HashMap;
 import java.util.Map;
 
-public class GeometryConfig {
+public final class GeometryConfig {
 
   private final IndexBuffer mIndices;
   private final AttribBuffer mVertices;

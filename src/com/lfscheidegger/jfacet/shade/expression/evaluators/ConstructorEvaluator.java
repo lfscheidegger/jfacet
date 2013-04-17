@@ -8,7 +8,7 @@ import com.lfscheidegger.jfacet.shade.expression.Expression;
 import com.lfscheidegger.jfacet.shade.primitives.Matrix;
 import com.lfscheidegger.jfacet.shade.primitives.Vector;
 
-public class ConstructorEvaluator<T> implements Evaluator<T> {
+public final class ConstructorEvaluator<T> implements Evaluator<T> {
 
   @Override
   @SuppressWarnings("unchecked")

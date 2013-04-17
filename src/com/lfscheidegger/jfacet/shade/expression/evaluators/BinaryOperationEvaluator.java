@@ -6,7 +6,7 @@ import com.lfscheidegger.jfacet.shade.compiler.GlSlExpressionHelper;
 import com.lfscheidegger.jfacet.shade.expression.Expression;
 import com.lfscheidegger.jfacet.shade.expression.operators.Operator;
 
-public class BinaryOperationEvaluator<LEFT_T, RIGHT_T, RESULT_T> implements Evaluator<RESULT_T> {
+public final class BinaryOperationEvaluator<LEFT_T, RIGHT_T, RESULT_T> implements Evaluator<RESULT_T> {
 
   private final Operator<LEFT_T, RIGHT_T, RESULT_T> mOperator;
 

@@ -3,7 +3,7 @@ package com.lfscheidegger.jfacet.shade.camera;
 import com.lfscheidegger.jfacet.shade.Shade;
 import com.lfscheidegger.jfacet.shade.expression.MatrixExpression;
 
-public class PerspectiveConfig implements CameraConfig {
+public final class PerspectiveConfig implements CameraConfig {
 
   private float mFieldOfViewY = 45;
   private float mNearDistance = 0.1f;

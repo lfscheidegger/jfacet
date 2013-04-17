@@ -3,7 +3,7 @@ package com.lfscheidegger.jfacet.facet;
 import com.google.common.collect.ImmutableMap;
 import com.lfscheidegger.jfacet.shade.expression.Expression;
 
-public class Geometry {
+public final class Geometry {
 
   private final GeometryConfig mGeometryConfig;
   private final ImmutableMap<AttribBuffer, Expression> mAttributeMap;

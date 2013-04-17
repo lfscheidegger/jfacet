@@ -28,7 +28,7 @@ import com.lfscheidegger.jfacet.shade.primitives.Vector;
 import java.util.HashSet;
 import java.util.Set;
 
-public class Program {
+public final class Program {
 
   private int mProgramHandle;
 

@@ -9,7 +9,7 @@ import com.lfscheidegger.jfacet.shade.expression.evaluators.FunctionEvaluator;
 import com.lfscheidegger.jfacet.shade.primitives.Matrix;
 import com.lfscheidegger.jfacet.shade.primitives.Vector;
 
-public class Math {
+public final class Math {
 
   public static FloatExpression sqrt(FloatExpression param) {
     return new FloatExpression(ImmutableList.<Expression>of(param), new FunctionEvaluator<Float>(Type.FLOAT_T, "sqrt") {

@@ -5,7 +5,7 @@ import com.lfscheidegger.jfacet.shade.expression.MatrixExpression;
 import com.lfscheidegger.jfacet.shade.expression.VectorExpression;
 import com.lfscheidegger.jfacet.shade.primitives.interfaces.VectorLike;
 
-public class LookAtConfig implements CameraConfig {
+public final class LookAtConfig implements CameraConfig {
 
   private VectorExpression mEye;
   private VectorExpression mCenter;

@@ -10,7 +10,7 @@ import com.lfscheidegger.jfacet.shade.expression.evaluators.glsl.UniformEvaluato
 import com.lfscheidegger.jfacet.shade.primitives.Matrix;
 import com.lfscheidegger.jfacet.shade.primitives.Vector;
 
-public class Parameter {
+public final class Parameter {
 
   public static FloatExpression now() {
     return parameter(Shade.constant(0), new UniformEvaluator.Refreshable<Float>() {

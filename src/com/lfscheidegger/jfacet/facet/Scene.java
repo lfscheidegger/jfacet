@@ -7,7 +7,7 @@ import com.lfscheidegger.jfacet.shade.primitives.Vector;
 import java.util.HashSet;
 import java.util.Set;
 
-public class Scene {
+public final class Scene {
 
   public static final class SceneConfig {
 

@@ -7,7 +7,7 @@ import com.lfscheidegger.jfacet.shade.expression.Expression;
 import com.lfscheidegger.jfacet.shade.expression.FloatExpression;
 import com.lfscheidegger.jfacet.shade.primitives.interfaces.SupportsBasicArithmetic;
 
-public class NegationEvaluator<T> implements Evaluator<T> {
+public final class NegationEvaluator<T> implements Evaluator<T> {
 
   @Override
   @SuppressWarnings("unchecked")

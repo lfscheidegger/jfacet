@@ -4,7 +4,7 @@ import com.lfscheidegger.jfacet.utils.BufferUtils;
 
 import java.nio.IntBuffer;
 
-public class IndexBuffer {
+public final class IndexBuffer {
 
   private final IntBuffer mBuffer;
   private final int mElementCount;

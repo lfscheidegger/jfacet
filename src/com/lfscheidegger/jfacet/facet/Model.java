@@ -1,6 +1,6 @@
 package com.lfscheidegger.jfacet.facet;
 
-public class Model {
+public final class Model {
 
   public static Geometry flatCube() {
     return Facet.model(new GeometryConfig(

@@ -5,7 +5,7 @@ import com.lfscheidegger.jfacet.shade.Type;
 /**
  * Utilities for dealing with Strings
  */
-public class StringUtils {
+public final class StringUtils {
 
   public static class StringHelper {
 

@@ -7,7 +7,7 @@ import java.nio.FloatBuffer;
 /**
  * Container for a {@code FloatBuffer} and its accompanying dimension
  */
-public class AttribBuffer {
+public final class AttribBuffer {
 
   private final FloatBuffer mBuffer;
   private final int mDimension;

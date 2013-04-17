@@ -6,7 +6,7 @@ import com.lfscheidegger.jfacet.shade.expression.Expression;
 import com.lfscheidegger.jfacet.shade.expression.MatrixExpression;
 import com.lfscheidegger.jfacet.shade.expression.VectorExpression;
 
-public class ComponentEvaluator<T> implements Evaluator<T> {
+public final class ComponentEvaluator<T> implements Evaluator<T> {
 
   private final int mIdx;
 

@@ -2,7 +2,7 @@ package com.lfscheidegger.jfacet.utils;
 
 import com.google.common.base.Preconditions;
 
-public class MatrixUtils {
+public final class MatrixUtils {
 
   public static float determinant2(float[] values) {
     Preconditions.checkState(values.length == 4);

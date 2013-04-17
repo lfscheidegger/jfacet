@@ -5,7 +5,7 @@ import com.lfscheidegger.jfacet.shade.compiler.CompilationContext;
 import com.lfscheidegger.jfacet.shade.compiler.GlSlExpressionHelper;
 import com.lfscheidegger.jfacet.shade.expression.Expression;
 
-public class ConstantEvaluator<T> implements Evaluator<T> {
+public final class ConstantEvaluator<T> implements Evaluator<T> {
 
   private final T mValue;
 
