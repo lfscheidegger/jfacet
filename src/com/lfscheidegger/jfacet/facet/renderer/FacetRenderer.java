@@ -3,7 +3,7 @@ package com.lfscheidegger.jfacet.facet.renderer;
 import android.opengl.GLES20;
 import android.opengl.GLSurfaceView;
 import com.lfscheidegger.jfacet.facet.Scene;
-import com.lfscheidegger.jfacet.shade.primitives.Vec4;
+import com.lfscheidegger.jfacet.shade.primitives.Vector;
 
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
@@ -18,7 +18,7 @@ public class FacetRenderer implements GLSurfaceView.Renderer {
 
   @Override
   public void onSurfaceCreated(GL10 gl, EGLConfig config) {
-    Vec4 clearColor = mScene.getSceneConfig().getClearColor();
+    Vector clearColor = mScene.getSceneConfig().getClearColor();
     GLES20.glClearColor(clearColor.get(0), clearColor.get(1), clearColor.get(2), clearColor.get(3));
 
     GLES20.glEnable(GLES20.GL_DEPTH_TEST);

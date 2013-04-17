@@ -3,7 +3,9 @@ package com.lfscheidegger.jfacet.shade.expression.evaluators;
 import com.google.common.collect.ImmutableList;
 import com.lfscheidegger.jfacet.shade.compiler.CompilationContext;
 import com.lfscheidegger.jfacet.shade.compiler.GlSlExpressionHelper;
-import com.lfscheidegger.jfacet.shade.expression.*;
+import com.lfscheidegger.jfacet.shade.expression.Expression;
+import com.lfscheidegger.jfacet.shade.expression.FloatExpression;
+import com.lfscheidegger.jfacet.shade.primitives.interfaces.SupportsBasicArithmetic;
 
 public class NegationEvaluator<T> implements Evaluator<T> {
 
@@ -11,17 +13,12 @@ public class NegationEvaluator<T> implements Evaluator<T> {
   @SuppressWarnings("unchecked")
   public T evaluate(Expression expression) {
     Expression parent = (Expression)expression.getParents().get(0);
-    switch(parent.getType()) {
-      case FLOAT_T: return (T)Float.valueOf(- ((FloatExp)parent).evaluate());
-      case VEC2_T: return (T)((Vec2Exp)parent).evaluate().neg();
-      case VEC3_T: return (T)((Vec3Exp)parent).evaluate().neg();
-      case VEC4_T: return (T)((Vec4Exp)parent).evaluate().neg();
-      case MAT2_T: return (T)((Mat2Exp)parent).evaluate().neg();
-      case MAT3_T: return (T)((Mat3Exp)parent).evaluate().neg();
-      case MAT4_T: return (T)((Mat4Exp)parent).evaluate().neg();
-    }
 
-    throw new RuntimeException("Cannot negate for type: " + parent.getType());
+    if (parent instanceof FloatExpression) {
+      return (T)Float.valueOf(- ((FloatExpression)parent).evaluate());
+    } else {
+      return (T)((SupportsBasicArithmetic)parent.evaluate()).neg();
+    }
   }
 
   @Override

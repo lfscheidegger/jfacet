@@ -1,219 +1,118 @@
 package com.lfscheidegger.jfacet.shade;
 
 import com.google.common.collect.ImmutableList;
-import com.lfscheidegger.jfacet.shade.expression.*;
+import com.lfscheidegger.jfacet.shade.expression.Expression;
+import com.lfscheidegger.jfacet.shade.expression.FloatExpression;
+import com.lfscheidegger.jfacet.shade.expression.MatrixExpression;
+import com.lfscheidegger.jfacet.shade.expression.VectorExpression;
 import com.lfscheidegger.jfacet.shade.expression.evaluators.FunctionEvaluator;
-import com.lfscheidegger.jfacet.shade.primitives.*;
+import com.lfscheidegger.jfacet.shade.primitives.Matrix;
+import com.lfscheidegger.jfacet.shade.primitives.Vector;
 
 public class Math {
 
-  public static FloatExp sqrt(FloatExp param) {
-    return new FloatExp(ImmutableList.<Expression>of(param), new FunctionEvaluator<Float>(Type.FLOAT_T, "sqrt") {
+  public static FloatExpression sqrt(FloatExpression param) {
+    return new FloatExpression(ImmutableList.<Expression>of(param), new FunctionEvaluator<Float>(Type.FLOAT_T, "sqrt") {
           @Override
           public Float evaluate(Expression expression) {
-            FloatExp parent = (FloatExp)expression.getParents().get(0);
+            FloatExpression parent = (FloatExpression)expression.getParents().get(0);
             return (float)java.lang.Math.sqrt(parent.evaluate());
           }
         });
   }
 
-  public static FloatExp sin(FloatExp param) {
-    return new FloatExp(ImmutableList.<Expression>of(param), new FunctionEvaluator<Float>(Type.FLOAT_T, "sin") {
+  public static FloatExpression sin(FloatExpression param) {
+    return new FloatExpression(ImmutableList.<Expression>of(param), new FunctionEvaluator<Float>(Type.FLOAT_T, "sin") {
           @Override
           public Float evaluate(Expression expression) {
-            FloatExp parent = (FloatExp)expression.getParents().get(0);
+            FloatExpression parent = (FloatExpression)expression.getParents().get(0);
             return (float)java.lang.Math.sin(parent.evaluate());
           }
         });
   }
 
-  public static FloatExp cos(FloatExp param) {
-    return new FloatExp(ImmutableList.<Expression>of(param), new FunctionEvaluator<Float>(Type.FLOAT_T, "cos") {
+  public static FloatExpression cos(FloatExpression param) {
+    return new FloatExpression(ImmutableList.<Expression>of(param), new FunctionEvaluator<Float>(Type.FLOAT_T, "cos") {
           @Override
           public Float evaluate(Expression expression) {
-            FloatExp parent = (FloatExp)expression.getParents().get(0);
+            FloatExpression parent = (FloatExpression)expression.getParents().get(0);
             return (float)java.lang.Math.cos(parent.evaluate());
           }
         });
   }
 
-  public static FloatExp radians(FloatExp param) {
+  public static FloatExpression radians(FloatExpression param) {
     return param.mul((float)(java.lang.Math.PI / 180.0));
   }
 
-  public static Vec2Exp normalize(Vec2Exp vec) {
-    return new Vec2Exp(ImmutableList.<Expression>of(vec), new FunctionEvaluator<Vec2>(Type.VEC2_T, "normalize") {
+  public static VectorExpression normalize(VectorExpression vec) {
+    return new VectorExpression(
+        vec.getType(),
+        ImmutableList.<Expression>of(vec),
+        new FunctionEvaluator<Vector>(vec.getType(), "normalize") {
           @Override
-          public Vec2 evaluate(Expression expression) {
-            Vec2Exp parent = (Vec2Exp)expression.getParents().get(0);
-            float norm = (float)java.lang.Math.sqrt(
-                parent.getX().evaluate() * parent.getX().evaluate() +
-                    parent.getY().evaluate() * parent.getY().evaluate());
-            return parent.evaluate().div(norm);
+          public Vector evaluate(Expression expression) {
+            VectorExpression parent = (VectorExpression)expression.getParents().get(0);
+            return parent.evaluate().normalize();
           }
         });
   }
 
-  public static Vec3Exp normalize(Vec3Exp vec) {
-    return new Vec3Exp(ImmutableList.<Expression>of(vec), new FunctionEvaluator<Vec3>(Type.VEC3_T, "normalize") {
-          @Override
-          public Vec3 evaluate(Expression expression) {
-            Vec3Exp parent = (Vec3Exp)expression.getParents().get(0);
-            float norm = (float)java.lang.Math.sqrt(
-                parent.getX().evaluate() * parent.getX().evaluate() +
-                parent.getY().evaluate() * parent.getY().evaluate() +
-                parent.getZ().evaluate() * parent.getZ().evaluate());
-            return parent.evaluate().div(norm);
-          }
-        });
-  }
-
-  public static Vec4Exp normalize(Vec4Exp vec) {
-    return new Vec4Exp(ImmutableList.<Expression>of(vec), new FunctionEvaluator<Vec4>(Type.VEC4_T, "normalize") {
-          @Override
-          public Vec4 evaluate(Expression expression) {
-            Vec4Exp parent = (Vec4Exp)expression.getParents().get(0);
-            float norm = (float)java.lang.Math.sqrt(
-                parent.getX().evaluate() * parent.getX().evaluate() +
-                parent.getY().evaluate() * parent.getY().evaluate() +
-                parent.getZ().evaluate() * parent.getZ().evaluate() +
-                parent.getW().evaluate() * parent.getW().evaluate());
-            return parent.evaluate().div(norm);
-          }
-        });
-  }
-
-  public static FloatExp dot(Vec2Exp left, Vec2Exp right) {
-    return new FloatExp(ImmutableList.<Expression>of(left, right), new FunctionEvaluator<Float>(Type.FLOAT_T, "dot") {
+  public static FloatExpression dot(VectorExpression left, VectorExpression right) {
+    return new FloatExpression(ImmutableList.<Expression>of(left, right), new FunctionEvaluator<Float>(Type.FLOAT_T, "dot") {
       @Override
       public Float evaluate(Expression expression) {
-        Vec2Exp left = (Vec2Exp)expression.getParents().get(0);
-        Vec2Exp right = (Vec2Exp)expression.getParents().get(1);
+        VectorExpression left = (VectorExpression)expression.getParents().get(0);
+        VectorExpression right = (VectorExpression)expression.getParents().get(1);
 
         return left.evaluate().dot(right.evaluate());
       }
     });
   }
 
-  public static FloatExp dot(Vec3Exp left, Vec3Exp right) {
-    return new FloatExp(ImmutableList.<Expression>of(left, right), new FunctionEvaluator<Float>(Type.FLOAT_T, "dot") {
-      @Override
-      public Float evaluate(Expression expression) {
-        Vec3Exp left = (Vec3Exp)expression.getParents().get(0);
-        Vec3Exp right = (Vec3Exp)expression.getParents().get(1);
-
-        return left.evaluate().dot(right.evaluate());
-      }
-    });
+  public static VectorExpression cross(VectorExpression left, VectorExpression right) {
+    return new VectorExpression(
+        Type.VEC3_T,
+        ImmutableList.<Expression>of(left, right),
+        new FunctionEvaluator<Vector>(Type.VEC3_T, "cross") {
+          @Override
+          public Vector evaluate(Expression expression) {
+            VectorExpression left = (VectorExpression)expression.getParents().get(0);
+            VectorExpression right = (VectorExpression)expression.getParents().get(1);
+            return left.evaluate().cross(right.evaluate());
+          }
+        });
   }
 
-  public static FloatExp dot(Vec4Exp left, Vec4Exp right) {
-    return new FloatExp(ImmutableList.<Expression>of(left, right), new FunctionEvaluator<Float>(Type.FLOAT_T, "dot") {
-      @Override
-      public Float evaluate(Expression expression) {
-        Vec4Exp left = (Vec4Exp)expression.getParents().get(0);
-        Vec4Exp right = (Vec4Exp)expression.getParents().get(1);
-
-        return left.evaluate().dot(right.evaluate());
-      }
-    });
-  }
-
-  public static Vec3Exp cross(Vec3Exp left, Vec3Exp right) {
-    return new Vec3Exp(ImmutableList.<Expression>of(left, right), new FunctionEvaluator<Vec3>(Type.VEC3_T, "cross") {
-      @Override
-      public Vec3 evaluate(Expression expression) {
-        Vec3Exp left = (Vec3Exp)expression.getParents().get(0);
-        Vec3Exp right = (Vec3Exp)expression.getParents().get(1);
-        return left.evaluate().cross(right.evaluate());
-      }
-    });
-  }
-
-  public static FloatExp determinant(Mat2Exp mat) {
-    return new FloatExp(ImmutableList.<Expression>of(mat), new FunctionEvaluator<Float>(Type.FLOAT_T, "determinant") {
+  public static FloatExpression determinant(MatrixExpression mat) {
+    return new FloatExpression(ImmutableList.<Expression>of(mat), new FunctionEvaluator<Float>(Type.FLOAT_T, "determinant") {
       @Override
       public Float evaluate(Expression<Float> expression) {
-        Mat2Exp parent = (Mat2Exp)expression.getParents().get(0);
+        MatrixExpression parent = (MatrixExpression)expression.getParents().get(0);
         return parent.evaluate().determinant();
       }
     });
   }
-
-  public static FloatExp determinant(Mat3Exp mat) {
-    return new FloatExp(ImmutableList.<Expression>of(mat), new FunctionEvaluator<Float>(Type.FLOAT_T, "determinant") {
+  public static MatrixExpression inverse(MatrixExpression mat) {
+    return new MatrixExpression(
+        mat.getType(),
+        ImmutableList.<Expression>of(mat),
+        new FunctionEvaluator<Matrix>(mat.getType(), "inverse") {
       @Override
-      public Float evaluate(Expression<Float> expression) {
-        Mat3Exp parent = (Mat3Exp)expression.getParents().get(0);
-        return parent.evaluate().determinant();
-      }
-    });
-  }
-
-  public static FloatExp determinant(Mat4Exp mat) {
-    return new FloatExp(ImmutableList.<Expression>of(mat), new FunctionEvaluator<Float>(Type.FLOAT_T, "determinant") {
-      @Override
-      public Float evaluate(Expression<Float> expression) {
-        Mat4Exp parent = (Mat4Exp)expression.getParents().get(0);
-        return parent.evaluate().determinant();
-      }
-    });
-  }
-
-  public static Mat2Exp inverse(Mat2Exp mat) {
-    return new Mat2Exp(ImmutableList.<Expression>of(mat), new FunctionEvaluator<Mat2>(Type.MAT2_T, "inverse") {
-      @Override
-      public Mat2 evaluate(Expression<Mat2> expression) {
-        Mat2Exp parent = (Mat2Exp)expression.getParents().get(0);
+      public Matrix evaluate(Expression<Matrix> expression) {
+        MatrixExpression parent = (MatrixExpression)expression.getParents().get(0);
         return parent.evaluate().inverse();
       }
     });
   }
 
-  public static Mat3Exp inverse(Mat3Exp mat) {
-    return new Mat3Exp(ImmutableList.<Expression>of(mat), new FunctionEvaluator<Mat3>(Type.MAT3_T, "inverse") {
+  public static MatrixExpression transpose(MatrixExpression mat) {
+    return new MatrixExpression(
+        mat.getType(),
+        ImmutableList.<Expression>of(mat), new FunctionEvaluator<Matrix>(mat.getType(), "transpose") {
       @Override
-      public Mat3 evaluate(Expression<Mat3> expression) {
-        Mat3Exp parent = (Mat3Exp)expression.getParents().get(0);
-        return parent.evaluate().inverse();
-      }
-    });
-  }
-
-  public static Mat4Exp inverse(Mat4Exp mat) {
-    return new Mat4Exp(ImmutableList.<Expression>of(mat), new FunctionEvaluator<Mat4>(Type.MAT4_T, "inverse") {
-      @Override
-      public Mat4 evaluate(Expression<Mat4> expression) {
-        Mat4Exp parent = (Mat4Exp)expression.getParents().get(0);
-        return parent.evaluate().inverse();
-      }
-    });
-  }
-  public static Mat2Exp transpose(Mat2Exp mat) {
-    return new Mat2Exp(ImmutableList.<Expression>of(mat), new FunctionEvaluator<Mat2>(Type.MAT2_T, "transpose") {
-      @Override
-      public Mat2 evaluate(Expression<Mat2> expression) {
-        Mat2Exp parent = (Mat2Exp)expression.getParents().get(0);
-        return parent.evaluate().transpose();
-      }
-    });
-  }
-
-  public static Mat3Exp transpose(Mat3Exp mat) {
-    return new Mat3Exp(ImmutableList.<Expression>of(mat), new FunctionEvaluator<Mat3>(Type.MAT3_T, "transpose") {
-      @Override
-      public Mat3 evaluate(Expression<Mat3> expression) {
-        Mat3Exp parent = (Mat3Exp)expression.getParents().get(0);
-        return parent.evaluate().transpose();
-      }
-    });
-  }
-
-  public static Mat4Exp transpose(Mat4Exp mat) {
-    return new Mat4Exp(ImmutableList.<Expression>of(mat), new FunctionEvaluator<Mat4>(Type.MAT4_T, "transpose") {
-      @Override
-      public Mat4 evaluate(Expression<Mat4> expression) {
-        Mat4Exp parent = (Mat4Exp)expression.getParents().get(0);
+      public Matrix evaluate(Expression<Matrix> expression) {
+        MatrixExpression parent = (MatrixExpression)expression.getParents().get(0);
         return parent.evaluate().transpose();
       }
     });

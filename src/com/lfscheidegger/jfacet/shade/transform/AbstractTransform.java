@@ -2,20 +2,20 @@ package com.lfscheidegger.jfacet.shade.transform;
 
 import com.lfscheidegger.jfacet.shade.Shade;
 import com.lfscheidegger.jfacet.shade.expression.Expression;
-import com.lfscheidegger.jfacet.shade.expression.Mat4Exp;
-import com.lfscheidegger.jfacet.shade.expression.Vec4Exp;
-import com.lfscheidegger.jfacet.shade.primitives.Vec4;
+import com.lfscheidegger.jfacet.shade.expression.MatrixExpression;
+import com.lfscheidegger.jfacet.shade.expression.VectorExpression;
+import com.lfscheidegger.jfacet.shade.primitives.Vector;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public abstract class AbstractTransform implements Transform {
 
-  private final Mat4Exp mTransformMatrix;
+  private final MatrixExpression mTransformMatrix;
 
   private final List<Transform> mQueuedTransforms;
 
-  public AbstractTransform(Mat4Exp transformMatrix) {
+  public AbstractTransform(MatrixExpression transformMatrix) {
     mTransformMatrix = transformMatrix;
 
     mQueuedTransforms = new ArrayList<Transform>();
@@ -23,10 +23,10 @@ public abstract class AbstractTransform implements Transform {
   }
 
   @Override
-  public Vec4Exp apply(Expression exp) {
-    Vec4Exp result = Shade.fill(exp, new Vec4(0, 0, 0, 1));
+  public VectorExpression apply(Expression exp) {
+    VectorExpression result = Shade.fill(exp, new Vector(0, 0, 0, 1));
 
-    Mat4Exp mat = mQueuedTransforms.get(0).getMatrix();
+    MatrixExpression mat = mQueuedTransforms.get(0).getMatrix();
 
     for (int i = 1; i < mQueuedTransforms.size(); i++) {
       mat = mat.mul(mQueuedTransforms.get(i).getMatrix());
@@ -46,7 +46,7 @@ public abstract class AbstractTransform implements Transform {
   }
 
   @Override
-  public Mat4Exp getMatrix() {
+  public MatrixExpression getMatrix() {
     return mTransformMatrix;
   }
 }

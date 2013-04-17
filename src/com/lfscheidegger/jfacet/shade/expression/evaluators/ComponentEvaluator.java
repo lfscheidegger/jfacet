@@ -2,9 +2,11 @@ package com.lfscheidegger.jfacet.shade.expression.evaluators;
 
 import com.lfscheidegger.jfacet.shade.compiler.CompilationContext;
 import com.lfscheidegger.jfacet.shade.compiler.GlSlExpressionHelper;
-import com.lfscheidegger.jfacet.shade.expression.*;
+import com.lfscheidegger.jfacet.shade.expression.Expression;
+import com.lfscheidegger.jfacet.shade.expression.MatrixExpression;
+import com.lfscheidegger.jfacet.shade.expression.VectorExpression;
 
-public class ComponentEvaluator<T> implements Evaluator<T>{
+public class ComponentEvaluator<T> implements Evaluator<T> {
 
   private final int mIdx;
 
@@ -17,16 +19,13 @@ public class ComponentEvaluator<T> implements Evaluator<T>{
   public T evaluate(Expression expression) {
     Expression parent = (Expression)expression.getParents().get(0);
 
-    switch(parent.getType()) {
-      case VEC2_T: return (T)(Float.valueOf(((Vec2Exp) parent).evaluate().get(mIdx)));
-      case VEC3_T: return (T)(Float.valueOf(((Vec3Exp) parent).evaluate().get(mIdx)));
-      case VEC4_T: return (T)(Float.valueOf(((Vec4Exp) parent).evaluate().get(mIdx)));
-      case MAT2_T: return (T)((Mat2Exp)parent).evaluate().get(mIdx);
-      case MAT3_T: return (T)((Mat3Exp)parent).evaluate().get(mIdx);
-      case MAT4_T: return (T)((Mat4Exp)parent).evaluate().get(mIdx);
+    if (parent instanceof VectorExpression) {
+      return (T)(Float.valueOf(((VectorExpression)parent).evaluate().get(mIdx)));
+    } else if (parent instanceof MatrixExpression) {
+      return (T)((MatrixExpression)parent).evaluate().get(mIdx);
+    } else {
+      throw new RuntimeException("Cannot evaluate component expression for: " + expression.getClass().getSimpleName());
     }
-
-    throw new RuntimeException("Cannot evaluate component expression for type: " + parent.getType());
   }
 
   @Override

@@ -12,10 +12,7 @@ import com.lfscheidegger.jfacet.shade.Shade;
 import com.lfscheidegger.jfacet.shade.camera.Camera;
 import com.lfscheidegger.jfacet.shade.camera.LookAtConfig;
 import com.lfscheidegger.jfacet.shade.expression.Expression;
-import com.lfscheidegger.jfacet.shade.expression.FloatExp;
-import com.lfscheidegger.jfacet.shade.expression.Vec3Exp;
-import com.lfscheidegger.jfacet.shade.expression.Vec4Exp;
-import com.lfscheidegger.jfacet.shade.transform.Transform;
+import com.lfscheidegger.jfacet.shade.expression.FloatExpression;
 import com.lfscheidegger.jfacet.view.FacetView;
 
 public class JFacetDemoActivity extends Activity {
@@ -45,7 +42,7 @@ public class JFacetDemoActivity extends Activity {
       case 2: prepareLesson4(scene); break;
       case 3: prepareLesson5(scene); break;
       case 4: prepareLesson6(scene); break;
-      case 5: prepareLesson7(scene); break;
+      //case 5: prepareLesson7(scene); break;
     }
 
     mView.setRenderer(new FacetRenderer(scene));
@@ -113,7 +110,7 @@ public class JFacetDemoActivity extends Activity {
         .setColors(new float[] {1, 0, 0, 0, 1, 0, 0, 0, 1}, 3));
 
     Camera camera = Camera.perspective(mSize.x, mSize.y);
-    FloatExp angle = Parameter.now().mul(50).radians();
+    FloatExpression angle = Parameter.now().mul(50).radians();
 
     Expression squarePosition = camera.apply(
         Shade.translation(1.5f, 0, -12)).apply(
@@ -176,7 +173,7 @@ public class JFacetDemoActivity extends Activity {
         }, 3));
 
     Camera camera = Camera.perspective(mSize.x, mSize.y);
-    FloatExp angle = Parameter.now().mul(50).radians();
+    FloatExpression angle = Parameter.now().mul(50).radians();
 
     Expression cubePosition =
         camera.apply(
@@ -203,7 +200,7 @@ public class JFacetDemoActivity extends Activity {
             .setCenter(Shade.vec(0, 0, -1))
             .setUp(Shade.vec(0, 1, 0)), mSize.x, mSize.y);
 
-    FloatExp angle = Parameter.now().mul(50).radians();
+    FloatExpression angle = Parameter.now().mul(50).radians();
 
     scene.add(Facet.bake(
         cube,
@@ -211,7 +208,7 @@ public class JFacetDemoActivity extends Activity {
         Shade.texture2D(Facet.texture(getResources(), R.drawable.nehe), cube.getTexCoords())));
   }
 
-  private void prepareLesson7(Scene scene) {
+  /*private void prepareLesson7(Scene scene) {
     Geometry cube = Model.flatCube();
 
     Camera camera = Camera.perspective(
@@ -220,7 +217,7 @@ public class JFacetDemoActivity extends Activity {
             .setCenter(Shade.vec(0, 0, -1))
             .setUp(Shade.vec(0, 1, 0)), mSize.x, mSize.y);
 
-    FloatExp angle = Parameter.now().mul(50).radians();
+    FloatExpression angle = Parameter.now().mul(50).radians();
 
     Transform modelTransform = Shade.rotation(angle, Shade.vec(1, 1, 1));
     scene.add(Facet.bake(
@@ -236,11 +233,11 @@ public class JFacetDemoActivity extends Activity {
 
     Vec3Exp lightPosition = Shade.vec(2, 2, 2);
 
-    Vec3Exp fragPosition = Shade.varying3f((Vec3Exp)cube.getVertices());
+    Vec3Exp fragPosition = Shade.varying3f((Vec3Exp) cube.getVertices());
     Vec3Exp normal = (Vec3Exp)cube.getNormals();
 
-    FloatExp diffuse = lightPosition.sub(fragPosition).dot(normal);
+    FloatExpression diffuse = lightPosition.sub(fragPosition).dot(normal);
 
     return materialColor.mul(ambientLight).add(materialColor.mul(diffuse));
-  }
+  }   */
 }

@@ -3,7 +3,7 @@ package com.lfscheidegger.jfacet.shade.compiler;
 import com.google.common.collect.ImmutableList;
 import com.lfscheidegger.jfacet.shade.Shade;
 import com.lfscheidegger.jfacet.shade.expression.Expression;
-import com.lfscheidegger.jfacet.shade.expression.FloatExp;
+import com.lfscheidegger.jfacet.shade.expression.FloatExpression;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -23,20 +23,20 @@ public class TopologicalSorterTest {
 
   @Test
   public void testLineSort() {
-    FloatExp a = Shade.constant(2);
-    FloatExp b = Shade.neg(a);
-    FloatExp c = Shade.neg(b);
-    FloatExp d = Shade.neg(c);
+    FloatExpression a = Shade.constant(2);
+    FloatExpression b = Shade.neg(a);
+    FloatExpression c = Shade.neg(b);
+    FloatExpression d = Shade.neg(c);
     assertEquals(TopologicalSorter.forVertexShaderCompiler().sort(
         ImmutableList.<Expression>of(d)), ImmutableList.<Expression>of(a, b, c, d));
   }
 
   @Test
   public void testDiamondSort() {
-    FloatExp a = Shade.constant(2);
-    FloatExp b = Shade.neg(a);
-    FloatExp c = Shade.neg(a);
-    FloatExp d = Shade.add(b, c);
+    FloatExpression a = Shade.constant(2);
+    FloatExpression b = Shade.neg(a);
+    FloatExpression c = Shade.neg(a);
+    FloatExpression d = Shade.add(b, c);
     assertEquals(TopologicalSorter.forVertexShaderCompiler().sort(
         ImmutableList.<Expression>of(d)), ImmutableList.of(a, b, c, d));
   }

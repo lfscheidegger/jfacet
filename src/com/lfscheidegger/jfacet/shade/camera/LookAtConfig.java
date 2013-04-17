@@ -1,15 +1,15 @@
 package com.lfscheidegger.jfacet.shade.camera;
 
 import com.lfscheidegger.jfacet.shade.Shade;
-import com.lfscheidegger.jfacet.shade.expression.Mat4Exp;
-import com.lfscheidegger.jfacet.shade.expression.Vec3Exp;
-import com.lfscheidegger.jfacet.shade.primitives.interfaces.Vec3Like;
+import com.lfscheidegger.jfacet.shade.expression.MatrixExpression;
+import com.lfscheidegger.jfacet.shade.expression.VectorExpression;
+import com.lfscheidegger.jfacet.shade.primitives.interfaces.VectorLike;
 
 public class LookAtConfig implements CameraConfig {
 
-  private Vec3Exp mEye;
-  private Vec3Exp mCenter;
-  private Vec3Exp mUp;
+  private VectorExpression mEye;
+  private VectorExpression mCenter;
+  private VectorExpression mUp;
 
   public LookAtConfig() {
     mEye = Shade.vec(0, 0, 0);
@@ -17,26 +17,26 @@ public class LookAtConfig implements CameraConfig {
     mUp = Shade.vec(0, 1, 0);
   }
 
-  public LookAtConfig setEye(Vec3Like eye) {
+  public LookAtConfig setEye(VectorLike eye) {
     mEye = Shade.promote(eye);
     return this;
   }
 
-  public LookAtConfig setCenter(Vec3Like center) {
+  public LookAtConfig setCenter(VectorLike center) {
     mCenter = Shade.promote(center);
     return this;
   }
 
-  public LookAtConfig setUp(Vec3Like up) {
+  public LookAtConfig setUp(VectorLike up) {
     mUp = Shade.promote(up);
     return this;
   }
 
   @Override
-  public Mat4Exp getMatrix() {
-    Vec3Exp z = mEye.sub(mCenter).normalize();
-    Vec3Exp x = mUp.cross(z).normalize();
-    Vec3Exp y = mUp.normalize();
+  public MatrixExpression getMatrix() {
+    VectorExpression z = mEye.sub(mCenter).normalize();
+    VectorExpression x = mUp.cross(z).normalize();
+    VectorExpression y = mUp.normalize();
 
     // taken from
     // https://github.com/cscheid/facet/blob/master/src/shade/look_at.js

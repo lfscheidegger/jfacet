@@ -1,11 +1,11 @@
 package com.lfscheidegger.jfacet.shade.transform;
 
 import com.lfscheidegger.jfacet.shade.Shade;
-import com.lfscheidegger.jfacet.shade.expression.FloatExp;
+import com.lfscheidegger.jfacet.shade.expression.FloatExpression;
 
 public class Scale extends AbstractTransform {
 
-  public Scale(FloatExp sx, FloatExp sy, FloatExp sz) {
+  public Scale(FloatExpression sx, FloatExpression sy, FloatExpression sz) {
     super(Shade.mat(
         Shade.vec(sx, 0, 0, 0),
         Shade.vec(0, sy, 0, 0),

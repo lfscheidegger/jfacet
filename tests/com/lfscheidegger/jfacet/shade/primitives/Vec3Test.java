@@ -6,15 +6,15 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
- * Unit tests for {@code Vec3}.
+ * Unit tests for 3-dimensional {@code Vector} objects.
  */
 public class Vec3Test {
 
-  private Vec3 vec;
+  private Vector vec;
 
   @Before
   public void setUp() {
-    vec = new Vec3(1, 2, 3);
+    vec = new Vector(1, 2, 3);
   }
 
   @Test
@@ -69,36 +69,9 @@ public class Vec3Test {
   }
 
   @Test
-  public void testConstructors() {
-    Vec3 other = new Vec3();
-
-    assertTrue(other.getX() == 0);
-    assertTrue(other.getY() == 0);
-    assertTrue(other.getZ() == 0);
-
-    other = new Vec3(vec);
-
-    assertTrue(other.getX() == vec.getX());
-    assertTrue(other.getY() == vec.getY());
-    assertTrue(other.getZ() == vec.getZ());
-
-    other = new Vec3(new Vec2(1, 2), 3);
-
-    assertTrue(other.getX() == vec.getX());
-    assertTrue(other.getY() == vec.getY());
-    assertTrue(other.getZ() == vec.getZ());
-
-    other = new Vec3(1, new Vec2(2, 3));
-
-    assertTrue(other.getX() == vec.getX());
-    assertTrue(other.getY() == vec.getY());
-    assertTrue(other.getZ() == vec.getZ());
-  }
-
-  @Test
   public void testEquals() {
-    Vec3 other = new Vec3(1, 2, 3);
-    Vec3 unequal = new Vec3(2, 3, 4);
+    Vector other = new Vector(1, 2, 3);
+    Vector unequal = new Vector(2, 3, 4);
 
     assertFalse(vec.equals(null));
     assertFalse(vec.equals(""));
@@ -109,8 +82,8 @@ public class Vec3Test {
 
   @Test
   public void testHashCode() {
-    Vec3 other = new Vec3(1, 2, 3);
-    Vec3 unequal = new Vec3(2, 3, 4);
+    Vector other = new Vector(1, 2, 3);
+    Vector unequal = new Vector(2, 3, 4);
 
     assertTrue(vec.hashCode() == other.hashCode());
     assertFalse(vec.hashCode() == unequal.hashCode());
@@ -118,58 +91,58 @@ public class Vec3Test {
 
   @Test
   public void testToString() {
-    Vec3 vec = new Vec3(1, 2, 3);
+    Vector vec = new Vector(1, 2, 3);
     assertEquals(vec.toString(), "vec3(float(1.0), float(2.0), float(3.0))");
   }
 
   @Test
   public void testAdd() {
-    Vec3 v1 = new Vec3(1, 2, 3);
-    Vec3 v2 = new Vec3(3, 4, 5);
+    Vector v1 = new Vector(1, 2, 3);
+    Vector v2 = new Vector(3, 4, 5);
 
-    assertEquals(v1.add(v2), new Vec3(4, 6, 8));
-    assertEquals(v2.add(v1), new Vec3(4, 6, 8));
-    assertEquals(v1.add(2), new Vec3(3, 4, 5));
+    assertEquals(v1.add(v2), new Vector(4, 6, 8));
+    assertEquals(v2.add(v1), new Vector(4, 6, 8));
+    assertEquals(v1.add(2), new Vector(3, 4, 5));
   }
 
   @Test
   public void testSub() {
-    Vec3 v1 = new Vec3(1, 2, 3);
-    Vec3 v2 = new Vec3(3, 4, 5);
+    Vector v1 = new Vector(1, 2, 3);
+    Vector v2 = new Vector(3, 4, 5);
 
-    assertEquals(v1.sub(v2), new Vec3(-2, -2, -2));
-    assertEquals(v2.sub(v1), new Vec3(2, 2, 2));
-    assertEquals(v1.sub(2), new Vec3(-1, 0, 1));
+    assertEquals(v1.sub(v2), new Vector(-2, -2, -2));
+    assertEquals(v2.sub(v1), new Vector(2, 2, 2));
+    assertEquals(v1.sub(2), new Vector(-1, 0, 1));
   }
 
   @Test
   public void testNeg() {
-    Vec3 v = new Vec3(1, 2, 3);
-    assertEquals(v.neg(), new Vec3(-1, -2, -3));
+    Vector v = new Vector(1, 2, 3);
+    assertEquals(v.neg(), new Vector(-1, -2, -3));
   }
 
   @Test
   public void testMul() {
-    Vec3 v1 = new Vec3(1, 2, 3);
-    Vec3 v2 = new Vec3(3, 4, 5);
+    Vector v1 = new Vector(1, 2, 3);
+    Vector v2 = new Vector(3, 4, 5);
 
-    assertEquals(v1.mul(2), new Vec3(2, 4, 6));
-    assertEquals(v1.mul(v2), new Vec3(3, 8, 15));
+    assertEquals(v1.mul(2), new Vector(2, 4, 6));
+    assertEquals(v1.mul(v2), new Vector(3, 8, 15));
   }
 
   @Test
   public void testDiv() {
-    Vec3 v1 = new Vec3(1, 2, 3);
-    Vec3 v2 = new Vec3(2, 5, 6);
+    Vector v1 = new Vector(1, 2, 3);
+    Vector v2 = new Vector(2, 5, 6);
 
-    assertEquals(v1.div(2), new Vec3(0.5f, 1, 1.5f));
-    assertEquals(v1.div(v2), new Vec3(0.5f, 0.4f, 0.5f));
+    assertEquals(v1.div(2), new Vector(0.5f, 1, 1.5f));
+    assertEquals(v1.div(v2), new Vector(0.5f, 0.4f, 0.5f));
   }
 
   @Test
   public void testDot() {
-    Vec3 v1 = new Vec3(1, 2, 3);
-    Vec3 v2 = new Vec3(3, 4, 5);
+    Vector v1 = new Vector(1, 2, 3);
+    Vector v2 = new Vector(3, 4, 5);
 
     assertTrue(v1.dot(v2) == 26);
     assertTrue(v1.dot(v2) == v2.dot(v1));
@@ -177,9 +150,9 @@ public class Vec3Test {
 
   @Test
   public void testCross() {
-    Vec3 v1 = new Vec3(1, 0, 0);
-    Vec3 v2 = new Vec3(0, 1, 0);
+    Vector v1 = new Vector(1, 0, 0);
+    Vector v2 = new Vector(0, 1, 0);
 
-    assertEquals(v1.cross(v2), new Vec3(0, 0, 1));
+    assertEquals(v1.cross(v2), new Vector(0, 0, 1));
   }
 }

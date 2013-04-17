@@ -1,6 +1,7 @@
 package com.lfscheidegger.jfacet.shade.expression.operators;
 
-import com.lfscheidegger.jfacet.shade.primitives.*;
+import com.lfscheidegger.jfacet.shade.primitives.Matrix;
+import com.lfscheidegger.jfacet.shade.primitives.Vector;
 import com.lfscheidegger.jfacet.shade.primitives.interfaces.SupportsBasicArithmetic;
 
 public class BasicArithmeticOperators {
@@ -76,19 +77,11 @@ public class BasicArithmeticOperators {
     };
   }
 
-  public static Operator forLinearTransform() {
-    return new NamedOperator("*") {
+  public static Operator<Matrix, Vector, Vector> forLinearTransform() {
+    return new NamedOperator<Matrix, Vector, Vector>("*") {
       @Override
-      public Object op(Object left, Object right) {
-        if (left instanceof Mat2) {
-          return ((Mat2)left).mul((Vec2)right);
-        } else if (left instanceof Mat3) {
-          return ((Mat3)left).mul((Vec3)right);
-        } else if (left instanceof Mat4) {
-          return ((Mat4)left).mul((Vec4)right);
-        }
-
-        throw new RuntimeException("Unsupported type for linear transform: " + left);
+      public Vector op(Matrix left, Vector right) {
+        return left.mul(right);
       }
     };
   }

@@ -12,14 +12,18 @@ import com.lfscheidegger.jfacet.shade.GlSlType;
 import com.lfscheidegger.jfacet.shade.Parameter;
 import com.lfscheidegger.jfacet.shade.Shade;
 import com.lfscheidegger.jfacet.shade.Type;
-import com.lfscheidegger.jfacet.shade.compiler.*;
+import com.lfscheidegger.jfacet.shade.compiler.CompilationContext;
+import com.lfscheidegger.jfacet.shade.compiler.DefaultCompilationContext;
+import com.lfscheidegger.jfacet.shade.compiler.FragmentShaderCompiler;
+import com.lfscheidegger.jfacet.shade.compiler.VertexShaderCompiler;
 import com.lfscheidegger.jfacet.shade.compiler.ast.ASTOptimizer;
 import com.lfscheidegger.jfacet.shade.compiler.ast.ASTProcessors;
 import com.lfscheidegger.jfacet.shade.compiler.ast.FragmentAttributeExtractor;
 import com.lfscheidegger.jfacet.shade.expression.Expression;
+import com.lfscheidegger.jfacet.shade.expression.SamplerExpression;
 import com.lfscheidegger.jfacet.shade.expression.evaluators.glsl.UniformEvaluator;
-import com.lfscheidegger.jfacet.shade.expression.Sampler2DExp;
-import com.lfscheidegger.jfacet.shade.primitives.*;
+import com.lfscheidegger.jfacet.shade.primitives.Matrix;
+import com.lfscheidegger.jfacet.shade.primitives.Vector;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -52,12 +56,10 @@ public class Program {
 
     ASTOptimizer optimizer = new ASTOptimizer();
 
-    mPosition = optimizer.process(Shade.fill(position, new Vec4(0, 0, 0, 1)));
+    mPosition = optimizer.process(Shade.fill(position, new Vector(0, 0, 0, 1)));
     mFragColor = Shade.fill(
         new ASTProcessors().add(optimizer).add(new FragmentAttributeExtractor()).process(fragColor),
-        new Vec4(0, 0, 0, 1));
-
-    //mFragColor = optimizer.process(Shade.fill(fragColor, new Vec4(0, 0, 0, 1)));
+        new Vector(0, 0, 0, 1));
 
     // initialize data for attributes
     int count = 0;
@@ -195,7 +197,7 @@ public class Program {
         continue;
       }
 
-      ((Sampler2DExp)mUniformExpressions[i]).bake();
+      ((SamplerExpression)mUniformExpressions[i]).bake();
     }
   }
 
@@ -224,17 +226,17 @@ public class Program {
         case FLOAT_T:
           GLES20.glUniform1f(uniformHandle, (Float)evaluator.get()); break;
         case VEC2_T:
-          GLES20.glUniform2fv(uniformHandle, 1, ((Vec2) evaluator.get()).getArray(), 0); break;
+          GLES20.glUniform2fv(uniformHandle, 1, ((Vector) evaluator.get()).getArray(), 0); break;
         case VEC3_T:
-          GLES20.glUniform3fv(uniformHandle, 1, ((Vec3) evaluator.get()).getArray(), 0); break;
+          GLES20.glUniform3fv(uniformHandle, 1, ((Vector) evaluator.get()).getArray(), 0); break;
         case VEC4_T:
-          GLES20.glUniform4fv(uniformHandle, 1, ((Vec4) evaluator.get()).getArray(), 0); break;
+          GLES20.glUniform4fv(uniformHandle, 1, ((Vector) evaluator.get()).getArray(), 0); break;
         case MAT2_T:
-          GLES20.glUniformMatrix2fv(uniformHandle, 1, false, ((Mat2) evaluator.get()).getArray(), 0); break;
+          GLES20.glUniformMatrix2fv(uniformHandle, 1, false, ((Matrix) evaluator.get()).getArray(), 0); break;
         case MAT3_T:
-          GLES20.glUniformMatrix3fv(uniformHandle, 1, false, ((Mat3) evaluator.get()).getArray(), 0); break;
+          GLES20.glUniformMatrix3fv(uniformHandle, 1, false, ((Matrix) evaluator.get()).getArray(), 0); break;
         case MAT4_T:
-          GLES20.glUniformMatrix4fv(uniformHandle, 1, false, ((Mat4) evaluator.get()).getArray(), 0); break;
+          GLES20.glUniformMatrix4fv(uniformHandle, 1, false, ((Matrix) evaluator.get()).getArray(), 0); break;
         case SAMPLER2D_T:
           GLES20.glActiveTexture(GLES20.GL_TEXTURE0 + textureUnitCounter);
           GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, Parameter.<Integer>get(mUniformExpressions[i]));

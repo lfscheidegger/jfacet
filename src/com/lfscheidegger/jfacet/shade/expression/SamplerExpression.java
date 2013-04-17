@@ -6,15 +6,13 @@ import android.opengl.GLUtils;
 import com.google.common.collect.ImmutableList;
 import com.lfscheidegger.jfacet.shade.GlSlType;
 import com.lfscheidegger.jfacet.shade.Type;
-import com.lfscheidegger.jfacet.shade.expression.AbstractExpression;
-import com.lfscheidegger.jfacet.shade.expression.Expression;
 import com.lfscheidegger.jfacet.shade.expression.evaluators.glsl.UniformEvaluator;
 
-public class Sampler2DExp extends AbstractExpression<Integer> {
+public final class SamplerExpression extends AbstractExpression<Integer> {
 
   private final Bitmap mTexture;
 
-  public Sampler2DExp(Bitmap texture) {
+  public SamplerExpression(Bitmap texture) {
     super(Type.SAMPLER2D_T, GlSlType.UNIFORM_T, ImmutableList.<Expression>of(), new UniformEvaluator<Integer>());
     mTexture = texture;
   }

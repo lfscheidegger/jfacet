@@ -1,7 +1,7 @@
 package com.lfscheidegger.jfacet.shade.camera;
 
 import com.lfscheidegger.jfacet.shade.Shade;
-import com.lfscheidegger.jfacet.shade.expression.Mat4Exp;
+import com.lfscheidegger.jfacet.shade.expression.MatrixExpression;
 
 public class PerspectiveConfig implements CameraConfig {
 
@@ -31,7 +31,7 @@ public class PerspectiveConfig implements CameraConfig {
   }
 
   @Override
-  public Mat4Exp getMatrix() {
+  public MatrixExpression getMatrix() {
     float fovy = (float)(Math.PI * mFieldOfViewY / 180);
 
     float f = (float)(1 / Math.tan(fovy / 2.0));

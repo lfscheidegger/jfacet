@@ -13,4 +13,6 @@ public interface SupportsBasicArithmetic<T> {
 
   public T div(float right);
   public T div(T right);
+
+  public T neg();
 }

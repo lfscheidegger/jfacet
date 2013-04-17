@@ -88,6 +88,43 @@ public class ArrayUtils {
     return result;
   }
 
+  public static float[] neg(float[] values) {
+    float[] result = new float[values.length];
+
+    for (int i = 0; i < values.length; i++) {
+      result[i] = -values[i];
+    }
+
+    return result;
+  }
+
+  public static float dot(float[] left, float[] right) {
+    Preconditions.checkState(left.length == right.length);
+
+    float result = 0;
+    for (int i = 0; i < left.length; i++) {
+      result += left[i] * right[i];
+    }
+
+    return result;
+  }
+
+  public static float[] normalize(float[] values) {
+    float norm = 0;
+    for (int i = 0; i < values.length; i++) {
+      norm += values[i] * values[i];
+    }
+
+    norm = (float)Math.sqrt(norm);
+
+    float[] result = new float[values.length];
+    for (int i = 0; i < values.length; i++) {
+      result[i] = values[i] / norm;
+    }
+
+    return result;
+  }
+
   public static float[] mulMatrix(float[] left, float[] right, int dim) {
     Preconditions.checkState(left.length == right.length && right.length == dim * dim);
     float[] result = new float[left.length];

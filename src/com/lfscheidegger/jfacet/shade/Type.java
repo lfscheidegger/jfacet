@@ -27,17 +27,17 @@ public enum Type {
   /**
    * 2x2-dimensional floating-point matrix
    */
-  MAT2_T("mat2", -1),
+  MAT2_T("mat2", 2),
 
   /**
    * 3x3-dimensional floating-point matrix
    */
-  MAT3_T("mat3", -1),
+  MAT3_T("mat3", 3),
 
   /**
    * 4x4-dimensional floating-point matrix
    */
-  MAT4_T("mat4", -1),
+  MAT4_T("mat4", 4),
 
   /**
    * opaque type for 2D texture sampler
@@ -63,5 +63,23 @@ public enum Type {
     }
 
     return mDimension;
+  }
+
+  public static Type getVecTypeForDimension(int dimension) {
+    switch(dimension) {
+      case 2: return VEC2_T;
+      case 3: return VEC3_T;
+      case 4: return VEC4_T;
+      default: throw new RuntimeException("Invalid dimension for vector: " + dimension);
+    }
+  }
+
+  public static Type getMatTypeForDimension(int dimension) {
+    switch(dimension) {
+      case 2: return MAT2_T;
+      case 3: return MAT3_T;
+      case 4: return MAT4_T;
+      default: throw new RuntimeException("Invalid dimension for matrix: " + dimension);
+    }
   }
 }

@@ -1,13 +1,18 @@
 package com.lfscheidegger.jfacet.shade;
 
 import android.os.SystemClock;
-import com.lfscheidegger.jfacet.shade.expression.*;
+import com.google.common.base.Preconditions;
+import com.lfscheidegger.jfacet.shade.expression.Expression;
+import com.lfscheidegger.jfacet.shade.expression.FloatExpression;
+import com.lfscheidegger.jfacet.shade.expression.MatrixExpression;
+import com.lfscheidegger.jfacet.shade.expression.VectorExpression;
 import com.lfscheidegger.jfacet.shade.expression.evaluators.glsl.UniformEvaluator;
-import com.lfscheidegger.jfacet.shade.primitives.*;
+import com.lfscheidegger.jfacet.shade.primitives.Matrix;
+import com.lfscheidegger.jfacet.shade.primitives.Vector;
 
 public class Parameter {
 
-  public static FloatExp now() {
+  public static FloatExpression now() {
     return parameter(Shade.constant(0), new UniformEvaluator.Refreshable<Float>() {
       @Override
       public void refresh(UniformEvaluator<Float> uniform) {
@@ -16,63 +21,25 @@ public class Parameter {
     });
   }
 
-  public static FloatExp parameter(FloatExp value) {
-    return new FloatExp(GlSlType.UNIFORM_T, new UniformEvaluator<Float>(value));
+  public static FloatExpression parameter(FloatExpression value) {
+    return new FloatExpression(GlSlType.UNIFORM_T, new UniformEvaluator<Float>(value));
   }
 
-  public static FloatExp parameter(FloatExp value, UniformEvaluator.Refreshable<Float> refresher) {
-    return new FloatExp(GlSlType.UNIFORM_T, new UniformEvaluator<Float>(value, refresher));
+  public static FloatExpression parameter(FloatExpression value, UniformEvaluator.Refreshable<Float> refresher) {
+    return new FloatExpression(GlSlType.UNIFORM_T, new UniformEvaluator<Float>(value, refresher));
   }
 
-  public static Vec2Exp parameter(Vec2Exp value) {
-    return new Vec2Exp(GlSlType.UNIFORM_T, new UniformEvaluator<Vec2>(value));
+  public static VectorExpression parameter(VectorExpression value) {
+    return new VectorExpression(value.getType(), GlSlType.UNIFORM_T, new UniformEvaluator<Vector>(value));
   }
 
-  public static Vec2Exp parameter(Vec2Exp value, UniformEvaluator.Refreshable<Vec2> refresher) {
-    return new Vec2Exp(GlSlType.UNIFORM_T, new UniformEvaluator<Vec2>(value, refresher));
-  }
-
-  public static Vec3Exp parameter(Vec3Exp value) {
-    return new Vec3Exp(GlSlType.UNIFORM_T, new UniformEvaluator<Vec3>(value));
-  }
-
-  public static Vec3Exp parameter(Vec3Exp value, UniformEvaluator.Refreshable<Vec3> refresher) {
-    return new Vec3Exp(GlSlType.UNIFORM_T, new UniformEvaluator<Vec3>(value, refresher));
-  }
-
-  public static Vec4Exp parameter(Vec4Exp value) {
-    return new Vec4Exp(GlSlType.UNIFORM_T, new UniformEvaluator<Vec4>(value));
-  }
-
-  public static Vec4Exp parameter(Vec4Exp value, UniformEvaluator.Refreshable<Vec4> refresher) {
-    return new Vec4Exp(GlSlType.UNIFORM_T, new UniformEvaluator<Vec4>(value, refresher));
-  }
-
-  public static Mat2Exp parameter(Mat2Exp value) {
-    return new Mat2Exp(GlSlType.UNIFORM_T, new UniformEvaluator<Mat2>(value));
-  }
-
-  public static Mat2Exp parameter(Mat2Exp value, UniformEvaluator.Refreshable<Mat2> refresher) {
-    return new Mat2Exp(GlSlType.UNIFORM_T, new UniformEvaluator<Mat2>(value, refresher));
-  }
-
-  public static Mat3Exp parameter(Mat3Exp value) {
-    return new Mat3Exp(GlSlType.UNIFORM_T, new UniformEvaluator<Mat3>(value));
-  }
-
-  public static Mat3Exp parameter(Mat3Exp value, UniformEvaluator.Refreshable<Mat3> refresher) {
-    return new Mat3Exp(GlSlType.UNIFORM_T, new UniformEvaluator<Mat3>(value, refresher));
-  }
-
-  public static Mat4Exp parameter(Mat4Exp value) {
-    return new Mat4Exp(GlSlType.UNIFORM_T, new UniformEvaluator<Mat4>(value));
-  }
-
-  public static Mat4Exp parameter(Mat4Exp value, UniformEvaluator.Refreshable<Mat4> refresher) {
-    return new Mat4Exp(GlSlType.UNIFORM_T, new UniformEvaluator<Mat4>(value, refresher));
+  public static MatrixExpression parameter(MatrixExpression value) {
+    return new MatrixExpression(value.getType(), GlSlType.UNIFORM_T, new UniformEvaluator<Matrix>(value));
   }
 
   public static void set(Expression param, Expression value) {
+    Preconditions.checkState(param.getType() == value.getType());
+
     if (param.getGlSlType() != GlSlType.UNIFORM_T) {
       throw new RuntimeException("Cannot set value for glsl type " + param.getGlSlType());
     }

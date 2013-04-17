@@ -5,7 +5,10 @@ import com.google.common.collect.Collections2;
 import com.google.common.collect.ImmutableList;
 import com.lfscheidegger.jfacet.shade.GlSlType;
 import com.lfscheidegger.jfacet.shade.Shade;
-import com.lfscheidegger.jfacet.shade.expression.*;
+import com.lfscheidegger.jfacet.shade.expression.AbstractExpression;
+import com.lfscheidegger.jfacet.shade.expression.Expression;
+import com.lfscheidegger.jfacet.shade.expression.FloatExpression;
+import com.lfscheidegger.jfacet.shade.expression.VectorExpression;
 
 /**
  * {@code ASTProcessor} object responsible for filtering ATTRIBUTE_T expressions from the AST used for
@@ -46,10 +49,10 @@ public class FragmentAttributeExtractor implements ASTProcessor {
 
   private Expression getVaryingForAttribute(Expression attribute) {
     switch(attribute.getType()) {
-      case FLOAT_T: return Shade.varyingf((FloatExp)attribute);
-      case VEC2_T: return Shade.varying2f((Vec2Exp)attribute);
-      case VEC3_T: return Shade.varying3f((Vec3Exp)attribute);
-      case VEC4_T: return Shade.varying4f((Vec4Exp)attribute);
+      case FLOAT_T: return Shade.varying((FloatExpression)attribute);
+      case VEC2_T: // fallthrough
+      case VEC3_T: // fallthrough
+      case VEC4_T: return Shade.varying((VectorExpression)attribute);
     }
 
     throw new RuntimeException("Cannot get varying for attribute of type: " + attribute.getType());

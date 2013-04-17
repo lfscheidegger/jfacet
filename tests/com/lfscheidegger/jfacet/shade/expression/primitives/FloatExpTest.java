@@ -6,7 +6,7 @@ import org.junit.Test;
 import static org.junit.Assert.assertTrue;
 
 /**
- * Unit tests for {@code FloatExp}
+ * Unit tests for {@code FloatExpression}
  */
 public class FloatExpTest {
 
