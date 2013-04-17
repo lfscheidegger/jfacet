@@ -7,6 +7,7 @@ import com.lfscheidegger.jfacet.shade.primitives.interfaces.SupportsNormalizatio
 import com.lfscheidegger.jfacet.shade.primitives.interfaces.VectorLike;
 import com.lfscheidegger.jfacet.utils.ArrayUtils;
 import com.lfscheidegger.jfacet.utils.StringUtils;
+import com.lfscheidegger.jfacet.utils.SwizzleUtils;
 
 import java.util.Arrays;
 
@@ -145,6 +146,31 @@ public final class Vector implements SupportsBasicArithmetic<Vector>, SupportsNo
     Preconditions.checkState(mDimension == other.mDimension);
 
     return ArrayUtils.dot(mValues, other.mValues);
+  }
+
+  public float swizzle(char c) {
+    return get(SwizzleUtils.getIndexForSwizzle(c));
+  }
+
+  public Vector swizzle(char x, char y) {
+    return new Vector(
+        get(SwizzleUtils.getIndexForSwizzle(x)),
+        get(SwizzleUtils.getIndexForSwizzle(y)));
+  }
+
+  public Vector swizzle(char x, char y, char z) {
+    return new Vector(
+        get(SwizzleUtils.getIndexForSwizzle(x)),
+        get(SwizzleUtils.getIndexForSwizzle(y)),
+        get(SwizzleUtils.getIndexForSwizzle(z)));
+  }
+
+  public Vector swizzle(char x, char y, char z, char w) {
+    return new Vector(
+        get(SwizzleUtils.getIndexForSwizzle(x)),
+        get(SwizzleUtils.getIndexForSwizzle(y)),
+        get(SwizzleUtils.getIndexForSwizzle(z)),
+        get(SwizzleUtils.getIndexForSwizzle(w)));
   }
 
   @Override

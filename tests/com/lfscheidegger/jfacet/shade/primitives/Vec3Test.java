@@ -155,4 +155,15 @@ public class Vec3Test {
 
     assertEquals(v1.cross(v2), new Vector(0, 0, 1));
   }
+
+  @Test
+  public void testSwizzle() {
+    Vector v1 = new Vector(1, 2, 3);
+
+    assertTrue(v1.swizzle('r') == 1 && v1.swizzle('x') == 1 && v1.swizzle('s') == 1);
+    assertTrue(v1.swizzle('g') == 2 && v1.swizzle('y') == 2 && v1.swizzle('t') == 2);
+    assertTrue(v1.swizzle('b') == 3 && v1.swizzle('z') == 3 && v1.swizzle('p') == 3);
+
+    assertEquals(v1.swizzle('r', 'r', 'r'), new Vector(1, 1, 1));
+  }
 }

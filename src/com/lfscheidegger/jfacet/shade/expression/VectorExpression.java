@@ -76,4 +76,10 @@ public final class VectorExpression extends AbstractExpression<Vector> implement
   public VectorExpression normalize() { return Shade.normalize(this); }
 
   public FloatExpression dot(VectorLike other) { return Shade.dot(this, other); }
+
+  public FloatExpression swizzle(char x) { return Shade.swizzle(this, x); }
+
+  public VectorExpression swizzle(char x, char y) { return Shade.swizzle(this, x, y); }
+  public VectorExpression swizzle(char x, char y, char z) { return Shade.swizzle(this, x, y, z); }
+  public VectorExpression swizzle(char x, char y, char z, char w) { return Shade.swizzle(this, x, y, z, w); }
 }

@@ -129,4 +129,14 @@ public class Vec2Test {
     assertTrue(v1.dot(v2) == 11);
     assertTrue(v1.dot(v2) == v2.dot(v1));
   }
+
+  @Test
+  public void testSwizzle() {
+    Vector v1 = new Vector(1, 2);
+
+    assertTrue(v1.swizzle('r') == 1 && v1.swizzle('x') == 1 && v1.swizzle('s') == 1);
+    assertTrue(v1.swizzle('g') == 2 && v1.swizzle('y') == 2 && v1.swizzle('t') == 2);
+
+    assertEquals(v1.swizzle('r', 'r'), new Vector(1, 1));
+  }
 }

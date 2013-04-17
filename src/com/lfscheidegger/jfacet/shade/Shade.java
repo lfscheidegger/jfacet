@@ -3,10 +3,7 @@ package com.lfscheidegger.jfacet.shade;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableList;
 import com.lfscheidegger.jfacet.shade.expression.*;
-import com.lfscheidegger.jfacet.shade.expression.evaluators.BinaryOperationEvaluator;
-import com.lfscheidegger.jfacet.shade.expression.evaluators.ConstructorEvaluator;
-import com.lfscheidegger.jfacet.shade.expression.evaluators.FunctionEvaluator;
-import com.lfscheidegger.jfacet.shade.expression.evaluators.NegationEvaluator;
+import com.lfscheidegger.jfacet.shade.expression.evaluators.*;
 import com.lfscheidegger.jfacet.shade.expression.evaluators.glsl.QualifiedGlSlEvaluator;
 import com.lfscheidegger.jfacet.shade.expression.operators.BasicArithmeticOperators;
 import com.lfscheidegger.jfacet.shade.expression.operators.FloatOperators;
@@ -337,6 +334,35 @@ public final class Shade {
 
   public static VectorExpression normalize(VectorLike val) {
     return Math.normalize(promote(val));
+  }
+
+  public static FloatExpression swizzle(VectorLike val, char x) {
+    VectorExpression valExpression = promote(val);
+    return new FloatExpression(ImmutableList.<Expression>of(valExpression), new SwizzleEvaluator<Float>(x));
+  }
+
+  public static VectorExpression swizzle(VectorLike val, char x, char y) {
+    VectorExpression valExpression = promote(val);
+    return new VectorExpression(
+        Type.VEC2_T,
+        ImmutableList.<Expression>of(valExpression),
+        new SwizzleEvaluator<Vector>(x, y));
+  }
+
+  public static VectorExpression swizzle(VectorLike val, char x, char y, char z) {
+    VectorExpression valExpression = promote(val);
+    return new VectorExpression(
+        Type.VEC2_T,
+        ImmutableList.<Expression>of(valExpression),
+        new SwizzleEvaluator<Vector>(x, y, z));
+  }
+
+  public static VectorExpression swizzle(VectorLike val, char x, char y, char z, char w) {
+    VectorExpression valExpression = promote(val);
+    return new VectorExpression(
+        Type.VEC2_T,
+        ImmutableList.<Expression>of(valExpression),
+        new SwizzleEvaluator<Vector>(x, y, z, w));
   }
 
   // ===================================================================================================================
