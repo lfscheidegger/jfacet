@@ -1,6 +1,7 @@
 package com.lfscheidegger.jfacet.shade.expression;
 
 import com.google.common.base.Objects;
+import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableList;
 import com.lfscheidegger.jfacet.shade.GlSlType;
 import com.lfscheidegger.jfacet.shade.Type;
@@ -166,6 +167,23 @@ public final class Vector3 extends AbstractExpression<Vector3.Primitive> {
     super(Type.VEC3_T, glSlType, parents, evaluator);
   }
 
+  public Real getX() {
+    return get(0);
+  }
+
+  public Real getY() {
+    return get(1);
+  }
+
+  public Real getZ() {
+    return get(2);
+  }
+
+  public Real get(int idx) {
+    Preconditions.checkState(idx < 3);
+    return new Real(ImmutableList.<Expression>of(this), new ComponentEvaluator<Float>(idx));
+  }
+
   public Vector3 add(float right) {
     return add(new Real(right));
   }
@@ -314,6 +332,10 @@ public final class Vector3 extends AbstractExpression<Vector3.Primitive> {
 
   public Vector4 swizzle(char x, char y, char z, char w) {
     return new Vector4(ImmutableList.<Expression>of(this), new SwizzleEvaluator<Vector4.Primitive>(x, y, z, w));
+  }
+
+  public Vector4 fill(Vector4 defaultExpression) {
+    return new Vector4(getX(), getY(), getZ(), defaultExpression.getW());
   }
 }
 
