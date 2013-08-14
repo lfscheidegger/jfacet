@@ -3,7 +3,6 @@ package com.lfscheidegger.jfacet.shade;
 import com.google.common.collect.ImmutableList;
 import com.lfscheidegger.jfacet.shade.expression.Expression;
 import com.lfscheidegger.jfacet.shade.expression.Real;
-import com.lfscheidegger.jfacet.shade.expression.MatrixExpression;
 import com.lfscheidegger.jfacet.shade.expression.evaluators.FunctionEvaluator;
 
 public final class Math {

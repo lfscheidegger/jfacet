@@ -2,7 +2,6 @@ package com.lfscheidegger.jfacet.shade.transform;
 
 import com.lfscheidegger.jfacet.shade.Shade;
 import com.lfscheidegger.jfacet.shade.expression.Real;
-import com.lfscheidegger.jfacet.shade.expression.MatrixExpression;
 
 public class Rotation extends AbstractTransform {
 

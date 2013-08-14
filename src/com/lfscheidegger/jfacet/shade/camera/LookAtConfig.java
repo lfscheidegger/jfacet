@@ -1,7 +1,6 @@
 package com.lfscheidegger.jfacet.shade.camera;
 
 import com.lfscheidegger.jfacet.shade.Shade;
-import com.lfscheidegger.jfacet.shade.expression.MatrixExpression;
 import com.lfscheidegger.jfacet.shade.primitives.interfaces.VectorLike;
 
 public final class LookAtConfig implements CameraConfig {

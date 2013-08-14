@@ -4,7 +4,6 @@ import android.os.SystemClock;
 import com.google.common.base.Preconditions;
 import com.lfscheidegger.jfacet.shade.expression.Expression;
 import com.lfscheidegger.jfacet.shade.expression.Real;
-import com.lfscheidegger.jfacet.shade.expression.MatrixExpression;
 import com.lfscheidegger.jfacet.shade.expression.evaluators.glsl.UniformEvaluator;
 
 public final class Parameter {
