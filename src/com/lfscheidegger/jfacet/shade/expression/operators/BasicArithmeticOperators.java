@@ -1,5 +1,6 @@
 package com.lfscheidegger.jfacet.shade.expression.operators;
 
+import com.lfscheidegger.jfacet.shade.expression.*;
 import com.lfscheidegger.jfacet.shade.primitives.interfaces.SupportsBasicArithmetic;
 
 public final class BasicArithmeticOperators {
@@ -75,10 +76,28 @@ public final class BasicArithmeticOperators {
     };
   }
 
-  public static Operator<Matrix, Vector, Vector> forLinearTransform() {
-    return new NamedOperator<Matrix, Vector, Vector>("*") {
+  public static Operator<Matrix2.Primitive, Vector2.Primitive, Vector2.Primitive> forLinearTransform2() {
+    return new NamedOperator<Matrix2.Primitive, Vector2.Primitive, Vector2.Primitive>("*") {
       @Override
-      public Vector op(Matrix left, Vector right) {
+      public Vector2.Primitive op(Matrix2.Primitive left, Vector2.Primitive right) {
+        return left.mul(right);
+      }
+    };
+  }
+
+  public static Operator<Matrix3.Primitive, Vector3.Primitive, Vector3.Primitive> forLinearTransform3() {
+    return new NamedOperator<Matrix3.Primitive, Vector3.Primitive, Vector3.Primitive>("*") {
+      @Override
+      public Vector3.Primitive op(Matrix3.Primitive left, Vector3.Primitive right) {
+        return left.mul(right);
+      }
+    };
+  }
+
+  public static Operator<Matrix4.Primitive, Vector4.Primitive, Vector4.Primitive> forLinearTransform4() {
+    return new NamedOperator<Matrix4.Primitive, Vector4.Primitive, Vector4.Primitive>("*") {
+      @Override
+      public Vector4.Primitive op(Matrix4.Primitive left, Vector4.Primitive right) {
         return left.mul(right);
       }
     };

@@ -88,10 +88,12 @@ public final class Matrix4 extends AbstractExpression<Matrix4.Primitive> {
       return new Primitive(ArrayUtils.mul(mValues, t));
     }
 
-    public Vector2.Primitive mul(Vector2.Primitive vec) {
-      return new Vector2.Primitive(
-          mValues[0] * vec.getX() + mValues[2] * vec.getY(),
-          mValues[1] * vec.getY() + mValues[3] * vec.getY());
+    public Vector4.Primitive mul(Vector4.Primitive vec) {
+      return new Vector4.Primitive(
+          mValues[0] * vec.getX() + mValues[4] * vec.getY() + mValues[ 8] * vec.getZ() + mValues[12] * vec.getW(),
+          mValues[1] * vec.getX() + mValues[5] * vec.getY() + mValues[ 9] * vec.getZ() + mValues[13] * vec.getW(),
+          mValues[2] * vec.getX() + mValues[6] * vec.getY() + mValues[10] * vec.getZ() + mValues[14] * vec.getW(),
+          mValues[3] * vec.getX() + mValues[7] * vec.getY() + mValues[11] * vec.getZ() + mValues[15] * vec.getW());
     }
 
     public Primitive div(Primitive other) {
@@ -243,6 +245,13 @@ public final class Matrix4 extends AbstractExpression<Matrix4.Primitive> {
         ImmutableList.<Expression>of(this, right),
         new BinaryOperationEvaluator<Primitive, Primitive, Primitive>(BasicArithmeticOperators.<Primitive>forMultiplicationWithSame()));
   }
+
+  public Vector4 mul(Vector4 right) {
+    return new Vector4(
+        ImmutableList.<Expression>of(this, right),
+        new BinaryOperationEvaluator<Primitive, Vector4.Primitive, Vector4.Primitive>(BasicArithmeticOperators.forLinearTransform4()));
+  }
+
   public Matrix4 div(float right) {
     return div(new Real(right));
   }

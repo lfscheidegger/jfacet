@@ -79,7 +79,7 @@ public final class Matrix2 extends AbstractExpression<Matrix2.Primitive> {
     public Vector2.Primitive mul(Vector2.Primitive vec) {
       return new Vector2.Primitive(
           mValues[0] * vec.getX() + mValues[2] * vec.getY(),
-          mValues[1] * vec.getY() + mValues[3] * vec.getY());
+          mValues[1] * vec.getX() + mValues[3] * vec.getY());
     }
 
     public Primitive div(Primitive other) {
@@ -226,6 +226,13 @@ public final class Matrix2 extends AbstractExpression<Matrix2.Primitive> {
         ImmutableList.<Expression>of(this, right),
         new BinaryOperationEvaluator<Primitive, Primitive, Primitive>(BasicArithmeticOperators.<Primitive>forMultiplicationWithSame()));
   }
+
+  public Vector2 mul(Vector2 right) {
+    return new Vector2(
+        ImmutableList.<Expression>of(this, right),
+        new BinaryOperationEvaluator<Primitive, Vector2.Primitive, Vector2.Primitive>(BasicArithmeticOperators.forLinearTransform2()));
+  }
+
   public Matrix2 div(float right) {
     return div(new Real(right));
   }
