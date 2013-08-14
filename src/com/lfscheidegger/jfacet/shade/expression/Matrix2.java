@@ -1,12 +1,10 @@
 package com.lfscheidegger.jfacet.shade.expression;
 
+import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableList;
 import com.lfscheidegger.jfacet.shade.GlSlType;
 import com.lfscheidegger.jfacet.shade.Type;
-import com.lfscheidegger.jfacet.shade.expression.evaluators.BinaryOperationEvaluator;
-import com.lfscheidegger.jfacet.shade.expression.evaluators.ConstantEvaluator;
-import com.lfscheidegger.jfacet.shade.expression.evaluators.Evaluator;
-import com.lfscheidegger.jfacet.shade.expression.evaluators.NegationEvaluator;
+import com.lfscheidegger.jfacet.shade.expression.evaluators.*;
 import com.lfscheidegger.jfacet.shade.expression.operators.BasicArithmeticOperators;
 import com.lfscheidegger.jfacet.shade.primitives.interfaces.SupportsBasicArithmetic;
 import com.lfscheidegger.jfacet.utils.ArrayUtils;
@@ -135,6 +133,10 @@ public final class Matrix2 extends AbstractExpression<Matrix2.Primitive> {
     this(new ConstantEvaluator<Primitive>(mat));
   }
 
+  public Matrix2(Vector2 c0, Vector2 c1) {
+    this (ImmutableList.<Expression>of(c0, c1), new ConstructorEvaluator<Primitive>());
+  }
+
   public Matrix2(Evaluator<Primitive> evaluator) {
     this(ImmutableList.<Expression>of(), evaluator);
   }
@@ -148,7 +150,21 @@ public final class Matrix2 extends AbstractExpression<Matrix2.Primitive> {
   }
 
   public Matrix2(GlSlType glSlType, ImmutableList<Expression> parents, Evaluator<Primitive> evaluator) {
-    super(Type.MAT2_T, glSlType, parents, evaluator);
+    super(Type.MAT2_T, glSlType,
+        parents, evaluator);
+  }
+
+  public Vector2 getC0() {
+    return get(0);
+  }
+
+  public Vector2 getC1() {
+    return get(1);
+  }
+
+  public Vector2 get(int idx) {
+    Preconditions.checkState(idx < 2);
+    return new Vector2(ImmutableList.<Expression>of(this), new ComponentEvaluator<Vector2.Primitive>(idx));
   }
 
   public Matrix2 add(float right) {

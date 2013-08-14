@@ -1,12 +1,10 @@
 package com.lfscheidegger.jfacet.shade.expression;
 
+import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableList;
 import com.lfscheidegger.jfacet.shade.GlSlType;
 import com.lfscheidegger.jfacet.shade.Type;
-import com.lfscheidegger.jfacet.shade.expression.evaluators.BinaryOperationEvaluator;
-import com.lfscheidegger.jfacet.shade.expression.evaluators.ConstantEvaluator;
-import com.lfscheidegger.jfacet.shade.expression.evaluators.Evaluator;
-import com.lfscheidegger.jfacet.shade.expression.evaluators.NegationEvaluator;
+import com.lfscheidegger.jfacet.shade.expression.evaluators.*;
 import com.lfscheidegger.jfacet.shade.expression.operators.BasicArithmeticOperators;
 import com.lfscheidegger.jfacet.shade.primitives.interfaces.SupportsBasicArithmetic;
 import com.lfscheidegger.jfacet.utils.ArrayUtils;
@@ -143,6 +141,10 @@ public final class Matrix3 extends AbstractExpression<Matrix3.Primitive> {
     this(new ConstantEvaluator<Primitive>(mat));
   }
 
+  public Matrix3(Vector3 c0, Vector3 c1, Vector3 c2) {
+    this (ImmutableList.<Expression>of(c0, c1, c2), new ConstructorEvaluator<Primitive>());
+  }
+
   public Matrix3(Evaluator<Primitive> evaluator) {
     this(ImmutableList.<Expression>of(), evaluator);
   }
@@ -157,6 +159,23 @@ public final class Matrix3 extends AbstractExpression<Matrix3.Primitive> {
 
   public Matrix3(GlSlType glSlType, ImmutableList<Expression> parents, Evaluator<Primitive> evaluator) {
     super(Type.MAT3_T, glSlType, parents, evaluator);
+  }
+
+  public Vector3 getC0() {
+    return get(0);
+  }
+
+  public Vector3 getC1() {
+    return get(1);
+  }
+
+  public Vector3 getC2() {
+    return get(2);
+  }
+
+  public Vector3 get(int idx) {
+    Preconditions.checkState(idx < 3);
+    return new Vector3(ImmutableList.<Expression>of(this), new ComponentEvaluator<Vector3.Primitive>(idx));
   }
 
   public Matrix3 add(float right) {
