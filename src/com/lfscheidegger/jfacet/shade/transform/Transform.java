@@ -2,7 +2,6 @@ package com.lfscheidegger.jfacet.shade.transform;
 
 import com.lfscheidegger.jfacet.shade.expression.Expression;
 import com.lfscheidegger.jfacet.shade.expression.MatrixExpression;
-import com.lfscheidegger.jfacet.shade.expression.VectorExpression;
 
 public interface Transform {
 

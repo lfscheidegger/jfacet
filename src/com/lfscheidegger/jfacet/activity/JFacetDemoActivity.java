@@ -12,7 +12,7 @@ import com.lfscheidegger.jfacet.shade.Shade;
 import com.lfscheidegger.jfacet.shade.camera.Camera;
 import com.lfscheidegger.jfacet.shade.camera.LookAtConfig;
 import com.lfscheidegger.jfacet.shade.expression.Expression;
-import com.lfscheidegger.jfacet.shade.expression.FloatExpression;
+import com.lfscheidegger.jfacet.shade.expression.Real;
 import com.lfscheidegger.jfacet.view.FacetView;
 
 public class JFacetDemoActivity extends Activity {
@@ -110,7 +110,7 @@ public class JFacetDemoActivity extends Activity {
         .setColors(new float[] {1, 0, 0, 0, 1, 0, 0, 0, 1}, 3));
 
     Camera camera = Camera.perspective(mSize.x, mSize.y);
-    FloatExpression angle = Parameter.now().mul(50).radians();
+    Real angle = Parameter.now().mul(50).radians();
 
     Expression squarePosition = camera.apply(
         Shade.translation(1.5f, 0, -12)).apply(
@@ -153,18 +153,18 @@ public class JFacetDemoActivity extends Activity {
             1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1}, 3));
 
     Geometry pyramidModel = Facet.model(new GeometryConfig(
-        new int[] {
+        new int[]{
             0, 1, 2,
             0, 2, 3,
             0, 3, 4,
             0, 4, 1},
-        new float[] {
-            0,  1,  0,
-            -1, -1,  1,
+        new float[]{
+            0, 1, 0,
+            -1, -1, 1,
             -1, -1, -1,
             1, -1, -1,
-            1, -1,  1}, 3)
-        .setColors(new float[] {
+            1, -1, 1}, 3)
+        .setColors(new float[]{
             1, 0, 0,
             0, 1, 0,
             0, 0, 1,
@@ -173,7 +173,7 @@ public class JFacetDemoActivity extends Activity {
         }, 3));
 
     Camera camera = Camera.perspective(mSize.x, mSize.y);
-    FloatExpression angle = Parameter.now().mul(50).radians();
+    Real angle = Parameter.now().mul(50).radians();
 
     Expression cubePosition =
         camera.apply(
@@ -200,7 +200,7 @@ public class JFacetDemoActivity extends Activity {
             .setCenter(Shade.vec(0, 0, -1))
             .setUp(Shade.vec(0, 1, 0)), mSize.x, mSize.y);
 
-    FloatExpression angle = Parameter.now().mul(50).radians();
+    Real angle = Parameter.now().mul(50).radians();
 
     scene.add(Facet.bake(
         cube,
@@ -217,7 +217,7 @@ public class JFacetDemoActivity extends Activity {
             .setCenter(Shade.vec(0, 0, -1))
             .setUp(Shade.vec(0, 1, 0)), mSize.x, mSize.y);
 
-    FloatExpression angle = Parameter.now().mul(50).radians();
+    Real angle = Parameter.now().mul(50).radians();
 
     Transform modelTransform = Shade.rotation(angle, Shade.vec(1, 1, 1));
     scene.add(Facet.bake(
@@ -236,7 +236,7 @@ public class JFacetDemoActivity extends Activity {
     Vec3Exp fragPosition = Shade.varying3f((Vec3Exp) cube.getVertices());
     Vec3Exp normal = (Vec3Exp)cube.getNormals();
 
-    FloatExpression diffuse = lightPosition.sub(fragPosition).dot(normal);
+    Real diffuse = lightPosition.sub(fragPosition).dot(normal);
 
     return materialColor.mul(ambientLight).add(materialColor.mul(diffuse));
   }   */

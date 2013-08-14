@@ -1,9 +1,7 @@
 package com.lfscheidegger.jfacet.shade;
 
 import com.lfscheidegger.jfacet.shade.compiler.CompilationContext;
-import com.lfscheidegger.jfacet.shade.expression.FloatExpression;
-import com.lfscheidegger.jfacet.shade.expression.VectorExpression;
-import com.lfscheidegger.jfacet.shade.primitives.Vector;
+import com.lfscheidegger.jfacet.shade.expression.Real;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -18,7 +16,7 @@ public class TestMath {
 
   @Test
   public void testSqrt() {
-    FloatExpression f = Shade.constant(4);
+    Real f = Shade.constant(4);
 
     assertEquals(Math.sqrt(f).getGlSlString(mContext), "float(sqrt(float(4.0)))");
     assertTrue(Math.sqrt(f).evaluate() == 2);

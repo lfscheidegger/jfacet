@@ -3,16 +3,13 @@ package com.lfscheidegger.jfacet.shade;
 import android.os.SystemClock;
 import com.google.common.base.Preconditions;
 import com.lfscheidegger.jfacet.shade.expression.Expression;
-import com.lfscheidegger.jfacet.shade.expression.FloatExpression;
+import com.lfscheidegger.jfacet.shade.expression.Real;
 import com.lfscheidegger.jfacet.shade.expression.MatrixExpression;
-import com.lfscheidegger.jfacet.shade.expression.VectorExpression;
 import com.lfscheidegger.jfacet.shade.expression.evaluators.glsl.UniformEvaluator;
-import com.lfscheidegger.jfacet.shade.primitives.Matrix;
-import com.lfscheidegger.jfacet.shade.primitives.Vector;
 
 public final class Parameter {
 
-  public static FloatExpression now() {
+  public static Real now() {
     return parameter(Shade.constant(0), new UniformEvaluator.Refreshable<Float>() {
       @Override
       public void refresh(UniformEvaluator<Float> uniform) {
@@ -21,12 +18,12 @@ public final class Parameter {
     });
   }
 
-  public static FloatExpression parameter(FloatExpression value) {
-    return new FloatExpression(GlSlType.UNIFORM_T, new UniformEvaluator<Float>(value));
+  public static Real parameter(Real value) {
+    return new Real(GlSlType.UNIFORM_T, new UniformEvaluator<Float>(value));
   }
 
-  public static FloatExpression parameter(FloatExpression value, UniformEvaluator.Refreshable<Float> refresher) {
-    return new FloatExpression(GlSlType.UNIFORM_T, new UniformEvaluator<Float>(value, refresher));
+  public static Real parameter(Real value, UniformEvaluator.Refreshable<Float> refresher) {
+    return new Real(GlSlType.UNIFORM_T, new UniformEvaluator<Float>(value, refresher));
   }
 
   public static VectorExpression parameter(VectorExpression value) {

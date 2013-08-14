@@ -2,7 +2,6 @@ package com.lfscheidegger.jfacet.facet;
 
 import com.lfscheidegger.jfacet.shade.Shade;
 import com.lfscheidegger.jfacet.shade.expression.Expression;
-import com.lfscheidegger.jfacet.shade.primitives.Vector;
 
 import java.util.HashSet;
 import java.util.Set;

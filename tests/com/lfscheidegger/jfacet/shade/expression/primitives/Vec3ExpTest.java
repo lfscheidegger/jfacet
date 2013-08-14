@@ -1,8 +1,7 @@
 package com.lfscheidegger.jfacet.shade.expression.primitives;
 
 import com.lfscheidegger.jfacet.shade.Shade;
-import com.lfscheidegger.jfacet.shade.expression.FloatExpression;
-import com.lfscheidegger.jfacet.shade.primitives.Vector;
+import com.lfscheidegger.jfacet.shade.expression.Real;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -16,13 +15,13 @@ public class Vec3ExpTest {
   @Test
   public void testConstructors() {
     assertEquals(Shade.vec(1, 2, 3).evaluate(), new Vector(1, 2, 3));
-    assertEquals(Shade.vec(new FloatExpression(1), 2, 3).evaluate(), new Vector(1, 2, 3));
-    assertEquals(Shade.vec(1, new FloatExpression(2), 3).evaluate(), new Vector(1, 2, 3));
-    assertEquals(Shade.vec(new FloatExpression(1), new FloatExpression(2), 3).evaluate(), new Vector(1, 2, 3));
-    assertEquals(Shade.vec(1, 2, new FloatExpression(3)).evaluate(), new Vector(1, 2, 3));
-    assertEquals(Shade.vec(new FloatExpression(1), 2, new FloatExpression(3)).evaluate(), new Vector(1, 2, 3));
-    assertEquals(Shade.vec(1, new FloatExpression(2), new FloatExpression(3)).evaluate(), new Vector(1, 2, 3));
-    assertEquals(Shade.vec(new FloatExpression(1), new FloatExpression(2), new FloatExpression(3)).evaluate(), new Vector(1, 2, 3));
+    assertEquals(Shade.vec(new Real(1), 2, 3).evaluate(), new Vector(1, 2, 3));
+    assertEquals(Shade.vec(1, new Real(2), 3).evaluate(), new Vector(1, 2, 3));
+    assertEquals(Shade.vec(new Real(1), new Real(2), 3).evaluate(), new Vector(1, 2, 3));
+    assertEquals(Shade.vec(1, 2, new Real(3)).evaluate(), new Vector(1, 2, 3));
+    assertEquals(Shade.vec(new Real(1), 2, new Real(3)).evaluate(), new Vector(1, 2, 3));
+    assertEquals(Shade.vec(1, new Real(2), new Real(3)).evaluate(), new Vector(1, 2, 3));
+    assertEquals(Shade.vec(new Real(1), new Real(2), new Real(3)).evaluate(), new Vector(1, 2, 3));
   }
 
   @Test

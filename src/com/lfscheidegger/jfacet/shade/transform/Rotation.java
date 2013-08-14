@@ -1,26 +1,25 @@
 package com.lfscheidegger.jfacet.shade.transform;
 
 import com.lfscheidegger.jfacet.shade.Shade;
-import com.lfscheidegger.jfacet.shade.expression.FloatExpression;
+import com.lfscheidegger.jfacet.shade.expression.Real;
 import com.lfscheidegger.jfacet.shade.expression.MatrixExpression;
-import com.lfscheidegger.jfacet.shade.expression.VectorExpression;
 
 public class Rotation extends AbstractTransform {
 
-  public Rotation(FloatExpression angle, VectorExpression axis) {
+  public Rotation(Real angle, VectorExpression axis) {
     super(getMatrix(angle, axis));
   }
 
-  private static MatrixExpression getMatrix(FloatExpression angle, VectorExpression axis) {
+  private static MatrixExpression getMatrix(Real angle, VectorExpression axis) {
     axis = axis.normalize();
 
-    FloatExpression s = angle.sin();
-    FloatExpression c = angle.cos();
+    Real s = angle.sin();
+    Real c = angle.cos();
 
-    FloatExpression t = Shade.sub(1, c);
-    FloatExpression x = axis.get(0);
-    FloatExpression y = axis.get(1);
-    FloatExpression z = axis.get(2);
+    Real t = Shade.sub(1, c);
+    Real x = axis.get(0);
+    Real y = axis.get(1);
+    Real z = axis.get(2);
 
     return Shade.mat(
         Shade.vec(x.mul(x).mul(t).add(c),

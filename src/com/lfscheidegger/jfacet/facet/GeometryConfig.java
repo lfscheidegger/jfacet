@@ -102,7 +102,7 @@ public final class GeometryConfig {
       }
 
       switch(attribBuffer.getDimension()) {
-        case 1: expression = Shade.attributef(); break;
+        case 1: expression = Shade.attribute1f(); break;
         case 2: expression =  Shade.attribute2f(); break;
         case 3: expression =  Shade.attribute3f(); break;
         case 4: expression = Shade.attribute4f(); break;

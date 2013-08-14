@@ -3,8 +3,6 @@ package com.lfscheidegger.jfacet.shade.compiler.ast;
 import com.google.common.collect.ImmutableList;
 import com.lfscheidegger.jfacet.shade.GlSlType;
 import com.lfscheidegger.jfacet.shade.expression.*;
-import com.lfscheidegger.jfacet.shade.primitives.Matrix;
-import com.lfscheidegger.jfacet.shade.primitives.Vector;
 
 import java.util.List;
 
@@ -51,7 +49,7 @@ public class ASTOptimizer implements ASTProcessor {
 
   private Expression wrap(Expression expression) {
     switch(expression.getType()) {
-      case FLOAT_T: return new FloatExpression((Float)expression.evaluate());
+      case FLOAT_T: return new Real((Float)expression.evaluate());
       case VEC2_T: // fallthrough
       case VEC3_T: // fallthrough
       case VEC4_T: return new VectorExpression((Vector)expression.evaluate());

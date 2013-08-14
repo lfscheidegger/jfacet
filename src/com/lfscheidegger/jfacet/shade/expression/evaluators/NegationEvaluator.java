@@ -4,7 +4,7 @@ import com.google.common.collect.ImmutableList;
 import com.lfscheidegger.jfacet.shade.compiler.CompilationContext;
 import com.lfscheidegger.jfacet.shade.compiler.GlSlExpressionHelper;
 import com.lfscheidegger.jfacet.shade.expression.Expression;
-import com.lfscheidegger.jfacet.shade.expression.FloatExpression;
+import com.lfscheidegger.jfacet.shade.expression.Real;
 import com.lfscheidegger.jfacet.shade.primitives.interfaces.SupportsBasicArithmetic;
 
 public final class NegationEvaluator<T> implements Evaluator<T> {
@@ -14,8 +14,8 @@ public final class NegationEvaluator<T> implements Evaluator<T> {
   public T evaluate(Expression expression) {
     Expression parent = (Expression)expression.getParents().get(0);
 
-    if (parent instanceof FloatExpression) {
-      return (T)Float.valueOf(- ((FloatExpression)parent).evaluate());
+    if (parent instanceof Real) {
+      return (T)Float.valueOf(- ((Real)parent).evaluate());
     } else {
       return (T)((SupportsBasicArithmetic)parent.evaluate()).neg();
     }

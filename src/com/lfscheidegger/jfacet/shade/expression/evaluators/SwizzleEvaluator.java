@@ -5,8 +5,6 @@ import com.lfscheidegger.jfacet.shade.Type;
 import com.lfscheidegger.jfacet.shade.compiler.CompilationContext;
 import com.lfscheidegger.jfacet.shade.compiler.GlSlExpressionHelper;
 import com.lfscheidegger.jfacet.shade.expression.Expression;
-import com.lfscheidegger.jfacet.shade.expression.VectorExpression;
-import com.lfscheidegger.jfacet.shade.primitives.Vector;
 
 public class SwizzleEvaluator<T> implements Evaluator<T> {
 

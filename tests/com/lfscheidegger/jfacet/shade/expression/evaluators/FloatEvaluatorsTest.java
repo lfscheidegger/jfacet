@@ -3,16 +3,15 @@ package com.lfscheidegger.jfacet.shade.expression.evaluators;
 import com.lfscheidegger.jfacet.shade.FakeCompilationContext;
 import com.lfscheidegger.jfacet.shade.Shade;
 import com.lfscheidegger.jfacet.shade.compiler.CompilationContext;
-import com.lfscheidegger.jfacet.shade.expression.FloatExpression;
+import com.lfscheidegger.jfacet.shade.expression.Real;
 import com.lfscheidegger.jfacet.shade.expression.operators.FloatOperators;
-import com.lfscheidegger.jfacet.shade.primitives.Vector;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 /**
- * Unit tests for {@code Evaluators} for {@code FloatExpression} objects.
+ * Unit tests for {@code Evaluators} for {@code Real} objects.
  */
 public class FloatEvaluatorsTest {
 
@@ -21,7 +20,7 @@ public class FloatEvaluatorsTest {
   @Test
   public void testForConstant() {
     Evaluator<Float> eval = new ConstantEvaluator<Float>(2.0f);
-    FloatExpression exp = Shade.constant(2);
+    Real exp = Shade.constant(2);
 
     assertEquals(eval.getGlSlString(exp, mContext), "float(2.0)");
   }

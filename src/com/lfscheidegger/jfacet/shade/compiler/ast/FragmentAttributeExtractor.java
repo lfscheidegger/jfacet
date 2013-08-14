@@ -7,8 +7,7 @@ import com.lfscheidegger.jfacet.shade.GlSlType;
 import com.lfscheidegger.jfacet.shade.Shade;
 import com.lfscheidegger.jfacet.shade.expression.AbstractExpression;
 import com.lfscheidegger.jfacet.shade.expression.Expression;
-import com.lfscheidegger.jfacet.shade.expression.FloatExpression;
-import com.lfscheidegger.jfacet.shade.expression.VectorExpression;
+import com.lfscheidegger.jfacet.shade.expression.Real;
 
 /**
  * {@code ASTProcessor} object responsible for filtering ATTRIBUTE_T expressions from the AST used for
@@ -49,7 +48,7 @@ public class FragmentAttributeExtractor implements ASTProcessor {
 
   private Expression getVaryingForAttribute(Expression attribute) {
     switch(attribute.getType()) {
-      case FLOAT_T: return Shade.varying((FloatExpression)attribute);
+      case FLOAT_T: return Shade.varying((Real)attribute);
       case VEC2_T: // fallthrough
       case VEC3_T: // fallthrough
       case VEC4_T: return Shade.varying((VectorExpression)attribute);

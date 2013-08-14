@@ -1,7 +1,6 @@
 package com.lfscheidegger.jfacet.shade.expression.evaluators;
 
 import com.lfscheidegger.jfacet.shade.Shade;
-import com.lfscheidegger.jfacet.shade.primitives.Vector;
 import org.junit.Test;
 import static org.junit.Assert.*;
 

@@ -4,8 +4,6 @@ import com.lfscheidegger.jfacet.shade.FakeCompilationContext;
 import com.lfscheidegger.jfacet.shade.Shade;
 import com.lfscheidegger.jfacet.shade.compiler.CompilationContext;
 import com.lfscheidegger.jfacet.shade.expression.operators.BasicArithmeticOperators;
-import com.lfscheidegger.jfacet.shade.primitives.Matrix;
-import com.lfscheidegger.jfacet.shade.primitives.Vector;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;

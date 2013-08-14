@@ -22,8 +22,6 @@ import com.lfscheidegger.jfacet.shade.compiler.ast.FragmentAttributeExtractor;
 import com.lfscheidegger.jfacet.shade.expression.Expression;
 import com.lfscheidegger.jfacet.shade.expression.SamplerExpression;
 import com.lfscheidegger.jfacet.shade.expression.evaluators.glsl.UniformEvaluator;
-import com.lfscheidegger.jfacet.shade.primitives.Matrix;
-import com.lfscheidegger.jfacet.shade.primitives.Vector;
 
 import java.util.HashSet;
 import java.util.Set;

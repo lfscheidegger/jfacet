@@ -8,8 +8,6 @@ import com.lfscheidegger.jfacet.shade.Type;
 import com.lfscheidegger.jfacet.shade.expression.evaluators.ComponentEvaluator;
 import com.lfscheidegger.jfacet.shade.expression.evaluators.ConstantEvaluator;
 import com.lfscheidegger.jfacet.shade.expression.evaluators.Evaluator;
-import com.lfscheidegger.jfacet.shade.primitives.Matrix;
-import com.lfscheidegger.jfacet.shade.primitives.Vector;
 import com.lfscheidegger.jfacet.shade.primitives.interfaces.MatrixLike;
 import com.lfscheidegger.jfacet.shade.primitives.interfaces.VectorLike;
 
@@ -61,24 +59,24 @@ public final class MatrixExpression extends AbstractExpression<Matrix> implement
   }
 
   public MatrixExpression add(float other) { return Shade.add(this, other); }
-  public MatrixExpression add(FloatExpression other) { return Shade.add(this, other); }
+  public MatrixExpression add(Real other) { return Shade.add(this, other); }
   public MatrixExpression add(MatrixLike other) { return Shade.add(this, other); }
 
   public MatrixExpression sub(float other) { return Shade.sub(this, other); }
-  public MatrixExpression sub(FloatExpression other) { return Shade.sub(this, other); }
+  public MatrixExpression sub(Real other) { return Shade.sub(this, other); }
   public MatrixExpression sub(MatrixLike other) { return Shade.sub(this, other); }
 
   public MatrixExpression mul(float other) { return Shade.mul(this, other); }
-  public MatrixExpression mul(FloatExpression other) { return Shade.mul(this, other); }
+  public MatrixExpression mul(Real other) { return Shade.mul(this, other); }
   public MatrixExpression mul(MatrixLike other) { return Shade.mul(this, other); }
 
   public VectorExpression mul(VectorLike other) { return Shade.mul(this, other); }
 
   public MatrixExpression div(float other) { return Shade.div(this, other); }
-  public MatrixExpression div(FloatExpression other) { return Shade.div(this, other); }
+  public MatrixExpression div(Real other) { return Shade.div(this, other); }
   public MatrixExpression div(MatrixLike other) { return Shade.div(this, other); }
 
-  public FloatExpression determinant() { return Shade.determinant(this); }
+  public Real determinant() { return Shade.determinant(this); }
 
   public MatrixExpression inverse() { return Shade.inverse(this); }
 

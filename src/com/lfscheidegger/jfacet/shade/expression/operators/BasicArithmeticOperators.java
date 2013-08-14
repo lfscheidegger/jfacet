@@ -1,7 +1,5 @@
 package com.lfscheidegger.jfacet.shade.expression.operators;
 
-import com.lfscheidegger.jfacet.shade.primitives.Matrix;
-import com.lfscheidegger.jfacet.shade.primitives.Vector;
 import com.lfscheidegger.jfacet.shade.primitives.interfaces.SupportsBasicArithmetic;
 
 public final class BasicArithmeticOperators {
