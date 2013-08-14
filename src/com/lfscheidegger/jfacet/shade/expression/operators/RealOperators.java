@@ -3,7 +3,7 @@ package com.lfscheidegger.jfacet.shade.expression.operators;
 /**
  * {@code Operator} objects for {@code Float}
  */
-public final class FloatOperators {
+public final class RealOperators {
   public static Operator<Float, Float, Float> forAddition() {
     return new NamedOperator<Float, Float, Float>("+") {
       @Override

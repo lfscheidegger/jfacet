@@ -2,10 +2,9 @@ package com.lfscheidegger.jfacet.shade.expression;
 
 import com.google.common.collect.ImmutableList;
 import com.lfscheidegger.jfacet.shade.GlSlType;
-import com.lfscheidegger.jfacet.shade.Shade;
 import com.lfscheidegger.jfacet.shade.Type;
 import com.lfscheidegger.jfacet.shade.expression.evaluators.*;
-import com.lfscheidegger.jfacet.shade.expression.operators.FloatOperators;
+import com.lfscheidegger.jfacet.shade.expression.operators.RealOperators;
 
 /**
  * {code Expression} for floats
@@ -35,7 +34,7 @@ public final class Real extends AbstractExpression<Float> {
   public Real add(Real right) {
     return new Real(
         ImmutableList.<Expression>of(this, right),
-        new BinaryOperationEvaluator<Float, Float, Float>(FloatOperators.forAddition()));
+        new BinaryOperationEvaluator<Float, Float, Float>(RealOperators.forAddition()));
   }
 
   public Real add(float right) {
@@ -45,7 +44,7 @@ public final class Real extends AbstractExpression<Float> {
   public Real sub(Real right) {
     return new Real(
         ImmutableList.<Expression>of(this, right),
-        new BinaryOperationEvaluator<Float, Float, Float>(FloatOperators.forSubtraction()));
+        new BinaryOperationEvaluator<Float, Float, Float>(RealOperators.forSubtraction()));
   }
 
   public Real sub(float right) {
@@ -55,7 +54,7 @@ public final class Real extends AbstractExpression<Float> {
   public Real mul(Real right) {
     return new Real(
         ImmutableList.<Expression>of(this, right),
-        new BinaryOperationEvaluator<Float, Float, Float>(FloatOperators.forMultiplication()));
+        new BinaryOperationEvaluator<Float, Float, Float>(RealOperators.forMultiplication()));
   }
 
   public Real mul(float right) {
@@ -65,7 +64,7 @@ public final class Real extends AbstractExpression<Float> {
   public Real div(Real right) {
     return new Real(
         ImmutableList.<Expression>of(this, right),
-        new BinaryOperationEvaluator<Float, Float, Float>(FloatOperators.forDivision()));
+        new BinaryOperationEvaluator<Float, Float, Float>(RealOperators.forDivision()));
   }
 
   public Real div(float right) {

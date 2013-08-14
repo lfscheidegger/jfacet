@@ -1,7 +1,7 @@
 package com.lfscheidegger.jfacet.shade.expression.operators;
 
 import com.lfscheidegger.jfacet.shade.expression.*;
-import com.lfscheidegger.jfacet.shade.primitives.interfaces.SupportsBasicArithmetic;
+import com.lfscheidegger.jfacet.shade.expression.SupportsBasicArithmetic;
 
 public final class BasicArithmeticOperators {
   public static <T extends SupportsBasicArithmetic> Operator<T, Float, T> forAdditionWithFloat() {

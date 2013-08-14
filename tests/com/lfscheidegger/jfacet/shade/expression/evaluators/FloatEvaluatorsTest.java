@@ -4,7 +4,7 @@ import com.lfscheidegger.jfacet.shade.FakeCompilationContext;
 import com.lfscheidegger.jfacet.shade.Shade;
 import com.lfscheidegger.jfacet.shade.compiler.CompilationContext;
 import com.lfscheidegger.jfacet.shade.expression.Real;
-import com.lfscheidegger.jfacet.shade.expression.operators.FloatOperators;
+import com.lfscheidegger.jfacet.shade.expression.operators.RealOperators;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -27,28 +27,28 @@ public class FloatEvaluatorsTest {
 
   @Test
   public void testForAddition() {
-    Evaluator<Float> eval = new BinaryOperationEvaluator<Float, Float, Float>(FloatOperators.forAddition());
+    Evaluator<Float> eval = new BinaryOperationEvaluator<Float, Float, Float>(RealOperators.forAddition());
 
     assertEquals(eval.getGlSlString(Shade.add(2, 3), mContext), "float(float(2.0) + float(3.0))");
   }
 
   @Test
   public void testForSubtraction() {
-    Evaluator<Float> eval = new BinaryOperationEvaluator<Float, Float, Float>(FloatOperators.forSubtraction());
+    Evaluator<Float> eval = new BinaryOperationEvaluator<Float, Float, Float>(RealOperators.forSubtraction());
 
     assertEquals(eval.getGlSlString(Shade.sub(2, 3), mContext), "float(float(2.0) - float(3.0))");
   }
 
   @Test
   public void testForMultiplication() {
-    Evaluator<Float> eval = new BinaryOperationEvaluator<Float, Float, Float>(FloatOperators.forMultiplication());
+    Evaluator<Float> eval = new BinaryOperationEvaluator<Float, Float, Float>(RealOperators.forMultiplication());
 
     assertEquals(eval.getGlSlString(Shade.mul(2, 3), mContext), "float(float(2.0) * float(3.0))");
   }
 
   @Test
   public void testForDivision() {
-    Evaluator<Float> eval = new BinaryOperationEvaluator<Float, Float, Float>(FloatOperators.forDivision());
+    Evaluator<Float> eval = new BinaryOperationEvaluator<Float, Float, Float>(RealOperators.forDivision());
 
     assertEquals(eval.getGlSlString(Shade.div(2, 3), mContext), "float(float(2.0) / float(3.0))");
   }

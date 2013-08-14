@@ -1,10 +1,6 @@
 package com.lfscheidegger.jfacet.shade;
 
-import com.google.common.collect.ImmutableList;
 import com.lfscheidegger.jfacet.shade.expression.*;
-import com.lfscheidegger.jfacet.shade.expression.evaluators.*;
-import com.lfscheidegger.jfacet.shade.expression.evaluators.glsl.QualifiedGlSlEvaluator;
-import com.lfscheidegger.jfacet.shade.primitives.interfaces.VectorLike;
 import com.lfscheidegger.jfacet.shade.transform.Rotation;
 import com.lfscheidegger.jfacet.shade.transform.Scale;
 import com.lfscheidegger.jfacet.shade.transform.Transform;

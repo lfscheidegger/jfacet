@@ -5,7 +5,7 @@ import com.lfscheidegger.jfacet.shade.compiler.CompilationContext;
 import com.lfscheidegger.jfacet.shade.compiler.GlSlExpressionHelper;
 import com.lfscheidegger.jfacet.shade.expression.Expression;
 import com.lfscheidegger.jfacet.shade.expression.Real;
-import com.lfscheidegger.jfacet.shade.primitives.interfaces.SupportsBasicArithmetic;
+import com.lfscheidegger.jfacet.shade.expression.SupportsBasicArithmetic;
 
 public final class NegationEvaluator<T> implements Evaluator<T> {
 

@@ -7,7 +7,6 @@ import com.lfscheidegger.jfacet.shade.GlSlType;
 import com.lfscheidegger.jfacet.shade.Type;
 import com.lfscheidegger.jfacet.shade.expression.evaluators.*;
 import com.lfscheidegger.jfacet.shade.expression.operators.BasicArithmeticOperators;
-import com.lfscheidegger.jfacet.shade.primitives.interfaces.SupportsBasicArithmetic;
 import com.lfscheidegger.jfacet.utils.ArrayUtils;
 import com.lfscheidegger.jfacet.utils.SwizzleUtils;
 
@@ -15,7 +14,7 @@ import java.util.Arrays;
 
 public final class Vector3 extends AbstractExpression<Vector3.Primitive> {
 
-  public static final class Primitive implements SupportsBasicArithmetic<Primitive> {
+  public static final class Primitive implements SupportsBasicArithmetic<Primitive>, SupportsSwizzling {
 
     private final float[] mValues;
 

@@ -1,10 +1,10 @@
 package com.lfscheidegger.jfacet.shade.expression.evaluators;
 
-import com.google.common.base.Preconditions;
 import com.lfscheidegger.jfacet.shade.Type;
 import com.lfscheidegger.jfacet.shade.compiler.CompilationContext;
 import com.lfscheidegger.jfacet.shade.compiler.GlSlExpressionHelper;
 import com.lfscheidegger.jfacet.shade.expression.Expression;
+import com.lfscheidegger.jfacet.shade.expression.SupportsSwizzling;
 
 public class SwizzleEvaluator<T> implements Evaluator<T> {
 
@@ -35,10 +35,7 @@ public class SwizzleEvaluator<T> implements Evaluator<T> {
   @Override
   @SuppressWarnings("unchecked")
   public T evaluate(Expression<T> expression) {
-    Preconditions.checkState(expression.getParents().size() == 1);
-    Preconditions.checkState(expression.getParents().get(0) instanceof VectorExpression);
-
-    Vector vector = ((VectorExpression)expression.getParents().get(0)).evaluate();
+    SupportsSwizzling vector = (SupportsSwizzling)expression.getParents().get(0).evaluate();
     switch(mDimension) {
       case 1: return (T)(Float.valueOf(vector.swizzle(mAccessors[0])));
       case 2: return (T)vector.swizzle(mAccessors[0], mAccessors[1]);
