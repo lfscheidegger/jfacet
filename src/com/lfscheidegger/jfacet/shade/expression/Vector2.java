@@ -136,7 +136,7 @@ public final class Vector2 extends AbstractExpression<Vector2.Primitive> {
   }
 
   public Vector2(Real x, Real y) {
-
+    this(ImmutableList.<Expression>of(x, y), new ConstructorEvaluator<Primitive>());
   }
 
   public Vector2(Evaluator<Primitive> evaluator) {
@@ -286,9 +286,5 @@ public final class Vector2 extends AbstractExpression<Vector2.Primitive> {
 
   public Vector4 swizzle(char x, char y, char z, char w) {
     return new Vector4(ImmutableList.<Expression>of(this), new SwizzleEvaluator<Vector4.Primitive>(x, y, z, w));
-  }
-
-  public Vector4 fill(Vector4 defaultValues) {
-
   }
 }

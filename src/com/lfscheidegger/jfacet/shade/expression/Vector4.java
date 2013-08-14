@@ -144,6 +144,10 @@ public class Vector4 extends AbstractExpression<Vector4.Primitive> {
     this(new ConstantEvaluator<Primitive>(vec));
   }
 
+  public Vector4(Real x, Real y, Real z, Real w) {
+    this(ImmutableList.<Expression>of(x, y, z, w), new ConstructorEvaluator<Primitive>());
+  }
+
   public Vector4(Evaluator<Primitive> evaluator) {
     this(ImmutableList.<Expression>of(), evaluator);
   }

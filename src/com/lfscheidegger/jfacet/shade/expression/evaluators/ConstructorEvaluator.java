@@ -4,7 +4,7 @@ import com.google.common.collect.ImmutableList;
 import com.lfscheidegger.jfacet.shade.Type;
 import com.lfscheidegger.jfacet.shade.compiler.CompilationContext;
 import com.lfscheidegger.jfacet.shade.compiler.GlSlExpressionHelper;
-import com.lfscheidegger.jfacet.shade.expression.Expression;
+import com.lfscheidegger.jfacet.shade.expression.*;
 
 public final class ConstructorEvaluator<T> implements Evaluator<T> {
 
@@ -14,23 +14,36 @@ public final class ConstructorEvaluator<T> implements Evaluator<T> {
     ImmutableList<Expression> p = expression.getParents();
     Type type = expression.getType();
     switch(type) {
-      case VEC2_T: return (T)(new Vector((Float)p.get(0).evaluate(), (Float)p.get(1).evaluate()));
+      case VEC2_T:
+        return (T)(new Vector2.Primitive(
+            (Float)p.get(0).evaluate(),
+            (Float)p.get(1).evaluate()));
       case VEC3_T:
-        return (T)(new Vector((Float)p.get(0).evaluate(), (Float)p.get(1).evaluate(), (Float)p.get(2).evaluate()));
-      case VEC4_T: return (T)(new Vector(
-          (Float)p.get(0).evaluate(),
-          (Float)p.get(1).evaluate(),
-          (Float)p.get(2).evaluate(),
-          (Float)p.get(3).evaluate()));
-      case MAT2_T: return (T)(new Matrix((Vector)p.get(0).evaluate(), (Vector)p.get(1).evaluate()));
+        return (T)(new Vector3.Primitive(
+            (Float)p.get(0).evaluate(),
+            (Float)p.get(1).evaluate(),
+            (Float)p.get(2).evaluate()));
+      case VEC4_T:
+        return (T)(new Vector4.Primitive(
+            (Float)p.get(0).evaluate(),
+            (Float)p.get(1).evaluate(),
+            (Float)p.get(2).evaluate(),
+            (Float)p.get(3).evaluate()));
+      case MAT2_T:
+        return (T)(new Matrix2.Primitive(
+            (Vector2.Primitive)p.get(0).evaluate(),
+            (Vector2.Primitive)p.get(1).evaluate()));
       case MAT3_T:
-        return (T)(new Matrix((Vector)p.get(0).evaluate(), (Vector)p.get(1).evaluate(), (Vector)p.get(2).evaluate()));
+        return (T)(new Matrix3.Primitive(
+            (Vector3.Primitive)p.get(0).evaluate(),
+            (Vector3.Primitive)p.get(1).evaluate(),
+            (Vector3.Primitive)p.get(2).evaluate()));
       case MAT4_T:
-        return (T)(new Matrix(
-            (Vector)p.get(0).evaluate(),
-            (Vector)p.get(1).evaluate(),
-            (Vector)p.get(2).evaluate(),
-            (Vector)p.get(3).evaluate()));
+        return (T)(new Matrix4.Primitive(
+            (Vector4.Primitive)p.get(0).evaluate(),
+            (Vector4.Primitive)p.get(1).evaluate(),
+            (Vector4.Primitive)p.get(2).evaluate(),
+            (Vector4.Primitive)p.get(3).evaluate()));
     }
 
     throw new RuntimeException("Cannot evaluate constructed expression from type: " + type);
