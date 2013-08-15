@@ -90,13 +90,6 @@ public final class Matrix3
       return new Primitive(ArrayUtils.mul(mValues, t));
     }
 
-    public Vector3.Primitive mul(Vector3.Primitive vec) {
-      return new Vector3.Primitive(
-          mValues[0] * vec.getX() + mValues[3] * vec.getY() + mValues[6] * vec.getZ(),
-          mValues[1] * vec.getX() + mValues[4] * vec.getY() + mValues[7] * vec.getZ(),
-          mValues[2] * vec.getX() + mValues[5] * vec.getY() + mValues[8] * vec.getZ());
-    }
-
     @Override
     public Primitive div(Primitive other) {
       return new Primitive(ArrayUtils.div(mValues, other.mValues));
@@ -110,6 +103,13 @@ public final class Matrix3
     @Override
     public Primitive neg() {
       return new Primitive(ArrayUtils.mul(mValues, -1));
+    }
+
+    public Vector3.Primitive transform(Vector3.Primitive vec) {
+      return new Vector3.Primitive(
+          mValues[0] * vec.getX() + mValues[3] * vec.getY() + mValues[6] * vec.getZ(),
+          mValues[1] * vec.getX() + mValues[4] * vec.getY() + mValues[7] * vec.getZ(),
+          mValues[2] * vec.getX() + mValues[5] * vec.getY() + mValues[8] * vec.getZ());
     }
 
     public float determinant() {
@@ -243,12 +243,6 @@ public final class Matrix3
         new BinaryOperationEvaluator<Primitive, Primitive, Primitive>(BasicArithmeticOperators.<Primitive>forMultiplicationWithSame()));
   }
 
-  public Vector3 mul(Vector3 right) {
-    return new Vector3(
-        ImmutableList.<Expression>of(this, right),
-        new BinaryOperationEvaluator<Primitive, Vector3.Primitive, Vector3.Primitive>(BasicArithmeticOperators.forLinearTransform3()));
-  }
-
   @Override
   public Matrix3 div(float right) {
     return div(new Real(right));
@@ -271,5 +265,12 @@ public final class Matrix3
   @Override
   public Matrix3 neg() {
     return new Matrix3(ImmutableList.<Expression>of(this), new NegationEvaluator<Primitive>());
+  }
+
+  @Override
+  public Vector3 transform(Vector3 right) {
+    return new Vector3(
+        ImmutableList.<Expression>of(this, right),
+        new BinaryOperationEvaluator<Primitive, Vector3.Primitive, Vector3.Primitive>(BasicArithmeticOperators.forLinearTransform3()));
   }
 }

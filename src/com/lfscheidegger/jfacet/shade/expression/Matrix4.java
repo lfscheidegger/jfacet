@@ -95,14 +95,6 @@ public final class Matrix4
       return new Primitive(ArrayUtils.mul(mValues, t));
     }
 
-    public Vector4.Primitive mul(Vector4.Primitive vec) {
-      return new Vector4.Primitive(
-          mValues[0] * vec.getX() + mValues[4] * vec.getY() + mValues[ 8] * vec.getZ() + mValues[12] * vec.getW(),
-          mValues[1] * vec.getX() + mValues[5] * vec.getY() + mValues[ 9] * vec.getZ() + mValues[13] * vec.getW(),
-          mValues[2] * vec.getX() + mValues[6] * vec.getY() + mValues[10] * vec.getZ() + mValues[14] * vec.getW(),
-          mValues[3] * vec.getX() + mValues[7] * vec.getY() + mValues[11] * vec.getZ() + mValues[15] * vec.getW());
-    }
-
     @Override
     public Primitive div(Primitive other) {
       return new Primitive(ArrayUtils.div(mValues, other.mValues));
@@ -116,6 +108,14 @@ public final class Matrix4
     @Override
     public Primitive neg() {
       return new Primitive(ArrayUtils.mul(mValues, -1));
+    }
+
+    public Vector4.Primitive transform(Vector4.Primitive vec) {
+      return new Vector4.Primitive(
+          mValues[0] * vec.getX() + mValues[4] * vec.getY() + mValues[ 8] * vec.getZ() + mValues[12] * vec.getW(),
+          mValues[1] * vec.getX() + mValues[5] * vec.getY() + mValues[ 9] * vec.getZ() + mValues[13] * vec.getW(),
+          mValues[2] * vec.getX() + mValues[6] * vec.getY() + mValues[10] * vec.getZ() + mValues[14] * vec.getW(),
+          mValues[3] * vec.getX() + mValues[7] * vec.getY() + mValues[11] * vec.getZ() + mValues[15] * vec.getW());
     }
 
     public float determinant() {
@@ -254,12 +254,6 @@ public final class Matrix4
         new BinaryOperationEvaluator<Primitive, Primitive, Primitive>(BasicArithmeticOperators.<Primitive>forMultiplicationWithSame()));
   }
 
-  public Vector4 mul(Vector4 right) {
-    return new Vector4(
-        ImmutableList.<Expression>of(this, right),
-        new BinaryOperationEvaluator<Primitive, Vector4.Primitive, Vector4.Primitive>(BasicArithmeticOperators.forLinearTransform4()));
-  }
-
   @Override
   public Matrix4 div(float right) {
     return div(new Real(right));
@@ -282,5 +276,12 @@ public final class Matrix4
   @Override
   public Matrix4 neg() {
     return new Matrix4(ImmutableList.<Expression>of(this), new NegationEvaluator<Primitive>());
+  }
+
+  @Override
+  public Vector4 transform(Vector4 right) {
+    return new Vector4(
+        ImmutableList.<Expression>of(this, right),
+        new BinaryOperationEvaluator<Primitive, Vector4.Primitive, Vector4.Primitive>(BasicArithmeticOperators.forLinearTransform4()));
   }
 }

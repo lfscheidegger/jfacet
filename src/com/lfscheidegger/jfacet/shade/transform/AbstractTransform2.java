@@ -4,7 +4,6 @@ import com.google.common.collect.Lists;
 import com.lfscheidegger.jfacet.shade.expression.Matrix2;
 import com.lfscheidegger.jfacet.shade.expression.Vector2;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public abstract class AbstractTransform2 implements Transform<Matrix2, Vector2> {
@@ -31,7 +30,7 @@ public abstract class AbstractTransform2 implements Transform<Matrix2, Vector2> 
     mQueuedTransforms.clear();
     mQueuedTransforms.add(this);
 
-    return mat.mul(exp);
+    return mat.transform(exp);
   }
 
   @Override

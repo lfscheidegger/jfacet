@@ -80,7 +80,7 @@ public final class BasicArithmeticOperators {
     return new NamedOperator<Matrix2.Primitive, Vector2.Primitive, Vector2.Primitive>("*") {
       @Override
       public Vector2.Primitive op(Matrix2.Primitive left, Vector2.Primitive right) {
-        return left.mul(right);
+        return left.transform(right);
       }
     };
   }
@@ -89,7 +89,7 @@ public final class BasicArithmeticOperators {
     return new NamedOperator<Matrix3.Primitive, Vector3.Primitive, Vector3.Primitive>("*") {
       @Override
       public Vector3.Primitive op(Matrix3.Primitive left, Vector3.Primitive right) {
-        return left.mul(right);
+        return left.transform(right);
       }
     };
   }
@@ -98,7 +98,7 @@ public final class BasicArithmeticOperators {
     return new NamedOperator<Matrix4.Primitive, Vector4.Primitive, Vector4.Primitive>("*") {
       @Override
       public Vector4.Primitive op(Matrix4.Primitive left, Vector4.Primitive right) {
-        return left.mul(right);
+        return left.transform(right);
       }
     };
   }

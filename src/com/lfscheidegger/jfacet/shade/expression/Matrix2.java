@@ -83,12 +83,6 @@ public final class Matrix2
       return new Primitive(ArrayUtils.mul(mValues, t));
     }
 
-    public Vector2.Primitive mul(Vector2.Primitive vec) {
-      return new Vector2.Primitive(
-          mValues[0] * vec.getX() + mValues[2] * vec.getY(),
-          mValues[1] * vec.getX() + mValues[3] * vec.getY());
-    }
-
     @Override
     public Primitive div(Primitive other) {
       return new Primitive(ArrayUtils.div(mValues, other.mValues));
@@ -102,6 +96,12 @@ public final class Matrix2
     @Override
     public Primitive neg() {
       return new Primitive(ArrayUtils.mul(mValues, -1));
+    }
+
+    public Vector2.Primitive transform(Vector2.Primitive vec) {
+      return new Vector2.Primitive(
+          mValues[0] * vec.getX() + mValues[2] * vec.getY(),
+          mValues[1] * vec.getX() + mValues[3] * vec.getY());
     }
 
     public float determinant() {
@@ -231,12 +231,6 @@ public final class Matrix2
         new BinaryOperationEvaluator<Primitive, Primitive, Primitive>(BasicArithmeticOperators.<Primitive>forMultiplicationWithSame()));
   }
 
-  public Vector2 mul(Vector2 right) {
-    return new Vector2(
-        ImmutableList.<Expression>of(this, right),
-        new BinaryOperationEvaluator<Primitive, Vector2.Primitive, Vector2.Primitive>(BasicArithmeticOperators.forLinearTransform2()));
-  }
-
   @Override
   public Matrix2 div(float right) {
     return div(new Real(right));
@@ -260,4 +254,12 @@ public final class Matrix2
   public Matrix2 neg() {
     return new Matrix2(ImmutableList.<Expression>of(this), new NegationEvaluator<Primitive>());
   }
+
+  @Override
+  public Vector2 transform(Vector2 right) {
+    return new Vector2(
+        ImmutableList.<Expression>of(this, right),
+        new BinaryOperationEvaluator<Primitive, Vector2.Primitive, Vector2.Primitive>(BasicArithmeticOperators.forLinearTransform2()));
+  }
+
 }

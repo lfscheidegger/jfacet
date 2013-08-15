@@ -11,4 +11,6 @@ public interface MatrixExpression<MATRIX_T, VECTOR_T> extends SupportsBasicArith
   public MATRIX_T mul(Real right);
 
   public MATRIX_T div(Real right);
+
+  public VECTOR_T transform(VECTOR_T right);
 }
