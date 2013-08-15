@@ -159,8 +159,8 @@ public final class Vector3 extends AbstractExpression<Vector3.Primitive> impleme
     }
   }
 
-  public Vector3(Primitive vec) {
-    this(new ConstantEvaluator<Primitive>(vec));
+  public Vector3(float x, float y, float z) {
+    this(new ConstantEvaluator<Primitive>(new Primitive(x, y, z)));
   }
 
   public Vector3(Real x, Real y, Real z) {

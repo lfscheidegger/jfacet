@@ -11,12 +11,8 @@ public final class Shade {
     return new Real(c);
   }
 
-  public static Vector2 vec(Vector2.Primitive vec) {
-    return new Vector2(vec);
-  }
-
   public static Vector2 vec(float x, float y) {
-    return new Vector2(new Vector2.Primitive(x, y));
+    return new Vector2(x, y);
   }
 
   public static Vector2 vec(float x, Real y) {
@@ -31,12 +27,8 @@ public final class Shade {
     return new Vector2(x, y);
   }
 
-  public static Vector3 vec(Vector3.Primitive vec) {
-    return new Vector3(vec);
-  }
-
   public static Vector3 vec(float x, float y, float z) {
-    return new Vector3(new Vector3.Primitive(x, y, z));
+    return new Vector3(x, y, z);
   }
 
   public static Vector3 vec(float x, float y, Real z) {
@@ -67,12 +59,8 @@ public final class Shade {
     return new Vector3(x, y, z);
   }
 
-  public static Vector4 vec(Vector4.Primitive vec) {
-    return new Vector4(vec);
-  }
-
   public static Vector4 vec(float x, float y, float z, float w) {
-    return new Vector4(new Vector4.Primitive(x, y, z, w));
+    return new Vector4(x, y, z, w);
   }
 
   public static Vector4 vec(float x, float y, float z, Real w) {

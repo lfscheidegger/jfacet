@@ -157,8 +157,8 @@ public final class Vector4 extends AbstractExpression<Vector4.Primitive> impleme
     }
   }
 
-  public Vector4(Primitive vec) {
-    this(new ConstantEvaluator<Primitive>(vec));
+  public Vector4(float x, float y, float z, float w) {
+    this(new ConstantEvaluator<Primitive>(new Primitive(x, y, z, w)));
   }
 
   public Vector4(Real x, Real y, Real z, Real w) {
