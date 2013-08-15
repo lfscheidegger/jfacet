@@ -195,6 +195,7 @@ public final class Vector3 extends AbstractExpression<Vector3.Primitive> impleme
     return get(2);
   }
 
+  @Override
   public Real get(int idx) {
     Preconditions.checkState(idx < 3);
     return new Real(ImmutableList.<Expression>of(this), new ComponentEvaluator<Float>(idx));
@@ -306,6 +307,7 @@ public final class Vector3 extends AbstractExpression<Vector3.Primitive> impleme
     return dot(new Vector3(right));
   }
 
+  @Override
   public Real dot(Vector3 right) {
     return new Real(ImmutableList.<Expression>of(this, right), new FunctionEvaluator<Float>(Type.FLOAT_T, "dot") {
       @Override
@@ -318,6 +320,7 @@ public final class Vector3 extends AbstractExpression<Vector3.Primitive> impleme
     });
   }
 
+  @Override
   public Vector3 normalize() {
     return new Vector3(
         ImmutableList.<Expression>of(this),
@@ -330,6 +333,7 @@ public final class Vector3 extends AbstractExpression<Vector3.Primitive> impleme
         });
   }
 
+  @Override
   public Real length() {
     return new Real(
         ImmutableList.<Expression>of(this),
@@ -359,18 +363,22 @@ public final class Vector3 extends AbstractExpression<Vector3.Primitive> impleme
         });
   }
 
+  @Override
   public Real swizzle(char x) {
     return new Real(ImmutableList.<Expression>of(this), new SwizzleEvaluator<Float>(x));
   }
 
+  @Override
   public Vector2 swizzle(char x, char y) {
     return new Vector2(ImmutableList.<Expression>of(this), new SwizzleEvaluator<Vector2.Primitive>(x, y));
   }
 
+  @Override
   public Vector3 swizzle(char x, char y, char z) {
     return new Vector3(ImmutableList.<Expression>of(this), new SwizzleEvaluator<Vector3.Primitive>(x, y, z));
   }
 
+  @Override
   public Vector4 swizzle(char x, char y, char z, char w) {
     return new Vector4(ImmutableList.<Expression>of(this), new SwizzleEvaluator<Vector4.Primitive>(x, y, z, w));
   }

@@ -12,7 +12,9 @@ import com.lfscheidegger.jfacet.utils.StringUtils;
 
 import java.util.Arrays;
 
-public final class Matrix3 extends AbstractExpression<Matrix3.Primitive> implements SupportsBasicArithmetic<Matrix3> {
+public final class Matrix3
+    extends AbstractExpression<Matrix3.Primitive>
+    implements MatrixExpression<Matrix3, Vector3> {
 
   public static final class Primitive implements SupportsBasicArithmetic<Primitive> {
 
@@ -182,15 +184,18 @@ public final class Matrix3 extends AbstractExpression<Matrix3.Primitive> impleme
     return get(2);
   }
 
+  @Override
   public Vector3 get(int idx) {
     Preconditions.checkState(idx < 3);
     return new Vector3(ImmutableList.<Expression>of(this), new ComponentEvaluator<Vector3.Primitive>(idx));
   }
 
+  @Override
   public Matrix3 add(float right) {
     return add(new Real(right));
   }
 
+  @Override
   public Matrix3 add(Real right) {
     return new Matrix3(
         ImmutableList.<Expression>of(this, right),
@@ -201,16 +206,19 @@ public final class Matrix3 extends AbstractExpression<Matrix3.Primitive> impleme
     return add(new Matrix3(right));
   }
 
+  @Override
   public Matrix3 add(Matrix3 right) {
     return new Matrix3(
         ImmutableList.<Expression>of(this, right),
         new BinaryOperationEvaluator<Primitive, Primitive, Primitive>(BasicArithmeticOperators.<Primitive>forAdditionWithSame()));
   }
 
+  @Override
   public Matrix3 sub(float right) {
     return sub(new Real(right));
   }
 
+  @Override
   public Matrix3 sub(Real right) {
     return new Matrix3(
         ImmutableList.<Expression>of(this, right),
@@ -221,16 +229,19 @@ public final class Matrix3 extends AbstractExpression<Matrix3.Primitive> impleme
     return sub(new Matrix3(right));
   }
 
+  @Override
   public Matrix3 sub(Matrix3 right) {
     return new Matrix3(
         ImmutableList.<Expression>of(this, right),
         new BinaryOperationEvaluator<Primitive, Primitive, Primitive>(BasicArithmeticOperators.<Primitive>forSubtractionWithSame()));
   }
 
+  @Override
   public Matrix3 mul(float right) {
     return mul(new Real(right));
   }
 
+  @Override
   public Matrix3 mul(Real right) {
     return new Matrix3(
         ImmutableList.<Expression>of(this, right),
@@ -241,6 +252,7 @@ public final class Matrix3 extends AbstractExpression<Matrix3.Primitive> impleme
     return mul(new Matrix3(right));
   }
 
+  @Override
   public Matrix3 mul(Matrix3 right) {
     return new Matrix3(
         ImmutableList.<Expression>of(this, right),
@@ -253,10 +265,12 @@ public final class Matrix3 extends AbstractExpression<Matrix3.Primitive> impleme
         new BinaryOperationEvaluator<Primitive, Vector3.Primitive, Vector3.Primitive>(BasicArithmeticOperators.forLinearTransform3()));
   }
 
+  @Override
   public Matrix3 div(float right) {
     return div(new Real(right));
   }
 
+  @Override
   public Matrix3 div(Real right) {
     return new Matrix3(
         ImmutableList.<Expression>of(this, right),
@@ -267,12 +281,14 @@ public final class Matrix3 extends AbstractExpression<Matrix3.Primitive> impleme
     return div(new Matrix3(right));
   }
 
+  @Override
   public Matrix3 div(Matrix3 right) {
     return new Matrix3(
         ImmutableList.<Expression>of(this, right),
         new BinaryOperationEvaluator<Primitive, Primitive, Primitive>(BasicArithmeticOperators.<Primitive>forDivisionWithSame()));
   }
 
+  @Override
   public Matrix3 neg() {
     return new Matrix3(ImmutableList.<Expression>of(this), new NegationEvaluator<Primitive>());
   }

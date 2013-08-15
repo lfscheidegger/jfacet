@@ -12,7 +12,9 @@ import com.lfscheidegger.jfacet.utils.StringUtils;
 
 import java.util.Arrays;
 
-public final class Matrix2 extends AbstractExpression<Matrix2.Primitive> implements SupportsBasicArithmetic<Matrix2> {
+public final class Matrix2
+    extends AbstractExpression<Matrix2.Primitive>
+    implements MatrixExpression<Matrix2, Vector2> {
 
   public static final class Primitive implements SupportsBasicArithmetic<Primitive> {
 
@@ -170,15 +172,18 @@ public final class Matrix2 extends AbstractExpression<Matrix2.Primitive> impleme
     return get(1);
   }
 
+  @Override
   public Vector2 get(int idx) {
     Preconditions.checkState(idx < 2);
     return new Vector2(ImmutableList.<Expression>of(this), new ComponentEvaluator<Vector2.Primitive>(idx));
   }
 
+  @Override
   public Matrix2 add(float right) {
     return add(new Real(right));
   }
 
+  @Override
   public Matrix2 add(Real right) {
     return new Matrix2(
         ImmutableList.<Expression>of(this, right),
@@ -189,16 +194,19 @@ public final class Matrix2 extends AbstractExpression<Matrix2.Primitive> impleme
     return add(new Matrix2(right));
   }
 
+  @Override
   public Matrix2 add(Matrix2 right) {
     return new Matrix2(
         ImmutableList.<Expression>of(this, right),
         new BinaryOperationEvaluator<Primitive, Primitive, Primitive>(BasicArithmeticOperators.<Primitive>forAdditionWithSame()));
   }
 
+  @Override
   public Matrix2 sub(float right) {
     return sub(new Real(right));
   }
 
+  @Override
   public Matrix2 sub(Real right) {
     return new Matrix2(
         ImmutableList.<Expression>of(this, right),
@@ -209,16 +217,19 @@ public final class Matrix2 extends AbstractExpression<Matrix2.Primitive> impleme
     return sub(new Matrix2(right));
   }
 
+  @Override
   public Matrix2 sub(Matrix2 right) {
     return new Matrix2(
         ImmutableList.<Expression>of(this, right),
         new BinaryOperationEvaluator<Primitive, Primitive, Primitive>(BasicArithmeticOperators.<Primitive>forSubtractionWithSame()));
   }
 
+  @Override
   public Matrix2 mul(float right) {
     return mul(new Real(right));
   }
 
+  @Override
   public Matrix2 mul(Real right) {
     return new Matrix2(
         ImmutableList.<Expression>of(this, right),
@@ -229,6 +240,7 @@ public final class Matrix2 extends AbstractExpression<Matrix2.Primitive> impleme
     return mul(new Matrix2(right));
   }
 
+  @Override
   public Matrix2 mul(Matrix2 right) {
     return new Matrix2(
         ImmutableList.<Expression>of(this, right),
@@ -241,10 +253,12 @@ public final class Matrix2 extends AbstractExpression<Matrix2.Primitive> impleme
         new BinaryOperationEvaluator<Primitive, Vector2.Primitive, Vector2.Primitive>(BasicArithmeticOperators.forLinearTransform2()));
   }
 
+  @Override
   public Matrix2 div(float right) {
     return div(new Real(right));
   }
 
+  @Override
   public Matrix2 div(Real right) {
     return new Matrix2(
         ImmutableList.<Expression>of(this, right),
@@ -255,12 +269,14 @@ public final class Matrix2 extends AbstractExpression<Matrix2.Primitive> impleme
     return div(new Matrix2(right));
   }
 
+  @Override
   public Matrix2 div(Matrix2 right) {
     return new Matrix2(
         ImmutableList.<Expression>of(this, right),
         new BinaryOperationEvaluator<Primitive, Primitive, Primitive>(BasicArithmeticOperators.<Primitive>forDivisionWithSame()));
   }
 
+  @Override
   public Matrix2 neg() {
     return new Matrix2(ImmutableList.<Expression>of(this), new NegationEvaluator<Primitive>());
   }

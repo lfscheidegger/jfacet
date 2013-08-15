@@ -12,7 +12,9 @@ import com.lfscheidegger.jfacet.utils.StringUtils;
 
 import java.util.Arrays;
 
-public final class Matrix4 extends AbstractExpression<Matrix4.Primitive> implements SupportsBasicArithmetic<Matrix4> {
+public final class Matrix4
+    extends AbstractExpression<Matrix4.Primitive>
+    implements MatrixExpression<Matrix4, Vector4> {
 
   public static final class Primitive implements SupportsBasicArithmetic<Primitive> {
 
@@ -189,15 +191,18 @@ public final class Matrix4 extends AbstractExpression<Matrix4.Primitive> impleme
     return get(2);
   }
 
+  @Override
   public Vector4 get(int idx) {
     Preconditions.checkState(idx < 4);
     return new Vector4(ImmutableList.<Expression>of(this), new ComponentEvaluator<Vector4.Primitive>(idx));
   }
 
+  @Override
   public Matrix4 add(float right) {
     return add(new Real(right));
   }
 
+  @Override
   public Matrix4 add(Real right) {
     return new Matrix4(
         ImmutableList.<Expression>of(this, right),
@@ -208,16 +213,19 @@ public final class Matrix4 extends AbstractExpression<Matrix4.Primitive> impleme
     return add(new Matrix4(right));
   }
 
+  @Override
   public Matrix4 add(Matrix4 right) {
     return new Matrix4(
         ImmutableList.<Expression>of(this, right),
         new BinaryOperationEvaluator<Primitive, Primitive, Primitive>(BasicArithmeticOperators.<Primitive>forAdditionWithSame()));
   }
 
+  @Override
   public Matrix4 sub(float right) {
     return sub(new Real(right));
   }
 
+  @Override
   public Matrix4 sub(Real right) {
     return new Matrix4(
         ImmutableList.<Expression>of(this, right),
@@ -228,16 +236,19 @@ public final class Matrix4 extends AbstractExpression<Matrix4.Primitive> impleme
     return sub(new Matrix4(right));
   }
 
+  @Override
   public Matrix4 sub(Matrix4 right) {
     return new Matrix4(
         ImmutableList.<Expression>of(this, right),
         new BinaryOperationEvaluator<Primitive, Primitive, Primitive>(BasicArithmeticOperators.<Primitive>forSubtractionWithSame()));
   }
 
+  @Override
   public Matrix4 mul(float right) {
     return mul(new Real(right));
   }
 
+  @Override
   public Matrix4 mul(Real right) {
     return new Matrix4(
         ImmutableList.<Expression>of(this, right),
@@ -248,6 +259,7 @@ public final class Matrix4 extends AbstractExpression<Matrix4.Primitive> impleme
     return mul(new Matrix4(right));
   }
 
+  @Override
   public Matrix4 mul(Matrix4 right) {
     return new Matrix4(
         ImmutableList.<Expression>of(this, right),
@@ -260,10 +272,12 @@ public final class Matrix4 extends AbstractExpression<Matrix4.Primitive> impleme
         new BinaryOperationEvaluator<Primitive, Vector4.Primitive, Vector4.Primitive>(BasicArithmeticOperators.forLinearTransform4()));
   }
 
+  @Override
   public Matrix4 div(float right) {
     return div(new Real(right));
   }
 
+  @Override
   public Matrix4 div(Real right) {
     return new Matrix4(
         ImmutableList.<Expression>of(this, right),
@@ -274,12 +288,14 @@ public final class Matrix4 extends AbstractExpression<Matrix4.Primitive> impleme
     return div(new Matrix4(right));
   }
 
+  @Override
   public Matrix4 div(Matrix4 right) {
     return new Matrix4(
         ImmutableList.<Expression>of(this, right),
         new BinaryOperationEvaluator<Primitive, Primitive, Primitive>(BasicArithmeticOperators.<Primitive>forDivisionWithSame()));
   }
 
+  @Override
   public Matrix4 neg() {
     return new Matrix4(ImmutableList.<Expression>of(this), new NegationEvaluator<Primitive>());
   }
