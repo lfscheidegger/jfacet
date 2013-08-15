@@ -78,7 +78,7 @@ public final class Vector4 extends AbstractExpression<Vector4.Primitive> impleme
 
     @Override
     public Primitive div(Primitive other) {
-      return new Primitive(ArrayUtils.mul(mValues, other.mValues));
+      return new Primitive(ArrayUtils.div(mValues, other.mValues));
     }
 
     @Override

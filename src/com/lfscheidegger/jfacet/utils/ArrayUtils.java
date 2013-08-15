@@ -110,12 +110,7 @@ public final class ArrayUtils {
   }
 
   public static float[] normalize(float[] values) {
-    float norm = 0;
-    for (int i = 0; i < values.length; i++) {
-      norm += values[i] * values[i];
-    }
-
-    norm = (float)Math.sqrt(norm);
+    float norm = length(values);
 
     float[] result = new float[values.length];
     for (int i = 0; i < values.length; i++) {
@@ -123,6 +118,10 @@ public final class ArrayUtils {
     }
 
     return result;
+  }
+
+  public static float length(float[] values) {
+    return (float)Math.sqrt(dot(values, values));
   }
 
   public static float[] mulMatrix(float[] left, float[] right, int dim) {
