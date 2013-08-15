@@ -134,4 +134,16 @@ public final class Shade {
   public static Matrix4 mat(Vector4 c0, Vector4 c1, Vector4 c2, Vector4 c3) {
     return new Matrix4(c0, c1, c2, c3);
   }
+
+  public static Matrix2 identity2() {
+    return new Matrix2();
+  }
+
+  public static Matrix3 identity3() {
+    return new Matrix3();
+  }
+
+  public static Matrix4 identity4() {
+    return new Matrix4();
+  }
 }

@@ -3,6 +3,7 @@ package com.lfscheidegger.jfacet.shade.expression;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableList;
 import com.lfscheidegger.jfacet.shade.GlSlType;
+import com.lfscheidegger.jfacet.shade.Shade;
 import com.lfscheidegger.jfacet.shade.Type;
 import com.lfscheidegger.jfacet.shade.expression.evaluators.*;
 import com.lfscheidegger.jfacet.shade.expression.operators.BasicArithmeticOperators;
@@ -142,6 +143,12 @@ public final class Matrix3
           .addValue(new Vector3.Primitive(mValues[6], mValues[7], mValues[8]))
           .toString();
     }
+  }
+
+  public Matrix3() {
+    this(ImmutableList.<Expression>of(
+        Shade.vec(1, 0, 0), Shade.vec(0, 1, 0), Shade.vec(0, 0, 1)),
+        new ConstructorEvaluator<Primitive>());
   }
 
   public Matrix3(Vector3 c0, Vector3 c1, Vector3 c2) {
