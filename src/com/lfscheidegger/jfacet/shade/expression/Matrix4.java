@@ -61,10 +61,6 @@ public final class Matrix4
       return new Vector4.Primitive(mValues[4 * idx], mValues[4 * idx + 1], mValues[4 * idx + 2], mValues[4 * idx + 3]);
     }
 
-    public float[] getArray() {
-      return mValues;
-    }
-
     @Override
     public Primitive add(Primitive other) {
       return new Primitive(ArrayUtils.add(mValues, other.mValues));

@@ -49,10 +49,6 @@ public final class Matrix2
       return new Vector2.Primitive(mValues[2 * idx], mValues[2 * idx + 1]);
     }
 
-    public float[] getArray() {
-      return mValues;
-    }
-
     @Override
     public Primitive add(Primitive other) {
       return new Primitive(ArrayUtils.add(mValues, other.mValues));

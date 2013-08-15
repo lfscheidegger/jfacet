@@ -56,10 +56,6 @@ public final class Matrix3
       return new Vector3.Primitive(mValues[3 * idx], mValues[3 * idx + 1], mValues[3 * idx + 2]);
     }
 
-    public float[] getArray() {
-      return mValues;
-    }
-
     @Override
     public Primitive add(Primitive other) {
       return new Primitive(ArrayUtils.add(mValues, other.mValues));
