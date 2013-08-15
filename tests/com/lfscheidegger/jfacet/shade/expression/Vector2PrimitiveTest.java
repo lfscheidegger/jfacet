@@ -140,6 +140,6 @@ public class Vector2PrimitiveTest {
   @Test
   public void testToString() {
     String toString = vec.toString();
-    assertEquals(toString, "Primitive{1.0, 2.0}");
+    assertEquals(toString, "vec2(1.0, 2.0)");
   }
 }

@@ -155,6 +155,6 @@ public class Vector3PrimitiveTest {
   @Test
   public void testToString() {
     String toString = vec.toString();
-    assertEquals(toString, "Primitive{1.0, 2.0, 3.0}");
+    assertEquals(toString, "vec3(1.0, 2.0, 3.0)");
   }
 }

@@ -8,6 +8,7 @@ import com.lfscheidegger.jfacet.shade.Type;
 import com.lfscheidegger.jfacet.shade.expression.evaluators.*;
 import com.lfscheidegger.jfacet.shade.expression.operators.BasicArithmeticOperators;
 import com.lfscheidegger.jfacet.utils.ArrayUtils;
+import com.lfscheidegger.jfacet.utils.StringUtils;
 import com.lfscheidegger.jfacet.utils.SwizzleUtils;
 
 import java.util.Arrays;
@@ -148,7 +149,7 @@ public final class Vector4 extends AbstractExpression<Vector4.Primitive> impleme
 
     @Override
     public String toString() {
-      return Objects.toStringHelper(Primitive.class)
+      return StringUtils.toStringHelper(Type.VEC4_T)
           .addValue(mValues[0])
           .addValue(mValues[1])
           .addValue(mValues[2])
