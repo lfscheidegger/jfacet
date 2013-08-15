@@ -95,6 +95,10 @@ public final class Vector4 extends AbstractExpression<Vector4.Primitive> impleme
       return new Primitive(ArrayUtils.normalize(mValues));
     }
 
+    public float length() {
+      return ArrayUtils.length(mValues);
+    }
+
     public float dot(Primitive other) {
       return ArrayUtils.dot(mValues, other.mValues);
     }
@@ -107,25 +111,25 @@ public final class Vector4 extends AbstractExpression<Vector4.Primitive> impleme
     @Override
     public Vector2.Primitive swizzle(char x, char y) {
       return new Vector2.Primitive(
-          SwizzleUtils.getIndexForSwizzle(x),
-          SwizzleUtils.getIndexForSwizzle(y));
+          get(SwizzleUtils.getIndexForSwizzle(x)),
+          get(SwizzleUtils.getIndexForSwizzle(y)));
     }
 
     @Override
     public Vector3.Primitive swizzle(char x, char y, char z) {
       return new Vector3.Primitive(
-          SwizzleUtils.getIndexForSwizzle(x),
-          SwizzleUtils.getIndexForSwizzle(y),
-          SwizzleUtils.getIndexForSwizzle(z));
+          get(SwizzleUtils.getIndexForSwizzle(x)),
+          get(SwizzleUtils.getIndexForSwizzle(y)),
+          get(SwizzleUtils.getIndexForSwizzle(z)));
     }
 
     @Override
     public Vector4.Primitive swizzle(char x, char y, char z, char w) {
       return new Vector4.Primitive(
-          SwizzleUtils.getIndexForSwizzle(x),
-          SwizzleUtils.getIndexForSwizzle(y),
-          SwizzleUtils.getIndexForSwizzle(z),
-          SwizzleUtils.getIndexForSwizzle(w));
+          get(SwizzleUtils.getIndexForSwizzle(x)),
+          get(SwizzleUtils.getIndexForSwizzle(y)),
+          get(SwizzleUtils.getIndexForSwizzle(z)),
+          get(SwizzleUtils.getIndexForSwizzle(w)));
     }
 
     @Override
