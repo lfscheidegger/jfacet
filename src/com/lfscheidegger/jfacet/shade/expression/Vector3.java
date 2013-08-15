@@ -213,10 +213,6 @@ public final class Vector3 extends AbstractExpression<Vector3.Primitive> impleme
         new BinaryOperationEvaluator<Primitive, Float, Primitive>(BasicArithmeticOperators.<Primitive>forAdditionWithFloat()));
   }
 
-  public Vector3 add(Vector3.Primitive right) {
-    return add(new Vector3(right));
-  }
-
   @Override
   public Vector3 add(Vector3 right) {
     return new Vector3(
@@ -235,10 +231,6 @@ public final class Vector3 extends AbstractExpression<Vector3.Primitive> impleme
         ImmutableList.<Expression>of(this, right),
         new BinaryOperationEvaluator<Primitive, Float, Primitive>(
             BasicArithmeticOperators.<Primitive>forSubtractionWithFloat()));
-  }
-
-  public Vector3 sub(Vector3.Primitive right) {
-    return sub(new Vector3(right));
   }
 
   @Override
@@ -261,10 +253,6 @@ public final class Vector3 extends AbstractExpression<Vector3.Primitive> impleme
             BasicArithmeticOperators.<Primitive>forMultiplicationWithFloat()));
   }
 
-  public Vector3 mul(Vector3.Primitive right) {
-    return mul(new Vector3(right));
-  }
-
   @Override
   public Vector3 mul(Vector3 right) {
     return new Vector3(
@@ -285,10 +273,6 @@ public final class Vector3 extends AbstractExpression<Vector3.Primitive> impleme
         new BinaryOperationEvaluator<Primitive, Float, Primitive>(BasicArithmeticOperators.<Primitive>forDivisionWithFloat()));
   }
 
-  public Vector3 div(Vector3.Primitive right) {
-    return div(new Vector3(right));
-  }
-
   @Override
   public Vector3 div(Vector3 right) {
     return new Vector3(
@@ -301,10 +285,6 @@ public final class Vector3 extends AbstractExpression<Vector3.Primitive> impleme
     return new Vector3(
         ImmutableList.<Expression>of(this),
         new NegationEvaluator<Primitive>());
-  }
-
-  public Real dot(Vector3.Primitive right) {
-    return dot(new Vector3(right));
   }
 
   @Override
@@ -344,10 +324,6 @@ public final class Vector3 extends AbstractExpression<Vector3.Primitive> impleme
             return parent.evaluate().length();
           }
         });
-  }
-
-  public Vector3 cross(Vector3.Primitive right) {
-    return cross(new Vector3(right));
   }
 
   public Vector3 cross(Vector3 right) {

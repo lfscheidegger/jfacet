@@ -215,10 +215,6 @@ public final class Vector4 extends AbstractExpression<Vector4.Primitive> impleme
         new BinaryOperationEvaluator<Primitive, Float, Primitive>(BasicArithmeticOperators.<Primitive>forAdditionWithFloat()));
   }
 
-  public Vector4 add(Vector4.Primitive right) {
-    return add(new Vector4(right));
-  }
-
   @Override
   public Vector4 add(Vector4 right) {
     return new Vector4(
@@ -237,10 +233,6 @@ public final class Vector4 extends AbstractExpression<Vector4.Primitive> impleme
         ImmutableList.<Expression>of(this, right),
         new BinaryOperationEvaluator<Primitive, Float, Primitive>(
             BasicArithmeticOperators.<Primitive>forSubtractionWithFloat()));
-  }
-
-  public Vector4 sub(Vector4.Primitive right) {
-    return sub(new Vector4(right));
   }
 
   @Override
@@ -263,10 +255,6 @@ public final class Vector4 extends AbstractExpression<Vector4.Primitive> impleme
             BasicArithmeticOperators.<Primitive>forMultiplicationWithFloat()));
   }
 
-  public Vector4 mul(Vector4.Primitive right) {
-    return mul(new Vector4(right));
-  }
-
   @Override
   public Vector4 mul(Vector4 right) {
     return new Vector4(
@@ -287,10 +275,6 @@ public final class Vector4 extends AbstractExpression<Vector4.Primitive> impleme
         new BinaryOperationEvaluator<Primitive, Float, Primitive>(BasicArithmeticOperators.<Primitive>forDivisionWithFloat()));
   }
 
-  public Vector4 div(Vector4.Primitive right) {
-    return div(new Vector4(right));
-  }
-
   @Override
   public Vector4 div(Vector4 right) {
     return new Vector4(
@@ -303,10 +287,6 @@ public final class Vector4 extends AbstractExpression<Vector4.Primitive> impleme
     return new Vector4(
         ImmutableList.<Expression>of(this),
         new NegationEvaluator<Primitive>());
-  }
-
-  public Real dot(Vector4.Primitive right) {
-    return dot(new Vector4(right));
   }
 
   @Override

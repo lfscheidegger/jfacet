@@ -198,10 +198,6 @@ public final class Vector2 extends AbstractExpression<Vector2.Primitive> impleme
         new BinaryOperationEvaluator<Primitive, Float, Primitive>(BasicArithmeticOperators.<Primitive>forAdditionWithFloat()));
   }
 
-  public Vector2 add(Vector2.Primitive right) {
-    return add(new Vector2(right));
-  }
-
   @Override
   public Vector2 add(Vector2 right) {
     return new Vector2(
@@ -220,10 +216,6 @@ public final class Vector2 extends AbstractExpression<Vector2.Primitive> impleme
         ImmutableList.<Expression>of(this, right),
         new BinaryOperationEvaluator<Primitive, Float, Primitive>(
             BasicArithmeticOperators.<Primitive>forSubtractionWithFloat()));
-  }
-
-  public Vector2 sub(Vector2.Primitive right) {
-    return sub(new Vector2(right));
   }
 
   @Override
@@ -246,10 +238,6 @@ public final class Vector2 extends AbstractExpression<Vector2.Primitive> impleme
             BasicArithmeticOperators.<Primitive>forMultiplicationWithFloat()));
   }
 
-  public Vector2 mul(Vector2.Primitive right) {
-    return mul(new Vector2(right));
-  }
-
   @Override
   public Vector2 mul(Vector2 right) {
     return new Vector2(
@@ -270,10 +258,6 @@ public final class Vector2 extends AbstractExpression<Vector2.Primitive> impleme
         new BinaryOperationEvaluator<Primitive, Float, Primitive>(BasicArithmeticOperators.<Primitive>forDivisionWithFloat()));
   }
 
-  public Vector2 div(Vector2.Primitive right) {
-    return div(new Vector2(right));
-  }
-
   @Override
   public Vector2 div(Vector2 right) {
     return new Vector2(
@@ -286,10 +270,6 @@ public final class Vector2 extends AbstractExpression<Vector2.Primitive> impleme
     return new Vector2(
         ImmutableList.<Expression>of(this),
         new NegationEvaluator<Primitive>());
-  }
-
-  public Real dot(Vector2.Primitive right) {
-    return dot(new Vector2(right));
   }
 
   @Override
