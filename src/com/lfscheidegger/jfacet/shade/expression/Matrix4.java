@@ -155,10 +155,6 @@ public final class Matrix4
     }
   }
 
-  public Matrix4(Primitive mat) {
-    this(new ConstantEvaluator<Primitive>(mat));
-  }
-
   public Matrix4(Vector4 c0, Vector4 c1, Vector4 c2, Vector4 c3) {
     this (ImmutableList.<Expression>of(c0, c1, c2, c3), new ConstructorEvaluator<Primitive>());
   }
@@ -191,6 +187,10 @@ public final class Matrix4
     return get(2);
   }
 
+  public Vector4 getC3() {
+    return get(3);
+  }
+
   @Override
   public Vector4 get(int idx) {
     Preconditions.checkState(idx < 4);
@@ -207,10 +207,6 @@ public final class Matrix4
     return new Matrix4(
         ImmutableList.<Expression>of(this, right),
         new BinaryOperationEvaluator<Primitive, Float, Primitive>(BasicArithmeticOperators.<Primitive>forAdditionWithFloat()));
-  }
-
-  public Matrix4 add(Primitive right) {
-    return add(new Matrix4(right));
   }
 
   @Override
@@ -232,10 +228,6 @@ public final class Matrix4
         new BinaryOperationEvaluator<Primitive, Float, Primitive>(BasicArithmeticOperators.<Primitive>forSubtractionWithFloat()));
   }
 
-  public Matrix4 sub(Primitive right) {
-    return sub(new Matrix4(right));
-  }
-
   @Override
   public Matrix4 sub(Matrix4 right) {
     return new Matrix4(
@@ -253,10 +245,6 @@ public final class Matrix4
     return new Matrix4(
         ImmutableList.<Expression>of(this, right),
         new BinaryOperationEvaluator<Primitive, Float, Primitive>(BasicArithmeticOperators.<Primitive>forMultiplicationWithFloat()));
-  }
-
-  public Matrix4 mul(Primitive right) {
-    return mul(new Matrix4(right));
   }
 
   @Override
@@ -282,10 +270,6 @@ public final class Matrix4
     return new Matrix4(
         ImmutableList.<Expression>of(this, right),
         new BinaryOperationEvaluator<Primitive, Float, Primitive>(BasicArithmeticOperators.<Primitive>forDivisionWithFloat()));
-  }
-
-  public Matrix4 div(Primitive right) {
-    return div(new Matrix4(right));
   }
 
   @Override

@@ -123,24 +123,12 @@ public final class Shade {
     return new Vector4(x, y, z, w);
   }
 
-  public static Matrix2 mat(Matrix2.Primitive mat) {
-    return new Matrix2(mat);
-  }
-
   public static Matrix2 mat(Vector2 c0, Vector2 c1) {
     return new Matrix2(c0, c1);
   }
 
-  public static Matrix3 mat(Matrix3.Primitive mat) {
-    return new Matrix3(mat);
-  }
-
   public static Matrix3 mat(Vector3 c0, Vector3 c1, Vector3 c2) {
     return new Matrix3(c0, c1, c2);
-  }
-
-  public static Matrix4 mat(Matrix4.Primitive mat) {
-    return new Matrix4(mat);
   }
 
   public static Matrix4 mat(Vector4 c0, Vector4 c1, Vector4 c2, Vector4 c3) {

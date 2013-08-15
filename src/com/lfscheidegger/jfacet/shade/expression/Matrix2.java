@@ -139,10 +139,6 @@ public final class Matrix2
     }
   }
 
-  public Matrix2(Primitive mat) {
-    this(new ConstantEvaluator<Primitive>(mat));
-  }
-
   public Matrix2(Vector2 c0, Vector2 c1) {
     this (ImmutableList.<Expression>of(c0, c1), new ConstructorEvaluator<Primitive>());
   }
@@ -190,10 +186,6 @@ public final class Matrix2
         new BinaryOperationEvaluator<Primitive, Float, Primitive>(BasicArithmeticOperators.<Primitive>forAdditionWithFloat()));
   }
 
-  public Matrix2 add(Primitive right) {
-    return add(new Matrix2(right));
-  }
-
   @Override
   public Matrix2 add(Matrix2 right) {
     return new Matrix2(
@@ -213,10 +205,6 @@ public final class Matrix2
         new BinaryOperationEvaluator<Primitive, Float, Primitive>(BasicArithmeticOperators.<Primitive>forSubtractionWithFloat()));
   }
 
-  public Matrix2 sub(Primitive right) {
-    return sub(new Matrix2(right));
-  }
-
   @Override
   public Matrix2 sub(Matrix2 right) {
     return new Matrix2(
@@ -234,10 +222,6 @@ public final class Matrix2
     return new Matrix2(
         ImmutableList.<Expression>of(this, right),
         new BinaryOperationEvaluator<Primitive, Float, Primitive>(BasicArithmeticOperators.<Primitive>forMultiplicationWithFloat()));
-  }
-
-  public Matrix2 mul(Primitive right) {
-    return mul(new Matrix2(right));
   }
 
   @Override
@@ -263,10 +247,6 @@ public final class Matrix2
     return new Matrix2(
         ImmutableList.<Expression>of(this, right),
         new BinaryOperationEvaluator<Primitive, Float, Primitive>(BasicArithmeticOperators.<Primitive>forDivisionWithFloat()));
-  }
-
-  public Matrix2 div(Primitive right) {
-    return div(new Matrix2(right));
   }
 
   @Override
