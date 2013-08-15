@@ -124,6 +124,7 @@ public class Matrix2PrimitiveTest {
     Matrix2.Primitive inverse = mat.inverse();
 
     assertEquals(mat.mul(inverse), new Matrix2.Primitive());
+    assertEquals(inverse.mul(mat), new Matrix2.Primitive());
   }
 
   @Test

@@ -79,7 +79,7 @@ public final class Matrix3
 
     @Override
     public Primitive mul(Primitive other) {
-      return new Primitive(ArrayUtils.mulMatrix(mValues, other.mValues, 2));
+      return new Primitive(ArrayUtils.mulMatrix(mValues, other.mValues, 3));
     }
 
     @Override
