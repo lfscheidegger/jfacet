@@ -1,15 +1,17 @@
 package com.lfscheidegger.jfacet.shade.transform;
 
 import com.lfscheidegger.jfacet.shade.Shade;
+import com.lfscheidegger.jfacet.shade.expression.Matrix4;
 import com.lfscheidegger.jfacet.shade.expression.Real;
+import com.lfscheidegger.jfacet.shade.expression.Vector4;
 
-public class Rotation extends AbstractTransform {
+public class Rotation4 extends AbstractTransform4 {
 
-  public Rotation(Real angle, VectorExpression axis) {
+  public Rotation4(Real angle, Vector4 axis) {
     super(getMatrix(angle, axis));
   }
 
-  private static MatrixExpression getMatrix(Real angle, VectorExpression axis) {
+  private static Matrix4 getMatrix(Real angle, Vector4 axis) {
     axis = axis.normalize();
 
     Real s = angle.sin();

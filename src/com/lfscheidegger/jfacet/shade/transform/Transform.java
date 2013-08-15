@@ -1,16 +1,14 @@
 package com.lfscheidegger.jfacet.shade.transform;
 
-import com.lfscheidegger.jfacet.shade.expression.Expression;
-
-public interface Transform {
+public interface Transform<MATRIX_T, VECTOR_T> {
 
   /**
    * Unfortunately we must support {@code Expression} instead of {@code VectorExpression} here
    * because of FloatExpressions
    */
-  public VectorExpression apply(Expression exp);
+  public VECTOR_T apply(VECTOR_T exp);
 
-  public Transform apply(Transform other);
+  public Transform<MATRIX_T, VECTOR_T> apply(Transform<MATRIX_T, VECTOR_T> other);
 
-  public MatrixExpression getMatrix();
+  public MATRIX_T getMatrix();
 }

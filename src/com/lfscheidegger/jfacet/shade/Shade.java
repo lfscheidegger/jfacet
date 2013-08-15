@@ -1,121 +1,157 @@
 package com.lfscheidegger.jfacet.shade;
 
 import com.lfscheidegger.jfacet.shade.expression.*;
-import com.lfscheidegger.jfacet.shade.transform.Rotation;
-import com.lfscheidegger.jfacet.shade.transform.Scale;
-import com.lfscheidegger.jfacet.shade.transform.Transform;
-import com.lfscheidegger.jfacet.shade.transform.Translation;
 
 /**
  * Convenience methods to fill primitive types into expressions
  */
 public final class Shade {
 
-  // ===================================================================================================================
-  // Basic transformations
-  // ===================================================================================================================
-
-  public static Transform scale(float sx, float sy, float sz) {
-    return scale(Shade.constant(sx), Shade.constant(sy), Shade.constant(sz));
+  public static Vector2 vec(Vector2.Primitive vec) {
+    return new Vector2(vec);
   }
 
-  public static Transform scale(float sx, float sy, Real sz) {
-    return scale(Shade.constant(sx), Shade.constant(sy), sz);
+  public static Vector2 vec(float x, float y) {
+    return new Vector2(new Vector2.Primitive(x, y));
   }
 
-  public static Transform scale(float sx, Real sy, float sz) {
-    return scale(Shade.constant(sx), sy, Shade.constant(sz));
+  public static Vector2 vec(float x, Real y) {
+    return new Vector2(new Real(x), y);
   }
 
-  public static Transform scale(float sx, Real sy, Real sz) {
-    return scale(Shade.constant(sx), sy, sz);
+  public static Vector2 vec(Real x, float y) {
+    return new Vector2(x, new Real(y));
   }
 
-  public static Transform scale(Real sx, float sy, float sz) {
-    return scale(sx, Shade.constant(sy), Shade.constant(sz));
+  public static Vector2 vec(Real x, Real y) {
+    return new Vector2(x, y);
   }
 
-  public static Transform scale(Real sx, float sy, Real sz) {
-    return scale(sx, Shade.constant(sy), sz);
+  public static Vector3 vec(Vector3.Primitive vec) {
+    return new Vector3(vec);
   }
 
-  public static Transform scale(Real sx, Real sy, float sz) {
-    return scale(sx,  sy, Shade.constant(sz));
+  public static Vector3 vec(float x, float y, float z) {
+    return new Vector3(new Vector3.Primitive(x, y, z));
   }
 
-  public static Transform scale(Real sx, Real sy, Real sz) {
-    return new Scale(sx, sy, sz);
+  public static Vector3 vec(float x, float y, Real z) {
+    return new Vector3(new Real(x), new Real(y), z);
   }
 
-  public static Transform translation(float x, float y, float z) {
-    return translation(Shade.constant(x), Shade.constant(y), Shade.constant(z));
+  public static Vector3 vec(float x, Real y, float z) {
+    return new Vector3(new Real(x), y, new Real(z));
   }
 
-  public static Transform translation(float x, float y, Real z) {
-    return translation(Shade.constant(x), Shade.constant(y), z);
+  public static Vector3 vec(float x, Real y, Real z) {
+    return new Vector3(new Real(x), y, z);
   }
 
-  public static Transform translation(float x, Real y, float z) {
-    return translation(Shade.constant(x), y, Shade.constant(z));
+  public static Vector3 vec(Real x, float y, float z) {
+    return new Vector3(x, new Real(y), new Real(z));
   }
 
-  public static Transform translation(float x, Real y, Real z) {
-    return translation(Shade.constant(x), y, z);
+  public static Vector3 vec(Real x, float y, Real z) {
+    return new Vector3(x, new Real(y), z);
   }
 
-  public static Transform translation(Real x, float y, float z) {
-    return translation(x, Shade.constant(y), Shade.constant(z));
+  public static Vector3 vec(Real x, Real y, float z) {
+    return new Vector3(x, y, new Real(z));
   }
 
-  public static Transform translation(Real x, float y, Real z) {
-    return translation(x, Shade.constant(y), z);
+  public static Vector3 vec(Real x, Real y, Real z) {
+    return new Vector3(x, y, z);
   }
 
-  public static Transform translation(Real x, Real y, float z) {
-    return translation(x, y, Shade.constant(z));
+  public static Vector4 vec(Vector4.Primitive vec) {
+    return new Vector4(vec);
   }
 
-  public static Transform translation(Real x, Real y, Real z) {
-    return new Translation(x, y, z);
+  public static Vector4 vec(float x, float y, float z, float w) {
+    return new Vector4(new Vector4.Primitive(x, y, z, w));
   }
 
-  public static Transform rotation(float angle, VectorLike axis) {
-    return rotation(Shade.constant(angle), axis);
+  public static Vector4 vec(float x, float y, float z, Real w) {
+    return new Vector4(new Real(x), new Real(y), new Real(z), w);
   }
 
-  public static Transform rotation(Real angle, VectorLike axis) {
-    return new Rotation(angle, promote(axis));
+  public static Vector4 vec(float x, float y, Real z, float w) {
+    return new Vector4(new Real(x), new Real(y), z, new Real(w));
   }
 
-  // ===================================================================================================================
-  // GLSL stuff
-  // ===================================================================================================================
+  public static Vector4 vec(float x, float y, Real z, Real w) {
+    return new Vector4(new Real(x), new Real(y), z, w);
+  }
 
-  /*public static VectorExpression fill(Expression vector, VectorLike defaultValues) {
-    VectorExpression defaultExpression = promote(defaultValues);
+  public static Vector4 vec(float x, Real y, float z, float w) {
+    return new Vector4(new Real(x), y, new Real(z), new Real(w));
+  }
 
-    switch(vector.getType()) {
-      case FLOAT_T:
-        return Shade.vec(
-            (Real)vector,
-            defaultExpression.getY(),
-            defaultExpression.getZ(),
-            defaultExpression.getW());
-      case VEC2_T:
-        return Shade.vec(
-            ((VectorExpression)vector).getX(),
-            ((VectorExpression)vector).getY(),
-            defaultExpression.getZ(),
-            defaultExpression.getW());
-      case VEC3_T:
-        return Shade.vec(
-            ((VectorExpression)vector).getX(),
-            ((VectorExpression)vector).getY(),
-            ((VectorExpression)vector).getZ(),
-            defaultExpression.getW());
-      case VEC4_T:
-        return (VectorExpression)vector;
-      default: throw new RuntimeException("Cannot fill " + vector.getType() + " to vec4");
-    }
-  }  */
+  public static Vector4 vec(float x, Real y, float z, Real w) {
+    return new Vector4(new Real(x), y, new Real(z), w);
+  }
+
+  public static Vector4 vec(float x, Real y, Real z, float w) {
+    return new Vector4(new Real(x), y, z, new Real(w));
+  }
+
+  public static Vector4 vec(float x, Real y, Real z, Real w) {
+    return new Vector4(new Real(x), y, z, w);
+  }
+
+  public static Vector4 vec(Real x, float y, float z, float w) {
+    return new Vector4(x, new Real(y), new Real(z), new Real(w));
+  }
+
+  public static Vector4 vec(Real x, float y, float z, Real w) {
+    return new Vector4(x, new Real(y), new Real(z), w);
+  }
+
+  public static Vector4 vec(Real x, float y, Real z, float w) {
+    return new Vector4(x, new Real(y), z, new Real(w));
+  }
+
+  public static Vector4 vec(Real x, float y, Real z, Real w) {
+    return new Vector4(x, new Real(y), z, w);
+  }
+
+  public static Vector4 vec(Real x, Real y, float z, float w) {
+    return new Vector4(x, y, new Real(z), new Real(w));
+  }
+
+  public static Vector4 vec(Real x, Real y, float z, Real w) {
+    return new Vector4(x, y, new Real(z), w);
+  }
+
+  public static Vector4 vec(Real x, Real y, Real z, float w) {
+    return new Vector4(x, y, z, new Real(w));
+  }
+
+  public static Vector4 vec(Real x, Real y, Real z, Real w) {
+    return new Vector4(x, y, z, w);
+  }
+
+  public static Matrix2 mat(Matrix2.Primitive mat) {
+    return new Matrix2(mat);
+  }
+
+  public static Matrix2 mat(Vector2 c0, Vector2 c1) {
+    return new Matrix2(c0, c1);
+  }
+
+  public static Matrix3 mat(Matrix3.Primitive mat) {
+    return new Matrix3(mat);
+  }
+
+  public static Matrix3 mat(Vector3 c0, Vector3 c1, Vector3 c2) {
+    return new Matrix3(c0, c1, c2);
+  }
+
+  public static Matrix4 mat(Matrix4.Primitive mat) {
+    return new Matrix4(mat);
+  }
+
+  public static Matrix4 mat(Vector4 c0, Vector4 c1, Vector4 c2, Vector4 c3) {
+    return new Matrix4(c0, c1, c2, c3);
+  }
 }
