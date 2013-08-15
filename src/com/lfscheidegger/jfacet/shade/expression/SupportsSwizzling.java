@@ -1,6 +1,6 @@
 package com.lfscheidegger.jfacet.shade.expression;
 
-interface SupportsSwizzling {
+public interface SupportsSwizzling {
 
   public float swizzle(char x);
 

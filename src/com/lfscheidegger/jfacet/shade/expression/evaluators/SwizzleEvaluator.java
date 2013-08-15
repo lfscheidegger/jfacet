@@ -31,7 +31,6 @@ public class SwizzleEvaluator<T> implements Evaluator<T> {
     mAccessors = new char[]{x, y, z, w};
   }
 
-
   @Override
   @SuppressWarnings("unchecked")
   public T evaluate(Expression<T> expression) {

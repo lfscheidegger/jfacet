@@ -12,7 +12,7 @@ import com.lfscheidegger.jfacet.utils.SwizzleUtils;
 
 import java.util.Arrays;
 
-public final class Vector3 extends AbstractExpression<Vector3.Primitive> {
+public final class Vector3 extends AbstractExpression<Vector3.Primitive> implements VectorExpression<Vector3> {
 
   public static final class Primitive implements SupportsBasicArithmetic<Primitive>, SupportsSwizzling {
 
@@ -42,38 +42,47 @@ public final class Vector3 extends AbstractExpression<Vector3.Primitive> {
       return mValues[idx];
     }
 
+    @Override
     public Primitive add(Primitive other) {
       return new Primitive(ArrayUtils.add(mValues, other.mValues));
     }
 
+    @Override
     public Primitive add(float t) {
       return new Primitive(ArrayUtils.add(mValues, t));
     }
 
+    @Override
     public Primitive sub(Primitive other) {
       return new Primitive(ArrayUtils.sub(mValues, other.mValues));
     }
 
+    @Override
     public Primitive sub(float t) {
       return new Primitive(ArrayUtils.sub(mValues, t));
     }
 
+    @Override
     public Primitive mul(Primitive other) {
       return new Primitive(ArrayUtils.mul(mValues, other.mValues));
     }
 
+    @Override
     public Primitive mul(float t) {
       return new Primitive(ArrayUtils.mul(mValues, t));
     }
 
+    @Override
     public Primitive div(Primitive other) {
       return new Primitive(ArrayUtils.mul(mValues, other.mValues));
     }
 
+    @Override
     public Primitive div(float t) {
       return new Primitive(ArrayUtils.div(mValues, t));
     }
 
+    @Override
     public Primitive neg() {
       return new Primitive(ArrayUtils.neg(mValues));
     }
@@ -93,16 +102,19 @@ public final class Vector3 extends AbstractExpression<Vector3.Primitive> {
           getX() * other.getY() - getY() * other.getX());
     }
 
+    @Override
     public float swizzle(char c) {
       return get(SwizzleUtils.getIndexForSwizzle(c));
     }
 
+    @Override
     public Vector2.Primitive swizzle(char x, char y) {
       return new Vector2.Primitive(
           SwizzleUtils.getIndexForSwizzle(x),
           SwizzleUtils.getIndexForSwizzle(y));
     }
 
+    @Override
     public Vector3.Primitive swizzle(char x, char y, char z) {
       return new Vector3.Primitive(
           SwizzleUtils.getIndexForSwizzle(x),
@@ -110,6 +122,7 @@ public final class Vector3 extends AbstractExpression<Vector3.Primitive> {
           SwizzleUtils.getIndexForSwizzle(z));
     }
 
+    @Override
     public Vector4.Primitive swizzle(char x, char y, char z, char w) {
       return new Vector4.Primitive(
           SwizzleUtils.getIndexForSwizzle(x),
@@ -183,10 +196,12 @@ public final class Vector3 extends AbstractExpression<Vector3.Primitive> {
     return new Real(ImmutableList.<Expression>of(this), new ComponentEvaluator<Float>(idx));
   }
 
+  @Override
   public Vector3 add(float right) {
     return add(new Real(right));
   }
 
+  @Override
   public Vector3 add(Real right) {
     return new Vector3(
         ImmutableList.<Expression>of(this, right),
@@ -197,16 +212,19 @@ public final class Vector3 extends AbstractExpression<Vector3.Primitive> {
     return add(new Vector3(right));
   }
 
+  @Override
   public Vector3 add(Vector3 right) {
     return new Vector3(
         ImmutableList.<Expression>of(this, right),
         new BinaryOperationEvaluator<Primitive, Primitive, Primitive>(BasicArithmeticOperators.<Primitive>forAdditionWithSame()));
   }
 
+  @Override
   public Vector3 sub(float right) {
     return sub(new Real(right));
   }
 
+  @Override
   public Vector3 sub(Real right) {
     return new Vector3(
         ImmutableList.<Expression>of(this, right),
@@ -218,16 +236,19 @@ public final class Vector3 extends AbstractExpression<Vector3.Primitive> {
     return sub(new Vector3(right));
   }
 
+  @Override
   public Vector3 sub(Vector3 right) {
     return new Vector3(
         ImmutableList.<Expression>of(this, right),
         new BinaryOperationEvaluator<Primitive, Primitive, Primitive>(BasicArithmeticOperators.<Primitive>forSubtractionWithSame()));
   }
 
+  @Override
   public Vector3 mul(float right) {
     return mul(new Real(right));
   }
 
+  @Override
   public Vector3 mul(Real right) {
     return new Vector3(
         ImmutableList.<Expression>of(this, right),
@@ -239,6 +260,7 @@ public final class Vector3 extends AbstractExpression<Vector3.Primitive> {
     return mul(new Vector3(right));
   }
 
+  @Override
   public Vector3 mul(Vector3 right) {
     return new Vector3(
         ImmutableList.<Expression>of(this, right),
@@ -246,10 +268,12 @@ public final class Vector3 extends AbstractExpression<Vector3.Primitive> {
             BasicArithmeticOperators.<Primitive>forMultiplicationWithSame()));
   }
 
+  @Override
   public Vector3 div(float right) {
     return div(new Real(right));
   }
 
+  @Override
   public Vector3 div(Real right) {
     return new Vector3(
         ImmutableList.<Expression>of(this, right),
@@ -260,12 +284,14 @@ public final class Vector3 extends AbstractExpression<Vector3.Primitive> {
     return div(new Vector3(right));
   }
 
+  @Override
   public Vector3 div(Vector3 right) {
     return new Vector3(
         ImmutableList.<Expression>of(this, right),
         new BinaryOperationEvaluator<Primitive, Primitive, Primitive>(BasicArithmeticOperators.<Primitive>forDivisionWithSame()));
   }
 
+  @Override
   public Vector3 neg() {
     return new Vector3(
         ImmutableList.<Expression>of(this),
@@ -333,6 +359,7 @@ public final class Vector3 extends AbstractExpression<Vector3.Primitive> {
     return new Vector4(ImmutableList.<Expression>of(this), new SwizzleEvaluator<Vector4.Primitive>(x, y, z, w));
   }
 
+  @Override
   public Vector4 fill(Vector4 defaultExpression) {
     return new Vector4(getX(), getY(), getZ(), defaultExpression.getW());
   }

@@ -21,6 +21,8 @@ import com.lfscheidegger.jfacet.shade.compiler.ast.ASTProcessors;
 import com.lfscheidegger.jfacet.shade.compiler.ast.FragmentAttributeExtractor;
 import com.lfscheidegger.jfacet.shade.expression.Expression;
 import com.lfscheidegger.jfacet.shade.expression.SamplerExpression;
+import com.lfscheidegger.jfacet.shade.expression.Vector4;
+import com.lfscheidegger.jfacet.shade.expression.VectorExpression;
 import com.lfscheidegger.jfacet.shade.expression.evaluators.glsl.UniformEvaluator;
 
 import java.util.HashSet;
@@ -47,17 +49,19 @@ public final class Program {
   private final int[] mUniformLocations;
 
   public Program(
-      Expression position,
-      Expression fragColor,
+      VectorExpression position,
+      VectorExpression fragColor,
       ImmutableMap<AttribBuffer, Expression> attributeMap) {
     mCompilationContext = new DefaultCompilationContext();
 
     ASTOptimizer optimizer = new ASTOptimizer();
 
-    mPosition = optimizer.process(Shade.fill(position, new Vector(0, 0, 0, 1)));
-    mFragColor = Shade.fill(
-        new ASTProcessors().add(optimizer).add(new FragmentAttributeExtractor()).process(fragColor),
-        new Vector(0, 0, 0, 1));
+    //mPosition = optimizer.process(Shade.fill(position, new Vector(0, 0, 0, 1)));
+    mPosition = optimizer.process(position.fill(Shade.vec(0, 0, 0, 1)));
+    mFragColor = new ASTProcessors()
+        .add(optimizer)
+        .add(new FragmentAttributeExtractor())
+        .process(fragColor.fill(Shade.vec(0, 0, 0, 1)));
 
     // initialize data for attributes
     int count = 0;

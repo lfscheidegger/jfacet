@@ -9,7 +9,7 @@ import com.lfscheidegger.jfacet.shade.expression.evaluators.Evaluator;
 /**
  * A Shade expression.
  */
-interface Expression<T> {
+public interface Expression<T> {
 
   /**
    * Returns the primitive type of the value of evaluating this expression.

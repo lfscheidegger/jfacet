@@ -12,7 +12,7 @@ import com.lfscheidegger.jfacet.utils.StringUtils;
 
 import java.util.Arrays;
 
-public final class Matrix3 extends AbstractExpression<Matrix3.Primitive> {
+public final class Matrix3 extends AbstractExpression<Matrix3.Primitive> implements SupportsBasicArithmetic<Matrix3> {
 
   public static final class Primitive implements SupportsBasicArithmetic<Primitive> {
 
@@ -58,26 +58,32 @@ public final class Matrix3 extends AbstractExpression<Matrix3.Primitive> {
       return mValues;
     }
 
+    @Override
     public Primitive add(Primitive other) {
       return new Primitive(ArrayUtils.add(mValues, other.mValues));
     }
 
+    @Override
     public Primitive add(float t) {
       return new Primitive(ArrayUtils.add(mValues, t));
     }
 
+    @Override
     public Primitive sub(Primitive other) {
       return new Primitive(ArrayUtils.sub(mValues, other.mValues));
     }
 
+    @Override
     public Primitive sub(float t) {
       return new Primitive(ArrayUtils.sub(mValues, t));
     }
 
+    @Override
     public Primitive mul(Primitive other) {
       return new Primitive(ArrayUtils.mulMatrix(mValues, other.mValues, 2));
     }
 
+    @Override
     public Primitive mul(float t) {
       return new Primitive(ArrayUtils.mul(mValues, t));
     }
@@ -89,14 +95,17 @@ public final class Matrix3 extends AbstractExpression<Matrix3.Primitive> {
           mValues[2] * vec.getX() + mValues[5] * vec.getY() + mValues[8] * vec.getZ());
     }
 
+    @Override
     public Primitive div(Primitive other) {
       return new Primitive(ArrayUtils.div(mValues, other.mValues));
     }
 
+    @Override
     public Primitive div(float t) {
       return new Primitive(ArrayUtils.div(mValues, t));
     }
 
+    @Override
     public Primitive neg() {
       return new Primitive(ArrayUtils.mul(mValues, -1));
     }
@@ -264,7 +273,7 @@ public final class Matrix3 extends AbstractExpression<Matrix3.Primitive> {
         new BinaryOperationEvaluator<Primitive, Primitive, Primitive>(BasicArithmeticOperators.<Primitive>forDivisionWithSame()));
   }
 
-  public Matrix3 neg(Matrix3 exp) {
-    return new Matrix3(ImmutableList.<Expression>of(exp), new NegationEvaluator<Primitive>());
+  public Matrix3 neg() {
+    return new Matrix3(ImmutableList.<Expression>of(this), new NegationEvaluator<Primitive>());
   }
 }
