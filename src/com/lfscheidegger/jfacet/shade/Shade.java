@@ -7,6 +7,10 @@ import com.lfscheidegger.jfacet.shade.expression.*;
  */
 public final class Shade {
 
+  public static Real constant(float c) {
+    return new Real(c);
+  }
+
   public static Vector2 vec(Vector2.Primitive vec) {
     return new Vector2(vec);
   }

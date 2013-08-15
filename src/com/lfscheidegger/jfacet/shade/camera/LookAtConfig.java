@@ -1,12 +1,14 @@
 package com.lfscheidegger.jfacet.shade.camera;
 
 import com.lfscheidegger.jfacet.shade.Shade;
+import com.lfscheidegger.jfacet.shade.expression.Matrix4;
+import com.lfscheidegger.jfacet.shade.expression.Vector3;
 
 public final class LookAtConfig implements CameraConfig {
 
-  private VectorExpression mEye;
-  private VectorExpression mCenter;
-  private VectorExpression mUp;
+  private Vector3 mEye;
+  private Vector3 mCenter;
+  private Vector3 mUp;
 
   public LookAtConfig() {
     mEye = Shade.vec(0, 0, 0);
@@ -14,26 +16,26 @@ public final class LookAtConfig implements CameraConfig {
     mUp = Shade.vec(0, 1, 0);
   }
 
-  public LookAtConfig setEye(VectorLike eye) {
-    mEye = Shade.promote(eye);
+  public LookAtConfig setEye(Vector3 eye) {
+    mEye = eye;
     return this;
   }
 
-  public LookAtConfig setCenter(VectorLike center) {
-    mCenter = Shade.promote(center);
+  public LookAtConfig setCenter(Vector3 center) {
+    mCenter = center;
     return this;
   }
 
-  public LookAtConfig setUp(VectorLike up) {
-    mUp = Shade.promote(up);
+  public LookAtConfig setUp(Vector3 up) {
+    mUp = up;
     return this;
   }
 
   @Override
-  public MatrixExpression getMatrix() {
-    VectorExpression z = mEye.sub(mCenter).normalize();
-    VectorExpression x = mUp.cross(z).normalize();
-    VectorExpression y = mUp.normalize();
+  public Matrix4 getMatrix() {
+    Vector3 z = mEye.sub(mCenter).normalize();
+    Vector3 x = mUp.cross(z).normalize();
+    Vector3 y = mUp.normalize();
 
     // taken from
     // https://github.com/cscheid/facet/blob/master/src/shade/look_at.js

@@ -94,7 +94,8 @@ public final class GeometryConfig {
   }
 
   private Expression getExpressionForAttribBuffer(AttribBuffer attribBuffer) {
-    Expression expression;
+    return null;
+    /*Expression expression;
 
     if (attribBuffer != null) {
       if (mExpressionMap.containsKey(attribBuffer)) {
@@ -114,6 +115,6 @@ public final class GeometryConfig {
     }
 
     mExpressionMap.put(attribBuffer, expression);
-    return expression;
+    return expression;*/
   }
 }

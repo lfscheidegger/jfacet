@@ -9,7 +9,7 @@ import com.lfscheidegger.jfacet.shade.expression.evaluators.glsl.UniformEvaluato
 public final class Parameter {
 
   public static Real now() {
-    return parameter(Shade.constant(0), new UniformEvaluator.Refreshable<Float>() {
+    return parameter(Shade.constant(0f), new UniformEvaluator.Refreshable<Float>() {
       @Override
       public void refresh(UniformEvaluator<Float> uniform) {
         uniform.set(Shade.constant(SystemClock.uptimeMillis() / 1000.0f));
@@ -23,14 +23,6 @@ public final class Parameter {
 
   public static Real parameter(Real value, UniformEvaluator.Refreshable<Float> refresher) {
     return new Real(GlSlType.UNIFORM_T, new UniformEvaluator<Float>(value, refresher));
-  }
-
-  public static VectorExpression parameter(VectorExpression value) {
-    return new VectorExpression(value.getType(), GlSlType.UNIFORM_T, new UniformEvaluator<Vector>(value));
-  }
-
-  public static MatrixExpression parameter(MatrixExpression value) {
-    return new MatrixExpression(value.getType(), GlSlType.UNIFORM_T, new UniformEvaluator<Matrix>(value));
   }
 
   public static void set(Expression param, Expression value) {

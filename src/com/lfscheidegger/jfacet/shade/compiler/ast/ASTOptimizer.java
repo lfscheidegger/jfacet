@@ -10,7 +10,8 @@ public class ASTOptimizer implements ASTProcessor {
 
   @Override
   public Expression process(Expression value) {
-    if (value.getGlSlType() != GlSlType.DEFAULT_T) {
+    return value;
+    /*if (value.getGlSlType() != GlSlType.DEFAULT_T) {
       return value;
     }
 
@@ -24,7 +25,7 @@ public class ASTOptimizer implements ASTProcessor {
     }
 
     ((AbstractExpression)value).resetParents(parentBuilder.build());
-    return value;
+    return value;*/
   }
 
   private boolean isConstant(Expression expression) {
@@ -48,7 +49,8 @@ public class ASTOptimizer implements ASTProcessor {
   }
 
   private Expression wrap(Expression expression) {
-    switch(expression.getType()) {
+      return expression;
+    /*switch(expression.getType()) {
       case FLOAT_T: return new Real((Float)expression.evaluate());
       case VEC2_T: // fallthrough
       case VEC3_T: // fallthrough
@@ -58,6 +60,6 @@ public class ASTOptimizer implements ASTProcessor {
       case MAT4_T: return new MatrixExpression((Matrix)expression.evaluate());
       default:
         throw new RuntimeException("Can't wrap expression of type: " + expression.getType());
-    }
+    }*/
   }
 }

@@ -61,7 +61,7 @@ public class JFacetDemoActivity extends Activity {
   }
 
   private void prepareLesson2(Scene scene) {
-    Geometry squareModel = Facet.model(new GeometryConfig(
+    /*Geometry squareModel = Facet.model(new GeometryConfig(
         new int[] {0, 1, 2, 0, 2, 3},
         new float[] {-1, -1, 1, -1, 1, 1, -1, 1}, 2)
     ), triangleModel = Facet.model(new GeometryConfig(
@@ -76,11 +76,11 @@ public class JFacetDemoActivity extends Activity {
     Drawable triangle = Facet.bake(triangleModel, trianglePosition);
 
     scene.add(square);
-    scene.add(triangle);
+    scene.add(triangle);*/
   }
 
   private void prepareLesson3(Scene scene) {
-    Geometry squareModel = Facet.model(new GeometryConfig(
+    /*Geometry squareModel = Facet.model(new GeometryConfig(
         new int[] {0, 1, 2, 0, 2, 3},
         new float[] {-1, -1, 1, -1, 1, 1, -1, 1}, 2
     )), triangleModel = Facet.model(new GeometryConfig(
@@ -97,11 +97,11 @@ public class JFacetDemoActivity extends Activity {
     Drawable triangle = Facet.bake(triangleModel, trianglePosition, triangleModel.getColors());
 
     scene.add(square);
-    scene.add(triangle);
+    scene.add(triangle);*/
   }
 
   private void prepareLesson4(Scene scene) {
-    Geometry squareModel = Facet.model(new GeometryConfig(
+    /*Geometry squareModel = Facet.model(new GeometryConfig(
         new int[] {0, 1, 2, 0, 2, 3},
         new float[] {-1, -1, 1, -1, 1, 1, -1, 1}, 2
     )), triangleModel = Facet.model(new GeometryConfig(
@@ -125,11 +125,11 @@ public class JFacetDemoActivity extends Activity {
     Drawable triangle = Facet.bake(triangleModel, trianglePosition, triangleModel.getColors());
 
     scene.add(square);
-    scene.add(triangle);
+    scene.add(triangle);*/
   }
 
   private void prepareLesson5(Scene scene) {
-    Geometry cubeModel = Facet.model(new GeometryConfig(
+    /*Geometry cubeModel = Facet.model(new GeometryConfig(
         new int[]{
             0, 1, 2, 0, 2, 3,
             4, 5, 6, 4, 6, 7,
@@ -188,11 +188,11 @@ public class JFacetDemoActivity extends Activity {
         cubeModel.getVertices());
 
     scene.add(Facet.bake(cubeModel, cubePosition, cubeModel.getColors()));
-    scene.add(Facet.bake(pyramidModel, pyramidPosition, pyramidModel.getColors()));
+    scene.add(Facet.bake(pyramidModel, pyramidPosition, pyramidModel.getColors()));*/
   }
 
   private void prepareLesson6(Scene scene) {
-    Geometry cube = Model.flatCube();
+    /*Geometry cube = Model.flatCube();
 
     Camera camera = Camera.perspective(
         new LookAtConfig()
@@ -205,7 +205,7 @@ public class JFacetDemoActivity extends Activity {
     scene.add(Facet.bake(
         cube,
         camera.apply(Shade.rotation(angle, Shade.vec(1, 1, 1))).apply(cube.getVertices()),
-        Shade.texture2D(Facet.texture(getResources(), R.drawable.nehe), cube.getTexCoords())));
+        Shade.texture2D(Facet.texture(getResources(), R.drawable.nehe), cube.getTexCoords())));*/
   }
 
   /*private void prepareLesson7(Scene scene) {

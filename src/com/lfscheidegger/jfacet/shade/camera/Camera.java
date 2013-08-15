@@ -1,8 +1,8 @@
 package com.lfscheidegger.jfacet.shade.camera;
 
-import com.lfscheidegger.jfacet.shade.transform.AbstractTransform2;
+import com.lfscheidegger.jfacet.shade.transform.AbstractTransform4;
 
-public final class Camera extends AbstractTransform2 {
+public final class Camera extends AbstractTransform4 {
 
   public Camera(CameraConfig modelViewConfig, CameraConfig projectionConfig) {
     super(projectionConfig.getMatrix().mul(modelViewConfig.getMatrix()));

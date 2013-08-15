@@ -7,32 +7,32 @@ import com.lfscheidegger.jfacet.shade.expression.Expression;
 
 public final class Drawable {
 
-  private final Geometry mGeometry;
+  /*private final Geometry mGeometry;
   private Program mProgram;
 
   private final Expression mPosition;
-  private final Expression mFragColor;
+  private final Expression mFragColor;*/
 
   public Drawable(Geometry geometry, Expression position, Expression fragColor) {
-    mPosition = position;
+    /*mPosition = position;
     mFragColor = fragColor;
 
-    mGeometry = geometry;
+    mGeometry = geometry;*/
   }
 
   public void bake() {
-    mProgram = new Program(mPosition, mFragColor, mGeometry.getAttributeMap());
-    mProgram.bake();
+    /*mProgram = new Program(mPosition, mFragColor, mGeometry.getAttributeMap());
+    mProgram.bake();*/
   }
 
   public void draw() {
-    Preconditions.checkNotNull(mProgram);
+    /*Preconditions.checkNotNull(mProgram);
 
     mProgram.use();
     GLES20.glDrawElements(
         GLES20.GL_TRIANGLES,
         mGeometry.getIndexBuffer().getElementCount(),
         GLES20.GL_UNSIGNED_INT,
-        mGeometry.getIndexBuffer().getBuffer());
+        mGeometry.getIndexBuffer().getBuffer());*/
   }
 }

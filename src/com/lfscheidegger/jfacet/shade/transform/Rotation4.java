@@ -17,7 +17,7 @@ public class Rotation4 extends AbstractTransform4 {
     Real s = angle.sin();
     Real c = angle.cos();
 
-    Real t = Shade.sub(1, c);
+    Real t = Shade.constant(1).sub(c);
     Real x = axis.get(0);
     Real y = axis.get(1);
     Real z = axis.get(2);

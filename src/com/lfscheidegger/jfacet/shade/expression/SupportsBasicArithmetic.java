@@ -1,6 +1,6 @@
 package com.lfscheidegger.jfacet.shade.expression;
 
-interface SupportsBasicArithmetic<T> {
+public interface SupportsBasicArithmetic<T> {
 
   public T add(float right);
   public T add(T right);

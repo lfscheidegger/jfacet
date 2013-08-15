@@ -7,7 +7,7 @@ import com.lfscheidegger.jfacet.shade.expression.Vector2;
 import java.util.ArrayList;
 import java.util.List;
 
-abstract class AbstractTransform2 implements Transform<Matrix2, Vector2> {
+public abstract class AbstractTransform2 implements Transform<Matrix2, Vector2> {
 
   private final Matrix2 mTransformMatrix;
 

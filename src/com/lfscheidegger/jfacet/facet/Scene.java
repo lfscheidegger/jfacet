@@ -2,6 +2,8 @@ package com.lfscheidegger.jfacet.facet;
 
 import com.lfscheidegger.jfacet.shade.Shade;
 import com.lfscheidegger.jfacet.shade.expression.Expression;
+import com.lfscheidegger.jfacet.shade.expression.Vector4;
+import com.lfscheidegger.jfacet.shade.expression.VectorExpression;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -12,14 +14,14 @@ public final class Scene {
 
     public static final class Builder {
 
-      private Vector mClearColor;
+      private Vector4.Primitive mClearColor;
 
       public Builder() {
 
       }
 
-      public Builder setClearColor(Expression clearColor) {
-        mClearColor = Shade.fill(clearColor, new Vector(0, 0, 0, 1)).evaluate();
+      public Builder setClearColor(VectorExpression clearColor) {
+        mClearColor = clearColor.fill(Shade.vec(0, 0, 0, 1)).evaluate();
         return this;
       }
 
@@ -29,14 +31,14 @@ public final class Scene {
       }
     }
 
-    private final Vector mClearColor;
+    private final Vector4.Primitive mClearColor;
 
     public SceneConfig(
-        Vector clearColor) {
+        Vector4.Primitive clearColor) {
       mClearColor = clearColor;
     }
 
-    public Vector getClearColor() {
+    public Vector4.Primitive getClearColor() {
       return mClearColor;
     }
   }

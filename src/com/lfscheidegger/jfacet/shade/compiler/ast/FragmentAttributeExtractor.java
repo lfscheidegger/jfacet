@@ -5,7 +5,6 @@ import com.google.common.collect.Collections2;
 import com.google.common.collect.ImmutableList;
 import com.lfscheidegger.jfacet.shade.GlSlType;
 import com.lfscheidegger.jfacet.shade.Shade;
-import com.lfscheidegger.jfacet.shade.expression.AbstractExpression;
 import com.lfscheidegger.jfacet.shade.expression.Expression;
 import com.lfscheidegger.jfacet.shade.expression.Real;
 
@@ -22,7 +21,8 @@ public class FragmentAttributeExtractor implements ASTProcessor {
 
   @Override
   public Expression process(Expression expression) {
-    if (expression.getGlSlType() == GlSlType.ATTRIBUTE_T) {
+    return expression;
+    /*if (expression.getGlSlType() == GlSlType.ATTRIBUTE_T) {
       return getVaryingForAttribute(expression);
     }
 
@@ -43,17 +43,18 @@ public class FragmentAttributeExtractor implements ASTProcessor {
                   }
                 })));
 
-    return expression;
+    return expression;*/
   }
 
   private Expression getVaryingForAttribute(Expression attribute) {
-    switch(attribute.getType()) {
+    return attribute;
+    /*switch(attribute.getType()) {
       case FLOAT_T: return Shade.varying((Real)attribute);
       case VEC2_T: // fallthrough
       case VEC3_T: // fallthrough
       case VEC4_T: return Shade.varying((VectorExpression)attribute);
     }
 
-    throw new RuntimeException("Cannot get varying for attribute of type: " + attribute.getType());
+    throw new RuntimeException("Cannot get varying for attribute of type: " + attribute.getType());*/
   }
 }

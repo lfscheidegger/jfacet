@@ -215,7 +215,7 @@ public final class Program {
   }
 
   private void bindUniforms() {
-    int textureUnitCounter = 0;
+    /*int textureUnitCounter = 0;
 
     for (int i = 0; i < mUniformLocations.length; i++) {
       Preconditions.checkState(textureUnitCounter < GLES20.GL_MAX_COMBINED_TEXTURE_IMAGE_UNITS);
@@ -247,7 +247,7 @@ public final class Program {
           break;
 
       }
-    }
+    }*/
   }
 
   public void use() {
