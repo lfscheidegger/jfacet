@@ -5,14 +5,10 @@ import com.google.common.base.Preconditions;
 public final class MatrixUtils {
 
   public static float determinant2(float[] values) {
-    Preconditions.checkState(values.length == 4);
-
     return values[0] * values[3] - values[1] * values[2];
   }
 
   public static float determinant3(float[] values) {
-    Preconditions.checkState(values.length == 9);
-
     float a00 = values[0], a01 = values[1], a02 = values[2];
     float a10 = values[3], a11 = values[4], a12 = values[5];
     float a20 = values[6], a21 = values[7], a22 = values[8];
@@ -22,8 +18,6 @@ public final class MatrixUtils {
   }
 
   public static float determinant4(float[] values) {
-    Preconditions.checkState(values.length == 16);
-
     float a00 = values[0], a01 = values[1], a02 = values[2], a03 = values[3];
     float a10 = values[4], a11 = values[5], a12 = values[6], a13 = values[7];
     float a20 = values[8], a21 = values[9], a22 = values[10], a23 = values[11];
@@ -38,8 +32,6 @@ public final class MatrixUtils {
   }
 
   public static float[] transpose2(float[] values) {
-    Preconditions.checkState(values.length == 4);
-
     float[] result = new float[4];
     result[0] = values[0];
     result[1] = values[2];
@@ -50,8 +42,6 @@ public final class MatrixUtils {
   }
 
   public static float[] transpose3(float[] values) {
-    Preconditions.checkState(values.length == 9);
-
     float[] result = new float[9];
     result[0] = values[0];
     result[1] = values[3];
@@ -67,8 +57,6 @@ public final class MatrixUtils {
   }
 
   public static float[] transpose4(float[] values) {
-    Preconditions.checkState(values.length == 16);
-
     float[] result = new float[16];
     result[0] = values[0];
     result[1] = values[4];
@@ -91,8 +79,6 @@ public final class MatrixUtils {
   }
 
   public static float[] inverse2(float[] values) {
-    Preconditions.checkState(values.length == 4);
-
     float a00 = values[0], a01 = values[1];
     float a10 = values[2], a11 = values[3];
 
