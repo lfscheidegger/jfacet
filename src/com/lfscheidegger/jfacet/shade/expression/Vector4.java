@@ -332,6 +332,18 @@ public final class Vector4 extends AbstractExpression<Vector4.Primitive> impleme
         });
   }
 
+  public Real length() {
+    return new Real(
+        ImmutableList.<Expression>of(this),
+        new FunctionEvaluator<Float>(Type.FLOAT_T, "length") {
+          @Override
+          public Float evaluate(Expression<Float> expression) {
+            Vector4 parent = (Vector4)expression.getParents().get(0);
+            return parent.evaluate().length();
+          }
+        });
+  }
+
   public Real swizzle(char x) {
     return new Real(ImmutableList.<Expression>of(this), new SwizzleEvaluator<Float>(x));
   }

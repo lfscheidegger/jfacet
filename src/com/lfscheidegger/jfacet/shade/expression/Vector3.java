@@ -330,6 +330,18 @@ public final class Vector3 extends AbstractExpression<Vector3.Primitive> impleme
         });
   }
 
+  public Real length() {
+    return new Real(
+        ImmutableList.<Expression>of(this),
+        new FunctionEvaluator<Float>(Type.FLOAT_T, "length") {
+          @Override
+          public Float evaluate(Expression<Float> expression) {
+            Vector3 parent = (Vector3)expression.getParents().get(0);
+            return parent.evaluate().length();
+          }
+        });
+  }
+
   public Vector3 cross(Vector3.Primitive right) {
     return cross(new Vector3(right));
   }

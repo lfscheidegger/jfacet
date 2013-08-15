@@ -315,6 +315,18 @@ public final class Vector2 extends AbstractExpression<Vector2.Primitive> impleme
         });
   }
 
+  public Real length() {
+    return new Real(
+        ImmutableList.<Expression>of(this),
+        new FunctionEvaluator<Float>(Type.FLOAT_T, "length") {
+          @Override
+          public Float evaluate(Expression<Float> expression) {
+            Vector2 parent = (Vector2)expression.getParents().get(0);
+            return parent.evaluate().length();
+          }
+        });
+  }
+
   public Real swizzle(char x) {
     return new Real(ImmutableList.<Expression>of(this), new SwizzleEvaluator<Float>(x));
   }
