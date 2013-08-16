@@ -1,6 +1,5 @@
 package com.lfscheidegger.jfacet.shade.expression.evaluators;
 
-import com.google.common.annotations.VisibleForTesting;
 import com.google.common.base.Function;
 import com.google.common.collect.Collections2;
 import com.lfscheidegger.jfacet.shade.Type;
@@ -10,11 +9,9 @@ import com.lfscheidegger.jfacet.shade.expression.Expression;
 
 public abstract class FunctionEvaluator<T> implements Evaluator<T> {
 
-  @VisibleForTesting
-  public final Type mType;
+  private final Type mType;
 
-  @VisibleForTesting
-  public final String mFunctionName;
+  private final String mFunctionName;
 
   public FunctionEvaluator(Type type, String functionName) {
     mType = type;
@@ -32,5 +29,13 @@ public abstract class FunctionEvaluator<T> implements Evaluator<T> {
             return parent.getGlSlString(compilationContext);
           }
         }).toArray(new String[expression.getParents().size()]));
+  }
+
+  public Type getType() {
+    return mType;
+  }
+
+  public String getFunctionName() {
+    return mFunctionName;
   }
 }

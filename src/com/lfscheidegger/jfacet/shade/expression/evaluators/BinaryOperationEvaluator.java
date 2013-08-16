@@ -1,6 +1,5 @@
 package com.lfscheidegger.jfacet.shade.expression.evaluators;
 
-import com.google.common.annotations.VisibleForTesting;
 import com.google.common.collect.ImmutableList;
 import com.lfscheidegger.jfacet.shade.compiler.CompilationContext;
 import com.lfscheidegger.jfacet.shade.compiler.GlSlExpressionHelper;
@@ -9,8 +8,7 @@ import com.lfscheidegger.jfacet.shade.expression.operators.Operator;
 
 public final class BinaryOperationEvaluator<LEFT_T, RIGHT_T, RESULT_T> implements Evaluator<RESULT_T> {
 
-  @VisibleForTesting
-  public final Operator<LEFT_T, RIGHT_T, RESULT_T> mOperator;
+  private final Operator<LEFT_T, RIGHT_T, RESULT_T> mOperator;
 
   public BinaryOperationEvaluator(Operator<LEFT_T, RIGHT_T, RESULT_T> operator) {
     mOperator = operator;
@@ -31,5 +29,9 @@ public final class BinaryOperationEvaluator<LEFT_T, RIGHT_T, RESULT_T> implement
 
     return GlSlExpressionHelper.getBinOpExpression(
         expression.getType(), mOperator.getOperatorSymbol(), parents.get(0).getGlSlString(context), parents.get(1).getGlSlString(context));
+  }
+
+  public Operator<LEFT_T, RIGHT_T, RESULT_T> getOperator() {
+    return mOperator;
   }
 }
