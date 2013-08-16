@@ -1,6 +1,5 @@
 package com.lfscheidegger.jfacet.shade.expression;
 
-import com.google.common.base.Objects;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableList;
 import com.lfscheidegger.jfacet.shade.GlSlType;
@@ -159,15 +158,11 @@ public final class Vector4 extends AbstractExpression<Vector4.Primitive> impleme
   }
 
   public Vector4(float x, float y, float z, float w) {
-    this(new ConstantEvaluator<Primitive>(new Primitive(x, y, z, w)));
+    this(ImmutableList.<Expression>of(), new ConstantEvaluator<Primitive>(new Primitive(x, y, z, w)));
   }
 
   public Vector4(Real x, Real y, Real z, Real w) {
     this(ImmutableList.<Expression>of(x, y, z, w), new ConstructorEvaluator<Primitive>());
-  }
-
-  public Vector4(Evaluator<Primitive> evaluator) {
-    this(ImmutableList.<Expression>of(), evaluator);
   }
 
   public Vector4(ImmutableList<Expression> parents, Evaluator<Primitive> evaluator) {
@@ -178,7 +173,7 @@ public final class Vector4 extends AbstractExpression<Vector4.Primitive> impleme
     this(glSlType, ImmutableList.<Expression>of(), evaluator);
   }
 
-  public Vector4(GlSlType glSlType, ImmutableList<Expression> parents, Evaluator<Primitive> evaluator) {
+  private Vector4(GlSlType glSlType, ImmutableList<Expression> parents, Evaluator<Primitive> evaluator) {
     super(Type.VEC4_T, glSlType, parents, evaluator);
   }
 
