@@ -9,7 +9,7 @@ import com.lfscheidegger.jfacet.shade.expression.operators.RealOperators;
 /**
  * {code Expression} for floats
  */
-public final class Real extends AbstractExpression<Float> {
+public final class Real extends AbstractExpression<Float> implements SupportsBasicArithmetic<Real> {
 
   public Real(float c) {
     this(new ConstantEvaluator<Float>(c));
