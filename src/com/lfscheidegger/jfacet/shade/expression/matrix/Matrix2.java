@@ -1,65 +1,55 @@
-package com.lfscheidegger.jfacet.shade.expression;
+package com.lfscheidegger.jfacet.shade.expression.matrix;
 
 import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableList;
 import com.lfscheidegger.jfacet.shade.GlSlType;
 import com.lfscheidegger.jfacet.shade.Shade;
 import com.lfscheidegger.jfacet.shade.Type;
+import com.lfscheidegger.jfacet.shade.expression.*;
 import com.lfscheidegger.jfacet.shade.expression.evaluators.*;
 import com.lfscheidegger.jfacet.shade.expression.operators.BasicArithmeticOperators;
+import com.lfscheidegger.jfacet.shade.expression.vector.Vector2;
 import com.lfscheidegger.jfacet.utils.ArrayUtils;
 import com.lfscheidegger.jfacet.utils.MatrixUtils;
 import com.lfscheidegger.jfacet.utils.StringUtils;
 
 import java.util.Arrays;
 
-public final class Matrix4
-    extends AbstractExpression<Matrix4.Primitive>
-    implements MatrixExpression<Matrix4, Vector4> {
+public final class Matrix2
+    extends AbstractExpression<Matrix2.Primitive>
+    implements MatrixExpression<Matrix2, Vector2> {
 
   public static final class Primitive implements SupportsBasicArithmetic<Primitive> {
 
     private final float[] mValues;
 
     public Primitive() {
-      mValues = new float[16];
-      for (int i = 0; i < 4; i++) {
-        for (int j = 0; j < 4; j++) {
-          mValues[i * 4 + j] = (i == j) ? 1 : 0;
+      mValues = new float[4];
+      for (int i = 0; i < 2; i++) {
+        for (int j = 0; j < 2; j++) {
+          mValues[i * 2 + j] = (i == j) ? 1 : 0;
         }
       }
     }
 
-    public Primitive(Vector4.Primitive c0, Vector4.Primitive c1, Vector4.Primitive c2, Vector4.Primitive c3) {
-      mValues = new float[]{
-          c0.getX(), c0.getY(), c0.getZ(), c0.getW(),
-          c1.getX(), c1.getY(), c1.getZ(), c1.getW(),
-          c2.getX(), c2.getY(), c2.getZ(), c2.getW(),
-          c3.getX(), c3.getY(), c3.getZ(), c3.getW()};
+    public Primitive(Vector2.Primitive c0, Vector2.Primitive c1) {
+      mValues = new float[]{c0.getX(), c0.getY(), c1.getX(), c1.getY()};
     }
 
     private Primitive(float[] other) {
       mValues = other;
     }
 
-    public Vector4.Primitive getC0() {
+    public Vector2.Primitive getC0() {
       return get(0);
     }
 
-    public Vector4.Primitive getC1() {
+    public Vector2.Primitive getC1() {
       return get(1);
     }
 
-    public Vector4.Primitive getC2() {
-      return get(2);
-    }
-
-    public Vector4.Primitive getC3() {
-      return get(3);
-    }
-
-    public Vector4.Primitive get(int idx) {
-      return new Vector4.Primitive(mValues[4 * idx], mValues[4 * idx + 1], mValues[4 * idx + 2], mValues[4 * idx + 3]);
+    public Vector2.Primitive get(int idx) {
+      return new Vector2.Primitive(mValues[2 * idx], mValues[2 * idx + 1]);
     }
 
     @Override
@@ -84,7 +74,7 @@ public final class Matrix4
 
     @Override
     public Primitive mul(Primitive other) {
-      return new Primitive(ArrayUtils.mulMatrix(mValues, other.mValues, 4));
+      return new Primitive(ArrayUtils.mulMatrix(mValues, other.mValues, 2));
     }
 
     @Override
@@ -107,24 +97,22 @@ public final class Matrix4
       return new Primitive(ArrayUtils.mul(mValues, -1));
     }
 
-    public Vector4.Primitive transform(Vector4.Primitive vec) {
-      return new Vector4.Primitive(
-          mValues[0] * vec.getX() + mValues[4] * vec.getY() + mValues[ 8] * vec.getZ() + mValues[12] * vec.getW(),
-          mValues[1] * vec.getX() + mValues[5] * vec.getY() + mValues[ 9] * vec.getZ() + mValues[13] * vec.getW(),
-          mValues[2] * vec.getX() + mValues[6] * vec.getY() + mValues[10] * vec.getZ() + mValues[14] * vec.getW(),
-          mValues[3] * vec.getX() + mValues[7] * vec.getY() + mValues[11] * vec.getZ() + mValues[15] * vec.getW());
+    public Vector2.Primitive transform(Vector2.Primitive vec) {
+      return new Vector2.Primitive(
+          mValues[0] * vec.getX() + mValues[2] * vec.getY(),
+          mValues[1] * vec.getX() + mValues[3] * vec.getY());
     }
 
     public float determinant() {
-      return MatrixUtils.determinant4(mValues);
+      return MatrixUtils.determinant2(mValues);
     }
 
     public Primitive transpose() {
-      return new Primitive(MatrixUtils.transpose4(mValues));
+      return new Primitive(MatrixUtils.transpose2(mValues));
     }
 
     public Primitive inverse() {
-      return new Primitive(MatrixUtils.inverse4(mValues));
+      return new Primitive(MatrixUtils.inverse2(mValues));
     }
 
     @Override
@@ -143,144 +131,135 @@ public final class Matrix4
 
     @Override
     public String toString() {
-      return StringUtils.toStringHelper(Type.MAT4_T)
-          .addValue(new Vector4.Primitive(mValues[ 0], mValues[ 1], mValues[ 2], mValues[ 3]))
-          .addValue(new Vector4.Primitive(mValues[ 4], mValues[ 5], mValues[ 6], mValues[ 7]))
-          .addValue(new Vector4.Primitive(mValues[ 8], mValues[ 9], mValues[10], mValues[11]))
-          .addValue(new Vector4.Primitive(mValues[12], mValues[13], mValues[14], mValues[15]))
+      return StringUtils.toStringHelper(Type.MAT2_T)
+          .addValue(new Vector2.Primitive(mValues[0], mValues[1]))
+          .addValue(new Vector2.Primitive(mValues[2], mValues[3]))
           .toString();
     }
   }
 
-  public Matrix4() {
-    this(ImmutableList.<Expression>of(
-        Shade.vec(1, 0, 0, 0), Shade.vec(0, 1, 0, 0), Shade.vec(0, 0, 1, 0), Shade.vec(0, 0, 0, 1)),
+  public Matrix2() {
+    this(ImmutableList.<Expression>of(Shade.vec(1, 0), Shade.vec(0, 1)),
         new ConstructorEvaluator<Primitive>());
   }
 
-  public Matrix4(Vector4 c0, Vector4 c1, Vector4 c2, Vector4 c3) {
-    this (ImmutableList.<Expression>of(c0, c1, c2, c3), new ConstructorEvaluator<Primitive>());
+  public Matrix2(Vector2 c0, Vector2 c1) {
+    this(ImmutableList.<Expression>of(c0, c1), new ConstructorEvaluator<Primitive>());
   }
 
-  private Matrix4(ImmutableList<Expression> parents, Evaluator<Primitive> evaluator) {
+  private Matrix2(ImmutableList<Expression> parents, Evaluator<Primitive> evaluator) {
     this(GlSlType.DEFAULT_T, parents, evaluator);
   }
 
-  public Matrix4(GlSlType glSlType, Evaluator<Primitive> evaluator) {
+  public Matrix2(GlSlType glSlType, Evaluator<Primitive> evaluator) {
     this(glSlType, ImmutableList.<Expression>of(), evaluator);
   }
 
-  private Matrix4(GlSlType glSlType, ImmutableList<Expression> parents, Evaluator<Primitive> evaluator) {
-    super(Type.MAT4_T, glSlType, parents, evaluator);
+  private Matrix2(GlSlType glSlType, ImmutableList<Expression> parents, Evaluator<Primitive> evaluator) {
+    super(Type.MAT2_T, glSlType,
+        parents, evaluator);
   }
 
-  public Vector4 getC0() {
+  public Vector2 getC0() {
     return get(0);
   }
 
-  public Vector4 getC1() {
+  public Vector2 getC1() {
     return get(1);
   }
 
-  public Vector4 getC2() {
-    return get(2);
-  }
-
-  public Vector4 getC3() {
-    return get(3);
+  @Override
+  public Vector2 get(int idx) {
+    Preconditions.checkState(idx < 2);
+    return new Vector2(ImmutableList.<Expression>of(this), new ComponentEvaluator<Vector2.Primitive>(idx));
   }
 
   @Override
-  public Vector4 get(int idx) {
-    Preconditions.checkState(idx < 4);
-    return new Vector4(ImmutableList.<Expression>of(this), new ComponentEvaluator<Vector4.Primitive>(idx));
-  }
-
-  @Override
-  public Matrix4 add(float right) {
+  public Matrix2 add(float right) {
     return add(new Real(right));
   }
 
   @Override
-  public Matrix4 add(Real right) {
-    return new Matrix4(
+  public Matrix2 add(Real right) {
+    return new Matrix2(
         ImmutableList.<Expression>of(this, right),
         new BinaryOperationEvaluator<Primitive, Float, Primitive>(BasicArithmeticOperators.<Primitive>forAdditionWithFloat()));
   }
 
   @Override
-  public Matrix4 add(Matrix4 right) {
-    return new Matrix4(
+  public Matrix2 add(Matrix2 right) {
+    return new Matrix2(
         ImmutableList.<Expression>of(this, right),
         new BinaryOperationEvaluator<Primitive, Primitive, Primitive>(BasicArithmeticOperators.<Primitive>forAdditionWithSame()));
   }
 
   @Override
-  public Matrix4 sub(float right) {
+  public Matrix2 sub(float right) {
     return sub(new Real(right));
   }
 
   @Override
-  public Matrix4 sub(Real right) {
-    return new Matrix4(
+  public Matrix2 sub(Real right) {
+    return new Matrix2(
         ImmutableList.<Expression>of(this, right),
         new BinaryOperationEvaluator<Primitive, Float, Primitive>(BasicArithmeticOperators.<Primitive>forSubtractionWithFloat()));
   }
 
   @Override
-  public Matrix4 sub(Matrix4 right) {
-    return new Matrix4(
+  public Matrix2 sub(Matrix2 right) {
+    return new Matrix2(
         ImmutableList.<Expression>of(this, right),
         new BinaryOperationEvaluator<Primitive, Primitive, Primitive>(BasicArithmeticOperators.<Primitive>forSubtractionWithSame()));
   }
 
   @Override
-  public Matrix4 mul(float right) {
+  public Matrix2 mul(float right) {
     return mul(new Real(right));
   }
 
   @Override
-  public Matrix4 mul(Real right) {
-    return new Matrix4(
+  public Matrix2 mul(Real right) {
+    return new Matrix2(
         ImmutableList.<Expression>of(this, right),
         new BinaryOperationEvaluator<Primitive, Float, Primitive>(BasicArithmeticOperators.<Primitive>forMultiplicationWithFloat()));
   }
 
   @Override
-  public Matrix4 mul(Matrix4 right) {
-    return new Matrix4(
+  public Matrix2 mul(Matrix2 right) {
+    return new Matrix2(
         ImmutableList.<Expression>of(this, right),
         new BinaryOperationEvaluator<Primitive, Primitive, Primitive>(BasicArithmeticOperators.<Primitive>forMultiplicationWithSame()));
   }
 
   @Override
-  public Matrix4 div(float right) {
+  public Matrix2 div(float right) {
     return div(new Real(right));
   }
 
   @Override
-  public Matrix4 div(Real right) {
-    return new Matrix4(
+  public Matrix2 div(Real right) {
+    return new Matrix2(
         ImmutableList.<Expression>of(this, right),
         new BinaryOperationEvaluator<Primitive, Float, Primitive>(BasicArithmeticOperators.<Primitive>forDivisionWithFloat()));
   }
 
   @Override
-  public Matrix4 div(Matrix4 right) {
-    return new Matrix4(
+  public Matrix2 div(Matrix2 right) {
+    return new Matrix2(
         ImmutableList.<Expression>of(this, right),
         new BinaryOperationEvaluator<Primitive, Primitive, Primitive>(BasicArithmeticOperators.<Primitive>forDivisionWithSame()));
   }
 
   @Override
-  public Matrix4 neg() {
-    return new Matrix4(ImmutableList.<Expression>of(this), new NegationEvaluator<Primitive>());
+  public Matrix2 neg() {
+    return new Matrix2(ImmutableList.<Expression>of(this), new NegationEvaluator<Primitive>());
   }
 
   @Override
-  public Vector4 transform(Vector4 right) {
-    return new Vector4(
+  public Vector2 transform(Vector2 right) {
+    return new Vector2(
         ImmutableList.<Expression>of(this, right),
-        new BinaryOperationEvaluator<Primitive, Vector4.Primitive, Vector4.Primitive>(BasicArithmeticOperators.forLinearTransform4()));
+        new BinaryOperationEvaluator<Primitive, Vector2.Primitive, Vector2.Primitive>(BasicArithmeticOperators.forLinearTransform2()));
   }
+
 }

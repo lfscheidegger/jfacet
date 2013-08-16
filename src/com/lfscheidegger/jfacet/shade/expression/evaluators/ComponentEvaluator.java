@@ -3,6 +3,12 @@ package com.lfscheidegger.jfacet.shade.expression.evaluators;
 import com.lfscheidegger.jfacet.shade.compiler.CompilationContext;
 import com.lfscheidegger.jfacet.shade.compiler.GlSlExpressionHelper;
 import com.lfscheidegger.jfacet.shade.expression.*;
+import com.lfscheidegger.jfacet.shade.expression.matrix.Matrix2;
+import com.lfscheidegger.jfacet.shade.expression.matrix.Matrix3;
+import com.lfscheidegger.jfacet.shade.expression.matrix.Matrix4;
+import com.lfscheidegger.jfacet.shade.expression.vector.Vector2;
+import com.lfscheidegger.jfacet.shade.expression.vector.Vector3;
+import com.lfscheidegger.jfacet.shade.expression.vector.Vector4;
 
 public final class ComponentEvaluator<T> implements Evaluator<T> {
 

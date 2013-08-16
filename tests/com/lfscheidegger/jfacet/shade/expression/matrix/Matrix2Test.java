@@ -1,35 +1,36 @@
-package com.lfscheidegger.jfacet.shade.expression;
+package com.lfscheidegger.jfacet.shade.expression.matrix;
 
 import com.lfscheidegger.jfacet.shade.GlSlType;
+import com.lfscheidegger.jfacet.shade.expression.Real;
 import com.lfscheidegger.jfacet.shade.expression.evaluators.BinaryOperationEvaluator;
 import com.lfscheidegger.jfacet.shade.expression.evaluators.ConstructorEvaluator;
 import com.lfscheidegger.jfacet.shade.expression.evaluators.NegationEvaluator;
 import com.lfscheidegger.jfacet.shade.expression.evaluators.glsl.UniformEvaluator;
+import com.lfscheidegger.jfacet.shade.expression.matrix.Matrix2;
 import com.lfscheidegger.jfacet.shade.expression.operators.Operator;
+import com.lfscheidegger.jfacet.shade.expression.vector.Vector2;
 import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
 
 /**
- * Unit tests for {@code Matrix3}
+ * Unit tests for {@code Matrix2}
  */
-public class Matrix3Test {
+public class Matrix2Test {
 
-  private Matrix3 mat;
-  private Matrix3.Primitive primitive;
+  private Matrix2 mat;
+  private Matrix2.Primitive primitive;
 
   @Before
   public void setUp() {
-    mat = new Matrix3(
-        new Vector3(1, 2, 3),
-        new Vector3(3, 4, 5),
-        new Vector3(5, 6, 7));
+    mat = new Matrix2(
+        new Vector2(1, 2),
+        new Vector2(3, 4));
 
-    primitive = new Matrix3.Primitive(
-        new Vector3.Primitive(1, 2, 3),
-        new Vector3.Primitive(3, 4, 5),
-        new Vector3.Primitive(5, 6, 7));
+    primitive = new Matrix2.Primitive(
+        new Vector2.Primitive(1, 2),
+        new Vector2.Primitive(3, 4));
   }
 
   @Test
@@ -37,27 +38,25 @@ public class Matrix3Test {
     assertTrue(mat.getEvaluator() instanceof ConstructorEvaluator);
     assertEquals(mat.evaluate(), primitive);
 
-    mat = new Matrix3();
+    mat = new Matrix2();
     assertTrue(mat.getEvaluator() instanceof ConstructorEvaluator);
-    assertEquals(mat.evaluate(), new Matrix3.Primitive());
+    assertEquals(mat.evaluate(), new Matrix2.Primitive());
 
-    mat = new Matrix3(GlSlType.UNIFORM_T, new UniformEvaluator<Matrix3.Primitive>());
+    mat = new Matrix2(GlSlType.UNIFORM_T, new UniformEvaluator<Matrix2.Primitive>());
     assertEquals(mat.getGlSlType(), GlSlType.UNIFORM_T);
     assertTrue(mat.getEvaluator() instanceof UniformEvaluator);
   }
 
   @Test
   public void testGetters() {
-    assertEquals(mat.getC0().evaluate(), new Vector3.Primitive(1, 2, 3));
-    assertEquals(mat.getC1().evaluate(), new Vector3.Primitive(3, 4, 5));
-    assertEquals(mat.getC2().evaluate(), new Vector3.Primitive(5, 6, 7));
+    assertEquals(mat.getC0().evaluate(), new Vector2.Primitive(1, 2));
+    assertEquals(mat.getC1().evaluate(), new Vector2.Primitive(3, 4));
 
     assertEquals(mat.getC0().evaluate(), mat.get(0).evaluate());
     assertEquals(mat.getC1().evaluate(), mat.get(1).evaluate());
-    assertEquals(mat.getC2().evaluate(), mat.get(2).evaluate());
   }
 
-  private void testAddCommon(Matrix3 added, Matrix3.Primitive expected) {
+  private void testAddCommon(Matrix2 added, Matrix2.Primitive expected) {
     assertEquals(added.getParents().size(), 2);
     assertEquals(added.evaluate(),  expected);
     assertTrue(added.getEvaluator() instanceof BinaryOperationEvaluator);
@@ -67,7 +66,7 @@ public class Matrix3Test {
 
   @Test
   public void testAdd() {
-    Matrix3 added = mat.add(1);
+    Matrix2 added = mat.add(1);
     testAddCommon(added, primitive.add(1));
     assertSame(added.getParents().get(0), mat);
     assertEquals(added.getParents().get(1).evaluate(), 1.0f);
@@ -83,7 +82,7 @@ public class Matrix3Test {
     assertSame(added.getParents().get(1), mat);
   }
 
-  private void testSubCommon(Matrix3 subtracted, Matrix3.Primitive expected) {
+  private void testSubCommon(Matrix2 subtracted, Matrix2.Primitive expected) {
     assertEquals(subtracted.getParents().size(), 2);
     assertEquals(subtracted.evaluate(),  expected);
     assertTrue(subtracted.getEvaluator() instanceof BinaryOperationEvaluator);
@@ -93,7 +92,7 @@ public class Matrix3Test {
 
   @Test
   public void testSub() {
-    Matrix3 subtracted = mat.sub(1);
+    Matrix2 subtracted = mat.sub(1);
     testSubCommon(subtracted, primitive.sub(1));
     assertSame(subtracted.getParents().get(0), mat);
     assertEquals(subtracted.getParents().get(1).evaluate(), 1.0f);
@@ -109,7 +108,7 @@ public class Matrix3Test {
     assertSame(subtracted.getParents().get(1), mat);
   }
 
-  private void testMulCommon(Matrix3 multiplied, Matrix3.Primitive expected) {
+  private void testMulCommon(Matrix2 multiplied, Matrix2.Primitive expected) {
     assertEquals(multiplied.getParents().size(), 2);
     assertEquals(multiplied.evaluate(),  expected);
     assertTrue(multiplied.getEvaluator() instanceof BinaryOperationEvaluator);
@@ -119,7 +118,7 @@ public class Matrix3Test {
 
   @Test
   public void testMul() {
-    Matrix3 multiplied = mat.mul(2);
+    Matrix2 multiplied = mat.mul(2);
     testMulCommon(multiplied, primitive.mul(2));
     assertSame(multiplied.getParents().get(0), mat);
     assertEquals(multiplied.getParents().get(1).evaluate(), 2.0f);
@@ -135,7 +134,7 @@ public class Matrix3Test {
     assertSame(multiplied.getParents().get(1), mat);
   }
 
-  private void testDivCommon(Matrix3 divided, Matrix3.Primitive expected) {
+  private void testDivCommon(Matrix2 divided, Matrix2.Primitive expected) {
     assertEquals(divided.getParents().size(), 2);
     assertEquals(divided.evaluate(),  expected);
     assertTrue(divided.getEvaluator() instanceof BinaryOperationEvaluator);
@@ -145,7 +144,7 @@ public class Matrix3Test {
 
   @Test
   public void testDiv() {
-    Matrix3 divided = mat.div(2);
+    Matrix2 divided = mat.div(2);
     testDivCommon(divided, primitive.div(2));
     assertSame(divided.getParents().get(0), mat);
     assertEquals(divided.getParents().get(1).evaluate(), 2.0f);
@@ -163,7 +162,7 @@ public class Matrix3Test {
 
   @Test
   public void testNeg() {
-    Matrix3 negated = mat.neg();
+    Matrix2 negated = mat.neg();
     assertEquals(negated.getParents().size(), 1);
     assertSame(negated.getParents().get(0), mat);
     assertTrue(negated.getEvaluator() instanceof NegationEvaluator);
@@ -172,12 +171,12 @@ public class Matrix3Test {
 
   @Test
   public void testTransform() {
-    Vector3 transformed = mat.transform(new Vector3(1, 2, 3));
+    Vector2 transformed = mat.transform(new Vector2(1, 2));
     assertEquals(transformed.getParents().size(), 2);
     assertSame(transformed.getParents().get(0), mat);
-    assertEquals(transformed.getParents().get(1).evaluate(), new Vector3.Primitive(1, 2, 3));
+    assertEquals(transformed.getParents().get(1).evaluate(), new Vector2.Primitive(1, 2));
     assertTrue(transformed.getEvaluator() instanceof BinaryOperationEvaluator);
 
-    assertEquals(transformed.evaluate(), mat.evaluate().transform(new Vector3.Primitive(1, 2, 3)));
+    assertEquals(transformed.evaluate(), mat.evaluate().transform(new Vector2.Primitive(1, 2)));
   }
 }

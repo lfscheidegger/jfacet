@@ -1,8 +1,8 @@
 package com.lfscheidegger.jfacet.shade.transform;
 
 import com.google.common.collect.Lists;
-import com.lfscheidegger.jfacet.shade.expression.Matrix2;
-import com.lfscheidegger.jfacet.shade.expression.Vector2;
+import com.lfscheidegger.jfacet.shade.expression.matrix.Matrix2;
+import com.lfscheidegger.jfacet.shade.expression.vector.Vector2;
 
 import java.util.List;
 

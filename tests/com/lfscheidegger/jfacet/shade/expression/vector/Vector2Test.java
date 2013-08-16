@@ -1,44 +1,49 @@
-package com.lfscheidegger.jfacet.shade.expression;
+package com.lfscheidegger.jfacet.shade.expression.vector;
 
 import com.google.common.collect.ImmutableList;
 import com.lfscheidegger.jfacet.shade.GlSlType;
 import com.lfscheidegger.jfacet.shade.Type;
+import com.lfscheidegger.jfacet.shade.expression.Expression;
+import com.lfscheidegger.jfacet.shade.expression.Real;
 import com.lfscheidegger.jfacet.shade.expression.evaluators.*;
 import com.lfscheidegger.jfacet.shade.expression.evaluators.glsl.UniformEvaluator;
 import com.lfscheidegger.jfacet.shade.expression.operators.Operator;
+import com.lfscheidegger.jfacet.shade.expression.vector.Vector2;
+import com.lfscheidegger.jfacet.shade.expression.vector.Vector3;
+import com.lfscheidegger.jfacet.shade.expression.vector.Vector4;
 import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
 
 /**
- * Unit tests for {@code Vector3}
+ * Unit tests for {@code Vector2}
  */
-public class Vector3Test {
+public class Vector2Test {
 
-  private Vector3 vec;
+  private Vector2 vec;
 
   @Before
   public void setUp() {
-    vec = new Vector3(1, 2, 3);
+    vec = new Vector2(1, 2);
   }
 
   @Test
   public void testConstructors() {
     assertTrue(vec.getEvaluator() instanceof ConstantEvaluator);
-    assertEquals(vec.evaluate(), new Vector3.Primitive(1, 2, 3));
+    assertEquals(vec.evaluate(), new Vector2.Primitive(1, 2));
 
-    vec = new Vector3(new Real(1), new Real(2), new Real(3));
+    vec = new Vector2(new Real(1), new Real(2));
     assertTrue(vec.getEvaluator() instanceof ConstructorEvaluator);
-    assertEquals(vec.evaluate(), new Vector3.Primitive(1, 2, 3));
+    assertEquals(vec.evaluate(), new Vector2.Primitive(1, 2));
 
-    vec = new Vector3(
-        ImmutableList.<Expression>of(new Real(1), new Real(2), new Real(3)),
-        new ConstructorEvaluator<Vector3.Primitive>());
+    vec = new Vector2(
+        ImmutableList.<Expression>of(new Real(1), new Real(2)),
+        new ConstructorEvaluator<Vector2.Primitive>());
     assertTrue(vec.getEvaluator() instanceof ConstructorEvaluator);
-    assertEquals(vec.evaluate(), new Vector3.Primitive(1, 2, 3));
+    assertEquals(vec.evaluate(), new Vector2.Primitive(1, 2));
 
-    vec = new Vector3(GlSlType.UNIFORM_T, new UniformEvaluator<Vector3.Primitive>());
+    vec = new Vector2(GlSlType.UNIFORM_T, new UniformEvaluator<Vector2.Primitive>());
     assertEquals(vec.getGlSlType(), GlSlType.UNIFORM_T);
     assertTrue(vec.getEvaluator() instanceof UniformEvaluator);
   }
@@ -47,14 +52,12 @@ public class Vector3Test {
   public void testGetters() {
     assertTrue(vec.getX().evaluate() == 1);
     assertTrue(vec.getY().evaluate() == 2);
-    assertTrue(vec.getZ().evaluate() == 3);
 
     assertTrue(vec.getX().evaluate().equals(vec.get(0).evaluate()));
     assertTrue(vec.getY().evaluate().equals(vec.get(1).evaluate()));
-    assertTrue(vec.getZ().evaluate().equals(vec.get(2).evaluate()));
   }
 
-  private void testAddCommon(Vector3 added, Vector3.Primitive expected) {
+  private void testAddCommon(Vector2 added, Vector2.Primitive expected) {
     assertEquals(added.getParents().size(), 2);
     assertEquals(added.evaluate(),  expected);
     assertTrue(added.getEvaluator() instanceof BinaryOperationEvaluator);
@@ -64,23 +67,23 @@ public class Vector3Test {
 
   @Test
   public void testAdd() {
-    Vector3 added = vec.add(1);
-    testAddCommon(added, new Vector3.Primitive(2, 3, 4));
+    Vector2 added = vec.add(1);
+    testAddCommon(added, new Vector2.Primitive(2, 3));
     assertSame(added.getParents().get(0), vec);
     assertEquals(added.getParents().get(1).evaluate(), 1.0f);
 
     added = vec.add(new Real(1));
-    testAddCommon(added, new Vector3.Primitive(2, 3, 4));
+    testAddCommon(added, new Vector2.Primitive(2, 3));
     assertSame(added.getParents().get(0), vec);
     assertEquals(added.getParents().get(1).evaluate(), 1.0f);
 
     added = vec.add(vec);
-    testAddCommon(added, new Vector3.Primitive(2, 4, 6));
+    testAddCommon(added, new Vector2.Primitive(2, 4));
     assertSame(added.getParents().get(0), vec);
     assertSame(added.getParents().get(1), vec);
   }
 
-  public void testSubCommon(Vector3 subtracted, Vector3.Primitive expected) {
+  public void testSubCommon(Vector2 subtracted, Vector2.Primitive expected) {
     assertEquals(subtracted.getParents().size(), 2);
     assertEquals(subtracted.evaluate(), expected);
     assertTrue(subtracted.getEvaluator() instanceof BinaryOperationEvaluator);
@@ -90,23 +93,23 @@ public class Vector3Test {
 
   @Test
   public void testSub() {
-    Vector3 subtracted = vec.sub(1);
-    testSubCommon(subtracted, new Vector3.Primitive(0, 1, 2));
+    Vector2 subtracted = vec.sub(1);
+    testSubCommon(subtracted, new Vector2.Primitive(0, 1));
     assertSame(subtracted.getParents().get(0), vec);
     assertEquals(subtracted.getParents().get(1).evaluate(), 1.0f);
 
     subtracted = vec.sub(new Real(1));
-    testSubCommon(subtracted, new Vector3.Primitive(0, 1, 2));
+    testSubCommon(subtracted, new Vector2.Primitive(0, 1));
     assertSame(subtracted.getParents().get(0), vec);
     assertEquals(subtracted.getParents().get(1).evaluate(), 1.0f);
 
     subtracted = vec.sub(vec);
-    testSubCommon(subtracted, new Vector3.Primitive(0, 0, 0));
+    testSubCommon(subtracted, new Vector2.Primitive(0, 0));
     assertSame(subtracted.getParents().get(0), vec);
     assertSame(subtracted.getParents().get(1), vec);
   }
 
-  private void testMulCommon(Vector3 multiplied, Vector3.Primitive expected) {
+  private void testMulCommon(Vector2 multiplied, Vector2.Primitive expected) {
     assertEquals(multiplied.getParents().size(), 2);
     assertEquals(multiplied.evaluate(), expected);
     assertTrue(multiplied.getEvaluator() instanceof BinaryOperationEvaluator);
@@ -116,23 +119,23 @@ public class Vector3Test {
 
   @Test
   public void testMul() {
-    Vector3 multiplied = vec.mul(2);
-    testMulCommon(multiplied, new Vector3.Primitive(2, 4, 6));
+    Vector2 multiplied = vec.mul(2);
+    testMulCommon(multiplied, new Vector2.Primitive(2, 4));
     assertSame(multiplied.getParents().get(0), vec);
     assertEquals(multiplied.getParents().get(1).evaluate(), 2.0f);
 
     multiplied = vec.mul(new Real(2));
-    testMulCommon(multiplied, new Vector3.Primitive(2, 4, 6));
+    testMulCommon(multiplied, new Vector2.Primitive(2, 4));
     assertSame(multiplied.getParents().get(0), vec);
     assertEquals(multiplied.getParents().get(1).evaluate(), 2.0f);
 
     multiplied = vec.mul(vec);
-    testMulCommon(multiplied, new Vector3.Primitive(1, 4, 9));
+    testMulCommon(multiplied, new Vector2.Primitive(1, 4));
     assertSame(multiplied.getParents().get(0), vec);
     assertSame(multiplied.getParents().get(1), vec);
   }
 
-  private void testDivCommon(Vector3 divided, Vector3.Primitive expected) {
+  private void testDivCommon(Vector2 divided, Vector2.Primitive expected) {
     assertEquals(divided.getParents().size(), 2);
     assertEquals(divided.evaluate(), expected);
     assertTrue(divided.getEvaluator() instanceof BinaryOperationEvaluator);
@@ -142,25 +145,25 @@ public class Vector3Test {
 
   @Test
   public void testDiv() {
-    Vector3 divided = vec.div(2);
-    testDivCommon(divided, new Vector3.Primitive(0.5f, 1, 1.5f));
+    Vector2 divided = vec.div(2);
+    testDivCommon(divided, new Vector2.Primitive(0.5f, 1));
     assertSame(divided.getParents().get(0), vec);
     assertEquals(divided.getParents().get(1).evaluate(), 2.0f);
 
     divided = vec.div(new Real(2));
-    testDivCommon(divided, new Vector3.Primitive(0.5f, 1, 1.5f));
+    testDivCommon(divided, new Vector2.Primitive(0.5f, 1));
     assertSame(divided.getParents().get(0), vec);
     assertEquals(divided.getParents().get(1).evaluate(), 2.0f);
 
     divided = vec.div(vec);
-    testDivCommon(divided, new Vector3.Primitive(1, 1, 1));
+    testDivCommon(divided, new Vector2.Primitive(1, 1));
     assertSame(divided.getParents().get(0), vec);
     assertSame(divided.getParents().get(1), vec);
   }
 
   @Test
   public void testNeg() {
-    Vector3 negated = vec.neg();
+    Vector2 negated = vec.neg();
     assertEquals(negated.getParents().size(), 1);
     assertSame(negated.getParents().get(0), vec);
     assertTrue(negated.getEvaluator() instanceof NegationEvaluator);
@@ -169,29 +172,29 @@ public class Vector3Test {
 
   @Test
   public void testDot() {
-    Real dot = vec.dot(new Vector3(1, 2, 3));
+    Real dot = vec.dot(new Vector2(1, 2));
     assertEquals(dot.getParents().size(), 2);
     assertSame(dot.getParents().get(0), vec);
-    assertEquals(dot.getParents().get(1).evaluate(), new Vector3.Primitive(1, 2, 3));
+    assertEquals(dot.getParents().get(1).evaluate(), new Vector2.Primitive(1, 2));
     assertTrue(dot.getEvaluator() instanceof FunctionEvaluator);
 
     FunctionEvaluator evaluator = ((FunctionEvaluator)dot.getEvaluator());
     assertEquals(evaluator.getFunctionName(), "dot");
     assertEquals(evaluator.getType(), Type.FLOAT_T);
 
-    assertTrue(dot.evaluate() == vec.evaluate().dot(new Vector3.Primitive(1, 2, 3)));
+    assertTrue(dot.evaluate() == vec.evaluate().dot(new Vector2.Primitive(1, 2)));
   }
 
   @Test
   public void testNormalize() {
-    Vector3 normalized = vec.normalize();
+    Vector2 normalized = vec.normalize();
     assertEquals(normalized.getParents().size(), 1);
     assertSame(normalized.getParents().get(0), vec);
     assertTrue(normalized.getEvaluator() instanceof FunctionEvaluator);
 
     FunctionEvaluator evaluator = ((FunctionEvaluator)normalized.getEvaluator());
     assertEquals(evaluator.getFunctionName(), "normalize");
-    assertEquals(evaluator.getType(), Type.VEC3_T);
+    assertEquals(evaluator.getType(), Type.VEC2_T);
 
     assertEquals(normalized.evaluate(), vec.evaluate().normalize());
   }
@@ -206,17 +209,6 @@ public class Vector3Test {
     FunctionEvaluator evaluator = ((FunctionEvaluator)length.getEvaluator());
     assertEquals(evaluator.getFunctionName(), "length");
     assertEquals(evaluator.getType(), Type.FLOAT_T);
-  }
-
-  @Test
-  public void testCross() {
-    Vector3 cross = vec.cross(new Vector3(4, 5, 6));
-    assertEquals(cross.getParents().size(), 2);
-    assertTrue(cross.getEvaluator() instanceof FunctionEvaluator);
-
-    FunctionEvaluator evaluator = ((FunctionEvaluator)cross.getEvaluator());
-    assertEquals(evaluator.getFunctionName(), "cross");
-    assertEquals(evaluator.getType(), Type.VEC3_T);
   }
 
   @Test

@@ -1,5 +1,9 @@
 package com.lfscheidegger.jfacet.shade.expression;
 
+import com.lfscheidegger.jfacet.shade.expression.vector.Vector2;
+import com.lfscheidegger.jfacet.shade.expression.vector.Vector3;
+import com.lfscheidegger.jfacet.shade.expression.vector.Vector4;
+
 public interface SupportsSwizzling {
 
   public float swizzle(char x);

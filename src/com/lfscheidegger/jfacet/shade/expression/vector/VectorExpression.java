@@ -1,4 +1,6 @@
-package com.lfscheidegger.jfacet.shade.expression;
+package com.lfscheidegger.jfacet.shade.expression.vector;
+
+import com.lfscheidegger.jfacet.shade.expression.*;
 
 public interface VectorExpression<T> extends SupportsBasicArithmetic<T> {
 

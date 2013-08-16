@@ -1,11 +1,16 @@
-package com.lfscheidegger.jfacet.shade.expression;
+package com.lfscheidegger.jfacet.shade.expression.vector;
 
 import com.google.common.collect.ImmutableList;
 import com.lfscheidegger.jfacet.shade.GlSlType;
 import com.lfscheidegger.jfacet.shade.Type;
+import com.lfscheidegger.jfacet.shade.expression.Expression;
+import com.lfscheidegger.jfacet.shade.expression.Real;
 import com.lfscheidegger.jfacet.shade.expression.evaluators.*;
 import com.lfscheidegger.jfacet.shade.expression.evaluators.glsl.UniformEvaluator;
 import com.lfscheidegger.jfacet.shade.expression.operators.Operator;
+import com.lfscheidegger.jfacet.shade.expression.vector.Vector2;
+import com.lfscheidegger.jfacet.shade.expression.vector.Vector3;
+import com.lfscheidegger.jfacet.shade.expression.vector.Vector4;
 import org.junit.Before;
 import org.junit.Test;
 

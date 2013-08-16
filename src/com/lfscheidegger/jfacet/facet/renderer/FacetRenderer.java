@@ -3,7 +3,7 @@ package com.lfscheidegger.jfacet.facet.renderer;
 import android.opengl.GLES20;
 import android.opengl.GLSurfaceView;
 import com.lfscheidegger.jfacet.facet.Scene;
-import com.lfscheidegger.jfacet.shade.expression.Vector4;
+import com.lfscheidegger.jfacet.shade.expression.vector.Vector4;
 
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;

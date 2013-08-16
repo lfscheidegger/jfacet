@@ -6,7 +6,7 @@ import com.lfscheidegger.jfacet.shade.Type;
 import com.lfscheidegger.jfacet.shade.compiler.CompilationContext;
 import com.lfscheidegger.jfacet.shade.expression.evaluators.Evaluator;
 
-abstract class AbstractExpression<T> implements Expression<T> {
+public abstract class AbstractExpression<T> implements Expression<T> {
 
   private final Type mType;
   private final GlSlType mGlSlType;

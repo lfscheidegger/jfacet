@@ -1,9 +1,10 @@
-package com.lfscheidegger.jfacet.shade.expression;
+package com.lfscheidegger.jfacet.shade.expression.vector;
 
 import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableList;
 import com.lfscheidegger.jfacet.shade.GlSlType;
 import com.lfscheidegger.jfacet.shade.Type;
+import com.lfscheidegger.jfacet.shade.expression.*;
 import com.lfscheidegger.jfacet.shade.expression.evaluators.*;
 import com.lfscheidegger.jfacet.shade.expression.operators.BasicArithmeticOperators;
 import com.lfscheidegger.jfacet.utils.ArrayUtils;
@@ -12,14 +13,14 @@ import com.lfscheidegger.jfacet.utils.SwizzleUtils;
 
 import java.util.Arrays;
 
-public final class Vector4 extends AbstractExpression<Vector4.Primitive> implements VectorExpression<Vector4> {
+public final class Vector3 extends AbstractExpression<Vector3.Primitive> implements VectorExpression<Vector3> {
 
   public static final class Primitive implements SupportsBasicArithmetic<Primitive>, SupportsSwizzling {
 
     private final float[] mValues;
 
-    public Primitive(float x, float y, float z, float w) {
-      mValues = new float[] {x, y, z, w};
+    public Primitive(float x, float y, float z) {
+      mValues = new float[] {x, y, z};
     }
 
     private Primitive(float[] other) {
@@ -36,10 +37,6 @@ public final class Vector4 extends AbstractExpression<Vector4.Primitive> impleme
 
     public float getZ() {
       return mValues[2];
-    }
-
-    public float getW() {
-      return mValues[3];
     }
 
     public float get(int idx) {
@@ -103,6 +100,13 @@ public final class Vector4 extends AbstractExpression<Vector4.Primitive> impleme
       return ArrayUtils.dot(mValues, other.mValues);
     }
 
+    public Primitive cross(Primitive other) {
+      return new Primitive(
+          getY() * other.getZ() - getZ() * other.getY(),
+          getZ() * other.getX() - getX() * other.getZ(),
+          getX() * other.getY() - getY() * other.getX());
+    }
+
     @Override
     public float swizzle(char c) {
       return get(SwizzleUtils.getIndexForSwizzle(c));
@@ -148,33 +152,32 @@ public final class Vector4 extends AbstractExpression<Vector4.Primitive> impleme
 
     @Override
     public String toString() {
-      return StringUtils.toStringHelper(Type.VEC4_T)
+      return StringUtils.toStringHelper(Type.VEC3_T)
           .addValue(mValues[0])
           .addValue(mValues[1])
           .addValue(mValues[2])
-          .addValue(mValues[3])
           .toString();
     }
   }
 
-  public Vector4(float x, float y, float z, float w) {
-    this(ImmutableList.<Expression>of(), new ConstantEvaluator<Primitive>(new Primitive(x, y, z, w)));
+  public Vector3(float x, float y, float z) {
+    this(ImmutableList.<Expression>of(), new ConstantEvaluator<Primitive>(new Primitive(x, y, z)));
   }
 
-  public Vector4(Real x, Real y, Real z, Real w) {
-    this(ImmutableList.<Expression>of(x, y, z, w), new ConstructorEvaluator<Primitive>());
+  public Vector3(Real x, Real y, Real z) {
+    this(ImmutableList.<Expression>of(x, y, z), new ConstructorEvaluator<Primitive>());
   }
 
-  public Vector4(ImmutableList<Expression> parents, Evaluator<Primitive> evaluator) {
+  public Vector3(ImmutableList<Expression> parents, Evaluator<Primitive> evaluator) {
     this(GlSlType.DEFAULT_T, parents, evaluator);
   }
 
-  public Vector4(GlSlType glSlType, Evaluator<Primitive> evaluator) {
+  public Vector3(GlSlType glSlType, Evaluator<Primitive> evaluator) {
     this(glSlType, ImmutableList.<Expression>of(), evaluator);
   }
 
-  private Vector4(GlSlType glSlType, ImmutableList<Expression> parents, Evaluator<Primitive> evaluator) {
-    super(Type.VEC4_T, glSlType, parents, evaluator);
+  private Vector3(GlSlType glSlType, ImmutableList<Expression> parents, Evaluator<Primitive> evaluator) {
+    super(Type.VEC3_T, glSlType, parents, evaluator);
   }
 
   public Real getX() {
@@ -189,109 +192,105 @@ public final class Vector4 extends AbstractExpression<Vector4.Primitive> impleme
     return get(2);
   }
 
-  public Real getW() {
-    return get(3);
-  }
-
   @Override
   public Real get(int idx) {
-    Preconditions.checkState(idx < 4);
+    Preconditions.checkState(idx < 3);
     return new Real(ImmutableList.<Expression>of(this), new ComponentEvaluator<Float>(idx));
   }
 
   @Override
-  public Vector4 add(float right) {
+  public Vector3 add(float right) {
     return add(new Real(right));
   }
 
   @Override
-  public Vector4 add(Real right) {
-    return new Vector4(
+  public Vector3 add(Real right) {
+    return new Vector3(
         ImmutableList.<Expression>of(this, right),
         new BinaryOperationEvaluator<Primitive, Float, Primitive>(BasicArithmeticOperators.<Primitive>forAdditionWithFloat()));
   }
 
   @Override
-  public Vector4 add(Vector4 right) {
-    return new Vector4(
+  public Vector3 add(Vector3 right) {
+    return new Vector3(
         ImmutableList.<Expression>of(this, right),
         new BinaryOperationEvaluator<Primitive, Primitive, Primitive>(BasicArithmeticOperators.<Primitive>forAdditionWithSame()));
   }
 
   @Override
-  public Vector4 sub(float right) {
+  public Vector3 sub(float right) {
     return sub(new Real(right));
   }
 
   @Override
-  public Vector4 sub(Real right) {
-    return new Vector4(
+  public Vector3 sub(Real right) {
+    return new Vector3(
         ImmutableList.<Expression>of(this, right),
         new BinaryOperationEvaluator<Primitive, Float, Primitive>(
             BasicArithmeticOperators.<Primitive>forSubtractionWithFloat()));
   }
 
   @Override
-  public Vector4 sub(Vector4 right) {
-    return new Vector4(
+  public Vector3 sub(Vector3 right) {
+    return new Vector3(
         ImmutableList.<Expression>of(this, right),
         new BinaryOperationEvaluator<Primitive, Primitive, Primitive>(BasicArithmeticOperators.<Primitive>forSubtractionWithSame()));
   }
 
   @Override
-  public Vector4 mul(float right) {
+  public Vector3 mul(float right) {
     return mul(new Real(right));
   }
 
   @Override
-  public Vector4 mul(Real right) {
-    return new Vector4(
+  public Vector3 mul(Real right) {
+    return new Vector3(
         ImmutableList.<Expression>of(this, right),
         new BinaryOperationEvaluator<Primitive, Float, Primitive>(
             BasicArithmeticOperators.<Primitive>forMultiplicationWithFloat()));
   }
 
   @Override
-  public Vector4 mul(Vector4 right) {
-    return new Vector4(
+  public Vector3 mul(Vector3 right) {
+    return new Vector3(
         ImmutableList.<Expression>of(this, right),
         new BinaryOperationEvaluator<Primitive, Primitive, Primitive>(
             BasicArithmeticOperators.<Primitive>forMultiplicationWithSame()));
   }
 
   @Override
-  public Vector4 div(float right) {
+  public Vector3 div(float right) {
     return div(new Real(right));
   }
 
   @Override
-  public Vector4 div(Real right) {
-    return new Vector4(
+  public Vector3 div(Real right) {
+    return new Vector3(
         ImmutableList.<Expression>of(this, right),
         new BinaryOperationEvaluator<Primitive, Float, Primitive>(BasicArithmeticOperators.<Primitive>forDivisionWithFloat()));
   }
 
   @Override
-  public Vector4 div(Vector4 right) {
-    return new Vector4(
+  public Vector3 div(Vector3 right) {
+    return new Vector3(
         ImmutableList.<Expression>of(this, right),
         new BinaryOperationEvaluator<Primitive, Primitive, Primitive>(BasicArithmeticOperators.<Primitive>forDivisionWithSame()));
   }
 
   @Override
-  public Vector4 neg() {
-    return new Vector4(
+  public Vector3 neg() {
+    return new Vector3(
         ImmutableList.<Expression>of(this),
         new NegationEvaluator<Primitive>());
   }
 
   @Override
-  public Real dot(Vector4 right) {
+  public Real dot(Vector3 right) {
     return new Real(ImmutableList.<Expression>of(this, right), new FunctionEvaluator<Float>(Type.FLOAT_T, "dot") {
       @Override
       public Float evaluate(Expression expression) {
-        Vector4 left = (Vector4)expression.getParents().get(0);
-        Vector4 right = (Vector4)expression.getParents().get(1);
+        Vector3 left = (Vector3)expression.getParents().get(0);
+        Vector3 right = (Vector3)expression.getParents().get(1);
 
         return left.evaluate().dot(right.evaluate());
       }
@@ -299,13 +298,13 @@ public final class Vector4 extends AbstractExpression<Vector4.Primitive> impleme
   }
 
   @Override
-  public Vector4 normalize() {
-    return new Vector4(
+  public Vector3 normalize() {
+    return new Vector3(
         ImmutableList.<Expression>of(this),
-        new FunctionEvaluator<Primitive>(Type.VEC4_T, "normalize") {
+        new FunctionEvaluator<Primitive>(Type.VEC3_T, "normalize") {
           @Override
           public Primitive evaluate(Expression expression) {
-            Vector4 parent = (Vector4)expression.getParents().get(0);
+            Vector3 parent = (Vector3)expression.getParents().get(0);
             return parent.evaluate().normalize();
           }
         });
@@ -318,8 +317,21 @@ public final class Vector4 extends AbstractExpression<Vector4.Primitive> impleme
         new FunctionEvaluator<Float>(Type.FLOAT_T, "length") {
           @Override
           public Float evaluate(Expression<Float> expression) {
-            Vector4 parent = (Vector4)expression.getParents().get(0);
+            Vector3 parent = (Vector3)expression.getParents().get(0);
             return parent.evaluate().length();
+          }
+        });
+  }
+
+  public Vector3 cross(Vector3 right) {
+    return new Vector3(
+        ImmutableList.<Expression>of(this, right),
+        new FunctionEvaluator<Primitive>(Type.VEC3_T, "cross") {
+          @Override
+          public Primitive evaluate(Expression expression) {
+            Vector3 left = (Vector3)expression.getParents().get(0);
+            Vector3 right = (Vector3)expression.getParents().get(1);
+            return left.evaluate().cross(right.evaluate());
           }
         });
   }
@@ -346,6 +358,7 @@ public final class Vector4 extends AbstractExpression<Vector4.Primitive> impleme
 
   @Override
   public Vector4 fill(Vector4 defaultExpression) {
-    return this;
+    return new Vector4(getX(), getY(), getZ(), defaultExpression.getW());
   }
 }
+

@@ -1,6 +1,6 @@
 package com.lfscheidegger.jfacet.shade.camera;
 
-import com.lfscheidegger.jfacet.shade.expression.Matrix4;
+import com.lfscheidegger.jfacet.shade.expression.matrix.Matrix4;
 
 public interface CameraConfig {
 

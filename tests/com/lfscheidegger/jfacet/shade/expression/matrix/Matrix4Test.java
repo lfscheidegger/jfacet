@@ -1,11 +1,14 @@
-package com.lfscheidegger.jfacet.shade.expression;
+package com.lfscheidegger.jfacet.shade.expression.matrix;
 
 import com.lfscheidegger.jfacet.shade.GlSlType;
+import com.lfscheidegger.jfacet.shade.expression.Real;
 import com.lfscheidegger.jfacet.shade.expression.evaluators.BinaryOperationEvaluator;
 import com.lfscheidegger.jfacet.shade.expression.evaluators.ConstructorEvaluator;
 import com.lfscheidegger.jfacet.shade.expression.evaluators.NegationEvaluator;
 import com.lfscheidegger.jfacet.shade.expression.evaluators.glsl.UniformEvaluator;
+import com.lfscheidegger.jfacet.shade.expression.matrix.Matrix4;
 import com.lfscheidegger.jfacet.shade.expression.operators.Operator;
+import com.lfscheidegger.jfacet.shade.expression.vector.Vector4;
 import org.junit.Before;
 import org.junit.Test;
 

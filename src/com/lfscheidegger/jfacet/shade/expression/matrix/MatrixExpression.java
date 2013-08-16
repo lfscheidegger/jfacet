@@ -1,4 +1,7 @@
-package com.lfscheidegger.jfacet.shade.expression;
+package com.lfscheidegger.jfacet.shade.expression.matrix;
+
+import com.lfscheidegger.jfacet.shade.expression.Real;
+import com.lfscheidegger.jfacet.shade.expression.SupportsBasicArithmetic;
 
 public interface MatrixExpression<MATRIX_T, VECTOR_T> extends SupportsBasicArithmetic<MATRIX_T> {
 

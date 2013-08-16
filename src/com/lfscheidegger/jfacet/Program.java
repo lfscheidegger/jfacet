@@ -2,14 +2,12 @@ package com.lfscheidegger.jfacet;
 
 import android.opengl.GLES20;
 import com.badlogic.gdx.backends.android.AndroidGL20;
-import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableBiMap;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
 import com.lfscheidegger.jfacet.facet.AttribBuffer;
 import com.lfscheidegger.jfacet.shade.GlSlType;
-import com.lfscheidegger.jfacet.shade.Parameter;
 import com.lfscheidegger.jfacet.shade.Shade;
 import com.lfscheidegger.jfacet.shade.Type;
 import com.lfscheidegger.jfacet.shade.compiler.CompilationContext;
@@ -21,9 +19,7 @@ import com.lfscheidegger.jfacet.shade.compiler.ast.ASTProcessors;
 import com.lfscheidegger.jfacet.shade.compiler.ast.FragmentAttributeExtractor;
 import com.lfscheidegger.jfacet.shade.expression.Expression;
 import com.lfscheidegger.jfacet.shade.expression.SamplerExpression;
-import com.lfscheidegger.jfacet.shade.expression.Vector4;
-import com.lfscheidegger.jfacet.shade.expression.VectorExpression;
-import com.lfscheidegger.jfacet.shade.expression.evaluators.glsl.UniformEvaluator;
+import com.lfscheidegger.jfacet.shade.expression.vector.VectorExpression;
 
 import java.util.HashSet;
 import java.util.Set;
