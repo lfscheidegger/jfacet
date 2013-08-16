@@ -121,6 +121,13 @@ public class Vector3PrimitiveTest {
   }
 
   @Test
+  public void testCross() {
+    Vector3.Primitive cross = vec.cross(new Vector3.Primitive(4, 5, 6));
+
+    assertEquals(cross, new Vector3.Primitive(-3, 6, -3));
+  }
+
+  @Test
   public void testSwizzle() {
     assertTrue(vec.swizzle('x') == 1);
     assertTrue(vec.swizzle('y') == 2);
