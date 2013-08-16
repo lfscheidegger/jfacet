@@ -117,6 +117,7 @@ public class Vector2PrimitiveTest {
   }
 
   @Test
+  @SuppressWarnings("all")
   public void testEquals() {
     Vector2.Primitive equal = new Vector2.Primitive(1, 2);
     assertEquals(vec, equal);

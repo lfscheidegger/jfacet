@@ -147,6 +147,7 @@ public class Vector4PrimitiveTest {
   }
 
   @Test
+  @SuppressWarnings("all")
   public void testEquals() {
     Vector4.Primitive equal = new Vector4.Primitive(1, 2, 3, 4);
     assertEquals(vec, equal);

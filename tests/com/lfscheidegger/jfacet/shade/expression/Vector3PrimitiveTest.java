@@ -132,6 +132,7 @@ public class Vector3PrimitiveTest {
   }
 
   @Test
+  @SuppressWarnings("all")
   public void testEquals() {
     Vector3.Primitive equal = new Vector3.Primitive(1, 2, 3);
     assertEquals(vec, equal);

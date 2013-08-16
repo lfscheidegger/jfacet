@@ -164,6 +164,7 @@ public class Matrix4PrimitiveTest {
   }
 
   @Test
+  @SuppressWarnings("all")
   public void testEquals() {
     Matrix4.Primitive equal = new Matrix4.Primitive(
         new Vector4.Primitive(1, 2, 3, 4),

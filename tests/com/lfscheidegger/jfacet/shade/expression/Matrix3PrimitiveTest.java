@@ -148,6 +148,7 @@ public class Matrix3PrimitiveTest {
   }
 
   @Test
+  @SuppressWarnings("all")
   public void testEquals() {
     Matrix3.Primitive equal = new Matrix3.Primitive(
         new Vector3.Primitive(1, 2, 3),

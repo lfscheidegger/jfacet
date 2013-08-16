@@ -128,6 +128,7 @@ public class Matrix2PrimitiveTest {
   }
 
   @Test
+  @SuppressWarnings("all")
   public void testEquals() {
     Matrix2.Primitive equal = new Matrix2.Primitive(
         new Vector2.Primitive(1, 2),
