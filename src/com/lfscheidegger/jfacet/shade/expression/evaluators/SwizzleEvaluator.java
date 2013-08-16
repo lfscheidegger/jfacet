@@ -4,7 +4,7 @@ import com.lfscheidegger.jfacet.shade.Type;
 import com.lfscheidegger.jfacet.shade.compiler.CompilationContext;
 import com.lfscheidegger.jfacet.shade.compiler.GlSlExpressionHelper;
 import com.lfscheidegger.jfacet.shade.expression.Expression;
-import com.lfscheidegger.jfacet.shade.expression.SupportsSwizzling;
+import com.lfscheidegger.jfacet.shade.expression.vector.VectorPrimitive;
 
 public class SwizzleEvaluator<T> implements Evaluator<T> {
 
@@ -34,7 +34,7 @@ public class SwizzleEvaluator<T> implements Evaluator<T> {
   @Override
   @SuppressWarnings("unchecked")
   public T evaluate(Expression<T> expression) {
-    SupportsSwizzling vector = (SupportsSwizzling)expression.getParents().get(0).evaluate();
+    VectorPrimitive vector = (VectorPrimitive)expression.getParents().get(0).evaluate();
     switch(mDimension) {
       case 1: return (T)(Float.valueOf(vector.swizzle(mAccessors[0])));
       case 2: return (T)vector.swizzle(mAccessors[0], mAccessors[1]);

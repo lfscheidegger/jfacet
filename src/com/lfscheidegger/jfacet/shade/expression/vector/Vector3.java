@@ -15,7 +15,7 @@ import java.util.Arrays;
 
 public final class Vector3 extends AbstractExpression<Vector3.Primitive> implements VectorExpression<Vector3> {
 
-  public static final class Primitive implements SupportsBasicArithmetic<Primitive>, SupportsSwizzling {
+  public static final class Primitive implements VectorPrimitive<Primitive> {
 
     private final float[] mValues;
 
