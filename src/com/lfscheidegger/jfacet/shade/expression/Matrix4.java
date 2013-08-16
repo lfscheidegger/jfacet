@@ -154,7 +154,7 @@ public final class Matrix4
 
   public Matrix4() {
     this(ImmutableList.<Expression>of(
-        Shade.vec(1, 0, 0, 0), Shade.vec(0, 1, 0, 0), Shade.vec(0, 0, 1, 0)),
+        Shade.vec(1, 0, 0, 0), Shade.vec(0, 1, 0, 0), Shade.vec(0, 0, 1, 0), Shade.vec(0, 0, 0, 1)),
         new ConstructorEvaluator<Primitive>());
   }
 
