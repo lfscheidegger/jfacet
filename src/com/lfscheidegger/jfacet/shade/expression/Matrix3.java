@@ -155,11 +155,7 @@ public final class Matrix3
     this (ImmutableList.<Expression>of(c0, c1, c2), new ConstructorEvaluator<Primitive>());
   }
 
-  public Matrix3(Evaluator<Primitive> evaluator) {
-    this(ImmutableList.<Expression>of(), evaluator);
-  }
-
-  public Matrix3(ImmutableList<Expression> parents, Evaluator<Primitive> evaluator) {
+  private Matrix3(ImmutableList<Expression> parents, Evaluator<Primitive> evaluator) {
     this(GlSlType.DEFAULT_T, parents, evaluator);
   }
 
@@ -167,7 +163,7 @@ public final class Matrix3
     this(glSlType, ImmutableList.<Expression>of(), evaluator);
   }
 
-  public Matrix3(GlSlType glSlType, ImmutableList<Expression> parents, Evaluator<Primitive> evaluator) {
+  private Matrix3(GlSlType glSlType, ImmutableList<Expression> parents, Evaluator<Primitive> evaluator) {
     super(Type.MAT3_T, glSlType, parents, evaluator);
   }
 

@@ -162,11 +162,7 @@ public final class Matrix4
     this (ImmutableList.<Expression>of(c0, c1, c2, c3), new ConstructorEvaluator<Primitive>());
   }
 
-  public Matrix4(Evaluator<Primitive> evaluator) {
-    this(ImmutableList.<Expression>of(), evaluator);
-  }
-
-  public Matrix4(ImmutableList<Expression> parents, Evaluator<Primitive> evaluator) {
+  private Matrix4(ImmutableList<Expression> parents, Evaluator<Primitive> evaluator) {
     this(GlSlType.DEFAULT_T, parents, evaluator);
   }
 
@@ -174,7 +170,7 @@ public final class Matrix4
     this(glSlType, ImmutableList.<Expression>of(), evaluator);
   }
 
-  public Matrix4(GlSlType glSlType, ImmutableList<Expression> parents, Evaluator<Primitive> evaluator) {
+  private Matrix4(GlSlType glSlType, ImmutableList<Expression> parents, Evaluator<Primitive> evaluator) {
     super(Type.MAT4_T, glSlType, parents, evaluator);
   }
 
