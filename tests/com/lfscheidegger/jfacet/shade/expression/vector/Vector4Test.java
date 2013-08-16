@@ -8,9 +8,6 @@ import com.lfscheidegger.jfacet.shade.expression.Real;
 import com.lfscheidegger.jfacet.shade.expression.evaluators.*;
 import com.lfscheidegger.jfacet.shade.expression.evaluators.glsl.UniformEvaluator;
 import com.lfscheidegger.jfacet.shade.expression.operators.Operator;
-import com.lfscheidegger.jfacet.shade.expression.vector.Vector2;
-import com.lfscheidegger.jfacet.shade.expression.vector.Vector3;
-import com.lfscheidegger.jfacet.shade.expression.vector.Vector4;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -62,106 +59,82 @@ public class Vector4Test {
     assertTrue(vec.getW().evaluate().equals(vec.get(3).evaluate()));
   }
 
-  private void testAddCommon(Vector4 added, Vector4.Primitive expected) {
+  private void testBinOpCommon(Vector4 added, Vector4.Primitive expected, String expectedOperatorSymbol) {
     assertEquals(added.getParents().size(), 2);
     assertEquals(added.evaluate(),  expected);
     assertTrue(added.getEvaluator() instanceof BinaryOperationEvaluator);
     Operator op = ((BinaryOperationEvaluator)added.getEvaluator()).getOperator();
-    assertEquals(op.getOperatorSymbol(), "+");
+    assertEquals(op.getOperatorSymbol(), expectedOperatorSymbol);
   }
 
   @Test
   public void testAdd() {
     Vector4 added = vec.add(1);
-    testAddCommon(added, new Vector4.Primitive(2, 3, 4, 5));
+    testBinOpCommon(added, new Vector4.Primitive(2, 3, 4, 5), "+");
     assertSame(added.getParents().get(0), vec);
     assertEquals(added.getParents().get(1).evaluate(), 1.0f);
 
     added = vec.add(new Real(1));
-    testAddCommon(added, new Vector4.Primitive(2, 3, 4, 5));
+    testBinOpCommon(added, new Vector4.Primitive(2, 3, 4, 5), "+");
     assertSame(added.getParents().get(0), vec);
     assertEquals(added.getParents().get(1).evaluate(), 1.0f);
 
     added = vec.add(vec);
-    testAddCommon(added, new Vector4.Primitive(2, 4, 6, 8));
+    testBinOpCommon(added, new Vector4.Primitive(2, 4, 6, 8), "+");
     assertSame(added.getParents().get(0), vec);
     assertSame(added.getParents().get(1), vec);
-  }
-
-  public void testSubCommon(Vector4 subtracted, Vector4.Primitive expected) {
-    assertEquals(subtracted.getParents().size(), 2);
-    assertEquals(subtracted.evaluate(), expected);
-    assertTrue(subtracted.getEvaluator() instanceof BinaryOperationEvaluator);
-    Operator op = ((BinaryOperationEvaluator)subtracted.getEvaluator()).getOperator();
-    assertEquals(op.getOperatorSymbol(), "-");
   }
 
   @Test
   public void testSub() {
     Vector4 subtracted = vec.sub(1);
-    testSubCommon(subtracted, new Vector4.Primitive(0, 1, 2, 3));
+    testBinOpCommon(subtracted, new Vector4.Primitive(0, 1, 2, 3), "-");
     assertSame(subtracted.getParents().get(0), vec);
     assertEquals(subtracted.getParents().get(1).evaluate(), 1.0f);
 
     subtracted = vec.sub(new Real(1));
-    testSubCommon(subtracted, new Vector4.Primitive(0, 1, 2, 3));
+    testBinOpCommon(subtracted, new Vector4.Primitive(0, 1, 2, 3), "-");
     assertSame(subtracted.getParents().get(0), vec);
     assertEquals(subtracted.getParents().get(1).evaluate(), 1.0f);
 
     subtracted = vec.sub(vec);
-    testSubCommon(subtracted, new Vector4.Primitive(0, 0, 0, 0));
+    testBinOpCommon(subtracted, new Vector4.Primitive(0, 0, 0, 0), "-");
     assertSame(subtracted.getParents().get(0), vec);
     assertSame(subtracted.getParents().get(1), vec);
-  }
-
-  private void testMulCommon(Vector4 multiplied, Vector4.Primitive expected) {
-    assertEquals(multiplied.getParents().size(), 2);
-    assertEquals(multiplied.evaluate(), expected);
-    assertTrue(multiplied.getEvaluator() instanceof BinaryOperationEvaluator);
-    Operator op = ((BinaryOperationEvaluator)multiplied.getEvaluator()).getOperator();
-    assertEquals(op.getOperatorSymbol(), "*");
   }
 
   @Test
   public void testMul() {
     Vector4 multiplied = vec.mul(2);
-    testMulCommon(multiplied, new Vector4.Primitive(2, 4, 6, 8));
+    testBinOpCommon(multiplied, new Vector4.Primitive(2, 4, 6, 8), "*");
     assertSame(multiplied.getParents().get(0), vec);
     assertEquals(multiplied.getParents().get(1).evaluate(), 2.0f);
 
     multiplied = vec.mul(new Real(2));
-    testMulCommon(multiplied, new Vector4.Primitive(2, 4, 6, 8));
+    testBinOpCommon(multiplied, new Vector4.Primitive(2, 4, 6, 8), "*");
     assertSame(multiplied.getParents().get(0), vec);
     assertEquals(multiplied.getParents().get(1).evaluate(), 2.0f);
 
     multiplied = vec.mul(vec);
-    testMulCommon(multiplied, new Vector4.Primitive(1, 4, 9, 16));
+    testBinOpCommon(multiplied, new Vector4.Primitive(1, 4, 9, 16), "*");
     assertSame(multiplied.getParents().get(0), vec);
     assertSame(multiplied.getParents().get(1), vec);
-  }
-
-  private void testDivCommon(Vector4 divided, Vector4.Primitive expected) {
-    assertEquals(divided.getParents().size(), 2);
-    assertEquals(divided.evaluate(), expected);
-    assertTrue(divided.getEvaluator() instanceof BinaryOperationEvaluator);
-    Operator op = ((BinaryOperationEvaluator)divided.getEvaluator()).getOperator();
-    assertEquals(op.getOperatorSymbol(), "/");
   }
 
   @Test
   public void testDiv() {
     Vector4 divided = vec.div(2);
-    testDivCommon(divided, new Vector4.Primitive(0.5f, 1, 1.5f, 2.0f));
+    testBinOpCommon(divided, new Vector4.Primitive(0.5f, 1, 1.5f, 2.0f), "/");
     assertSame(divided.getParents().get(0), vec);
     assertEquals(divided.getParents().get(1).evaluate(), 2.0f);
 
     divided = vec.div(new Real(2));
-    testDivCommon(divided, new Vector4.Primitive(0.5f, 1, 1.5f, 2.0f));
+    testBinOpCommon(divided, new Vector4.Primitive(0.5f, 1, 1.5f, 2.0f), "/");
     assertSame(divided.getParents().get(0), vec);
     assertEquals(divided.getParents().get(1).evaluate(), 2.0f);
 
     divided = vec.div(vec);
-    testDivCommon(divided, new Vector4.Primitive(1, 1, 1, 1));
+    testBinOpCommon(divided, new Vector4.Primitive(1, 1, 1, 1), "/");
     assertSame(divided.getParents().get(0), vec);
     assertSame(divided.getParents().get(1), vec);
   }
