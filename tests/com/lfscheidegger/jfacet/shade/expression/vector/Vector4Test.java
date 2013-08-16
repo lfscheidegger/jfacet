@@ -31,6 +31,7 @@ public class Vector4Test {
   @Test
   public void testConstructors() {
     assertTrue(vec.getEvaluator() instanceof ConstantEvaluator);
+    assertEquals(vec.getParents().size(), 0);
     assertEquals(vec.evaluate(), new Vector4.Primitive(1, 2, 3, 4));
 
     vec = new Vector4(new Real(1), new Real(2), new Real(3), new Real(4));

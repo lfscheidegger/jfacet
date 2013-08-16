@@ -31,6 +31,7 @@ public class Vector2Test {
   @Test
   public void testConstructors() {
     assertTrue(vec.getEvaluator() instanceof ConstantEvaluator);
+    assertEquals(vec.getParents().size(), 0);
     assertEquals(vec.evaluate(), new Vector2.Primitive(1, 2));
 
     vec = new Vector2(new Real(1), new Real(2));

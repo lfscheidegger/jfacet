@@ -40,6 +40,7 @@ public class Matrix4Test {
   @Test
   public void testConstructors() {
     assertTrue(mat.getEvaluator() instanceof ConstructorEvaluator);
+    assertEquals(mat.getParents().size(), 4);
     assertEquals(mat.evaluate(), primitive);
 
     mat = new Matrix4();

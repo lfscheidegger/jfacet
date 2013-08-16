@@ -12,7 +12,8 @@ public class Rotation4 extends AbstractTransform4 {
   }
 
   private static Matrix4 getMatrix(Real angle, Vector4 axis) {
-    axis = axis.normalize();
+    return null;
+    /*axis = axis.normalize();
 
     Real s = angle.sin();
     Real c = angle.cos();
@@ -35,6 +36,6 @@ public class Rotation4 extends AbstractTransform4 {
             y.mul(z).mul(t).sub(x.mul(s)),
             z.mul(z).mul(t).add(c),
             0),
-        Shade.vec(0,0,0,1));
+        Shade.vec(0,0,0,1));*/
   }
 }

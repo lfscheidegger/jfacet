@@ -25,6 +25,11 @@ public enum Type {
   VEC4_T("vec4"),
 
   /**
+   * Atomic boolean value
+   */
+  BOOL_T("bool"),
+
+  /**
    * 2x2-dimensional floating-point matrix
    */
   MAT2_T("mat2"),

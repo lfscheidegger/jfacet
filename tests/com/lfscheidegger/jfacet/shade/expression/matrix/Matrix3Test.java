@@ -38,6 +38,7 @@ public class Matrix3Test {
   @Test
   public void testConstructors() {
     assertTrue(mat.getEvaluator() instanceof ConstructorEvaluator);
+    assertEquals(mat.getParents().size(), 3);
     assertEquals(mat.evaluate(), primitive);
 
     mat = new Matrix3();

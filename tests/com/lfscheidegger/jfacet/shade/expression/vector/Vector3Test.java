@@ -31,6 +31,7 @@ public class Vector3Test {
   @Test
   public void testConstructors() {
     assertTrue(vec.getEvaluator() instanceof ConstantEvaluator);
+    assertEquals(vec.getParents().size(), 0);
     assertEquals(vec.evaluate(), new Vector3.Primitive(1, 2, 3));
 
     vec = new Vector3(new Real(1), new Real(2), new Real(3));

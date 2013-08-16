@@ -36,6 +36,7 @@ public class Matrix2Test {
   @Test
   public void testConstructors() {
     assertTrue(mat.getEvaluator() instanceof ConstructorEvaluator);
+    assertEquals(mat.getParents().size(), 2);
     assertEquals(mat.evaluate(), primitive);
 
     mat = new Matrix2();
