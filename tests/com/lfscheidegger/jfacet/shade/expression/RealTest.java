@@ -112,4 +112,90 @@ public class RealTest {
     assertTrue(negated.getEvaluator() instanceof NegationEvaluator);
     assertTrue(negated.evaluate() == -real.evaluate());
   }
+
+  private void testBooleanOpCommon(Bool result, boolean expected, String expectedOperatorSymbol) {
+    assertEquals(result.getParents().size(), 2);
+    assertTrue(result.evaluate() == expected);
+    assertTrue(result.getEvaluator() instanceof BinaryOperationEvaluator);
+    Operator op = ((BinaryOperationEvaluator)result.getEvaluator()).getOperator();
+    assertEquals(op.getOperatorSymbol(), expectedOperatorSymbol);
+  }
+
+  @Test
+  public void testGreaterThan() {
+    Bool gt = real.isGreaterThan(3);
+    testBooleanOpCommon(gt, false, ">");
+    assertSame(gt.getParents().get(0), real);
+    assertEquals(gt.getParents().get(1).evaluate(), 3.0f);
+
+    gt = real.isGreaterThan(new Real(3));
+    testBooleanOpCommon(gt, false, ">");
+    assertSame(gt.getParents().get(0), real);
+    assertEquals(gt.getParents().get(1).evaluate(), 3.0f);
+  }
+
+  @Test
+  public void testGreaterThanOrEqual() {
+    Bool geq = real.isGreaterThanOrEqual(3);
+    testBooleanOpCommon(geq, true, ">=");
+    assertSame(geq.getParents().get(0), real);
+    assertEquals(geq.getParents().get(1).evaluate(), 3.0f);
+
+    geq = real.isGreaterThanOrEqual(new Real(3));
+    testBooleanOpCommon(geq, true, ">=");
+    assertSame(geq.getParents().get(0), real);
+    assertEquals(geq.getParents().get(1).evaluate(), 3.0f);
+  }
+
+  @Test
+  public void testLessThan() {
+    Bool gt = real.isLessThan(3);
+    testBooleanOpCommon(gt, false, "<");
+    assertSame(gt.getParents().get(0), real);
+    assertEquals(gt.getParents().get(1).evaluate(), 3.0f);
+
+    gt = real.isLessThan(new Real(3));
+    testBooleanOpCommon(gt, false, "<");
+    assertSame(gt.getParents().get(0), real);
+    assertEquals(gt.getParents().get(1).evaluate(), 3.0f);
+  }
+
+  @Test
+  public void testLessThanOrEqual() {
+    Bool geq = real.isLessThanOrEqual(3);
+    testBooleanOpCommon(geq, true, "<=");
+    assertSame(geq.getParents().get(0), real);
+    assertEquals(geq.getParents().get(1).evaluate(), 3.0f);
+
+    geq = real.isLessThanOrEqual(new Real(3));
+    testBooleanOpCommon(geq, true, "<=");
+    assertSame(geq.getParents().get(0), real);
+    assertEquals(geq.getParents().get(1).evaluate(), 3.0f);
+  }
+
+  @Test
+  public void testIsEqual() {
+    Bool gt = real.isEqual(3);
+    testBooleanOpCommon(gt, true, "==");
+    assertSame(gt.getParents().get(0), real);
+    assertEquals(gt.getParents().get(1).evaluate(), 3.0f);
+
+    gt = real.isEqual(new Real(3));
+    testBooleanOpCommon(gt, true, "==");
+    assertSame(gt.getParents().get(0), real);
+    assertEquals(gt.getParents().get(1).evaluate(), 3.0f);
+  }
+
+  @Test
+  public void testIsNotEqual() {
+    Bool geq = real.isNotEqual(3);
+    testBooleanOpCommon(geq, false, "!=");
+    assertSame(geq.getParents().get(0), real);
+    assertEquals(geq.getParents().get(1).evaluate(), 3.0f);
+
+    geq = real.isNotEqual(new Real(3));
+    testBooleanOpCommon(geq, false, "!=");
+    assertSame(geq.getParents().get(0), real);
+    assertEquals(geq.getParents().get(1).evaluate(), 3.0f);
+  }
 }
