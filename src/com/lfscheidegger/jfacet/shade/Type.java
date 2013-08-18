@@ -30,6 +30,21 @@ public enum Type {
   BOOL_T("bool"),
 
   /**
+   * 2-dimensional boolean vector
+   */
+  BVEC2_T("bvec2"),
+
+  /**
+   * 3-dimensional boolean vector
+   */
+  BVEC3_T("bvec3"),
+
+  /**
+   * 4-dimensional boolean vector
+   */
+  BVEC4_T("bvec4"),
+
+  /**
    * 2x2-dimensional floating-point matrix
    */
   MAT2_T("mat2"),
