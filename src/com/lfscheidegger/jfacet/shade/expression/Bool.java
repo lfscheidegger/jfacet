@@ -9,7 +9,7 @@ import com.lfscheidegger.jfacet.shade.expression.evaluators.Evaluator;
 /**
  * {@code Expression} for boolean values
  */
-public class Bool extends AbstractExpression<Boolean> {
+public final class Bool extends AbstractExpression<Boolean> {
 
   public Bool(boolean c) {
     this(new ConstantEvaluator<Boolean>(c));

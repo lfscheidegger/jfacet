@@ -12,7 +12,7 @@ import com.lfscheidegger.jfacet.utils.StringUtils;
 
 import java.util.Arrays;
 
-public class BVector2 extends AbstractExpression<BVector2.Primitive> {
+public final class BVector2 extends AbstractExpression<BVector2.Primitive> {
 
   public static final class Primitive {
 
