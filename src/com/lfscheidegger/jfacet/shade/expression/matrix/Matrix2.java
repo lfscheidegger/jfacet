@@ -115,6 +115,10 @@ public final class Matrix2
       return new Primitive(MatrixUtils.inverse2(mValues));
     }
 
+    public Primitive matrixCompMult(Primitive right) {
+      return new Primitive(MatrixUtils.matrixCompMult(mValues, right.mValues));
+    }
+
     @Override
     public boolean equals(Object other) {
       if (!(other instanceof Primitive)) {
@@ -262,4 +266,16 @@ public final class Matrix2
         new BinaryOperationEvaluator<Primitive, Vector2.Primitive, Vector2.Primitive>(BasicArithmeticOperators.forLinearTransform2()));
   }
 
+  public Matrix2 matrixCompMult(Matrix2 right) {
+    return new Matrix2(
+        ImmutableList.<Expression>of(this, right),
+        new FunctionEvaluator<Primitive>(Type.MAT2_T, "matrixCompMult") {
+          @Override
+          public Primitive evaluate(Expression<Primitive> expression) {
+            Matrix2 left = (Matrix2)expression.getParents().get(0);
+            Matrix2 right = (Matrix2)expression.getParents().get(1);
+            return left.evaluate().matrixCompMult(right.evaluate());
+          }
+        });
+  }
 }

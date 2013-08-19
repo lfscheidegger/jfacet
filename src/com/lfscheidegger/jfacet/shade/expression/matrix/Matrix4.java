@@ -129,6 +129,10 @@ public final class Matrix4
       return new Primitive(MatrixUtils.inverse4(mValues));
     }
 
+    public Primitive matrixCompMult(Primitive right) {
+      return new Primitive(MatrixUtils.matrixCompMult(mValues, right.mValues));
+    }
+
     @Override
     public boolean equals(Object other) {
       if (!(other instanceof Primitive)) {
@@ -284,5 +288,18 @@ public final class Matrix4
     return new Vector4(
         ImmutableList.<Expression>of(this, right),
         new BinaryOperationEvaluator<Primitive, Vector4.Primitive, Vector4.Primitive>(BasicArithmeticOperators.forLinearTransform4()));
+  }
+
+  public Matrix4 matrixCompMult(Matrix4 right) {
+    return new Matrix4(
+        ImmutableList.<Expression>of(this, right),
+        new FunctionEvaluator<Primitive>(Type.MAT4_T, "matrixCompMult") {
+          @Override
+          public Primitive evaluate(Expression<Primitive> expression) {
+            Matrix4 left = (Matrix4)expression.getParents().get(0);
+            Matrix4 right = (Matrix4)expression.getParents().get(1);
+            return left.evaluate().matrixCompMult(right.evaluate());
+          }
+        });
   }
 }

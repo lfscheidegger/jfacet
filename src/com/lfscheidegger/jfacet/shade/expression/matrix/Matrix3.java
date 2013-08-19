@@ -123,6 +123,10 @@ public final class Matrix3
       return new Primitive(MatrixUtils.inverse3(mValues));
     }
 
+    public Primitive matrixCompMult(Primitive right) {
+      return new Primitive(MatrixUtils.matrixCompMult(mValues, right.mValues));
+    }
+
     @Override
     public boolean equals(Object other) {
       if (!(other instanceof Primitive)) {
@@ -273,5 +277,18 @@ public final class Matrix3
     return new Vector3(
         ImmutableList.<Expression>of(this, right),
         new BinaryOperationEvaluator<Primitive, Vector3.Primitive, Vector3.Primitive>(BasicArithmeticOperators.forLinearTransform3()));
+  }
+
+  public Matrix3 matrixCompMult(Matrix3 right) {
+    return new Matrix3(
+        ImmutableList.<Expression>of(this, right),
+        new FunctionEvaluator<Primitive>(Type.MAT3_T, "matrixCompMult") {
+          @Override
+          public Primitive evaluate(Expression<Primitive> expression) {
+            Matrix3 left = (Matrix3)expression.getParents().get(0);
+            Matrix3 right = (Matrix3)expression.getParents().get(1);
+            return left.evaluate().matrixCompMult(right.evaluate());
+          }
+        });
   }
 }

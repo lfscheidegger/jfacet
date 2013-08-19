@@ -162,4 +162,13 @@ public final class MatrixUtils {
 
     return result;
   }
+
+  public static float[] matrixCompMult(float[] left, float[] right) {
+    float[] result = new float[left.length];
+    for (int idx = 0; idx < left.length; idx++) {
+      result[idx] = left[idx] * right[idx];
+    }
+
+    return result;
+  }
 }
