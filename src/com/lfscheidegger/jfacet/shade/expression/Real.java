@@ -29,6 +29,13 @@ public final class Real extends AbstractExpression<Float> implements SupportsBas
   }
 
   @Override
+  public Real getExpressionForTernaryOperator(Bool condition, Expression<Float> elseExpression) {
+    return new Real(
+        ImmutableList.<Expression>of(condition, this, elseExpression),
+        new TernaryOperationEvaluator<Float>());
+  }
+
+  @Override
   public Real add(Real right) {
     return new Real(
         ImmutableList.<Expression>of(this, right),

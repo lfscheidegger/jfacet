@@ -42,4 +42,7 @@ public interface Expression<T> {
    * object to obtain names for its subexpressions
    */
   public String getGlSlString(CompilationContext context);
+
+
+  public Expression<T> getExpressionForTernaryOperator(Bool condition, Expression<T> elseExpression);
 }

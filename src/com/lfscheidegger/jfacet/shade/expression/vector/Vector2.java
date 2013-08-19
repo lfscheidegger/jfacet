@@ -199,6 +199,13 @@ public final class Vector2 extends AbstractExpression<Vector2.Primitive>
     super(Type.VEC2_T, glSlType, parents, evaluator);
   }
 
+  @Override
+  public Vector2 getExpressionForTernaryOperator(Bool condition, Expression<Primitive> elseExpression) {
+    return new Vector2(
+        ImmutableList.<Expression>of(condition, this, elseExpression),
+        new TernaryOperationEvaluator<Primitive>());
+  }
+
   public Real getX() {
     return get(0);
   }

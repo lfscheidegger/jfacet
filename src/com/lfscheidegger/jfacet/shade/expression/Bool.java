@@ -6,12 +6,29 @@ import com.lfscheidegger.jfacet.shade.Type;
 import com.lfscheidegger.jfacet.shade.expression.evaluators.BinaryOperationEvaluator;
 import com.lfscheidegger.jfacet.shade.expression.evaluators.ConstantEvaluator;
 import com.lfscheidegger.jfacet.shade.expression.evaluators.Evaluator;
+import com.lfscheidegger.jfacet.shade.expression.evaluators.TernaryOperationEvaluator;
 import com.lfscheidegger.jfacet.shade.expression.operators.BooleanOperators;
 
 /**
  * {@code Expression} for boolean values
  */
 public final class Bool extends AbstractExpression<Boolean> {
+
+  static class TernaryElse<T extends Expression> {
+
+    private final Bool mCondition;
+    private final T mIfExpression;
+
+    public TernaryElse(Bool condition, T ifExpression) {
+      mCondition = condition;
+      mIfExpression = ifExpression;
+    }
+
+    @SuppressWarnings("unchecked")
+    public T else_(T elseExpression) {
+      return (T)mIfExpression.getExpressionForTernaryOperator(mCondition, elseExpression);
+    }
+  }
 
   public Bool(boolean c) {
     this(new ConstantEvaluator<Boolean>(c));
@@ -33,6 +50,12 @@ public final class Bool extends AbstractExpression<Boolean> {
     super(Type.BOOL_T, glSlType, parents, evaluator);
   }
 
+  @Override
+  public Bool getExpressionForTernaryOperator(Bool condition, Expression<Boolean> elseExpression) {
+    return new Bool(ImmutableList.<Expression>of(condition, this, elseExpression),
+        new TernaryOperationEvaluator<Boolean>());
+  }
+
   public Bool and(Bool right) {
     return new Bool(
         ImmutableList.<Expression>of(this, right),
@@ -49,5 +72,9 @@ public final class Bool extends AbstractExpression<Boolean> {
     return new Bool(
         ImmutableList.<Expression>of(this, right),
         new BinaryOperationEvaluator<Boolean, Boolean, Boolean>(BooleanOperators.forXor()));
+  }
+
+  public <T extends Expression> TernaryElse<T> if_(T ifExpression) {
+    return new TernaryElse<T>(this, ifExpression);
   }
 }

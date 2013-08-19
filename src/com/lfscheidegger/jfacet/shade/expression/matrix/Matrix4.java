@@ -180,6 +180,13 @@ public final class Matrix4
     super(Type.MAT4_T, glSlType, parents, evaluator);
   }
 
+  @Override
+  public Matrix4 getExpressionForTernaryOperator(Bool condition, Expression<Primitive> elseExpression) {
+    return new Matrix4(
+        ImmutableList.<Expression>of(condition, this, elseExpression),
+        new TernaryOperationEvaluator<Primitive>());
+  }
+
   public Vector4 getC0() {
     return get(0);
   }

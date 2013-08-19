@@ -215,6 +215,13 @@ public final class Vector4 extends AbstractExpression<Vector4.Primitive>
     super(Type.VEC4_T, glSlType, parents, evaluator);
   }
 
+  @Override
+  public Vector4 getExpressionForTernaryOperator(Bool condition, Expression<Primitive> elseExpression) {
+    return new Vector4(
+        ImmutableList.<Expression>of(condition, this, elseExpression),
+        new TernaryOperationEvaluator<Primitive>());
+  }
+
   public Real getX() {
     return get(0);
   }

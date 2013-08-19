@@ -93,6 +93,13 @@ public final class BVector2 extends AbstractExpression<BVector2.Primitive> {
     super(Type.BVEC2_T, glSlType, parents, evaluator);
   }
 
+  @Override
+  public BVector2 getExpressionForTernaryOperator(Bool condition, Expression<Primitive> elseExpression) {
+    return new BVector2(
+        ImmutableList.<Expression>of(condition, this, elseExpression),
+        new TernaryOperationEvaluator<Primitive>());
+  }
+
   public Bool getX() {
     return get(0);
   }

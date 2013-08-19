@@ -6,6 +6,8 @@ import android.opengl.GLUtils;
 import com.google.common.collect.ImmutableList;
 import com.lfscheidegger.jfacet.shade.GlSlType;
 import com.lfscheidegger.jfacet.shade.Type;
+import com.lfscheidegger.jfacet.shade.expression.evaluators.Evaluator;
+import com.lfscheidegger.jfacet.shade.expression.evaluators.TernaryOperationEvaluator;
 import com.lfscheidegger.jfacet.shade.expression.evaluators.glsl.UniformEvaluator;
 
 public final class SamplerExpression extends AbstractExpression<Integer> {
@@ -15,6 +17,12 @@ public final class SamplerExpression extends AbstractExpression<Integer> {
   public SamplerExpression(Bitmap texture) {
     super(Type.SAMPLER2D_T, GlSlType.UNIFORM_T, ImmutableList.<Expression>of(), new UniformEvaluator<Integer>());
     mTexture = texture;
+  }
+
+  @Override
+  public SamplerExpression getExpressionForTernaryOperator(Bool condition, Expression<Integer> elseExpression) {
+    // TODO: refactor this to do something useful
+    throw new RuntimeException("ternary operators for samplers haven't been implemented yet :(");
   }
 
   public void bake() {

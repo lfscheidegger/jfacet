@@ -54,4 +54,16 @@ public class GlSlExpressionHelper {
     b.append(exp).append(".").append(accessors);
     return getWrappedExpression(type, b.toString());
   }
+
+  public static String getTernaryOperatorExpression(
+      Type type,
+      String booleanExpression,
+      String ifExpression,
+      String elseExpression) {
+    StringBuilder b = new StringBuilder();
+    b.append(booleanExpression)
+        .append(" ? ").append(ifExpression)
+        .append(" : ").append(elseExpression);
+    return getWrappedExpression(type, b.toString());
+  }
 }

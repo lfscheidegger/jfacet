@@ -164,6 +164,13 @@ public final class Matrix2
         parents, evaluator);
   }
 
+  @Override
+  public Matrix2 getExpressionForTernaryOperator(Bool condition, Expression<Primitive> elseExpression) {
+    return new Matrix2(
+        ImmutableList.<Expression>of(condition, this, elseExpression),
+        new TernaryOperationEvaluator<Primitive>());
+  }
+
   public Vector2 getC0() {
     return get(0);
   }

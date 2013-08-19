@@ -173,6 +173,13 @@ public final class Matrix3
     super(Type.MAT3_T, glSlType, parents, evaluator);
   }
 
+  @Override
+  public Matrix3 getExpressionForTernaryOperator(Bool condition, Expression<Primitive> elseExpression) {
+    return new Matrix3(
+        ImmutableList.<Expression>of(condition, this, elseExpression),
+        new TernaryOperationEvaluator<Primitive>());
+  }
+
   public Vector3 getC0() {
     return get(0);
   }

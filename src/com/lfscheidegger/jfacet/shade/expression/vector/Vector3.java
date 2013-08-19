@@ -210,6 +210,13 @@ public final class Vector3 extends AbstractExpression<Vector3.Primitive>
     super(Type.VEC3_T, glSlType, parents, evaluator);
   }
 
+  @Override
+  public Vector3 getExpressionForTernaryOperator(Bool condition, Expression<Primitive> elseExpression) {
+    return new Vector3(
+        ImmutableList.<Expression>of(condition, this, elseExpression),
+        new TernaryOperationEvaluator<Primitive>());
+  }
+
   public Real getX() {
     return get(0);
   }

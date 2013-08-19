@@ -98,6 +98,13 @@ public final class BVector3 extends AbstractExpression<BVector3.Primitive> {
     super(Type.BVEC3_T, glSlType, parents, evaluator);
   }
 
+  @Override
+  public BVector3 getExpressionForTernaryOperator(Bool condition, Expression<Primitive> elseExpression) {
+    return new BVector3(
+        ImmutableList.<Expression>of(condition, this, elseExpression),
+        new TernaryOperationEvaluator<Primitive>());
+  }
+
   public Bool getX() {
     return get(0);
   }
