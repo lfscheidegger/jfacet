@@ -3,6 +3,7 @@ package com.lfscheidegger.jfacet.shade.expression.vector;
 import com.google.common.collect.ImmutableList;
 import com.lfscheidegger.jfacet.shade.GlSlType;
 import com.lfscheidegger.jfacet.shade.Type;
+import com.lfscheidegger.jfacet.shade.expression.Bool;
 import com.lfscheidegger.jfacet.shade.expression.Expression;
 import com.lfscheidegger.jfacet.shade.expression.Real;
 import com.lfscheidegger.jfacet.shade.expression.evaluators.*;
@@ -197,6 +198,100 @@ public class Vector3Test {
     FunctionEvaluator evaluator = ((FunctionEvaluator)cross.getEvaluator());
     assertEquals(evaluator.getFunctionName(), "cross");
     assertEquals(evaluator.getType(), Type.VEC3_T);
+  }
+
+  private void testBooleanOpCommon(BVector3 result, BVector3.Primitive expected, String functionName) {
+    assertEquals(result.getParents().size(), 2);
+    assertTrue(result.getEvaluator() instanceof FunctionEvaluator);
+    assertEquals(result.evaluate(), expected);
+
+    FunctionEvaluator evaluator = ((FunctionEvaluator)result.getEvaluator());
+    assertEquals(evaluator.getFunctionName(), functionName);
+    assertEquals(evaluator.getType(), Type.BVEC3_T);
+  }
+
+  @Test
+  public void testIsLessThan() {
+    BVector3 lessThan = vec.isLessThan(new Vector3(1, 1, 1));
+    testBooleanOpCommon(lessThan, new BVector3.Primitive(false, false, false), "lessThan");
+    assertSame(lessThan.getParents().get(0), vec);
+    assertEquals(lessThan.getParents().get(1).evaluate(), new Vector3.Primitive(1, 1, 1));
+  }
+
+  @Test
+  public void testIsLessThanOrEqual() {
+    BVector3 lessThanOrEqual = vec.isLessThanOrEqual(new Vector3(1, 1, 1));
+    testBooleanOpCommon(lessThanOrEqual, new BVector3.Primitive(true, false, false), "lessThanEqual");
+    assertSame(lessThanOrEqual.getParents().get(0), vec);
+    assertEquals(lessThanOrEqual.getParents().get(1).evaluate(), new Vector3.Primitive(1, 1, 1));
+  }
+
+  @Test
+  public void testIsGreaterThan() {
+    BVector3 greaterThan = vec.isGreaterThan(new Vector3(2, 2, 2));
+    testBooleanOpCommon(greaterThan, new BVector3.Primitive(false, false, true), "greaterThan");
+    assertSame(greaterThan.getParents().get(0), vec);
+    assertEquals(greaterThan.getParents().get(1).evaluate(), new Vector3.Primitive(2, 2, 2));
+  }
+
+  @Test
+  public void testIsGreaterThanOrEqual() {
+    BVector3 greaterThanOrEqual = vec.isGreaterThanOrEqual(new Vector3(2, 2, 2));
+    testBooleanOpCommon(greaterThanOrEqual, new BVector3.Primitive(false, true, true), "greaterThanEqual");
+    assertSame(greaterThanOrEqual.getParents().get(0), vec);
+    assertEquals(greaterThanOrEqual.getParents().get(1).evaluate(), new Vector3.Primitive(2, 2, 2));
+  }
+
+  @Test
+  public void testIsEqualComponentwise() {
+    BVector3 equalComponentwise = vec.isEqualComponentwise(new Vector3(2, 2, 2));
+    testBooleanOpCommon(equalComponentwise, new BVector3.Primitive(false, true, false), "equal");
+    assertSame(equalComponentwise.getParents().get(0), vec);
+    assertEquals(equalComponentwise.getParents().get(1).evaluate(), new Vector3.Primitive(2, 2, 2));
+  }
+
+  @Test
+  public void testIsNotEqualComponentwise() {
+    BVector3 notEqualComponentwise = vec.isNotEqualComponentwise(new Vector3(2, 2, 2));
+    testBooleanOpCommon(notEqualComponentwise, new BVector3.Primitive(true, false, true), "notEqual");
+    assertSame(notEqualComponentwise.getParents().get(0), vec);
+    assertEquals(notEqualComponentwise.getParents().get(1).evaluate(), new Vector3.Primitive(2, 2, 2));
+  }
+
+  @Test
+  public void testIsEqual() {
+    Bool isEqual = vec.isEqual(new Vector3(1, 2, 3));
+    assertEquals(isEqual.getParents().size(), 2);
+    assertSame(isEqual.getParents().get(0), vec);
+    assertEquals(isEqual.getParents().get(1).evaluate(), new Vector3.Primitive(1, 2, 3));
+
+    assertTrue(isEqual.getEvaluator() instanceof BinaryOperationEvaluator);
+
+    BinaryOperationEvaluator evaluator = ((BinaryOperationEvaluator)isEqual.getEvaluator());
+    assertEquals(evaluator.getOperator().getOperatorSymbol(), "==");
+
+    assertTrue(isEqual.evaluate());
+
+    isEqual = vec.isEqual(new Vector3(1, 1, 1));
+    assertFalse(isEqual.evaluate());
+  }
+
+  @Test
+  public void testIsNotEqual() {
+    Bool isNotEqual = vec.isNotEqual(new Vector3(1, 2, 3));
+    assertEquals(isNotEqual.getParents().size(), 2);
+    assertSame(isNotEqual.getParents().get(0), vec);
+    assertEquals(isNotEqual.getParents().get(1).evaluate(), new Vector3.Primitive(1, 2, 3));
+
+    assertTrue(isNotEqual.getEvaluator() instanceof BinaryOperationEvaluator);
+
+    BinaryOperationEvaluator evaluator = ((BinaryOperationEvaluator)isNotEqual.getEvaluator());
+    assertEquals(evaluator.getOperator().getOperatorSymbol(), "!=");
+
+    assertFalse(isNotEqual.evaluate());
+
+    isNotEqual = vec.isNotEqual(new Vector3(1, 1, 1));
+    assertTrue(isNotEqual.evaluate());
   }
 
   @Test
