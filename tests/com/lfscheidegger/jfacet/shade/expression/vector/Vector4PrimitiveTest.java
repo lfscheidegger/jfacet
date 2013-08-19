@@ -136,6 +136,45 @@ public class Vector4PrimitiveTest {
   }
 
   @Test
+  public void testBooleanOperations() {
+    BVector4.Primitive lessThan = vec.isLessThan(new Vector4.Primitive(1, 3, 3, 3));
+    assertFalse(lessThan.getX());
+    assertTrue(lessThan.getY());
+    assertFalse(lessThan.getZ());
+    assertFalse(lessThan.getW());
+
+    BVector4.Primitive lessThanOrEqual = vec.isLessThanOrEqual(new Vector4.Primitive(1, 3, 3, 3));
+    assertTrue(lessThanOrEqual.getX());
+    assertTrue(lessThanOrEqual.getY());
+    assertTrue(lessThanOrEqual.getZ());
+    assertFalse(lessThanOrEqual.getW());
+
+    BVector4.Primitive greaterThan = vec.isGreaterThan(new Vector4.Primitive(1, 1, 1, 1));
+    assertFalse(greaterThan.getX());
+    assertTrue(greaterThan.getY());
+    assertTrue(greaterThan.getZ());
+    assertTrue(greaterThan.getW());
+
+    BVector4.Primitive greaterThanOrEqual = vec.isGreaterThanOrEqual(new Vector4.Primitive(1, 1, 1, 1));
+    assertTrue(greaterThanOrEqual.getX());
+    assertTrue(greaterThanOrEqual.getY());
+    assertTrue(greaterThanOrEqual.getZ());
+    assertTrue(greaterThanOrEqual.getW());
+
+    BVector4.Primitive equalComponentwise = vec.isEqualComponentwise(new Vector4.Primitive(1, 1, 1, 1));
+    assertTrue(equalComponentwise.getX());
+    assertFalse(equalComponentwise.getY());
+    assertFalse(equalComponentwise.getZ());
+    assertFalse(equalComponentwise.getW());
+
+    BVector4.Primitive notEqualComponentwise = vec.isNotEqualComponentwise(new Vector4.Primitive(1, 1, 1, 1));
+    assertFalse(notEqualComponentwise.getX());
+    assertTrue(notEqualComponentwise.getY());
+    assertTrue(notEqualComponentwise.getZ());
+    assertTrue(notEqualComponentwise.getW());
+  }
+
+  @Test
   public void testSwizzle() {
     assertTrue(vec.swizzle(S.D41.X) == 1);
     assertTrue(vec.swizzle(S.D41.Y) == 2);

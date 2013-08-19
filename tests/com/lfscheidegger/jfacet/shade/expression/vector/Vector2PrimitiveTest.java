@@ -108,6 +108,33 @@ public class Vector2PrimitiveTest {
   }
 
   @Test
+  public void testBooleanOperations() {
+    BVector2.Primitive lessThan = vec.isLessThan(new Vector2.Primitive(1, 3));
+    assertFalse(lessThan.getX());
+    assertTrue(lessThan.getY());
+
+    BVector2.Primitive lessThanOrEqual = vec.isLessThanOrEqual(new Vector2.Primitive(1, 3));
+    assertTrue(lessThanOrEqual.getX());
+    assertTrue(lessThanOrEqual.getY());
+
+    BVector2.Primitive greaterThan = vec.isGreaterThan(new Vector2.Primitive(1, 1));
+    assertFalse(greaterThan.getX());
+    assertTrue(greaterThan.getY());
+
+    BVector2.Primitive greaterThanOrEqual = vec.isGreaterThanOrEqual(new Vector2.Primitive(1, 1));
+    assertTrue(greaterThanOrEqual.getX());
+    assertTrue(greaterThanOrEqual.getY());
+
+    BVector2.Primitive equalComponentwise = vec.isEqualComponentwise(new Vector2.Primitive(1, 1));
+    assertTrue(equalComponentwise.getX());
+    assertFalse(equalComponentwise.getY());
+
+    BVector2.Primitive notEqualComponentwise = vec.isNotEqualComponentwise(new Vector2.Primitive(1, 1));
+    assertFalse(notEqualComponentwise.getX());
+    assertTrue(notEqualComponentwise.getY());
+  }
+
+  @Test
   public void testSwizzle() {
     assertTrue(vec.swizzle(S.D21.X) == 1);
     assertTrue(vec.swizzle(S.D21.Y) == 2);
