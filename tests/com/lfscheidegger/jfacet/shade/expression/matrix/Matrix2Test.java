@@ -1,6 +1,7 @@
 package com.lfscheidegger.jfacet.shade.expression.matrix;
 
 import com.lfscheidegger.jfacet.shade.GlSlType;
+import com.lfscheidegger.jfacet.shade.expression.Bool;
 import com.lfscheidegger.jfacet.shade.expression.Real;
 import com.lfscheidegger.jfacet.shade.expression.evaluators.BinaryOperationEvaluator;
 import com.lfscheidegger.jfacet.shade.expression.evaluators.ConstructorEvaluator;
@@ -155,6 +156,38 @@ public class Matrix2Test {
     assertTrue(transformed.getEvaluator() instanceof BinaryOperationEvaluator);
 
     assertEquals(transformed.evaluate(), mat.evaluate().transform(new Vector2.Primitive(1, 2)));
+  }
+
+  @Test
+  public void testIsEqual() {
+    Bool isEqual = mat.isEqual(new Matrix2(
+        new Vector2(1, 2),
+        new Vector2(3, 5)));
+    assertEquals(isEqual.getParents().size(), 2);
+    assertSame(isEqual.getParents().get(0), mat);
+    assertEquals(isEqual.getParents().get(1).evaluate(), new Matrix2.Primitive(
+        new Vector2.Primitive(1, 2),
+        new Vector2.Primitive(3, 5)));
+    assertFalse(isEqual.evaluate());
+
+    isEqual = mat.isEqual(mat);
+    assertTrue(isEqual.evaluate());
+  }
+
+  @Test
+  public void testIsNotEqual() {
+    Bool isNotEqual = mat.isNotEqual(new Matrix2(
+        new Vector2(1, 2),
+        new Vector2(3, 5)));
+    assertEquals(isNotEqual.getParents().size(), 2);
+    assertSame(isNotEqual.getParents().get(0), mat);
+    assertEquals(isNotEqual.getParents().get(1).evaluate(), new Matrix2.Primitive(
+        new Vector2.Primitive(1, 2),
+        new Vector2.Primitive(3, 5)));
+    assertTrue(isNotEqual.evaluate());
+
+    isNotEqual = mat.isNotEqual(mat);
+    assertFalse(isNotEqual.evaluate());
   }
 
   @Test

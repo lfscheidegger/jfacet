@@ -1,6 +1,7 @@
 package com.lfscheidegger.jfacet.shade.expression.matrix;
 
 import com.lfscheidegger.jfacet.shade.GlSlType;
+import com.lfscheidegger.jfacet.shade.expression.Bool;
 import com.lfscheidegger.jfacet.shade.expression.Real;
 import com.lfscheidegger.jfacet.shade.expression.evaluators.BinaryOperationEvaluator;
 import com.lfscheidegger.jfacet.shade.expression.evaluators.ConstructorEvaluator;
@@ -163,6 +164,46 @@ public class Matrix4Test {
     assertTrue(transformed.getEvaluator() instanceof BinaryOperationEvaluator);
 
     assertEquals(transformed.evaluate(), mat.evaluate().transform(new Vector4.Primitive(1, 2, 3, 4)));
+  }
+
+  @Test
+  public void testIsEqual() {
+    Bool isEqual = mat.isEqual(new Matrix4(
+        new Vector4(1, 2, 3, 4),
+        new Vector4(3, 5, 5, 6),
+        new Vector4(7, 8, 9, 10),
+        new Vector4(10, 11, 12, 13)));
+    assertEquals(isEqual.getParents().size(), 2);
+    assertSame(isEqual.getParents().get(0), mat);
+    assertEquals(isEqual.getParents().get(1).evaluate(), new Matrix4.Primitive(
+        new Vector4.Primitive(1, 2, 3, 4),
+        new Vector4.Primitive(3, 5, 5, 6),
+        new Vector4.Primitive(7, 8, 9, 10),
+        new Vector4.Primitive(10, 11, 12, 13)));
+    assertFalse(isEqual.evaluate());
+
+    isEqual = mat.isEqual(mat);
+    assertTrue(isEqual.evaluate());
+  }
+
+  @Test
+  public void testIsNotEqual() {
+    Bool isNotEqual = mat.isNotEqual(new Matrix4(
+        new Vector4(1, 2, 3, 4),
+        new Vector4(3, 5, 5, 6),
+        new Vector4(7, 8, 9, 10),
+        new Vector4(10, 11, 12, 13)));
+    assertEquals(isNotEqual.getParents().size(), 2);
+    assertSame(isNotEqual.getParents().get(0), mat);
+    assertEquals(isNotEqual.getParents().get(1).evaluate(), new Matrix4.Primitive(
+        new Vector4.Primitive(1, 2, 3, 4),
+        new Vector4.Primitive(3, 5, 5, 6),
+        new Vector4.Primitive(7, 8, 9, 10),
+        new Vector4.Primitive(10, 11, 12, 13)));
+    assertTrue(isNotEqual.evaluate());
+
+    isNotEqual = mat.isNotEqual(mat);
+    assertFalse(isNotEqual.evaluate());
   }
 
   @Test
