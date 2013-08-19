@@ -62,16 +62,28 @@ public final class Bool extends AbstractExpression<Boolean> {
         new BinaryOperationEvaluator<Boolean, Boolean, Boolean>(BooleanOperators.forAnd()));
   }
 
+  public Bool and(boolean right) {
+    return and(new Bool(right));
+  }
+
   public Bool or(Bool right) {
     return new Bool(
         ImmutableList.<Expression>of(this, right),
         new BinaryOperationEvaluator<Boolean, Boolean, Boolean>(BooleanOperators.forOr()));
   }
 
+  public Bool or(boolean right) {
+    return or(new Bool(right));
+  }
+
   public Bool xor(Bool right) {
     return new Bool(
         ImmutableList.<Expression>of(this, right),
         new BinaryOperationEvaluator<Boolean, Boolean, Boolean>(BooleanOperators.forXor()));
+  }
+
+  public Bool xor(boolean right) {
+    return xor(new Bool(right));
   }
 
   public <T extends Expression> TernaryElse<T> if_(T ifExpression) {
