@@ -2,13 +2,6 @@ package com.lfscheidegger.jfacet.shade.expression.operators;
 
 import com.lfscheidegger.jfacet.shade.expression.SupportsBasicArithmetic;
 
-/**
- * Created with IntelliJ IDEA.
- * User: luiz
- * Date: 8/16/13
- * Time: 6:32 PM
- * To change this template use File | Settings | File Templates.
- */
 public final class BooleanOperators {
 
   public static Operator<Float, Float, Boolean> forGreaterThanReal() {
@@ -65,7 +58,7 @@ public final class BooleanOperators {
     };
   }
 
-  public static Operator<SupportsBasicArithmetic, SupportsBasicArithmetic, Boolean> forEqualsVector() {
+  public static Operator<SupportsBasicArithmetic, SupportsBasicArithmetic, Boolean> forEqualsObject() {
     return new NamedOperator<SupportsBasicArithmetic, SupportsBasicArithmetic, Boolean>("==") {
       @Override
       public Boolean op(SupportsBasicArithmetic left, SupportsBasicArithmetic right) {
@@ -74,7 +67,7 @@ public final class BooleanOperators {
     };
   }
 
-  public static Operator<SupportsBasicArithmetic, SupportsBasicArithmetic, Boolean> forNotEqualsVector() {
+  public static Operator<SupportsBasicArithmetic, SupportsBasicArithmetic, Boolean> forNotEqualsObject() {
     return new NamedOperator<SupportsBasicArithmetic, SupportsBasicArithmetic, Boolean>("!=") {
       @Override
       public Boolean op(SupportsBasicArithmetic left, SupportsBasicArithmetic right) {

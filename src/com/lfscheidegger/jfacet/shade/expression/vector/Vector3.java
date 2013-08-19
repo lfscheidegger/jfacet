@@ -455,13 +455,13 @@ public final class Vector3 extends AbstractExpression<Vector3.Primitive>
   public Bool isEqual(Vector3 right) {
     return new Bool(
         ImmutableList.<Expression>of(this, right),
-        new BinaryOperationEvaluator(BooleanOperators.forEqualsVector()));
+        new BinaryOperationEvaluator(BooleanOperators.forEqualsObject()));
   }
 
   public Bool isNotEqual(Vector3 right) {
     return new Bool(
         ImmutableList.<Expression>of(this, right),
-        new BinaryOperationEvaluator(BooleanOperators.forNotEqualsVector()));
+        new BinaryOperationEvaluator(BooleanOperators.forNotEqualsObject()));
   }
 
   @Override

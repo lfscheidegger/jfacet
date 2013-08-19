@@ -451,13 +451,13 @@ public final class Vector4 extends AbstractExpression<Vector4.Primitive>
   public Bool isEqual(Vector4 right) {
     return new Bool(
         ImmutableList.<Expression>of(this, right),
-        new BinaryOperationEvaluator(BooleanOperators.forEqualsVector()));
+        new BinaryOperationEvaluator(BooleanOperators.forEqualsObject()));
   }
 
   public Bool isNotEqual(Vector4 right) {
     return new Bool(
         ImmutableList.<Expression>of(this, right),
-        new BinaryOperationEvaluator(BooleanOperators.forNotEqualsVector()));
+        new BinaryOperationEvaluator(BooleanOperators.forNotEqualsObject()));
   }
 
 

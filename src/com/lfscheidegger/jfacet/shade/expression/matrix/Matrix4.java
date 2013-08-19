@@ -8,6 +8,7 @@ import com.lfscheidegger.jfacet.shade.Type;
 import com.lfscheidegger.jfacet.shade.expression.*;
 import com.lfscheidegger.jfacet.shade.expression.evaluators.*;
 import com.lfscheidegger.jfacet.shade.expression.operators.BasicArithmeticOperators;
+import com.lfscheidegger.jfacet.shade.expression.operators.BooleanOperators;
 import com.lfscheidegger.jfacet.shade.expression.vector.Vector4;
 import com.lfscheidegger.jfacet.utils.ArrayUtils;
 import com.lfscheidegger.jfacet.utils.MatrixUtils;
@@ -295,6 +296,22 @@ public final class Matrix4
     return new Vector4(
         ImmutableList.<Expression>of(this, right),
         new BinaryOperationEvaluator<Primitive, Vector4.Primitive, Vector4.Primitive>(BasicArithmeticOperators.forLinearTransform4()));
+  }
+
+  @Override
+  public Bool isEqual(Matrix4 right) {
+    return new Bool(
+        ImmutableList.<Expression>of(this, right),
+        new BinaryOperationEvaluator<SupportsBasicArithmetic, SupportsBasicArithmetic, Boolean>(
+            BooleanOperators.forEqualsObject()));
+  }
+
+  @Override
+  public Bool isNotEqual(Matrix4 right) {
+    return new Bool(
+        ImmutableList.<Expression>of(this, right),
+        new BinaryOperationEvaluator<SupportsBasicArithmetic, SupportsBasicArithmetic, Boolean>(
+            BooleanOperators.forNotEqualsObject()));
   }
 
   public Matrix4 matrixCompMult(Matrix4 right) {
