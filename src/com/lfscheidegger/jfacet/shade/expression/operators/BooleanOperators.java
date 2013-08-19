@@ -82,4 +82,31 @@ public final class BooleanOperators {
       }
     };
   }
+
+  public static Operator<Boolean, Boolean, Boolean> forAnd() {
+    return new NamedOperator<Boolean, Boolean, Boolean>("&&") {
+      @Override
+      public Boolean op(Boolean left, Boolean right) {
+        return left && right;
+      }
+    };
+  }
+
+  public static Operator<Boolean, Boolean, Boolean> forOr() {
+    return new NamedOperator<Boolean, Boolean, Boolean>("||") {
+      @Override
+      public Boolean op(Boolean left, Boolean right) {
+        return left || right;
+      }
+    };
+  }
+
+  public static Operator<Boolean, Boolean, Boolean> forXor() {
+    return new NamedOperator<Boolean, Boolean, Boolean>("^^") {
+      @Override
+      public Boolean op(Boolean left, Boolean right) {
+        return left ^ right;
+      }
+    };
+  }
 }
