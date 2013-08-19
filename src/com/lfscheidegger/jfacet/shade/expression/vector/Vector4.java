@@ -7,6 +7,7 @@ import com.lfscheidegger.jfacet.shade.Type;
 import com.lfscheidegger.jfacet.shade.expression.*;
 import com.lfscheidegger.jfacet.shade.expression.evaluators.*;
 import com.lfscheidegger.jfacet.shade.expression.operators.BasicArithmeticOperators;
+import com.lfscheidegger.jfacet.shade.expression.operators.BooleanOperators;
 import com.lfscheidegger.jfacet.shade.expression.vector.swizzle.S;
 import com.lfscheidegger.jfacet.shade.expression.vector.swizzle.SupportsSwizzling4;
 import com.lfscheidegger.jfacet.utils.ArrayUtils;
@@ -108,6 +109,37 @@ public final class Vector4 extends AbstractExpression<Vector4.Primitive>
     public float dot(Primitive other) {
       return ArrayUtils.dot(mValues, other.mValues);
     }
+
+    public BVector4.Primitive isLessThan(Primitive right) {
+      return new BVector4.Primitive(
+          getX() < right.getX(), getY() < right.getY(), getZ() < right.getZ(), getW() < right.getW());
+    }
+
+    public BVector4.Primitive isLessThanOrEqual(Primitive right) {
+      return new BVector4.Primitive(
+          getX() <= right.getX(), getY() <= right.getY(), getZ() <= right.getZ(), getW() <= right.getW());
+    }
+
+    public BVector4.Primitive isGreaterThan(Primitive right) {
+      return new BVector4.Primitive(
+          getX() > right.getX(), getY() > right.getY(), getZ() > right.getZ(), getW() > right.getW());
+    }
+
+    public BVector4.Primitive isGreaterThanOrEqual(Primitive right) {
+      return new BVector4.Primitive(
+          getX() >= right.getX(), getY() >= right.getY(), getZ() >= right.getZ(), getW() >= right.getW());
+    }
+
+    public BVector4.Primitive isEqualComponentwise(Primitive right) {
+      return new BVector4.Primitive(
+          getX() == right.getX(), getY() == right.getY(), getZ() == right.getZ(), getW() == right.getW());
+    }
+
+    public BVector4.Primitive isNotEqualComponentwise(Primitive right) {
+      return new BVector4.Primitive(
+          getX() != right.getX(), getY() != right.getY(), getZ() != right.getZ(), getW() != right.getW());
+    }
+
 
     @Override
     public Float swizzle(S.D41 value) {
@@ -329,6 +361,98 @@ public final class Vector4 extends AbstractExpression<Vector4.Primitive>
           }
         });
   }
+
+  public BVector4 isLessThan(Vector4 right) {
+    return new BVector4(
+        ImmutableList.<Expression>of(this, right),
+        new FunctionEvaluator<BVector4.Primitive>(Type.BVEC4_T, "lessThan") {
+          @Override
+          public BVector4.Primitive evaluate(Expression<BVector4.Primitive> expression) {
+            Vector4 left = (Vector4)expression.getParents().get(0);
+            Vector4 right = (Vector4)expression.getParents().get(1);
+            return left.evaluate().isLessThan(right.evaluate());
+          }
+        });
+  }
+
+  public BVector4 isLessThanOrEqual(Vector4 right) {
+    return new BVector4(
+        ImmutableList.<Expression>of(this, right),
+        new FunctionEvaluator<BVector4.Primitive>(Type.BVEC4_T, "lessThanEqual") {
+          @Override
+          public BVector4.Primitive evaluate(Expression<BVector4.Primitive> expression) {
+            Vector4 left = (Vector4)expression.getParents().get(0);
+            Vector4 right = (Vector4)expression.getParents().get(1);
+            return left.evaluate().isLessThanOrEqual(right.evaluate());
+          }
+        });
+  }
+
+
+  public BVector4 isGreaterThan(Vector4 right) {
+    return new BVector4(
+        ImmutableList.<Expression>of(this, right),
+        new FunctionEvaluator<BVector4.Primitive>(Type.BVEC4_T, "greaterThan") {
+          @Override
+          public BVector4.Primitive evaluate(Expression<BVector4.Primitive> expression) {
+            Vector4 left = (Vector4)expression.getParents().get(0);
+            Vector4 right = (Vector4)expression.getParents().get(1);
+            return left.evaluate().isGreaterThan(right.evaluate());
+          }
+        });
+  }
+
+  public BVector4 isGreaterThanOrEqual(Vector4 right) {
+    return new BVector4(
+        ImmutableList.<Expression>of(this, right),
+        new FunctionEvaluator<BVector4.Primitive>(Type.BVEC4_T, "greaterThanEqual") {
+          @Override
+          public BVector4.Primitive evaluate(Expression<BVector4.Primitive> expression) {
+            Vector4 left = (Vector4)expression.getParents().get(0);
+            Vector4 right = (Vector4)expression.getParents().get(1);
+            return left.evaluate().isGreaterThanOrEqual(right.evaluate());
+          }
+        });
+  }
+
+  public BVector4 isEqualComponentwise(Vector4 right) {
+    return new BVector4(
+        ImmutableList.<Expression>of(this, right),
+        new FunctionEvaluator<BVector4.Primitive>(Type.BVEC4_T, "equal") {
+          @Override
+          public BVector4.Primitive evaluate(Expression<BVector4.Primitive> expression) {
+            Vector4 left = (Vector4)expression.getParents().get(0);
+            Vector4 right = (Vector4)expression.getParents().get(1);
+            return left.evaluate().isEqualComponentwise(right.evaluate());
+          }
+        });
+  }
+
+  public BVector4 isNotEqualComponentwise(Vector4 right) {
+    return new BVector4(
+        ImmutableList.<Expression>of(this, right),
+        new FunctionEvaluator<BVector4.Primitive>(Type.BVEC4_T, "notEqual") {
+          @Override
+          public BVector4.Primitive evaluate(Expression<BVector4.Primitive> expression) {
+            Vector4 left = (Vector4)expression.getParents().get(0);
+            Vector4 right = (Vector4)expression.getParents().get(1);
+            return left.evaluate().isNotEqualComponentwise(right.evaluate());
+          }
+        });
+  }
+
+  public Bool isEqual(Vector4 right) {
+    return new Bool(
+        ImmutableList.<Expression>of(this, right),
+        new BinaryOperationEvaluator(BooleanOperators.forEqualsVector()));
+  }
+
+  public Bool isNotEqual(Vector4 right) {
+    return new Bool(
+        ImmutableList.<Expression>of(this, right),
+        new BinaryOperationEvaluator(BooleanOperators.forNotEqualsVector()));
+  }
+
 
   @Override
   public Real swizzle(S.D41 value) {

@@ -8,6 +8,7 @@ import com.lfscheidegger.jfacet.shade.Type;
 import com.lfscheidegger.jfacet.shade.expression.*;
 import com.lfscheidegger.jfacet.shade.expression.evaluators.*;
 import com.lfscheidegger.jfacet.shade.expression.operators.BasicArithmeticOperators;
+import com.lfscheidegger.jfacet.shade.expression.operators.BooleanOperators;
 import com.lfscheidegger.jfacet.shade.expression.vector.swizzle.S;
 import com.lfscheidegger.jfacet.shade.expression.vector.swizzle.SupportsSwizzling2;
 import com.lfscheidegger.jfacet.utils.ArrayUtils;
@@ -100,6 +101,30 @@ public final class Vector2 extends AbstractExpression<Vector2.Primitive>
 
     public float dot(Primitive other) {
       return ArrayUtils.dot(mValues, other.mValues);
+    }
+
+    public BVector2.Primitive isLessThan(Primitive right) {
+      return new BVector2.Primitive(getX() < right.getX(), getY() < right.getY());
+    }
+
+    public BVector2.Primitive isLessThanOrEqual(Primitive right) {
+      return new BVector2.Primitive(getX() <= right.getX(), getY() <= right.getY());
+    }
+
+    public BVector2.Primitive isGreaterThan(Primitive right) {
+      return new BVector2.Primitive(getX() > right.getX(), getY() > right.getY());
+    }
+
+    public BVector2.Primitive isGreaterThanOrEqual(Primitive right) {
+      return new BVector2.Primitive(getX() >= right.getX(), getY() >= right.getY());
+    }
+
+    public BVector2.Primitive isEqualComponentwise(Primitive right) {
+      return new BVector2.Primitive(getX() == right.getX(), getY() == right.getY());
+    }
+
+    public BVector2.Primitive isNotEqualComponentwise(Primitive right) {
+      return new BVector2.Primitive(getX() != right.getX(), getY() != right.getY());
     }
 
     @Override
@@ -311,6 +336,97 @@ public final class Vector2 extends AbstractExpression<Vector2.Primitive>
             return parent.evaluate().length();
           }
         });
+  }
+
+  public BVector2 isLessThan(Vector2 right) {
+    return new BVector2(
+        ImmutableList.<Expression>of(this, right),
+        new FunctionEvaluator<BVector2.Primitive>(Type.BVEC2_T, "lessThan") {
+          @Override
+          public BVector2.Primitive evaluate(Expression<BVector2.Primitive> expression) {
+            Vector2 left = (Vector2)expression.getParents().get(0);
+            Vector2 right = (Vector2)expression.getParents().get(1);
+            return left.evaluate().isLessThan(right.evaluate());
+          }
+        });
+  }
+
+  public BVector2 isLessThanOrEqual(Vector2 right) {
+    return new BVector2(
+        ImmutableList.<Expression>of(this, right),
+        new FunctionEvaluator<BVector2.Primitive>(Type.BVEC2_T, "lessThanEqual") {
+          @Override
+          public BVector2.Primitive evaluate(Expression<BVector2.Primitive> expression) {
+            Vector2 left = (Vector2)expression.getParents().get(0);
+            Vector2 right = (Vector2)expression.getParents().get(1);
+            return left.evaluate().isLessThanOrEqual(right.evaluate());
+          }
+        });
+  }
+
+
+  public BVector2 isGreaterThan(Vector2 right) {
+    return new BVector2(
+        ImmutableList.<Expression>of(this, right),
+        new FunctionEvaluator<BVector2.Primitive>(Type.BVEC2_T, "greaterThan") {
+          @Override
+          public BVector2.Primitive evaluate(Expression<BVector2.Primitive> expression) {
+            Vector2 left = (Vector2)expression.getParents().get(0);
+            Vector2 right = (Vector2)expression.getParents().get(1);
+            return left.evaluate().isGreaterThan(right.evaluate());
+          }
+        });
+  }
+
+  public BVector2 isGreaterThanOrEqual(Vector2 right) {
+    return new BVector2(
+        ImmutableList.<Expression>of(this, right),
+        new FunctionEvaluator<BVector2.Primitive>(Type.BVEC2_T, "greaterThanEqual") {
+          @Override
+          public BVector2.Primitive evaluate(Expression<BVector2.Primitive> expression) {
+            Vector2 left = (Vector2)expression.getParents().get(0);
+            Vector2 right = (Vector2)expression.getParents().get(1);
+            return left.evaluate().isGreaterThanOrEqual(right.evaluate());
+          }
+        });
+  }
+
+  public BVector2 isEqualComponentwise(Vector2 right) {
+    return new BVector2(
+        ImmutableList.<Expression>of(this, right),
+        new FunctionEvaluator<BVector2.Primitive>(Type.BVEC2_T, "equal") {
+          @Override
+          public BVector2.Primitive evaluate(Expression<BVector2.Primitive> expression) {
+            Vector2 left = (Vector2)expression.getParents().get(0);
+            Vector2 right = (Vector2)expression.getParents().get(1);
+            return left.evaluate().isEqualComponentwise(right.evaluate());
+          }
+        });
+  }
+
+  public BVector2 isNotEqualComponentwise(Vector2 right) {
+    return new BVector2(
+        ImmutableList.<Expression>of(this, right),
+        new FunctionEvaluator<BVector2.Primitive>(Type.BVEC2_T, "notEqual") {
+          @Override
+          public BVector2.Primitive evaluate(Expression<BVector2.Primitive> expression) {
+            Vector2 left = (Vector2)expression.getParents().get(0);
+            Vector2 right = (Vector2)expression.getParents().get(1);
+            return left.evaluate().isNotEqualComponentwise(right.evaluate());
+          }
+        });
+  }
+
+  public Bool isEqual(Vector2 right) {
+    return new Bool(
+        ImmutableList.<Expression>of(this, right),
+        new BinaryOperationEvaluator(BooleanOperators.forEqualsVector()));
+  }
+
+  public Bool isNotEqual(Vector2 right) {
+    return new Bool(
+        ImmutableList.<Expression>of(this, right),
+        new BinaryOperationEvaluator(BooleanOperators.forNotEqualsVector()));
   }
 
   @Override
