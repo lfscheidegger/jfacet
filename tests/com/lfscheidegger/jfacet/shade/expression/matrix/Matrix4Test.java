@@ -4,6 +4,7 @@ import com.lfscheidegger.jfacet.shade.GlSlType;
 import com.lfscheidegger.jfacet.shade.expression.Real;
 import com.lfscheidegger.jfacet.shade.expression.evaluators.BinaryOperationEvaluator;
 import com.lfscheidegger.jfacet.shade.expression.evaluators.ConstructorEvaluator;
+import com.lfscheidegger.jfacet.shade.expression.evaluators.FunctionEvaluator;
 import com.lfscheidegger.jfacet.shade.expression.evaluators.NegationEvaluator;
 import com.lfscheidegger.jfacet.shade.expression.evaluators.glsl.UniformEvaluator;
 import com.lfscheidegger.jfacet.shade.expression.operators.Operator;
@@ -162,5 +163,16 @@ public class Matrix4Test {
     assertTrue(transformed.getEvaluator() instanceof BinaryOperationEvaluator);
 
     assertEquals(transformed.evaluate(), mat.evaluate().transform(new Vector4.Primitive(1, 2, 3, 4)));
+  }
+
+  @Test
+  public void testMatrixCompMult() {
+    Matrix4 matrixCompMult = mat.matrixCompMult(mat);
+    assertEquals(matrixCompMult.getParents().size(), 2);
+    assertSame(matrixCompMult.getParents().get(0), mat);
+    assertSame(matrixCompMult.getParents().get(1), mat);
+    assertTrue(matrixCompMult.getEvaluator() instanceof FunctionEvaluator);
+
+    assertEquals(matrixCompMult.evaluate(), mat.evaluate().matrixCompMult(mat.evaluate()));
   }
 }

@@ -166,6 +166,17 @@ public class Matrix4PrimitiveTest {
   }
 
   @Test
+  public void testMatrixCompMult() {
+    Matrix4.Primitive matrixCompMult = mat.matrixCompMult(mat);
+    assertEquals(matrixCompMult, new Matrix4.Primitive(
+        new Vector4.Primitive(1, 4, 9, 16),
+        new Vector4.Primitive(16, 25, 36, 49),
+        new Vector4.Primitive(49, 64, 81, 100),
+        new Vector4.Primitive(100, 121, 144, 169)));
+  }
+
+
+  @Test
   @SuppressWarnings("all")
   public void testEquals() {
     Matrix4.Primitive equal = new Matrix4.Primitive(

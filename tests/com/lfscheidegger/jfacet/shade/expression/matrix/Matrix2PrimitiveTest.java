@@ -1,6 +1,5 @@
 package com.lfscheidegger.jfacet.shade.expression.matrix;
 
-import com.lfscheidegger.jfacet.shade.expression.matrix.Matrix2;
 import com.lfscheidegger.jfacet.shade.expression.vector.Vector2;
 import org.junit.Test;
 
@@ -127,6 +126,14 @@ public class Matrix2PrimitiveTest {
 
     assertEquals(mat.mul(inverse), new Matrix2.Primitive());
     assertEquals(inverse.mul(mat), new Matrix2.Primitive());
+  }
+
+  @Test
+  public void testMatrixCompMult() {
+    Matrix2.Primitive matrixCompMult = mat.matrixCompMult(mat);
+    assertEquals(matrixCompMult, new Matrix2.Primitive(
+        new Vector2.Primitive(1, 4),
+        new Vector2.Primitive(9, 16)));
   }
 
   @Test

@@ -150,6 +150,15 @@ public class Matrix3PrimitiveTest {
   }
 
   @Test
+  public void testMatrixCompMult() {
+    Matrix3.Primitive matrixCompMult = mat.matrixCompMult(mat);
+    assertEquals(matrixCompMult, new Matrix3.Primitive(
+        new Vector3.Primitive(1, 4, 9),
+        new Vector3.Primitive(16, 25, 36),
+        new Vector3.Primitive(49, 64, 81)));
+  }
+
+  @Test
   @SuppressWarnings("all")
   public void testEquals() {
     Matrix3.Primitive equal = new Matrix3.Primitive(
