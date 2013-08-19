@@ -22,11 +22,11 @@ public interface VectorExpression<T> extends SupportsBasicArithmetic<T> {
 
   public Vector4 fill(Vector4 defaultExpression);
 
-  public Real swizzle(char x);
+  /*public Real swizzle(char x);
 
   public Vector2 swizzle(char x, char y);
 
   public Vector3 swizzle(char x, char y, char z);
 
-  public Vector4 swizzle(char x, char y, char z, char w);
+  public Vector4 swizzle(char x, char y, char z, char w);*/
 }

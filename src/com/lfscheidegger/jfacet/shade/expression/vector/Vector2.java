@@ -8,15 +8,20 @@ import com.lfscheidegger.jfacet.shade.Type;
 import com.lfscheidegger.jfacet.shade.expression.*;
 import com.lfscheidegger.jfacet.shade.expression.evaluators.*;
 import com.lfscheidegger.jfacet.shade.expression.operators.BasicArithmeticOperators;
+import com.lfscheidegger.jfacet.shade.expression.vector.swizzle.S;
+import com.lfscheidegger.jfacet.shade.expression.vector.swizzle.SupportsSwizzling2;
 import com.lfscheidegger.jfacet.utils.ArrayUtils;
 import com.lfscheidegger.jfacet.utils.StringUtils;
 import com.lfscheidegger.jfacet.utils.SwizzleUtils;
 
 import java.util.Arrays;
 
-public final class Vector2 extends AbstractExpression<Vector2.Primitive> implements VectorExpression<Vector2> {
+public final class Vector2 extends AbstractExpression<Vector2.Primitive>
+    implements VectorExpression<Vector2>, SupportsSwizzling2<Real, Vector2, Vector3, Vector4> {
 
-  public static final class Primitive implements VectorPrimitive<Primitive> {
+  public static final class Primitive implements
+      SupportsBasicArithmetic<Primitive>,
+      SupportsSwizzling2<Float, Vector2.Primitive, Vector3.Primitive, Vector4.Primitive> {
 
     private final float[] mValues;
 
@@ -98,32 +103,32 @@ public final class Vector2 extends AbstractExpression<Vector2.Primitive> impleme
     }
 
     @Override
-    public float swizzle(char c) {
-      return get(SwizzleUtils.getIndexForSwizzle(c));
+    public Float swizzle(S.D21 value) {
+      return get(SwizzleUtils.getIndexForSwizzle(value.toString().charAt(0)));
     }
 
     @Override
-    public Vector2.Primitive swizzle(char x, char y) {
+    public Vector2.Primitive swizzle(S.D22 value) {
       return new Vector2.Primitive(
-          get(SwizzleUtils.getIndexForSwizzle(x)),
-          get(SwizzleUtils.getIndexForSwizzle(y)));
+          get(SwizzleUtils.getIndexForSwizzle(value.toString().charAt(0))),
+          get(SwizzleUtils.getIndexForSwizzle(value.toString().charAt(1))));
     }
 
     @Override
-    public Vector3.Primitive swizzle(char x, char y, char z) {
+    public Vector3.Primitive swizzle(S.D23 value) {
       return new Vector3.Primitive(
-          get(SwizzleUtils.getIndexForSwizzle(x)),
-          get(SwizzleUtils.getIndexForSwizzle(y)),
-          get(SwizzleUtils.getIndexForSwizzle(z)));
+          get(SwizzleUtils.getIndexForSwizzle(value.toString().charAt(0))),
+          get(SwizzleUtils.getIndexForSwizzle(value.toString().charAt(1))),
+          get(SwizzleUtils.getIndexForSwizzle(value.toString().charAt(2))));
     }
 
     @Override
-    public Vector4.Primitive swizzle(char x, char y, char z, char w) {
+    public Vector4.Primitive swizzle(S.D24 value) {
       return new Vector4.Primitive(
-          get(SwizzleUtils.getIndexForSwizzle(x)),
-          get(SwizzleUtils.getIndexForSwizzle(y)),
-          get(SwizzleUtils.getIndexForSwizzle(z)),
-          get(SwizzleUtils.getIndexForSwizzle(w)));
+          get(SwizzleUtils.getIndexForSwizzle(value.toString().charAt(0))),
+          get(SwizzleUtils.getIndexForSwizzle(value.toString().charAt(1))),
+          get(SwizzleUtils.getIndexForSwizzle(value.toString().charAt(2))),
+          get(SwizzleUtils.getIndexForSwizzle(value.toString().charAt(3))));
     }
 
     @Override
@@ -309,23 +314,23 @@ public final class Vector2 extends AbstractExpression<Vector2.Primitive> impleme
   }
 
   @Override
-  public Real swizzle(char x) {
-    return new Real(ImmutableList.<Expression>of(this), new SwizzleEvaluator<Float>(x));
+  public Real swizzle(S.D21 value) {
+    return new Real(ImmutableList.<Expression>of(this), new SwizzleEvaluator<Float>(value, Type.FLOAT_T));
   }
 
   @Override
-  public Vector2 swizzle(char x, char y) {
-    return new Vector2(ImmutableList.<Expression>of(this), new SwizzleEvaluator<Vector2.Primitive>(x, y));
+  public Vector2 swizzle(S.D22 value) {
+    return new Vector2(ImmutableList.<Expression>of(this), new SwizzleEvaluator<Vector2.Primitive>(value, Type.VEC2_T));
   }
 
   @Override
-  public Vector3 swizzle(char x, char y, char z) {
-    return new Vector3(ImmutableList.<Expression>of(this), new SwizzleEvaluator<Vector3.Primitive>(x, y, z));
+  public Vector3 swizzle(S.D23 value) {
+    return new Vector3(ImmutableList.<Expression>of(this), new SwizzleEvaluator<Vector3.Primitive>(value, Type.VEC3_T));
   }
 
   @Override
-  public Vector4 swizzle(char x, char y, char z, char w) {
-    return new Vector4(ImmutableList.<Expression>of(this), new SwizzleEvaluator<Vector4.Primitive>(x, y, z, w));
+  public Vector4 swizzle(S.D24 value) {
+    return new Vector4(ImmutableList.<Expression>of(this), new SwizzleEvaluator<Vector4.Primitive>(value, Type.VEC4_T));
   }
 
   @Override

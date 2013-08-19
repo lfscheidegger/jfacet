@@ -1,8 +1,6 @@
 package com.lfscheidegger.jfacet.shade.expression.vector;
 
-import com.lfscheidegger.jfacet.shade.expression.vector.Vector2;
-import com.lfscheidegger.jfacet.shade.expression.vector.Vector3;
-import com.lfscheidegger.jfacet.shade.expression.vector.Vector4;
+import com.lfscheidegger.jfacet.shade.expression.vector.swizzle.S;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -111,12 +109,12 @@ public class Vector2PrimitiveTest {
 
   @Test
   public void testSwizzle() {
-    assertTrue(vec.swizzle('x') == 1);
-    assertTrue(vec.swizzle('y') == 2);
+    assertTrue(vec.swizzle(S.D21.X) == 1);
+    assertTrue(vec.swizzle(S.D21.Y) == 2);
 
-    assertEquals(vec.swizzle('x', 'x'), new Vector2.Primitive(1, 1));
-    assertEquals(vec.swizzle('x', 'x', 'x'), new Vector3.Primitive(1, 1, 1));
-    assertEquals(vec.swizzle('x', 'x', 'x', 'x'), new Vector4.Primitive(1, 1, 1, 1));
+    assertEquals(vec.swizzle(S.D22.XX), new Vector2.Primitive(1, 1));
+    assertEquals(vec.swizzle(S.D23.XXX), new Vector3.Primitive(1, 1, 1));
+    assertEquals(vec.swizzle(S.D24.XXXX), new Vector4.Primitive(1, 1, 1, 1));
   }
 
   @Test

@@ -8,6 +8,7 @@ import com.lfscheidegger.jfacet.shade.expression.Real;
 import com.lfscheidegger.jfacet.shade.expression.evaluators.*;
 import com.lfscheidegger.jfacet.shade.expression.evaluators.glsl.UniformEvaluator;
 import com.lfscheidegger.jfacet.shade.expression.operators.Operator;
+import com.lfscheidegger.jfacet.shade.expression.vector.swizzle.S;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -57,7 +58,7 @@ public class Vector2Test {
 
   private void testBinOpCommon(Vector2 added, Vector2.Primitive expected, String expectedOperatorSymbol) {
     assertEquals(added.getParents().size(), 2);
-    assertEquals(added.evaluate(),  expected);
+    assertEquals(added.evaluate(), expected);
     assertTrue(added.getEvaluator() instanceof BinaryOperationEvaluator);
     Operator op = ((BinaryOperationEvaluator)added.getEvaluator()).getOperator();
     assertEquals(op.getOperatorSymbol(), expectedOperatorSymbol);
@@ -187,29 +188,29 @@ public class Vector2Test {
 
   @Test
   public void testSwizzle() {
-    Real swizzle = vec.swizzle('x');
+    Real swizzle = vec.swizzle(S.D21.X);
     assertEquals(swizzle.getParents().size(), 1);
     assertSame(swizzle.getParents().get(0), vec);
     assertTrue(swizzle.getEvaluator() instanceof SwizzleEvaluator);
-    assertTrue(swizzle.evaluate() == vec.evaluate().swizzle('x'));
+    assertTrue(swizzle.evaluate().equals(vec.evaluate().swizzle(S.D21.X)));
 
-    Vector2 swizzle2 = vec.swizzle('y', 'x');
+    Vector2 swizzle2 = vec.swizzle(S.D22.YX);
     assertEquals(swizzle2.getParents().size(), 1);
     assertSame(swizzle2.getParents().get(0), vec);
     assertTrue(swizzle2.getEvaluator() instanceof SwizzleEvaluator);
-    assertEquals(swizzle2.evaluate(), vec.evaluate().swizzle('y', 'x'));
+    assertEquals(swizzle2.evaluate(), vec.evaluate().swizzle(S.D22.YX));
 
-    Vector3 swizzle3 = vec.swizzle('y', 'x', 'x');
+    Vector3 swizzle3 = vec.swizzle(S.D23.YXX);
     assertEquals(swizzle3.getParents().size(), 1);
     assertSame(swizzle3.getParents().get(0), vec);
     assertTrue(swizzle3.getEvaluator() instanceof SwizzleEvaluator);
-    assertEquals(swizzle3.evaluate(), vec.evaluate().swizzle('y', 'x', 'x'));
+    assertEquals(swizzle3.evaluate(), vec.evaluate().swizzle(S.D23.YXX));
 
-    Vector4 swizzle4 = vec.swizzle('y', 'x', 'x', 'y');
+    Vector4 swizzle4 = vec.swizzle(S.D24.YXXY);
     assertEquals(swizzle4.getParents().size(), 1);
     assertSame(swizzle4.getParents().get(0), vec);
     assertTrue(swizzle4.getEvaluator() instanceof SwizzleEvaluator);
-    assertEquals(swizzle4.evaluate(), vec.evaluate().swizzle('y', 'x', 'x', 'y'));
+    assertEquals(swizzle4.evaluate(), vec.evaluate().swizzle(S.D24.YXXY));
   }
 
   @Test

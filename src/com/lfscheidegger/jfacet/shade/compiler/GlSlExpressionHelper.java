@@ -49,12 +49,9 @@ public class GlSlExpressionHelper {
     return b.append("))").toString();
   }
 
-  public static String getSwizzleExpression(Type type, String exp, char[] accessors) {
+  public static String getSwizzleExpression(Type type, String exp, String accessors) {
     StringBuilder b = new StringBuilder();
-    b.append(exp).append(".");
-    for (char c : accessors) {
-      b.append(c);
-    }
+    b.append(exp).append(".").append(accessors);
     return getWrappedExpression(type, b.toString());
   }
 }
