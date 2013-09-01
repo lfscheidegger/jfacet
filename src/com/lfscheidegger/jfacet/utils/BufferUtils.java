@@ -7,9 +7,9 @@ import java.nio.IntBuffer;
 
 public final class BufferUtils {
 
-  public static final int BYTES_PER_FLOAT = 4;
+  private static final int BYTES_PER_FLOAT = 4;
 
-  public static final int BYTES_PER_INT = 4;
+  private static final int BYTES_PER_INT = 4;
 
   public static FloatBuffer getBufferFromArray(float[] array) {
     FloatBuffer result = ByteBuffer.allocateDirect(array.length * BYTES_PER_FLOAT)
