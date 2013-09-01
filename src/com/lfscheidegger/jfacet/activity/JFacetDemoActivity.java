@@ -33,7 +33,7 @@ public class JFacetDemoActivity extends Activity {
 
     mView = (FacetView) findViewById(R.id.gl_view);
 
-    Scene scene = new Scene(new Scene.SceneConfig.Builder().build());
+    Scene scene = new Scene();
 
     int demo = getIntent().getIntExtra("lesson", -1);
     switch(demo) {
@@ -192,7 +192,7 @@ public class JFacetDemoActivity extends Activity {
   }
 
   private void prepareLesson6(Scene scene) {
-    /*Geometry cube = Model.flatCube();
+    /*Geometry cube = Models.flatCube();
 
     Camera camera = Camera.perspective(
         new LookAtConfig()
@@ -209,7 +209,7 @@ public class JFacetDemoActivity extends Activity {
   }
 
   /*private void prepareLesson7(Scene scene) {
-    Geometry cube = Model.flatCube();
+    Geometry cube = Models.flatCube();
 
     Camera camera = Camera.perspective(
         new LookAtConfig()

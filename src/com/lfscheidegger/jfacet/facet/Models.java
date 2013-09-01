@@ -1,9 +1,9 @@
 package com.lfscheidegger.jfacet.facet;
 
-public final class Model {
+public final class Models {
 
   public static Geometry flatCube() {
-    return Facet.model(new GeometryConfig(
+    return new Geometry(
         new int[]{
             0, 1, 2, 0, 2, 3,
             5, 4, 7, 5, 7, 6,
@@ -42,6 +42,6 @@ public final class Model {
              0,  1,  0,   0,  1,  0,   0,  1,  0,   0,  1,  0,
             -1,  0,  0,  -1,  0,  0,  -1,  0,  0,  -1,  0,  0,
              1,  0,  0,   1,  0,  0,   1,  0,  0,   1,  0,  0
-        }, 3));
+        }, 3);
   }
 }

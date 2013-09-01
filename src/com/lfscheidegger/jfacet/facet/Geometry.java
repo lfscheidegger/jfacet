@@ -131,6 +131,10 @@ public final class Geometry {
     return (Vector4)getExpressionForAttribBuffer(mAttribBufferMap.get(key), 4);
   }
 
+  public Drawable bake(Expression vertexPosition, Expression fragmentColor) {
+    return new Drawable(this, vertexPosition, fragmentColor);
+  }
+
   private Expression getExpressionForAttribBuffer(AttribBuffer attribBuffer, int dimension) {
     switch(dimension) {
       case 1: return new Real(GlSlType.ATTRIBUTE_T, new AttributeEvaluator<Float>(attribBuffer));

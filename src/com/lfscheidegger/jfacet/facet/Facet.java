@@ -10,18 +10,6 @@ import com.lfscheidegger.jfacet.shade.expression.SamplerExpression;
 
 public final class Facet {
 
-  public static Drawable bake(Geometry geometry, Expression position) {
-    return bake(geometry, position, Shade.vec(1, 1, 1));
-  }
-
-  public static Drawable bake(Geometry geometry, Expression position, Expression fragColor) {
-    return new Drawable(geometry, position, fragColor);
-  }
-
-  public static Geometry model(GeometryConfig config) {
-    return new Geometry(config);
-  }
-
   public static SamplerExpression texture(Resources resources, int resId) {
     Matrix matrix = new Matrix();
     matrix.preScale(1, -1);
