@@ -1,5 +1,6 @@
 package com.lfscheidegger.jfacet.shade.expression;
 
+import com.lfscheidegger.jfacet.shade.expression.vector.Vector2;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -66,5 +67,19 @@ public class BoolTest {
 
     xor = val.xor(false);
     assertTrue(xor.evaluate());
+  }
+
+  @Test
+  public void testTernaryOperator() {
+    Vector2 ifExpression = new Vector2(1, 2);
+    Vector2 elseExpression = new Vector2(2, 3);
+
+    Vector2 ternaryExpression = val.if_(ifExpression).else_(elseExpression);
+    assertEquals(ternaryExpression.getParents().size(), 3);
+    assertSame(ternaryExpression.getParents().get(0), val);
+    assertSame(ternaryExpression.getParents().get(1), ifExpression);
+    assertSame(ternaryExpression.getParents().get(2), elseExpression);
+
+    assertEquals(ternaryExpression.evaluate(), ifExpression.evaluate());
   }
 }
