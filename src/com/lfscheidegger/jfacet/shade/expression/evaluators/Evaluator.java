@@ -8,12 +8,6 @@ import com.lfscheidegger.jfacet.shade.expression.Expression;
  */
 public interface Evaluator<T> {
 
-  public static class EvaluationException extends RuntimeException {
-    public EvaluationException(String message) {
-      super(message);
-    }
-  }
-
   public T evaluate(Expression<T> expression);
 
   public String getGlSlString(Expression<T> expression, CompilationContext context);

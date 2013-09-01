@@ -49,8 +49,4 @@ public abstract class AbstractExpression<T> implements Expression<T> {
   public final ImmutableList<Expression> getParents() {
     return mParents;
   }
-
-  public void resetParents(ImmutableList<Expression> parents) {
-    mParents = parents;
-  }
 }

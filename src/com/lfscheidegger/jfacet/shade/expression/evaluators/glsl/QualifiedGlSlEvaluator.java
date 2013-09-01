@@ -8,7 +8,7 @@ public final class QualifiedGlSlEvaluator<T> implements Evaluator<T> {
 
   @Override
   public T evaluate(Expression expression) {
-    throw new EvaluationException("Cannot evaluate qualified expression");
+    throw new RuntimeException("Cannot evaluate qualified expression");
   }
 
   @Override

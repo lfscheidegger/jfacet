@@ -9,7 +9,7 @@ import com.lfscheidegger.jfacet.shade.expression.vector.swizzle.SupportsSwizzlin
 import com.lfscheidegger.jfacet.shade.expression.vector.swizzle.SupportsSwizzling3;
 import com.lfscheidegger.jfacet.shade.expression.vector.swizzle.SupportsSwizzling4;
 
-public class SwizzleEvaluator<T> implements Evaluator<T> {
+public final class SwizzleEvaluator<T> implements Evaluator<T> {
 
   private final Object mAccessors;
   private final Type mType;
