@@ -5,7 +5,7 @@ import com.lfscheidegger.jfacet.shade.Type;
 
 class CompilationHelper {
 
-  private static final String PREFIX = "glsl_name";
+  /*private static final String PREFIX = "glsl_name";
   private static int sNameCounter = 0;
   public static synchronized String getUniqueGlSlName() {
     return PREFIX + sNameCounter++;
@@ -25,5 +25,5 @@ class CompilationHelper {
 
   public static String getAssignmentStatemenet(String name, String expression, CompilationContext context) {
     return name + " = " + expression + ";\n";
-  }
+  }*/
 }
