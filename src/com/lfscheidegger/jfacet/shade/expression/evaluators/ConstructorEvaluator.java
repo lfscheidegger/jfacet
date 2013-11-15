@@ -55,7 +55,7 @@ public final class ConstructorEvaluator<T> implements Evaluator<T> {
     throw new RuntimeException("Cannot evaluate constructed expression from type: " + type);
   }
 
-  @Override
+  /*@Override
   public String getGlSlString(Expression expression, CompilationContext context) {
     ImmutableList<Expression> parents = expression.getParents();
     Type type = expression.getType();
@@ -78,5 +78,5 @@ public final class ConstructorEvaluator<T> implements Evaluator<T> {
     }
 
     throw new RuntimeException("Cannot get glsl string from expression type: " + type);
-  }
+  }*/
 }

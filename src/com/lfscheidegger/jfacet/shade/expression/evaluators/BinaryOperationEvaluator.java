@@ -23,13 +23,13 @@ public final class BinaryOperationEvaluator<LEFT_T, RIGHT_T, RESULT_T> implement
     return mOperator.op((LEFT_T)left.evaluate(), (RIGHT_T)right.evaluate());
   }
 
-  @Override
+  /*@Override
   public final String getGlSlString(Expression expression, CompilationContext context) {
     ImmutableList<Expression> parents = expression.getParents();
 
     return GlSlExpressionHelper.getBinOpExpression(
         expression.getType(), mOperator.getOperatorSymbol(), parents.get(0).getGlSlString(context), parents.get(1).getGlSlString(context));
-  }
+  }*/
 
   public Operator<LEFT_T, RIGHT_T, RESULT_T> getOperator() {
     return mOperator;

@@ -18,7 +18,7 @@ public abstract class FunctionEvaluator<T> implements Evaluator<T> {
     mFunctionName = functionName;
   }
 
-  @Override
+  /*@Override
   public String getGlSlString(Expression expression, final CompilationContext compilationContext) {
     return GlSlExpressionHelper.getFunctionExpression(
         mType,
@@ -29,7 +29,7 @@ public abstract class FunctionEvaluator<T> implements Evaluator<T> {
             return parent.getGlSlString(compilationContext);
           }
         }).toArray(new String[expression.getParents().size()]));
-  }
+  }*/
 
   public Type getType() {
     return mType;

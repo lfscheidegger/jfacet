@@ -10,7 +10,7 @@ import java.util.Set;
 
 public class FragmentShaderCompiler extends AbstractCompiler {
 
-  private final Set<Expression> mVaryingExpressions;
+  /*private final Set<Expression> mVaryingExpressions;
 
   public FragmentShaderCompiler(ImmutableMap<String, Expression> outputExpressions, CompilationContext context) {
     super(outputExpressions, TopologicalSorter.forFragmentShaderCompiler(), context);
@@ -33,5 +33,5 @@ public class FragmentShaderCompiler extends AbstractCompiler {
 
   public ImmutableSet<Expression> getVaryingExpressions() {
     return ImmutableSet.copyOf(mVaryingExpressions);
-  }
+  }*/
 }

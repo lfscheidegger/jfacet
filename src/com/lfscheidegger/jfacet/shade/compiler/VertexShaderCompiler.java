@@ -6,7 +6,7 @@ import com.lfscheidegger.jfacet.shade.expression.Expression;
 
 public class VertexShaderCompiler extends AbstractCompiler {
 
-  public VertexShaderCompiler(ImmutableMap<String, Expression> outputExpressions, CompilationContext context) {
+  /*public VertexShaderCompiler(ImmutableMap<String, Expression> outputExpressions, CompilationContext context) {
     super(outputExpressions, TopologicalSorter.forVertexShaderCompiler(), context);
   }
 
@@ -20,5 +20,5 @@ public class VertexShaderCompiler extends AbstractCompiler {
         expression.getType(),
         getContext().getExpressionName(expression),
         getContext()));
-  }
+  }*/
 }

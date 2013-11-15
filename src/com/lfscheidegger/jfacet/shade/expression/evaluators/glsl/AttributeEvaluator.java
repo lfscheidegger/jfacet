@@ -18,10 +18,10 @@ public class AttributeEvaluator<T> implements Evaluator<T> {
     throw new RuntimeException("Cannot evaluate attribute expression");
   }
 
-  @Override
+  /*@Override
   public String getGlSlString(Expression expression, CompilationContext context) {
     return context.getExpressionName(expression);
-  }
+  }*/
 
   public AttribBuffer getAttributeBuffer() {
     return mAttributeBuffer;

@@ -53,8 +53,8 @@ public final class UniformEvaluator<T> implements Evaluator<T> {
     return get();
   }
 
-  @Override
+  /*@Override
   public String getGlSlString(Expression<T> expression, CompilationContext compilationContext) {
     return compilationContext.getExpressionName(expression);
-  }
+  }*/
 }

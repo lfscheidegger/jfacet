@@ -21,9 +21,9 @@ public final class NegationEvaluator<T> implements Evaluator<T> {
     }
   }
 
-  @Override
+  /*@Override
   public String getGlSlString(Expression expression, CompilationContext context) {
     ImmutableList<Expression> parents = expression.getParents();
     return GlSlExpressionHelper.getUnOpExpression(expression.getType(), "-", parents.get(0).getGlSlString(context));
-  }
+  }*/
 }

@@ -18,12 +18,12 @@ public final class ConstantEvaluator<T> implements Evaluator<T> {
     return mValue;
   }
 
-  @Override
+  /*@Override
   public String getGlSlString(Expression expression, CompilationContext context) {
     if (mValue instanceof Float) {
       return GlSlExpressionHelper.getWrappedExpression(Type.FLOAT_T, String.valueOf(mValue));
     }
 
     return mValue.toString();
-  }
+  }*/
 }

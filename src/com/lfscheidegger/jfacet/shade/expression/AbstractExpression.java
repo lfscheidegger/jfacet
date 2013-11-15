@@ -40,10 +40,10 @@ public abstract class AbstractExpression<T> implements Expression<T> {
     return mEvaluator;
   }
 
-  @Override
+  /*@Override
   public final String getGlSlString(CompilationContext context) {
     return mEvaluator.getGlSlString(this, context);
-  }
+  }*/
 
   @Override
   public final ImmutableList<Expression> getParents() {

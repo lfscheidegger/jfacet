@@ -41,7 +41,7 @@ public interface Expression<T> {
    * Returns a string representing this {@code Expression} in GLSL, using the provided {@code CompilationContext}
    * object to obtain names for its subexpressions
    */
-  public String getGlSlString(CompilationContext context);
+  //public String getGlSlString(CompilationContext context);
 
 
   public Expression<T> getExpressionForTernaryOperator(Bool condition, Expression<T> elseExpression);

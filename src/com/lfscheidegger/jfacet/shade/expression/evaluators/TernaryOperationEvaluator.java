@@ -17,7 +17,7 @@ public final class TernaryOperationEvaluator<T> implements Evaluator<T> {
     return booleanExpression.evaluate() ? ifExpression.evaluate() : elseExpression.evaluate();
   }
 
-  @Override
+  /*@Override
   @SuppressWarnings("unchecked")
   public String getGlSlString(Expression<T> expression, CompilationContext context) {
     Expression<T> ifExpression = (Expression<T>)expression.getParents().get(1);
@@ -27,5 +27,5 @@ public final class TernaryOperationEvaluator<T> implements Evaluator<T> {
         expression.getParents().get(0).getGlSlString(context),
         expression.getParents().get(1).getGlSlString(context),
         expression.getParents().get(2).getGlSlString(context));
-  }
+  }*/
 }

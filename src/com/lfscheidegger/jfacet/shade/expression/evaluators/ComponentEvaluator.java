@@ -40,10 +40,10 @@ public final class ComponentEvaluator<T> implements Evaluator<T> {
     throw new RuntimeException("Cannot evaluate component expression for: " + expression.getClass().getSimpleName());
   }
 
-  @Override
+  /*@Override
   public String getGlSlString(Expression<T> expression, CompilationContext context) {
     return GlSlExpressionHelper.getComponentExpression(
         expression.getType(), (expression.getParents().get(0)).getGlSlString(context), mIdx);
 
-  }
+  }*/
 }

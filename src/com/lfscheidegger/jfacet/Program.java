@@ -2,10 +2,7 @@ package com.lfscheidegger.jfacet;
 
 import android.opengl.GLES20;
 import com.badlogic.gdx.backends.android.AndroidGL20;
-import com.google.common.collect.ImmutableBiMap;
-import com.google.common.collect.ImmutableList;
-import com.google.common.collect.ImmutableMap;
-import com.google.common.collect.ImmutableSet;
+import com.google.common.collect.*;
 import com.lfscheidegger.jfacet.facet.AttribBuffer;
 import com.lfscheidegger.jfacet.shade.GlSlType;
 import com.lfscheidegger.jfacet.shade.Shade;
@@ -19,6 +16,7 @@ import com.lfscheidegger.jfacet.shade.compiler.ast.ASTProcessors;
 import com.lfscheidegger.jfacet.shade.compiler.ast.FragmentAttributeExtractor;
 import com.lfscheidegger.jfacet.shade.expression.Expression;
 import com.lfscheidegger.jfacet.shade.expression.SamplerExpression;
+import com.lfscheidegger.jfacet.shade.expression.vector.Vector4;
 import com.lfscheidegger.jfacet.shade.expression.vector.VectorExpression;
 
 import java.util.HashSet;
@@ -26,7 +24,7 @@ import java.util.Set;
 
 public final class Program {
 
-  private int mProgramHandle;
+  /*private int mProgramHandle;
 
   private final CompilationContext mCompilationContext;
 
@@ -42,13 +40,15 @@ public final class Program {
 
   // Uniform data
   private final Expression[] mUniformExpressions;
-  private final int[] mUniformLocations;
+  private final int[] mUniformLocations;*/
 
-  public Program(
-      VectorExpression position,
-      VectorExpression fragColor,
-      ImmutableMap<AttribBuffer, Expression> attributeMap) {
-    mCompilationContext = new DefaultCompilationContext();
+  private final Vector4 mPosition;
+  private final Vector4 mFragColor;
+
+  public Program(VectorExpression position, VectorExpression fragColor) {
+    mPosition = position.fill(Shade.vec(0, 0, 0, 1));
+    mFragColor = position.fill(Shade.vec(0, 0, 0, 1));
+    /*mCompilationContext = new DefaultCompilationContext();
 
     ASTOptimizer optimizer = new ASTOptimizer();
 
@@ -81,11 +81,11 @@ public final class Program {
     for (Expression expression: uniformExpressions) {
       mUniformExpressions[count++] = expression;
     }
-    mUniformLocations = new int[uniformExpressions.size()];
+    mUniformLocations = new int[uniformExpressions.size()];*/
   }
 
   public void bake() {
-    mAndroidGL = new AndroidGL20();
+    /*mAndroidGL = new AndroidGL20();
 
     FragmentShaderCompiler fragmentShaderCompiler = new FragmentShaderCompiler(
         ImmutableMap.<String, Expression>of("gl_FragColor", mFragColor),
@@ -107,22 +107,23 @@ public final class Program {
     GLES20.glAttachShader(mProgramHandle, vertexShaderHandle);
     GLES20.glAttachShader(mProgramHandle, fragmentShaderHandle);
 
-    linkProgram();
+    linkProgram();*/
   }
 
   private ImmutableMap<String, Expression> getVertexShaderCompilationNames(ImmutableSet<Expression> varyings) {
-    ImmutableMap.Builder<String, Expression> builder = new ImmutableBiMap.Builder<String, Expression>();
+    /*ImmutableMap.Builder<String, Expression> builder = new ImmutableBiMap.Builder<String, Expression>();
 
     for (Expression varying: varyings) {
       builder.put(mCompilationContext.getExpressionName(varying), varying);
     }
 
     builder.put("gl_Position", mPosition);
-    return builder.build();
+    return builder.build();*/
+    return null;
   }
 
   private void compileShader(int shaderHandle, String shaderSource) {
-    GLES20.glShaderSource(shaderHandle, shaderSource);
+    /*GLES20.glShaderSource(shaderHandle, shaderSource);
     GLES20.glCompileShader(shaderHandle);
 
     // Get the compilation status.
@@ -136,11 +137,11 @@ public final class Program {
 
       GLES20.glDeleteShader(shaderHandle);
       throw new RuntimeException("Error compiling program\n" + compileLog);
-    }
+    }*/
   }
 
   private void linkProgram() {
-    bindAttributeLocations();
+    /*bindAttributeLocations();
 
     GLES20.glLinkProgram(mProgramHandle);
 
@@ -158,11 +159,11 @@ public final class Program {
 
       GLES20.glDeleteProgram(mProgramHandle);
       throw new RuntimeException("Error linking program");
-    }
+    }*/
   }
 
   private Set<Expression> extractUniforms(Expression exp, Set<Expression> existing) {
-    if (exp.getGlSlType() == GlSlType.UNIFORM_T) {
+    /*if (exp.getGlSlType() == GlSlType.UNIFORM_T) {
       existing.add(exp);
       return existing;
     }
@@ -171,43 +172,44 @@ public final class Program {
       extractUniforms(parent, existing);
     }
 
-    return existing;
+    return existing;*/
+    return null;
   }
 
   private void bindAttributeLocations() {
-    for (int i = 0; i < mAttribExpressions.length; i++) {
+    /*for (int i = 0; i < mAttribExpressions.length; i++) {
       GLES20.glBindAttribLocation(mProgramHandle, i, mCompilationContext.getExpressionName(mAttribExpressions[i]));
       mAttribLocations[i] = i;
-    }
+    }*/
   }
 
   private void bindUniformLocations() {
-    for (int i = 0; i < mUniformExpressions.length; i++) {
+    /*for (int i = 0; i < mUniformExpressions.length; i++) {
       int location =
           GLES20.glGetUniformLocation(mProgramHandle, mCompilationContext.getExpressionName(mUniformExpressions[i]));
       mUniformLocations[i] = location;
-    }
+    }*/
   }
 
   private void loadTextures() {
-    for (int i = 0; i < mUniformExpressions.length; i++) {
+    /*for (int i = 0; i < mUniformExpressions.length; i++) {
       if (mUniformExpressions[i].getType() != Type.SAMPLER2D_T) {
         continue;
       }
 
       ((SamplerExpression)mUniformExpressions[i]).bake();
-    }
+    }*/
   }
 
   private void bindAttributes() {
-    for (int i = 0; i < mAttribExpressions.length; i++) {
+    /*for (int i = 0; i < mAttribExpressions.length; i++) {
       int attribHandle = mAttribLocations[i];
       AttribBuffer buffer = mAttribBuffers[i];
       int size = buffer.getDimension();
 
       GLES20.glVertexAttribPointer(attribHandle, size, GLES20.GL_FLOAT, false, 0, buffer.getBuffer());
       GLES20.glEnableVertexAttribArray(attribHandle);
-    }
+    }*/
   }
 
   private void bindUniforms() {
@@ -247,8 +249,8 @@ public final class Program {
   }
 
   public void use() {
-    GLES20.glUseProgram(mProgramHandle);
-    bindAttributes();
-    bindUniforms();
+    //GLES20.glUseProgram(mProgramHandle);
+    //bindAttributes();
+    //bindUniforms();
   }
 }

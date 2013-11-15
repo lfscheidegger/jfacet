@@ -10,7 +10,7 @@ import java.util.Map;
 
 public abstract class AbstractCompiler implements Compiler {
 
-  private final ImmutableMap<String, Expression> mOutputExpressions;
+  /*private final ImmutableMap<String, Expression> mOutputExpressions;
   private final TopologicalSorter mTopologicalSorter;
   private final CompilationContext mContext;
 
@@ -128,5 +128,5 @@ public abstract class AbstractCompiler implements Compiler {
 
     builder.append("}\n");
     return builder.toString();
-  }
+  }*/
 }

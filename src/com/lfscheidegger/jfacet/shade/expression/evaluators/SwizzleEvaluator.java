@@ -34,13 +34,13 @@ public final class SwizzleEvaluator<T> implements Evaluator<T> {
     }
   }
 
-  @Override
+  /*@Override
   public String getGlSlString(Expression<T> expression, CompilationContext compilationContext) {
     return GlSlExpressionHelper.getSwizzleExpression(
         mType,
         expression.getGlSlString(compilationContext),
         mAccessors.toString());
-  }
+  }*/
 
   @SuppressWarnings("unchecked")
   private T evaluate2(SupportsSwizzling2 parent) {
