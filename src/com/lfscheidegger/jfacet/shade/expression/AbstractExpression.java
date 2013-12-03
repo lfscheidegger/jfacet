@@ -1,52 +1,54 @@
 package com.lfscheidegger.jfacet.shade.expression;
 
+import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableList;
-import com.lfscheidegger.jfacet.shade.GlSlType;
-import com.lfscheidegger.jfacet.shade.Type;
-import com.lfscheidegger.jfacet.shade.compiler.CompilationContext;
-import com.lfscheidegger.jfacet.shade.expression.evaluators.Evaluator;
+import com.lfscheidegger.jfacet.shade.GlSlQualifier;
 
 public abstract class AbstractExpression<T> implements Expression<T> {
 
-  private final Type mType;
-  private final GlSlType mGlSlType;
-  private ImmutableList<Expression> mParents;
-  private Evaluator<T> mEvaluator;
+  private final Optional<GlSlQualifier> mGlSlQualifier;
+  private final Optional<NodeType> mNodeType;
+  private final ImmutableList<Expression> mParents;
 
-  public AbstractExpression(Type type, GlSlType glSlType, ImmutableList<Expression> parents, Evaluator<T> evaluator) {
-    mType = type;
-    mGlSlType = glSlType;
+  public AbstractExpression() {
+    mGlSlQualifier = Optional.absent();
+    mNodeType = Optional.absent();
+    mParents = ImmutableList.of();
+  }
+
+  public AbstractExpression(GlSlQualifier glSlQualifier) {
+    mGlSlQualifier = Optional.of(glSlQualifier);
+    mNodeType = Optional.absent();
+    mParents = ImmutableList.of();
+  }
+
+  public AbstractExpression(ImmutableList<Expression> parents, NodeType nodeType) {
+    mGlSlQualifier = Optional.absent();
+    mNodeType = Optional.of(nodeType);
     mParents = parents;
-    mEvaluator = evaluator;
+  }
+
+  private AbstractExpression(
+      Optional<GlSlQualifier> glSlQualifier,
+      Optional<NodeType> nodeType,
+      ImmutableList<Expression> parents) {
+    mGlSlQualifier = glSlQualifier;
+    mNodeType = nodeType;
+    mParents = parents;
   }
 
   @Override
-  public final Type getType() {
-    return mType;
-  }
-
-  @Override
-  public final GlSlType getGlSlType() {
-    return mGlSlType;
-  }
-
-  @Override
-  public final T evaluate() {
-    return mEvaluator.evaluate(this);
-  }
-
-  @Override
-  public final Evaluator<T> getEvaluator() {
-    return mEvaluator;
-  }
-
-  /*@Override
-  public final String getGlSlString(CompilationContext context) {
-    return mEvaluator.getGlSlString(this, context);
-  }*/
-
-  @Override
-  public final ImmutableList<Expression> getParents() {
+  public ImmutableList<Expression> getParents() {
     return mParents;
+  }
+
+  @Override
+  public Optional<GlSlQualifier> getGlSlQualifier() {
+    return mGlSlQualifier;
+  }
+
+  @Override
+  public Optional<NodeType> getNodeType() {
+    return mNodeType;
   }
 }

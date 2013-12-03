@@ -12,9 +12,9 @@ package com.lfscheidegger.jfacet.shade.expression.vector.swizzle;
  * This class has an exceptionally short name (as well as the enums themselves) to deemphasize their names when
  * compared to the value in the enums - the "XXY" part should draw more attention than the class/enum name itself.
  */
-public class S {
+public interface Swizzle {
 
-  public static enum D21 {
+  public static enum D21 implements Swizzle {
     X("x"), Y("y"),
     R("r"), G("g"),
     S("s"), T("t");
@@ -31,11 +31,7 @@ public class S {
     }
   }
 
-  public static enum D22 {
-
-    X("x"), Y("y"),
-    R("r"), G("g"),
-    S("s"), T("t"),
+  public static enum D22 implements Swizzle {
     XX("xx"), XY("xy"),
     YX("yx"), YY("yy"),
     RR("rr"), RG("rg"),
@@ -55,8 +51,7 @@ public class S {
     }
   }
 
-  public static enum D23 {
-
+  public static enum D23 implements Swizzle {
     XXX("xxx"), XXY("xxy"),
     XYX("xyx"), XYY("xyy"),
     YXX("yxx"), YXY("yxy"),
@@ -82,7 +77,7 @@ public class S {
     }
   }
 
-  public static enum D24 {
+  public static enum D24 implements Swizzle {
     XXXX("xxxx"), XXXY("xxxy"),
     XXYX("xxyx"), XXYY("xxyy"),
     XYXX("xyxx"), XYXY("xyxy"),
@@ -120,8 +115,7 @@ public class S {
     }
   }
 
-  public static enum D31 {
-
+  public static enum D31 implements Swizzle {
     X("x"), Y("y"), Z("z"),
     R("r"), G("g"), B("b"),
     S("s"), T("t"), P("p");
@@ -138,8 +132,7 @@ public class S {
     }
   }
 
-  public static enum D32 {
-
+  public static enum D32 implements Swizzle {
     XX("xx"), XY("xy"), XZ("xz"),
     YX("yx"), YY("yy"), YZ("yz"),
     ZX("zx"), ZY("zy"), ZZ("zz"),
@@ -162,8 +155,7 @@ public class S {
     }
   }
 
-  public static enum D33 {
-
+  public static enum D33 implements Swizzle {
     XXX("xxx"), XXY("xxy"), XXZ("xxz"),
     XYX("xyx"), XYY("xyy"), XYZ("xyz"),
     XZX("xzx"), XZY("xzy"), XZZ("xzz"),
@@ -204,8 +196,7 @@ public class S {
     }
   }
 
-  public static enum D34 {
-
+  public static enum D34 implements Swizzle {
     XXXX("xxxx"), XXXY("xxxy"), XXXZ("xxxz"),
     XXYX("xxyx"), XXYY("xxyy"), XXYZ("xxyz"),
     XXZX("xxzx"), XXZY("xxzy"), XXZZ("xxzz"),
@@ -299,8 +290,7 @@ public class S {
     }
   }
 
-  public static enum D41 {
-
+  public static enum D41 implements Swizzle {
     X("x"), Y("y"), Z("z"), W("w"),
     R("r"), G("g"), B("b"), A("a"),
     S("s"), T("t"), P("p"), Q("q");
@@ -317,8 +307,7 @@ public class S {
     }
   }
 
-  public static enum D42 {
-
+  public static enum D42 implements Swizzle {
     XX("xx"), XY("xy"), XZ("xz"), XW("xw"),
     YX("yx"), YY("yy"), YZ("yz"), YW("yw"),
     ZX("zx"), ZY("zy"), ZZ("zz"), ZW("zw"),
@@ -344,8 +333,7 @@ public class S {
     }
   }
 
-  public static enum D43 {
-
+  public static enum D43 implements Swizzle {
     XXX("xxx"), XXY("xxy"), XXZ("xxz"), XXW("xxw"),
     XYX("xyx"), XYY("xyy"), XYZ("xyz"), XYW("xyw"),
     XZX("xzx"), XZY("xzy"), XZZ("xzz"), XZW("xzw"),
@@ -407,8 +395,7 @@ public class S {
     }
   }
 
-  public static enum D44 {
-
+  public static enum D44 implements Swizzle {
     XXXX("xxxx"), XXXY("xxxy"), XXXZ("xxxz"), XXXW("xxxw"),
     XXYX("xxyx"), XXYY("xxyy"), XXYZ("xxyz"), XXYW("xxyw"),
     XXZX("xxzx"), XXZY("xxzy"), XXZZ("xxzz"), XXZW("xxzw"),

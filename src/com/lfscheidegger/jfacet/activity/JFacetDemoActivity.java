@@ -7,12 +7,6 @@ import android.view.Display;
 import com.lfscheidegger.jfacet.R;
 import com.lfscheidegger.jfacet.facet.*;
 import com.lfscheidegger.jfacet.facet.renderer.FacetRenderer;
-import com.lfscheidegger.jfacet.shade.Parameter;
-import com.lfscheidegger.jfacet.shade.Shade;
-import com.lfscheidegger.jfacet.shade.camera.Camera;
-import com.lfscheidegger.jfacet.shade.camera.LookAtConfig;
-import com.lfscheidegger.jfacet.shade.expression.Expression;
-import com.lfscheidegger.jfacet.shade.expression.Real;
 import com.lfscheidegger.jfacet.view.FacetView;
 
 public class JFacetDemoActivity extends Activity {

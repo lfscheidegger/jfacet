@@ -1,13 +1,11 @@
 package com.lfscheidegger.jfacet.shade.expression.vector;
 
+import com.google.common.base.Optional;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableList;
-import com.lfscheidegger.jfacet.shade.GlSlType;
-import com.lfscheidegger.jfacet.shade.Type;
 import com.lfscheidegger.jfacet.shade.expression.AbstractExpression;
 import com.lfscheidegger.jfacet.shade.expression.Bool;
 import com.lfscheidegger.jfacet.shade.expression.Expression;
-import com.lfscheidegger.jfacet.shade.expression.evaluators.*;
 import com.lfscheidegger.jfacet.utils.StringUtils;
 
 import java.util.Arrays;
@@ -70,7 +68,7 @@ public final class BVector3 extends AbstractExpression<BVector3.Primitive> {
 
     @Override
     public String toString() {
-      return StringUtils.toStringHelper(Type.BVEC3_T)
+      return StringUtils.toStringHelper("bvec3")
           .addValue(mValues[0])
           .addValue(mValues[1])
           .addValue(mValues[2])
@@ -78,31 +76,28 @@ public final class BVector3 extends AbstractExpression<BVector3.Primitive> {
     }
   }
 
+  private final Optional<Primitive> mPrimitive;
+
   public BVector3(boolean x, boolean y, boolean z) {
-    this(ImmutableList.<Expression>of(), new ConstantEvaluator<Primitive>(new Primitive(x, y, z)));
+    super();
+    mPrimitive = Optional.of(new Primitive(x, y, z));
   }
 
   public BVector3(Bool x, Bool y, Bool z) {
-    this(ImmutableList.<Expression>of(x, y, z), new ConstructorEvaluator<Primitive>());
+    super(ImmutableList.<Expression>of(x, y, z), NodeType.CONS);
+    mPrimitive = Optional.absent();
   }
 
-  public BVector3(ImmutableList<Expression> parents, Evaluator<Primitive> evaluator) {
-    this(GlSlType.DEFAULT_T, parents, evaluator);
-  }
-
-  public BVector3(GlSlType glSlType, Evaluator<Primitive> evaluator) {
-    this(glSlType, ImmutableList.<Expression>of(), evaluator);
-  }
-
-  private BVector3(GlSlType glSlType, ImmutableList<Expression> parents, Evaluator<Primitive> evaluator) {
-    super(Type.BVEC3_T, glSlType, parents, evaluator);
+  public BVector3(ImmutableList<Expression> parents, NodeType nodeType) {
+    super(parents, nodeType);
+    mPrimitive = Optional.absent();
   }
 
   @Override
   public BVector3 getExpressionForTernaryOperator(Bool condition, Expression<Primitive> elseExpression) {
     return new BVector3(
         ImmutableList.<Expression>of(condition, this, elseExpression),
-        new TernaryOperationEvaluator<Primitive>());
+        NodeType.TERNARY);
   }
 
   public Bool getX() {
@@ -119,42 +114,26 @@ public final class BVector3 extends AbstractExpression<BVector3.Primitive> {
 
   public Bool get(int idx) {
     Preconditions.checkState(idx < 3);
-    return new Bool(ImmutableList.<Expression>of(this), new ComponentEvaluator<Boolean>(idx));
+    return new Bool(
+        ImmutableList.<Expression>of(this),
+        NodeType.ComponentNodeType.forComponent(idx));
   }
 
   public Bool any() {
     return new Bool(
         ImmutableList.<Expression>of(this),
-        new FunctionEvaluator<Boolean>(Type.BOOL_T, "any") {
-          @Override
-          public Boolean evaluate(Expression<Boolean> expression) {
-            BVector3 parent = (BVector3)expression.getParents().get(0);
-            return parent.evaluate().any();
-          }
-        });
+        NodeType.FunctionNodeType.forFunction("any"));
   }
 
   public Bool all() {
     return new Bool(
         ImmutableList.<Expression>of(this),
-        new FunctionEvaluator<Boolean>(Type.BOOL_T, "all") {
-          @Override
-          public Boolean evaluate(Expression<Boolean> expression) {
-            BVector3 parent = (BVector3)expression.getParents().get(0);
-            return parent.evaluate().all();
-          }
-        });
+        NodeType.FunctionNodeType.forFunction("all"));
   }
 
   public BVector3 not() {
     return new BVector3(
         ImmutableList.<Expression>of(this),
-        new FunctionEvaluator<Primitive>(Type.BVEC3_T, "not") {
-          @Override
-          public Primitive evaluate(Expression<Primitive> expression) {
-            BVector3 parent = (BVector3)expression.getParents().get(0);
-            return parent.evaluate().not();
-          }
-        });
+        NodeType.FunctionNodeType.forFunction("not"));
   }
 }

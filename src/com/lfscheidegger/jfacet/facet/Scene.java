@@ -14,7 +14,7 @@ public final class Scene {
     private Vector4.Primitive mClearColor;
 
     public Builder setClearColor(VectorExpression clearColor) {
-      mClearColor = clearColor.fill(Shade.vec(0, 0, 0, 1)).evaluate();
+      //mClearColor = clearColor.fill(Shade.vec(0, 0, 0, 1)).evaluate();
       return this;
     }
 
@@ -23,7 +23,7 @@ public final class Scene {
     }
 
     public Scene build() {
-      mClearColor = (mClearColor == null) ? Shade.vec(0, 0, 0, 1).evaluate() : mClearColor;
+      //mClearColor = (mClearColor == null) ? Shade.vec(0, 0, 0, 1).evaluate() : mClearColor;
       return new Scene(this);
     }
   }

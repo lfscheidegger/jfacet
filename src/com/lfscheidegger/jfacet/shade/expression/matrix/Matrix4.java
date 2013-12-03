@@ -1,14 +1,9 @@
 package com.lfscheidegger.jfacet.shade.expression.matrix;
 
+import com.google.common.base.Optional;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableList;
-import com.lfscheidegger.jfacet.shade.GlSlType;
-import com.lfscheidegger.jfacet.shade.Shade;
-import com.lfscheidegger.jfacet.shade.Type;
 import com.lfscheidegger.jfacet.shade.expression.*;
-import com.lfscheidegger.jfacet.shade.expression.evaluators.*;
-import com.lfscheidegger.jfacet.shade.expression.operators.BasicArithmeticOperators;
-import com.lfscheidegger.jfacet.shade.expression.operators.BooleanOperators;
 import com.lfscheidegger.jfacet.shade.expression.vector.Vector4;
 import com.lfscheidegger.jfacet.utils.ArrayUtils;
 import com.lfscheidegger.jfacet.utils.MatrixUtils;
@@ -150,7 +145,7 @@ public final class Matrix4
 
     @Override
     public String toString() {
-      return StringUtils.toStringHelper(Type.MAT4_T)
+      return StringUtils.toStringHelper("mat4")
           .addValue(new Vector4.Primitive(mValues[ 0], mValues[ 1], mValues[ 2], mValues[ 3]))
           .addValue(new Vector4.Primitive(mValues[ 4], mValues[ 5], mValues[ 6], mValues[ 7]))
           .addValue(new Vector4.Primitive(mValues[ 8], mValues[ 9], mValues[10], mValues[11]))
@@ -159,33 +154,27 @@ public final class Matrix4
     }
   }
 
+  private final Optional<Primitive> mPrimitive;
+
   public Matrix4() {
-    this(ImmutableList.<Expression>of(
-        Shade.vec(1, 0, 0, 0), Shade.vec(0, 1, 0, 0), Shade.vec(0, 0, 1, 0), Shade.vec(0, 0, 0, 1)),
-        new ConstructorEvaluator<Primitive>());
+    super();
+    mPrimitive = Optional.of(new Primitive());
   }
 
   public Matrix4(Vector4 c0, Vector4 c1, Vector4 c2, Vector4 c3) {
-    this (ImmutableList.<Expression>of(c0, c1, c2, c3), new ConstructorEvaluator<Primitive>());
+    super(ImmutableList.<Expression>of(c0, c1, c2, c3), NodeType.CONS);
+    mPrimitive = Optional.absent();
   }
 
-  private Matrix4(ImmutableList<Expression> parents, Evaluator<Primitive> evaluator) {
-    this(GlSlType.DEFAULT_T, parents, evaluator);
+  public Matrix4(ImmutableList<Expression> parents, NodeType nodeType) {
+    super(parents, nodeType);
+    mPrimitive = Optional.absent();
   }
-
-  public Matrix4(GlSlType glSlType, Evaluator<Primitive> evaluator) {
-    this(glSlType, ImmutableList.<Expression>of(), evaluator);
-  }
-
-  private Matrix4(GlSlType glSlType, ImmutableList<Expression> parents, Evaluator<Primitive> evaluator) {
-    super(Type.MAT4_T, glSlType, parents, evaluator);
-  }
-
   @Override
   public Matrix4 getExpressionForTernaryOperator(Bool condition, Expression<Primitive> elseExpression) {
     return new Matrix4(
         ImmutableList.<Expression>of(condition, this, elseExpression),
-        new TernaryOperationEvaluator<Primitive>());
+        NodeType.TERNARY);
   }
 
   public Vector4 getC0() {
@@ -207,7 +196,7 @@ public final class Matrix4
   @Override
   public Vector4 get(int idx) {
     Preconditions.checkState(idx < 4);
-    return new Vector4(ImmutableList.<Expression>of(this), new ComponentEvaluator<Vector4.Primitive>(idx));
+    return new Vector4(ImmutableList.<Expression>of(this), NodeType.ComponentNodeType.forComponent(idx));
   }
 
   @Override
@@ -217,16 +206,12 @@ public final class Matrix4
 
   @Override
   public Matrix4 add(Real right) {
-    return new Matrix4(
-        ImmutableList.<Expression>of(this, right),
-        new BinaryOperationEvaluator<Primitive, Float, Primitive>(BasicArithmeticOperators.<Primitive>forAdditionWithFloat()));
+    return new Matrix4(ImmutableList.<Expression>of(this, right), NodeType.ADD);
   }
 
   @Override
   public Matrix4 add(Matrix4 right) {
-    return new Matrix4(
-        ImmutableList.<Expression>of(this, right),
-        new BinaryOperationEvaluator<Primitive, Primitive, Primitive>(BasicArithmeticOperators.<Primitive>forAdditionWithSame()));
+    return new Matrix4(ImmutableList.<Expression>of(this, right), NodeType.ADD);
   }
 
   @Override
@@ -236,16 +221,12 @@ public final class Matrix4
 
   @Override
   public Matrix4 sub(Real right) {
-    return new Matrix4(
-        ImmutableList.<Expression>of(this, right),
-        new BinaryOperationEvaluator<Primitive, Float, Primitive>(BasicArithmeticOperators.<Primitive>forSubtractionWithFloat()));
+    return new Matrix4(ImmutableList.<Expression>of(this, right), NodeType.SUB);
   }
 
   @Override
   public Matrix4 sub(Matrix4 right) {
-    return new Matrix4(
-        ImmutableList.<Expression>of(this, right),
-        new BinaryOperationEvaluator<Primitive, Primitive, Primitive>(BasicArithmeticOperators.<Primitive>forSubtractionWithSame()));
+    return new Matrix4(ImmutableList.<Expression>of(this, right), NodeType.SUB);
   }
 
   @Override
@@ -255,16 +236,12 @@ public final class Matrix4
 
   @Override
   public Matrix4 mul(Real right) {
-    return new Matrix4(
-        ImmutableList.<Expression>of(this, right),
-        new BinaryOperationEvaluator<Primitive, Float, Primitive>(BasicArithmeticOperators.<Primitive>forMultiplicationWithFloat()));
+    return new Matrix4(ImmutableList.<Expression>of(this, right), NodeType.MUL);
   }
 
   @Override
   public Matrix4 mul(Matrix4 right) {
-    return new Matrix4(
-        ImmutableList.<Expression>of(this, right),
-        new BinaryOperationEvaluator<Primitive, Primitive, Primitive>(BasicArithmeticOperators.<Primitive>forMultiplicationWithSame()));
+    return new Matrix4(ImmutableList.<Expression>of(this, right), NodeType.MUL);
   }
 
   @Override
@@ -274,56 +251,37 @@ public final class Matrix4
 
   @Override
   public Matrix4 div(Real right) {
-    return new Matrix4(
-        ImmutableList.<Expression>of(this, right),
-        new BinaryOperationEvaluator<Primitive, Float, Primitive>(BasicArithmeticOperators.<Primitive>forDivisionWithFloat()));
+    return new Matrix4(ImmutableList.<Expression>of(this, right), NodeType.DIV);
   }
 
   @Override
   public Matrix4 div(Matrix4 right) {
-    return new Matrix4(
-        ImmutableList.<Expression>of(this, right),
-        new BinaryOperationEvaluator<Primitive, Primitive, Primitive>(BasicArithmeticOperators.<Primitive>forDivisionWithSame()));
+    return new Matrix4(ImmutableList.<Expression>of(this, right), NodeType.DIV);
   }
 
   @Override
   public Matrix4 neg() {
-    return new Matrix4(ImmutableList.<Expression>of(this), new NegationEvaluator<Primitive>());
+    return new Matrix4(ImmutableList.<Expression>of(this), NodeType.NEG);
   }
 
   @Override
   public Vector4 transform(Vector4 right) {
-    return new Vector4(
-        ImmutableList.<Expression>of(this, right),
-        new BinaryOperationEvaluator<Primitive, Vector4.Primitive, Vector4.Primitive>(BasicArithmeticOperators.forLinearTransform4()));
+    return new Vector4(ImmutableList.<Expression>of(this, right), NodeType.MUL);
   }
 
   @Override
   public Bool isEqual(Matrix4 right) {
-    return new Bool(
-        ImmutableList.<Expression>of(this, right),
-        new BinaryOperationEvaluator<SupportsBasicArithmetic, SupportsBasicArithmetic, Boolean>(
-            BooleanOperators.forEqualsObject()));
+    return new Bool(ImmutableList.<Expression>of(this, right), NodeType.EQ);
   }
 
   @Override
   public Bool isNotEqual(Matrix4 right) {
-    return new Bool(
-        ImmutableList.<Expression>of(this, right),
-        new BinaryOperationEvaluator<SupportsBasicArithmetic, SupportsBasicArithmetic, Boolean>(
-            BooleanOperators.forNotEqualsObject()));
+    return new Bool(ImmutableList.<Expression>of(this, right), NodeType.NEQ);
   }
 
   public Matrix4 matrixCompMult(Matrix4 right) {
     return new Matrix4(
         ImmutableList.<Expression>of(this, right),
-        new FunctionEvaluator<Primitive>(Type.MAT4_T, "matrixCompMult") {
-          @Override
-          public Primitive evaluate(Expression<Primitive> expression) {
-            Matrix4 left = (Matrix4)expression.getParents().get(0);
-            Matrix4 right = (Matrix4)expression.getParents().get(1);
-            return left.evaluate().matrixCompMult(right.evaluate());
-          }
-        });
+        NodeType.FunctionNodeType.forFunction("matrixCompMult"));
   }
 }

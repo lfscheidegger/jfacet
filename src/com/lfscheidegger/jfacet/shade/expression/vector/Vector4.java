@@ -1,14 +1,10 @@
 package com.lfscheidegger.jfacet.shade.expression.vector;
 
+import com.google.common.base.Optional;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableList;
-import com.lfscheidegger.jfacet.shade.GlSlType;
-import com.lfscheidegger.jfacet.shade.Type;
 import com.lfscheidegger.jfacet.shade.expression.*;
-import com.lfscheidegger.jfacet.shade.expression.evaluators.*;
-import com.lfscheidegger.jfacet.shade.expression.operators.BasicArithmeticOperators;
-import com.lfscheidegger.jfacet.shade.expression.operators.BooleanOperators;
-import com.lfscheidegger.jfacet.shade.expression.vector.swizzle.S;
+import com.lfscheidegger.jfacet.shade.expression.vector.swizzle.Swizzle;
 import com.lfscheidegger.jfacet.shade.expression.vector.swizzle.SupportsSwizzling4;
 import com.lfscheidegger.jfacet.utils.ArrayUtils;
 import com.lfscheidegger.jfacet.utils.StringUtils;
@@ -17,7 +13,7 @@ import com.lfscheidegger.jfacet.utils.SwizzleUtils;
 import java.util.Arrays;
 
 public final class Vector4 extends AbstractExpression<Vector4.Primitive>
-    implements VectorExpression<Vector4>, SupportsSwizzling4<Real, Vector2, Vector3, Vector4> {
+    implements VectorExpression<Vector4> {
 
   public static final class Primitive implements
       SupportsBasicArithmetic<Primitive>,
@@ -142,19 +138,19 @@ public final class Vector4 extends AbstractExpression<Vector4.Primitive>
 
 
     @Override
-    public Float swizzle(S.D41 value) {
+    public Float swizzle(Swizzle.D41 value) {
       return get(SwizzleUtils.getIndexForSwizzle(value.toString().charAt(0)));
     }
 
     @Override
-    public Vector2.Primitive swizzle(S.D42 value) {
+    public Vector2.Primitive swizzle(Swizzle.D42 value) {
       return new Vector2.Primitive(
           get(SwizzleUtils.getIndexForSwizzle(value.toString().charAt(0))),
           get(SwizzleUtils.getIndexForSwizzle(value.toString().charAt(1))));
     }
 
     @Override
-    public Vector3.Primitive swizzle(S.D43 value) {
+    public Vector3.Primitive swizzle(Swizzle.D43 value) {
       return new Vector3.Primitive(
           get(SwizzleUtils.getIndexForSwizzle(value.toString().charAt(0))),
           get(SwizzleUtils.getIndexForSwizzle(value.toString().charAt(1))),
@@ -162,7 +158,7 @@ public final class Vector4 extends AbstractExpression<Vector4.Primitive>
     }
 
     @Override
-    public Vector4.Primitive swizzle(S.D44 value) {
+    public Vector4.Primitive swizzle(Swizzle.D44 value) {
       return new Vector4.Primitive(
           get(SwizzleUtils.getIndexForSwizzle(value.toString().charAt(0))),
           get(SwizzleUtils.getIndexForSwizzle(value.toString().charAt(1))),
@@ -186,7 +182,7 @@ public final class Vector4 extends AbstractExpression<Vector4.Primitive>
 
     @Override
     public String toString() {
-      return StringUtils.toStringHelper(Type.VEC4_T)
+      return StringUtils.toStringHelper("vec4")
           .addValue(mValues[0])
           .addValue(mValues[1])
           .addValue(mValues[2])
@@ -195,31 +191,28 @@ public final class Vector4 extends AbstractExpression<Vector4.Primitive>
     }
   }
 
+  private Optional<Primitive> mPrimitive;
+
   public Vector4(float x, float y, float z, float w) {
-    this(ImmutableList.<Expression>of(), new ConstantEvaluator<Primitive>(new Primitive(x, y, z, w)));
+    super();
+    mPrimitive = Optional.of(new Primitive(x, y, z, w));
   }
 
   public Vector4(Real x, Real y, Real z, Real w) {
-    this(ImmutableList.<Expression>of(x, y, z, w), new ConstructorEvaluator<Primitive>());
+    super(ImmutableList.<Expression>of(x, y, z, w), NodeType.CONS);
+    mPrimitive = Optional.absent();
   }
 
-  public Vector4(ImmutableList<Expression> parents, Evaluator<Primitive> evaluator) {
-    this(GlSlType.DEFAULT_T, parents, evaluator);
-  }
-
-  public Vector4(GlSlType glSlType, Evaluator<Primitive> evaluator) {
-    this(glSlType, ImmutableList.<Expression>of(), evaluator);
-  }
-
-  private Vector4(GlSlType glSlType, ImmutableList<Expression> parents, Evaluator<Primitive> evaluator) {
-    super(Type.VEC4_T, glSlType, parents, evaluator);
+  public Vector4(ImmutableList<Expression> parents, NodeType nodeType) {
+    super(parents, nodeType);
+    mPrimitive = Optional.absent();
   }
 
   @Override
   public Vector4 getExpressionForTernaryOperator(Bool condition, Expression<Primitive> elseExpression) {
     return new Vector4(
         ImmutableList.<Expression>of(condition, this, elseExpression),
-        new TernaryOperationEvaluator<Primitive>());
+        NodeType.TERNARY);
   }
 
   public Real getX() {
@@ -241,7 +234,9 @@ public final class Vector4 extends AbstractExpression<Vector4.Primitive>
   @Override
   public Real get(int idx) {
     Preconditions.checkState(idx < 4);
-    return new Real(ImmutableList.<Expression>of(this), new ComponentEvaluator<Float>(idx));
+    return new Real(
+        ImmutableList.<Expression>of(this),
+        NodeType.ComponentNodeType.forComponent(idx));
   }
 
   @Override
@@ -251,16 +246,12 @@ public final class Vector4 extends AbstractExpression<Vector4.Primitive>
 
   @Override
   public Vector4 add(Real right) {
-    return new Vector4(
-        ImmutableList.<Expression>of(this, right),
-        new BinaryOperationEvaluator<Primitive, Float, Primitive>(BasicArithmeticOperators.<Primitive>forAdditionWithFloat()));
+    return new Vector4(ImmutableList.<Expression>of(this, right), NodeType.ADD);
   }
 
   @Override
   public Vector4 add(Vector4 right) {
-    return new Vector4(
-        ImmutableList.<Expression>of(this, right),
-        new BinaryOperationEvaluator<Primitive, Primitive, Primitive>(BasicArithmeticOperators.<Primitive>forAdditionWithSame()));
+    return new Vector4(ImmutableList.<Expression>of(this, right), NodeType.ADD);
   }
 
   @Override
@@ -270,17 +261,12 @@ public final class Vector4 extends AbstractExpression<Vector4.Primitive>
 
   @Override
   public Vector4 sub(Real right) {
-    return new Vector4(
-        ImmutableList.<Expression>of(this, right),
-        new BinaryOperationEvaluator<Primitive, Float, Primitive>(
-            BasicArithmeticOperators.<Primitive>forSubtractionWithFloat()));
+    return new Vector4(ImmutableList.<Expression>of(this, right), NodeType.SUB);
   }
 
   @Override
   public Vector4 sub(Vector4 right) {
-    return new Vector4(
-        ImmutableList.<Expression>of(this, right),
-        new BinaryOperationEvaluator<Primitive, Primitive, Primitive>(BasicArithmeticOperators.<Primitive>forSubtractionWithSame()));
+    return new Vector4(ImmutableList.<Expression>of(this, right), NodeType.SUB);
   }
 
   @Override
@@ -290,18 +276,12 @@ public final class Vector4 extends AbstractExpression<Vector4.Primitive>
 
   @Override
   public Vector4 mul(Real right) {
-    return new Vector4(
-        ImmutableList.<Expression>of(this, right),
-        new BinaryOperationEvaluator<Primitive, Float, Primitive>(
-            BasicArithmeticOperators.<Primitive>forMultiplicationWithFloat()));
+    return new Vector4(ImmutableList.<Expression>of(this, right), NodeType.MUL);
   }
 
   @Override
   public Vector4 mul(Vector4 right) {
-    return new Vector4(
-        ImmutableList.<Expression>of(this, right),
-        new BinaryOperationEvaluator<Primitive, Primitive, Primitive>(
-            BasicArithmeticOperators.<Primitive>forMultiplicationWithSame()));
+    return new Vector4(ImmutableList.<Expression>of(this, right), NodeType.MUL);
   }
 
   @Override
@@ -311,177 +291,87 @@ public final class Vector4 extends AbstractExpression<Vector4.Primitive>
 
   @Override
   public Vector4 div(Real right) {
-    return new Vector4(
-        ImmutableList.<Expression>of(this, right),
-        new BinaryOperationEvaluator<Primitive, Float, Primitive>(BasicArithmeticOperators.<Primitive>forDivisionWithFloat()));
+    return new Vector4(ImmutableList.<Expression>of(this, right), NodeType.DIV);
   }
 
   @Override
   public Vector4 div(Vector4 right) {
-    return new Vector4(
-        ImmutableList.<Expression>of(this, right),
-        new BinaryOperationEvaluator<Primitive, Primitive, Primitive>(BasicArithmeticOperators.<Primitive>forDivisionWithSame()));
+    return new Vector4(ImmutableList.<Expression>of(this, right), NodeType.DIV);
   }
 
   @Override
   public Vector4 neg() {
-    return new Vector4(
-        ImmutableList.<Expression>of(this),
-        new NegationEvaluator<Primitive>());
+    return new Vector4(ImmutableList.<Expression>of(this), NodeType.NEG);
   }
 
   @Override
   public Real dot(Vector4 right) {
-    return new Real(ImmutableList.<Expression>of(this, right), new FunctionEvaluator<Float>(Type.FLOAT_T, "dot") {
-      @Override
-      public Float evaluate(Expression expression) {
-        Vector4 left = (Vector4)expression.getParents().get(0);
-        Vector4 right = (Vector4)expression.getParents().get(1);
-
-        return left.evaluate().dot(right.evaluate());
-      }
-    });
+    return new Real(
+        ImmutableList.<Expression>of(this, right),
+        NodeType.FunctionNodeType.forFunction("dot"));
   }
 
   @Override
   public Vector4 normalize() {
     return new Vector4(
         ImmutableList.<Expression>of(this),
-        new FunctionEvaluator<Primitive>(Type.VEC4_T, "normalize") {
-          @Override
-          public Primitive evaluate(Expression expression) {
-            Vector4 parent = (Vector4)expression.getParents().get(0);
-            return parent.evaluate().normalize();
-          }
-        });
+        NodeType.FunctionNodeType.forFunction("normalize"));
   }
 
   @Override
   public Real length() {
     return new Real(
         ImmutableList.<Expression>of(this),
-        new FunctionEvaluator<Float>(Type.FLOAT_T, "length") {
-          @Override
-          public Float evaluate(Expression<Float> expression) {
-            Vector4 parent = (Vector4)expression.getParents().get(0);
-            return parent.evaluate().length();
-          }
-        });
+        NodeType.FunctionNodeType.forFunction("length"));
   }
 
   public BVector4 isLessThan(Vector4 right) {
     return new BVector4(
         ImmutableList.<Expression>of(this, right),
-        new FunctionEvaluator<BVector4.Primitive>(Type.BVEC4_T, "lessThan") {
-          @Override
-          public BVector4.Primitive evaluate(Expression<BVector4.Primitive> expression) {
-            Vector4 left = (Vector4)expression.getParents().get(0);
-            Vector4 right = (Vector4)expression.getParents().get(1);
-            return left.evaluate().isLessThan(right.evaluate());
-          }
-        });
+        NodeType.FunctionNodeType.forFunction("lessThan"));
   }
 
   public BVector4 isLessThanOrEqual(Vector4 right) {
     return new BVector4(
         ImmutableList.<Expression>of(this, right),
-        new FunctionEvaluator<BVector4.Primitive>(Type.BVEC4_T, "lessThanEqual") {
-          @Override
-          public BVector4.Primitive evaluate(Expression<BVector4.Primitive> expression) {
-            Vector4 left = (Vector4)expression.getParents().get(0);
-            Vector4 right = (Vector4)expression.getParents().get(1);
-            return left.evaluate().isLessThanOrEqual(right.evaluate());
-          }
-        });
+        NodeType.FunctionNodeType.forFunction("lessThanEqual"));
   }
 
 
   public BVector4 isGreaterThan(Vector4 right) {
     return new BVector4(
         ImmutableList.<Expression>of(this, right),
-        new FunctionEvaluator<BVector4.Primitive>(Type.BVEC4_T, "greaterThan") {
-          @Override
-          public BVector4.Primitive evaluate(Expression<BVector4.Primitive> expression) {
-            Vector4 left = (Vector4)expression.getParents().get(0);
-            Vector4 right = (Vector4)expression.getParents().get(1);
-            return left.evaluate().isGreaterThan(right.evaluate());
-          }
-        });
+        NodeType.FunctionNodeType.forFunction("greaterThan"));
   }
 
   public BVector4 isGreaterThanOrEqual(Vector4 right) {
     return new BVector4(
         ImmutableList.<Expression>of(this, right),
-        new FunctionEvaluator<BVector4.Primitive>(Type.BVEC4_T, "greaterThanEqual") {
-          @Override
-          public BVector4.Primitive evaluate(Expression<BVector4.Primitive> expression) {
-            Vector4 left = (Vector4)expression.getParents().get(0);
-            Vector4 right = (Vector4)expression.getParents().get(1);
-            return left.evaluate().isGreaterThanOrEqual(right.evaluate());
-          }
-        });
+        NodeType.FunctionNodeType.forFunction("greaterThanEqual"));
   }
 
   public BVector4 isEqualComponentwise(Vector4 right) {
     return new BVector4(
         ImmutableList.<Expression>of(this, right),
-        new FunctionEvaluator<BVector4.Primitive>(Type.BVEC4_T, "equal") {
-          @Override
-          public BVector4.Primitive evaluate(Expression<BVector4.Primitive> expression) {
-            Vector4 left = (Vector4)expression.getParents().get(0);
-            Vector4 right = (Vector4)expression.getParents().get(1);
-            return left.evaluate().isEqualComponentwise(right.evaluate());
-          }
-        });
+        NodeType.FunctionNodeType.forFunction("equal"));
   }
 
   public BVector4 isNotEqualComponentwise(Vector4 right) {
     return new BVector4(
         ImmutableList.<Expression>of(this, right),
-        new FunctionEvaluator<BVector4.Primitive>(Type.BVEC4_T, "notEqual") {
-          @Override
-          public BVector4.Primitive evaluate(Expression<BVector4.Primitive> expression) {
-            Vector4 left = (Vector4)expression.getParents().get(0);
-            Vector4 right = (Vector4)expression.getParents().get(1);
-            return left.evaluate().isNotEqualComponentwise(right.evaluate());
-          }
-        });
+        NodeType.FunctionNodeType.forFunction("notEqual"));
   }
 
   public Bool isEqual(Vector4 right) {
-    return new Bool(
-        ImmutableList.<Expression>of(this, right),
-        new BinaryOperationEvaluator(BooleanOperators.forEqualsObject()));
+    return new Bool(ImmutableList.<Expression>of(this, right), NodeType.EQ);
   }
 
   public Bool isNotEqual(Vector4 right) {
-    return new Bool(
-        ImmutableList.<Expression>of(this, right),
-        new BinaryOperationEvaluator(BooleanOperators.forNotEqualsObject()));
+    return new Bool(ImmutableList.<Expression>of(this, right), NodeType.NEQ);
   }
 
+  // TODO: swizzling
 
-  @Override
-  public Real swizzle(S.D41 value) {
-    return new Real(ImmutableList.<Expression>of(this), new SwizzleEvaluator<Float>(value, Type.FLOAT_T));
-  }
-
-  @Override
-  public Vector2 swizzle(S.D42 value) {
-    return new Vector2(ImmutableList.<Expression>of(this), new SwizzleEvaluator<Vector2.Primitive>(value, Type.VEC2_T));
-  }
-
-  @Override
-  public Vector3 swizzle(S.D43 value) {
-    return new Vector3(ImmutableList.<Expression>of(this), new SwizzleEvaluator<Vector3.Primitive>(value, Type.VEC3_T));
-  }
-
-  @Override
-  public Vector4 swizzle(S.D44 value) {
-    return new Vector4(ImmutableList.<Expression>of(this), new SwizzleEvaluator<Vector4.Primitive>(value, Type.VEC4_T));
-  }
-
-  @Override
   public Vector4 fill(Vector4 defaultExpression) {
     return this;
   }

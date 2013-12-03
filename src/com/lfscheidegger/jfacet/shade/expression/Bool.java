@@ -1,13 +1,7 @@
 package com.lfscheidegger.jfacet.shade.expression;
 
+import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableList;
-import com.lfscheidegger.jfacet.shade.GlSlType;
-import com.lfscheidegger.jfacet.shade.Type;
-import com.lfscheidegger.jfacet.shade.expression.evaluators.BinaryOperationEvaluator;
-import com.lfscheidegger.jfacet.shade.expression.evaluators.ConstantEvaluator;
-import com.lfscheidegger.jfacet.shade.expression.evaluators.Evaluator;
-import com.lfscheidegger.jfacet.shade.expression.evaluators.TernaryOperationEvaluator;
-import com.lfscheidegger.jfacet.shade.expression.operators.BooleanOperators;
 
 /**
  * {@code Expression} for boolean values
@@ -30,36 +24,27 @@ public final class Bool extends AbstractExpression<Boolean> {
     }
   }
 
+  private final Optional<Boolean> mPrimitive;
+
   public Bool(boolean c) {
-    this(new ConstantEvaluator<Boolean>(c));
+    super();
+    mPrimitive = Optional.of(c);
   }
 
-  public Bool(Evaluator<Boolean> evaluator) {
-    this(ImmutableList.<Expression>of(), evaluator);
-  }
-
-  public Bool(ImmutableList<Expression> parents, Evaluator<Boolean> evaluator) {
-    this(GlSlType.DEFAULT_T, parents, evaluator);
-  }
-
-  public Bool(GlSlType glSlType, Evaluator<Boolean> evaluator) {
-    this(glSlType, ImmutableList.<Expression>of(), evaluator);
-  }
-
-  public Bool(GlSlType glSlType, ImmutableList<Expression> parents, Evaluator<Boolean> evaluator) {
-    super(Type.BOOL_T, glSlType, parents, evaluator);
+  public Bool(ImmutableList<Expression> parents, NodeType nodeType) {
+    super(parents, nodeType);
+    mPrimitive = Optional.absent();
   }
 
   @Override
   public Bool getExpressionForTernaryOperator(Bool condition, Expression<Boolean> elseExpression) {
-    return new Bool(ImmutableList.<Expression>of(condition, this, elseExpression),
-        new TernaryOperationEvaluator<Boolean>());
+    return new Bool(
+        ImmutableList.<Expression>of(condition, this, elseExpression),
+        NodeType.TERNARY);
   }
 
   public Bool and(Bool right) {
-    return new Bool(
-        ImmutableList.<Expression>of(this, right),
-        new BinaryOperationEvaluator<Boolean, Boolean, Boolean>(BooleanOperators.forAnd()));
+    return new Bool(ImmutableList.<Expression>of(this, right), NodeType.AND);
   }
 
   public Bool and(boolean right) {
@@ -67,9 +52,7 @@ public final class Bool extends AbstractExpression<Boolean> {
   }
 
   public Bool or(Bool right) {
-    return new Bool(
-        ImmutableList.<Expression>of(this, right),
-        new BinaryOperationEvaluator<Boolean, Boolean, Boolean>(BooleanOperators.forOr()));
+    return new Bool(ImmutableList.<Expression>of(this, right), NodeType.OR);
   }
 
   public Bool or(boolean right) {
@@ -77,9 +60,7 @@ public final class Bool extends AbstractExpression<Boolean> {
   }
 
   public Bool xor(Bool right) {
-    return new Bool(
-        ImmutableList.<Expression>of(this, right),
-        new BinaryOperationEvaluator<Boolean, Boolean, Boolean>(BooleanOperators.forXor()));
+    return new Bool(ImmutableList.<Expression>of(this, right), NodeType.XOR);
   }
 
   public Bool xor(boolean right) {

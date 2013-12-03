@@ -1,14 +1,9 @@
 package com.lfscheidegger.jfacet.shade.expression.matrix;
 
+import com.google.common.base.Optional;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableList;
-import com.lfscheidegger.jfacet.shade.GlSlType;
-import com.lfscheidegger.jfacet.shade.Shade;
-import com.lfscheidegger.jfacet.shade.Type;
 import com.lfscheidegger.jfacet.shade.expression.*;
-import com.lfscheidegger.jfacet.shade.expression.evaluators.*;
-import com.lfscheidegger.jfacet.shade.expression.operators.BasicArithmeticOperators;
-import com.lfscheidegger.jfacet.shade.expression.operators.BooleanOperators;
 import com.lfscheidegger.jfacet.shade.expression.vector.Vector2;
 import com.lfscheidegger.jfacet.utils.ArrayUtils;
 import com.lfscheidegger.jfacet.utils.MatrixUtils;
@@ -136,40 +131,35 @@ public final class Matrix2
 
     @Override
     public String toString() {
-      return StringUtils.toStringHelper(Type.MAT2_T)
+      return StringUtils.toStringHelper("mat2")
           .addValue(new Vector2.Primitive(mValues[0], mValues[1]))
           .addValue(new Vector2.Primitive(mValues[2], mValues[3]))
           .toString();
     }
   }
 
+  private final Optional<Primitive> mPrimitive;
+
   public Matrix2() {
-    this(ImmutableList.<Expression>of(Shade.vec(1, 0), Shade.vec(0, 1)),
-        new ConstructorEvaluator<Primitive>());
+    super();
+    mPrimitive = Optional.of(new Primitive());
   }
 
   public Matrix2(Vector2 c0, Vector2 c1) {
-    this(ImmutableList.<Expression>of(c0, c1), new ConstructorEvaluator<Primitive>());
+    super(ImmutableList.<Expression>of(c0, c1), NodeType.CONS);
+    mPrimitive = Optional.absent();
   }
 
-  private Matrix2(ImmutableList<Expression> parents, Evaluator<Primitive> evaluator) {
-    this(GlSlType.DEFAULT_T, parents, evaluator);
-  }
-
-  public Matrix2(GlSlType glSlType, Evaluator<Primitive> evaluator) {
-    this(glSlType, ImmutableList.<Expression>of(), evaluator);
-  }
-
-  private Matrix2(GlSlType glSlType, ImmutableList<Expression> parents, Evaluator<Primitive> evaluator) {
-    super(Type.MAT2_T, glSlType,
-        parents, evaluator);
+  public Matrix2(ImmutableList<Expression> parents, NodeType nodeType) {
+    super(parents, nodeType);
+    mPrimitive = Optional.absent();
   }
 
   @Override
   public Matrix2 getExpressionForTernaryOperator(Bool condition, Expression<Primitive> elseExpression) {
     return new Matrix2(
         ImmutableList.<Expression>of(condition, this, elseExpression),
-        new TernaryOperationEvaluator<Primitive>());
+        NodeType.TERNARY);
   }
 
   public Vector2 getC0() {
@@ -183,7 +173,9 @@ public final class Matrix2
   @Override
   public Vector2 get(int idx) {
     Preconditions.checkState(idx < 2);
-    return new Vector2(ImmutableList.<Expression>of(this), new ComponentEvaluator<Vector2.Primitive>(idx));
+    return new Vector2(
+        ImmutableList.<Expression>of(this),
+        NodeType.ComponentNodeType.forComponent(idx));
   }
 
   @Override
@@ -193,16 +185,12 @@ public final class Matrix2
 
   @Override
   public Matrix2 add(Real right) {
-    return new Matrix2(
-        ImmutableList.<Expression>of(this, right),
-        new BinaryOperationEvaluator<Primitive, Float, Primitive>(BasicArithmeticOperators.<Primitive>forAdditionWithFloat()));
+    return new Matrix2(ImmutableList.<Expression>of(this, right), NodeType.ADD);
   }
 
   @Override
   public Matrix2 add(Matrix2 right) {
-    return new Matrix2(
-        ImmutableList.<Expression>of(this, right),
-        new BinaryOperationEvaluator<Primitive, Primitive, Primitive>(BasicArithmeticOperators.<Primitive>forAdditionWithSame()));
+    return new Matrix2(ImmutableList.<Expression>of(this, right), NodeType.ADD);
   }
 
   @Override
@@ -212,16 +200,12 @@ public final class Matrix2
 
   @Override
   public Matrix2 sub(Real right) {
-    return new Matrix2(
-        ImmutableList.<Expression>of(this, right),
-        new BinaryOperationEvaluator<Primitive, Float, Primitive>(BasicArithmeticOperators.<Primitive>forSubtractionWithFloat()));
+    return new Matrix2(ImmutableList.<Expression>of(this, right), NodeType.SUB);
   }
 
   @Override
   public Matrix2 sub(Matrix2 right) {
-    return new Matrix2(
-        ImmutableList.<Expression>of(this, right),
-        new BinaryOperationEvaluator<Primitive, Primitive, Primitive>(BasicArithmeticOperators.<Primitive>forSubtractionWithSame()));
+    return new Matrix2(ImmutableList.<Expression>of(this, right), NodeType.SUB);
   }
 
   @Override
@@ -231,16 +215,12 @@ public final class Matrix2
 
   @Override
   public Matrix2 mul(Real right) {
-    return new Matrix2(
-        ImmutableList.<Expression>of(this, right),
-        new BinaryOperationEvaluator<Primitive, Float, Primitive>(BasicArithmeticOperators.<Primitive>forMultiplicationWithFloat()));
+    return new Matrix2(ImmutableList.<Expression>of(this, right), NodeType.MUL);
   }
 
   @Override
   public Matrix2 mul(Matrix2 right) {
-    return new Matrix2(
-        ImmutableList.<Expression>of(this, right),
-        new BinaryOperationEvaluator<Primitive, Primitive, Primitive>(BasicArithmeticOperators.<Primitive>forMultiplicationWithSame()));
+    return new Matrix2(ImmutableList.<Expression>of(this, right), NodeType.MUL);
   }
 
   @Override
@@ -250,56 +230,37 @@ public final class Matrix2
 
   @Override
   public Matrix2 div(Real right) {
-    return new Matrix2(
-        ImmutableList.<Expression>of(this, right),
-        new BinaryOperationEvaluator<Primitive, Float, Primitive>(BasicArithmeticOperators.<Primitive>forDivisionWithFloat()));
+    return new Matrix2(ImmutableList.<Expression>of(this, right), NodeType.DIV);
   }
 
   @Override
   public Matrix2 div(Matrix2 right) {
-    return new Matrix2(
-        ImmutableList.<Expression>of(this, right),
-        new BinaryOperationEvaluator<Primitive, Primitive, Primitive>(BasicArithmeticOperators.<Primitive>forDivisionWithSame()));
+    return new Matrix2(ImmutableList.<Expression>of(this, right), NodeType.DIV);
   }
 
   @Override
   public Matrix2 neg() {
-    return new Matrix2(ImmutableList.<Expression>of(this), new NegationEvaluator<Primitive>());
+    return new Matrix2(ImmutableList.<Expression>of(this), NodeType.NEG);
   }
 
   @Override
   public Vector2 transform(Vector2 right) {
-    return new Vector2(
-        ImmutableList.<Expression>of(this, right),
-        new BinaryOperationEvaluator<Primitive, Vector2.Primitive, Vector2.Primitive>(BasicArithmeticOperators.forLinearTransform2()));
+    return new Vector2(ImmutableList.<Expression>of(this, right), NodeType.MUL);
   }
 
   @Override
   public Bool isEqual(Matrix2 right) {
-    return new Bool(
-        ImmutableList.<Expression>of(this, right),
-        new BinaryOperationEvaluator<SupportsBasicArithmetic, SupportsBasicArithmetic, Boolean>(
-            BooleanOperators.forEqualsObject()));
+    return new Bool(ImmutableList.<Expression>of(this, right), NodeType.EQ);
   }
 
   @Override
   public Bool isNotEqual(Matrix2 right) {
-    return new Bool(
-        ImmutableList.<Expression>of(this, right),
-        new BinaryOperationEvaluator<SupportsBasicArithmetic, SupportsBasicArithmetic, Boolean>(
-            BooleanOperators.forNotEqualsObject()));
+    return new Bool(ImmutableList.<Expression>of(this, right), NodeType.NEQ);
   }
 
   public Matrix2 matrixCompMult(Matrix2 right) {
     return new Matrix2(
         ImmutableList.<Expression>of(this, right),
-        new FunctionEvaluator<Primitive>(Type.MAT2_T, "matrixCompMult") {
-          @Override
-          public Primitive evaluate(Expression<Primitive> expression) {
-            Matrix2 left = (Matrix2)expression.getParents().get(0);
-            Matrix2 right = (Matrix2)expression.getParents().get(1);
-            return left.evaluate().matrixCompMult(right.evaluate());
-          }
-        });
+        NodeType.FunctionNodeType.forFunction("matrixCompMult"));
   }
 }

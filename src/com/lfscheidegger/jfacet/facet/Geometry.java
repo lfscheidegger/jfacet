@@ -1,9 +1,8 @@
 package com.lfscheidegger.jfacet.facet;
 
-import com.lfscheidegger.jfacet.shade.GlSlType;
+import com.lfscheidegger.jfacet.shade.GlSlQualifier;
 import com.lfscheidegger.jfacet.shade.expression.Expression;
 import com.lfscheidegger.jfacet.shade.expression.Real;
-import com.lfscheidegger.jfacet.shade.expression.evaluators.glsl.AttributeEvaluator;
 import com.lfscheidegger.jfacet.shade.expression.vector.Vector2;
 import com.lfscheidegger.jfacet.shade.expression.vector.Vector3;
 import com.lfscheidegger.jfacet.shade.expression.vector.Vector4;
@@ -136,13 +135,6 @@ public final class Geometry {
   }
 
   private Expression getExpressionForAttribBuffer(AttribBuffer attribBuffer, int dimension) {
-    switch(dimension) {
-      case 1: return new Real(GlSlType.ATTRIBUTE_T, new AttributeEvaluator<Float>(attribBuffer));
-      case 2: return new Vector2(GlSlType.ATTRIBUTE_T, new AttributeEvaluator<Vector2.Primitive>(attribBuffer));
-      case 3: return new Vector3(GlSlType.ATTRIBUTE_T, new AttributeEvaluator<Vector3.Primitive>(attribBuffer));
-      case 4: return new Vector4(GlSlType.ATTRIBUTE_T, new AttributeEvaluator<Vector4.Primitive>(attribBuffer));
-      default:
-        throw new RuntimeException("Unsupported dimension for attrib buffer: " + attribBuffer.getDimension());
-    }
+    throw new RuntimeException("Oops! Not implemented yet");
   }
 }

@@ -1,22 +1,11 @@
 package com.lfscheidegger.jfacet;
 
-import android.opengl.GLES20;
-import com.badlogic.gdx.backends.android.AndroidGL20;
 import com.google.common.collect.*;
-import com.lfscheidegger.jfacet.facet.AttribBuffer;
-import com.lfscheidegger.jfacet.shade.GlSlType;
 import com.lfscheidegger.jfacet.shade.Shade;
-import com.lfscheidegger.jfacet.shade.Type;
-import com.lfscheidegger.jfacet.shade.compiler.CompilationContext;
-import com.lfscheidegger.jfacet.shade.compiler.DefaultCompilationContext;
-import com.lfscheidegger.jfacet.shade.compiler.FragmentShaderCompiler;
-import com.lfscheidegger.jfacet.shade.compiler.VertexShaderCompiler;
 import com.lfscheidegger.jfacet.shade.expression.Expression;
-import com.lfscheidegger.jfacet.shade.expression.SamplerExpression;
 import com.lfscheidegger.jfacet.shade.expression.vector.Vector4;
 import com.lfscheidegger.jfacet.shade.expression.vector.VectorExpression;
 
-import java.util.HashSet;
 import java.util.Set;
 
 public final class Program {
@@ -160,7 +149,7 @@ public final class Program {
   }
 
   private Set<Expression> extractUniforms(Expression exp, Set<Expression> existing) {
-    /*if (exp.getGlSlType() == GlSlType.UNIFORM_T) {
+    /*if (exp.getGlSlType() == GlSlQualifier.UNIFORM_T) {
       existing.add(exp);
       return existing;
     }

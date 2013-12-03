@@ -1,45 +1,35 @@
 package com.lfscheidegger.jfacet.shade.expression;
 
+import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableList;
-import com.lfscheidegger.jfacet.shade.GlSlType;
-import com.lfscheidegger.jfacet.shade.Type;
-import com.lfscheidegger.jfacet.shade.expression.evaluators.*;
-import com.lfscheidegger.jfacet.shade.expression.operators.BooleanOperators;
-import com.lfscheidegger.jfacet.shade.expression.operators.RealOperators;
 
 /**
  * {code Expression} for floats
  */
 public final class Real extends AbstractExpression<Float> implements SupportsBasicArithmetic<Real> {
 
+  private final Optional<Float> mPrimitive;
+
   public Real(float c) {
-    this(ImmutableList.<Expression>of(), new ConstantEvaluator<Float>(c));
+    super();
+    mPrimitive = Optional.of(c);
   }
 
-  public Real(ImmutableList<Expression> parents, Evaluator<Float> evaluator) {
-    this(GlSlType.DEFAULT_T, parents, evaluator);
-  }
-
-  public Real(GlSlType glSlType, Evaluator<Float> evaluator) {
-    this(glSlType, ImmutableList.<Expression>of(), evaluator);
-  }
-
-  private Real(GlSlType glSlType, ImmutableList<Expression> parents, Evaluator<Float> evaluator) {
-    super(Type.FLOAT_T, glSlType, parents, evaluator);
+  public Real(ImmutableList<Expression> parents, NodeType nodeType) {
+    super(parents, nodeType);
+    mPrimitive = Optional.absent();
   }
 
   @Override
   public Real getExpressionForTernaryOperator(Bool condition, Expression<Float> elseExpression) {
     return new Real(
         ImmutableList.<Expression>of(condition, this, elseExpression),
-        new TernaryOperationEvaluator<Float>());
+        NodeType.TERNARY);
   }
 
   @Override
   public Real add(Real right) {
-    return new Real(
-        ImmutableList.<Expression>of(this, right),
-        new BinaryOperationEvaluator<Float, Float, Float>(RealOperators.forAddition()));
+    return new Real(ImmutableList.<Expression>of(this, right), NodeType.ADD);
   }
 
   @Override
@@ -49,9 +39,7 @@ public final class Real extends AbstractExpression<Float> implements SupportsBas
 
   @Override
   public Real sub(Real right) {
-    return new Real(
-        ImmutableList.<Expression>of(this, right),
-        new BinaryOperationEvaluator<Float, Float, Float>(RealOperators.forSubtraction()));
+    return new Real(ImmutableList.<Expression>of(this, right), NodeType.SUB);
   }
 
   @Override
@@ -61,9 +49,7 @@ public final class Real extends AbstractExpression<Float> implements SupportsBas
 
   @Override
   public Real mul(Real right) {
-    return new Real(
-        ImmutableList.<Expression>of(this, right),
-        new BinaryOperationEvaluator<Float, Float, Float>(RealOperators.forMultiplication()));
+    return new Real(ImmutableList.<Expression>of(this, right), NodeType.MUL);
   }
 
   @Override
@@ -73,9 +59,7 @@ public final class Real extends AbstractExpression<Float> implements SupportsBas
 
   @Override
   public Real div(Real right) {
-    return new Real(
-        ImmutableList.<Expression>of(this, right),
-        new BinaryOperationEvaluator<Float, Float, Float>(RealOperators.forDivision()));
+    return new Real(ImmutableList.<Expression>of(this, right), NodeType.DIV);
   }
 
   @Override
@@ -85,13 +69,11 @@ public final class Real extends AbstractExpression<Float> implements SupportsBas
 
   @Override
   public Real neg() {
-    return new Real(ImmutableList.<Expression>of(this), new NegationEvaluator<Float>());
+    return new Real(ImmutableList.<Expression>of(this), NodeType.NEG);
   }
 
   public Bool isGreaterThan(Real right) {
-    return new Bool(
-        ImmutableList.<Expression>of(this, right),
-        new BinaryOperationEvaluator<Float, Float, Boolean>(BooleanOperators.forGreaterThanReal()));
+    return new Bool(ImmutableList.<Expression>of(this, right), NodeType.GT);
   }
 
   public Bool isGreaterThan(float right) {
@@ -99,9 +81,7 @@ public final class Real extends AbstractExpression<Float> implements SupportsBas
   }
 
   public Bool isGreaterThanOrEqual(Real right) {
-    return new Bool(
-        ImmutableList.<Expression>of(this, right),
-        new BinaryOperationEvaluator<Float, Float, Boolean>(BooleanOperators.forGreaterThanOrEqualReal()));
+    return new Bool(ImmutableList.<Expression>of(this, right), NodeType.GEQ);
   }
 
   public Bool isGreaterThanOrEqual(float right) {
@@ -109,9 +89,7 @@ public final class Real extends AbstractExpression<Float> implements SupportsBas
   }
 
   public Bool isLessThan(Real right) {
-    return new Bool(
-        ImmutableList.<Expression>of(this, right),
-        new BinaryOperationEvaluator<Float, Float, Boolean>(BooleanOperators.forLessThanReal()));
+    return new Bool(ImmutableList.<Expression>of(this, right), NodeType.LT);
   }
 
   public Bool isLessThan(float right) {
@@ -119,9 +97,7 @@ public final class Real extends AbstractExpression<Float> implements SupportsBas
   }
 
   public Bool isLessThanOrEqual(Real right) {
-    return new Bool(
-        ImmutableList.<Expression>of(this, right),
-        new BinaryOperationEvaluator<Float, Float, Boolean>(BooleanOperators.forLessThanOrEqualReal()));
+    return new Bool(ImmutableList.<Expression>of(this, right), NodeType.LEQ);
   }
 
   public Bool isLessThanOrEqual(float right) {
@@ -129,9 +105,7 @@ public final class Real extends AbstractExpression<Float> implements SupportsBas
   }
 
   public Bool isEqual(Real right) {
-    return new Bool(
-        ImmutableList.<Expression>of(this, right),
-        new BinaryOperationEvaluator<Float, Float, Boolean>(BooleanOperators.forEqualsReal()));
+    return new Bool(ImmutableList.<Expression>of(this, right), NodeType.EQ);
   }
 
   public Bool isEqual(float right) {
@@ -139,9 +113,7 @@ public final class Real extends AbstractExpression<Float> implements SupportsBas
   }
 
   public Bool isNotEqual(Real right) {
-    return new Bool(
-        ImmutableList.<Expression>of(this, right),
-        new BinaryOperationEvaluator<Float, Float, Boolean>(BooleanOperators.forNotEqualsReal()));
+    return new Bool(ImmutableList.<Expression>of(this, right), NodeType.NEQ);
   }
 
   public Bool isNotEqual(float right) {

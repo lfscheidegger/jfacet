@@ -1,7 +1,5 @@
 package com.lfscheidegger.jfacet.utils;
 
-import com.lfscheidegger.jfacet.shade.Type;
-
 /**
  * Utilities for dealing with Strings
  */
@@ -32,11 +30,7 @@ public final class StringUtils {
     }
   }
 
-  public static StringHelper toStringHelper(Type type) {
-    return new StringHelper(type.toString());
-  }
-
-  public static String wrapFloat(float t) {
-    return Type.FLOAT_T + "(" + t + ")";
+  public static StringHelper toStringHelper(String type) {
+    return new StringHelper(type);
   }
 }
