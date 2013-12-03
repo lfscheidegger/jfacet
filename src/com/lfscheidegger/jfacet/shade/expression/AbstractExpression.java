@@ -16,24 +16,9 @@ public abstract class AbstractExpression<T> implements Expression<T> {
     mParents = ImmutableList.of();
   }
 
-  public AbstractExpression(GlSlQualifier glSlQualifier) {
-    mGlSlQualifier = Optional.of(glSlQualifier);
-    mNodeType = Optional.absent();
-    mParents = ImmutableList.of();
-  }
-
   public AbstractExpression(ImmutableList<Expression> parents, NodeType nodeType) {
     mGlSlQualifier = Optional.absent();
     mNodeType = Optional.of(nodeType);
-    mParents = parents;
-  }
-
-  private AbstractExpression(
-      Optional<GlSlQualifier> glSlQualifier,
-      Optional<NodeType> nodeType,
-      ImmutableList<Expression> parents) {
-    mGlSlQualifier = glSlQualifier;
-    mNodeType = nodeType;
     mParents = parents;
   }
 
