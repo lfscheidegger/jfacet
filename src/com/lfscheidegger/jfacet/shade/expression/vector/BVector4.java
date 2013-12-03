@@ -72,7 +72,7 @@ public final class BVector4 extends AbstractExpression<BVector4.Primitive> {
 
     @Override
     public String toString() {
-      return StringUtils.toStringHelper("vec4")
+      return StringUtils.toStringHelper("bvec4")
           .addValue(mValues[0])
           .addValue(mValues[1])
           .addValue(mValues[2])
