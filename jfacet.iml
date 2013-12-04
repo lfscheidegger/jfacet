@@ -39,6 +39,17 @@
         <SOURCES />
       </library>
     </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/third-party/jsr305-2.0.2.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="jar://$MODULE_DIR$/third-party/jsr305-2.0.2.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
     <orderEntry type="module-library" scope="TEST">
       <library>
         <CLASSES>
@@ -48,9 +59,8 @@
         <SOURCES />
       </library>
     </orderEntry>
-    <orderEntry type="jdk" jdkName="Android 4.1.2 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="jsr305-2.0.2" level="project" />
+    <orderEntry type="jdk" jdkName="Android 4.1.2 Platform" jdkType="Android SDK" />
   </component>
 </module>
 

@@ -2,6 +2,8 @@ package com.lfscheidegger.jfacet.shade.expression;
 
 import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableList;
+import com.lfscheidegger.jfacet.facet.AttribBuffer;
+import com.lfscheidegger.jfacet.shade.GlSlQualifier;
 
 /**
  * {code Expression} for floats
@@ -10,14 +12,24 @@ public final class Real extends AbstractExpression<Float> implements SupportsBas
 
   private final Optional<Float> mPrimitive;
 
+  private final Optional<AttribBuffer> mAttributeBuffer;
+
   public Real(float c) {
     super();
     mPrimitive = Optional.of(c);
+    mAttributeBuffer = Optional.absent();
   }
 
   public Real(ImmutableList<Expression> parents, NodeType nodeType) {
     super(parents, nodeType);
     mPrimitive = Optional.absent();
+    mAttributeBuffer = Optional.absent();
+  }
+
+  public Real(AttribBuffer attributeBuffer) {
+    super(GlSlQualifier.ATTRIBUTE_T);
+    mPrimitive = Optional.absent();
+    mAttributeBuffer = Optional.of(attributeBuffer);
   }
 
   @Override
