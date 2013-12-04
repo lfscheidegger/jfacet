@@ -3,6 +3,8 @@ package com.lfscheidegger.jfacet.shade.expression.vector;
 import com.google.common.base.Optional;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableList;
+import com.lfscheidegger.jfacet.facet.AttribBuffer;
+import com.lfscheidegger.jfacet.shade.GlSlQualifier;
 import com.lfscheidegger.jfacet.shade.expression.*;
 import com.lfscheidegger.jfacet.shade.expression.vector.swizzle.Swizzle;
 import com.lfscheidegger.jfacet.shade.expression.vector.swizzle.SupportsSwizzling3;
@@ -188,19 +190,30 @@ public final class Vector3 extends AbstractExpression<Vector3.Primitive>
 
   private final Optional<Primitive> mPrimitive;
 
+  private final Optional<AttribBuffer> mAttributeBuffer;
+
   public Vector3(float x, float y, float z) {
     super();
     mPrimitive = Optional.of(new Primitive(x, y, z));
+    mAttributeBuffer = Optional.absent();
   }
 
   public Vector3(Real x, Real y, Real z) {
     super(ImmutableList.<Expression>of(x, y, z), NodeType.CONS);
     mPrimitive = Optional.absent();
+    mAttributeBuffer = Optional.absent();
   }
 
   public Vector3(ImmutableList<Expression> parents, NodeType nodeType) {
     super(parents, nodeType);
     mPrimitive = Optional.absent();
+    mAttributeBuffer = Optional.absent();
+  }
+
+  public Vector3(AttribBuffer attributeBuffer) {
+    super(GlSlQualifier.ATTRIBUTE_T);
+    mPrimitive = Optional.absent();
+    mAttributeBuffer = Optional.of(attributeBuffer);
   }
 
   @Override

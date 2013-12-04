@@ -1,12 +1,12 @@
 package com.lfscheidegger.jfacet.facet;
 
-import com.lfscheidegger.jfacet.shade.GlSlQualifier;
+import com.google.common.base.Preconditions;
 import com.lfscheidegger.jfacet.shade.expression.Expression;
-import com.lfscheidegger.jfacet.shade.expression.Real;
 import com.lfscheidegger.jfacet.shade.expression.vector.Vector2;
 import com.lfscheidegger.jfacet.shade.expression.vector.Vector3;
 import com.lfscheidegger.jfacet.shade.expression.vector.Vector4;
 
+import javax.annotation.Nullable;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -16,9 +16,9 @@ public final class Geometry {
   private final AttribBuffer mVertices;
   private final Map<String, AttribBuffer> mAttribBufferMap;
 
-  private AttribBuffer mColors;
-  private AttribBuffer mTexCoords;
-  private AttribBuffer mNormals;
+  private @Nullable AttribBuffer mColors;
+  private @Nullable AttribBuffer mTexCoords;
+  private @Nullable AttribBuffer mNormals;
 
   public Geometry(int[] indices, float[] vertices, int vertexDimension) {
     mIndices = new IndexBuffer(indices);
@@ -55,86 +55,97 @@ public final class Geometry {
   }
 
   public AttribBuffer getColorBuffer() {
-    return mColors;
+    return Preconditions.checkNotNull(mColors);
   }
 
   public AttribBuffer getTexCoordBuffer() {
-    return mTexCoords;
+    return Preconditions.checkNotNull(mTexCoords);
   }
 
   public AttribBuffer getNormalBuffer() {
-    return mNormals;
+    return Preconditions.checkNotNull(mNormals);
   }
 
   public AttribBuffer getAttributeBuffer(String key) {
-    return mAttribBufferMap.get(key);
+    return Preconditions.checkNotNull(mAttribBufferMap.get(key));
   }
 
   public Vector2 getVertices2() {
-    return (Vector2)getExpressionForAttribBuffer(mVertices, 2);
+    return new Vector2(mVertices);
   }
 
   public Vector3 getVertices3() {
-    return (Vector3)getExpressionForAttribBuffer(mVertices, 3);
+    return new Vector3(mVertices);
   }
 
   public Vector4 getVertices4() {
-    return (Vector4)getExpressionForAttribBuffer(mVertices, 4);
+    return new Vector4(mVertices);
   }
 
   public Vector2 getColors2() {
-    return (Vector2)getExpressionForAttribBuffer(mColors, 2);
+    Preconditions.checkNotNull(mColors);
+    return new Vector2(mColors);
   }
 
   public Vector3 getColors3() {
-    return (Vector3)getExpressionForAttribBuffer(mColors, 3);
+    Preconditions.checkNotNull(mColors);
+    return new Vector3(mColors);
   }
 
   public Vector4 getColors4() {
-    return (Vector4)getExpressionForAttribBuffer(mColors, 4);
+    Preconditions.checkNotNull(mColors);
+    return new Vector4(mColors);
   }
 
   public Vector2 getTexCoords2() {
-    return (Vector2)getExpressionForAttribBuffer(mTexCoords, 2);
+    Preconditions.checkNotNull(mTexCoords);
+    return new Vector2(mTexCoords);
   }
 
   public Vector3 getTexCoords3() {
-    return (Vector3)getExpressionForAttribBuffer(mTexCoords, 3);
+    Preconditions.checkNotNull(mTexCoords);
+    return new Vector3(mTexCoords);
   }
 
   public Vector4 getTexCoords4() {
-    return (Vector4)getExpressionForAttribBuffer(mTexCoords, 4);
+    Preconditions.checkNotNull(mTexCoords);
+    return new Vector4(mTexCoords);
   }
 
   public Vector2 getNormals2() {
-    return (Vector2)getExpressionForAttribBuffer(mNormals, 2);
+    Preconditions.checkNotNull(mNormals);
+    return new Vector2(mNormals);
   }
 
   public Vector3 getNormals3() {
-    return (Vector3)getExpressionForAttribBuffer(mNormals, 3);
+    Preconditions.checkNotNull(mNormals);
+    return new Vector3(mNormals);
   }
 
   public Vector4 getNormals4() {
-    return (Vector4)getExpressionForAttribBuffer(mNormals, 4);
+    Preconditions.checkNotNull(mNormals);
+    return new Vector4(mNormals);
   }
 
   public Vector2 getAttribute2(String key) {
-    return (Vector2)getExpressionForAttribBuffer(mAttribBufferMap.get(key), 2);
+    AttribBuffer attributeBuffer = mAttribBufferMap.get(key);
+    Preconditions.checkNotNull(attributeBuffer);
+    return new Vector2(attributeBuffer);
   }
 
   public Vector3 getAttribute3(String key) {
-    return (Vector3)getExpressionForAttribBuffer(mAttribBufferMap.get(key), 3);
+    AttribBuffer attributeBuffer = mAttribBufferMap.get(key);
+    Preconditions.checkNotNull(attributeBuffer);
+    return new Vector3(attributeBuffer);
   }
 
   public Vector4 getAttribute4(String key) {
-    return (Vector4)getExpressionForAttribBuffer(mAttribBufferMap.get(key), 4);
+    AttribBuffer attributeBuffer = mAttribBufferMap.get(key);
+    Preconditions.checkNotNull(attributeBuffer);
+    return new Vector4(attributeBuffer);
   }
 
   public Drawable bake(Expression vertexPosition, Expression fragmentColor) {
     return new Drawable(this, vertexPosition, fragmentColor);
-  }
-
-  private Expression getExpressionForAttribBuffer(AttribBuffer attribBuffer, int dimension) {
-    throw new RuntimeException("Oops! Not implemented yet");
   }
 }
