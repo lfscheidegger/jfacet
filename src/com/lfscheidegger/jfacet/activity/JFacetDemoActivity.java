@@ -31,11 +31,12 @@ public class JFacetDemoActivity extends Activity {
 
     int demo = getIntent().getIntExtra("lesson", -1);
     switch(demo) {
-      case 0: prepareLesson2(scene); break;
-      case 1: prepareLesson3(scene); break;
-      case 2: prepareLesson4(scene); break;
-      case 3: prepareLesson5(scene); break;
-      case 4: prepareLesson6(scene); break;
+      case 0: prepareLesson0(scene); break;
+      case 1: prepareLesson2(scene); break;
+      case 2: prepareLesson3(scene); break;
+      case 3: prepareLesson4(scene); break;
+      case 4: prepareLesson5(scene); break;
+      case 5: prepareLesson6(scene); break;
       //case 5: prepareLesson7(scene); break;
     }
 
@@ -52,6 +53,10 @@ public class JFacetDemoActivity extends Activity {
   public void onPause() {
     super.onPause();
     mView.onPause();
+  }
+
+  private void prepareLesson0(Scene scene) {
+
   }
 
   private void prepareLesson2(Scene scene) {
