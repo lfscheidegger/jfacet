@@ -13,7 +13,7 @@ import java.util.Arrays;
 
 public final class Matrix3
     extends AbstractExpression<Matrix3.Primitive>
-    implements MatrixExpression<Matrix3, Vector3> {
+    implements MatrixExpression<Matrix3, Matrix3.Primitive, Vector3> {
 
   public static final class Primitive implements SupportsBasicArithmetic<Primitive> {
 

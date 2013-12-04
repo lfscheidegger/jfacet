@@ -6,6 +6,7 @@ import com.lfscheidegger.jfacet.shade.expression.Real;
 import com.lfscheidegger.jfacet.shade.expression.vector.Vector2;
 import com.lfscheidegger.jfacet.shade.expression.vector.Vector3;
 import com.lfscheidegger.jfacet.shade.expression.vector.Vector4;
+import com.lfscheidegger.jfacet.shade.expression.vector.VectorExpression;
 
 import javax.annotation.Nullable;
 import java.util.HashMap;
@@ -209,7 +210,7 @@ public final class Geometry {
     return new Vector4(attributeBuffer);
   }
 
-  public Drawable bake(Expression vertexPosition, Expression fragmentColor) {
+  public Drawable bake(VectorExpression vertexPosition, VectorExpression fragmentColor) {
     return new Drawable(this, vertexPosition, fragmentColor);
   }
 }

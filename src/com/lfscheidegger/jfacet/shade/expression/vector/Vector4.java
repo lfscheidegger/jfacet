@@ -13,7 +13,7 @@ import com.lfscheidegger.jfacet.utils.SwizzleUtils;
 import java.util.Arrays;
 
 public final class Vector4 extends AbstractExpression<Vector4.Primitive>
-    implements VectorExpression<Vector4> {
+    implements VectorExpression<Vector4, Vector4.Primitive> {
 
   public static final class Primitive implements
       SupportsBasicArithmetic<Primitive> {

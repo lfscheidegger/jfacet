@@ -1,10 +1,12 @@
 package com.lfscheidegger.jfacet.shade.expression.matrix;
 
 import com.lfscheidegger.jfacet.shade.expression.Bool;
+import com.lfscheidegger.jfacet.shade.expression.Expression;
 import com.lfscheidegger.jfacet.shade.expression.Real;
 import com.lfscheidegger.jfacet.shade.expression.SupportsBasicArithmetic;
 
-public interface MatrixExpression<MATRIX_T, VECTOR_T> extends SupportsBasicArithmetic<MATRIX_T> {
+public interface MatrixExpression<MATRIX_T, PRIMITIVE_T, VECTOR_T>
+    extends SupportsBasicArithmetic<MATRIX_T>, Expression<PRIMITIVE_T> {
 
   public VECTOR_T get(int idx);
 

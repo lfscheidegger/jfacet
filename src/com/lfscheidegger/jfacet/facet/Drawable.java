@@ -4,20 +4,21 @@ import android.opengl.GLES20;
 import com.google.common.base.Preconditions;
 import com.lfscheidegger.jfacet.Program;
 import com.lfscheidegger.jfacet.shade.expression.Expression;
+import com.lfscheidegger.jfacet.shade.expression.vector.VectorExpression;
 
 public final class Drawable {
 
-  /*private final Geometry mGeometry;
+  private final Geometry mGeometry;
   private Program mProgram;
 
   private final Expression mPosition;
-  private final Expression mFragColor;*/
+  private final Expression mFragColor;
 
-  public Drawable(Geometry geometry, Expression position, Expression fragColor) {
-    /*mPosition = position;
+  public Drawable(Geometry geometry, VectorExpression position, VectorExpression fragColor) {
+    mPosition = position;
     mFragColor = fragColor;
 
-    mGeometry = geometry;*/
+    mGeometry = geometry;
   }
 
   public void bake() {
