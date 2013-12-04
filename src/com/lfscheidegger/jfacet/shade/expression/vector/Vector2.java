@@ -7,8 +7,6 @@ import com.google.common.collect.ImmutableList;
 import com.lfscheidegger.jfacet.facet.AttribBuffer;
 import com.lfscheidegger.jfacet.shade.GlSlQualifier;
 import com.lfscheidegger.jfacet.shade.expression.*;
-import com.lfscheidegger.jfacet.shade.expression.vector.swizzle.Swizzle;
-import com.lfscheidegger.jfacet.shade.expression.vector.swizzle.SupportsSwizzling2;
 import com.lfscheidegger.jfacet.utils.ArrayUtils;
 import com.lfscheidegger.jfacet.utils.StringUtils;
 import com.lfscheidegger.jfacet.utils.SwizzleUtils;
@@ -19,8 +17,7 @@ public final class Vector2 extends AbstractExpression<Vector2.Primitive>
     implements VectorExpression<Vector2> {
 
   public static final class Primitive implements
-      SupportsBasicArithmetic<Primitive>,
-      SupportsSwizzling2<Float, Vector2.Primitive, Vector3.Primitive, Vector4.Primitive> {
+      SupportsBasicArithmetic<Primitive> {
 
     private final float[] mValues;
 
@@ -123,35 +120,6 @@ public final class Vector2 extends AbstractExpression<Vector2.Primitive>
 
     public BVector2.Primitive isNotEqualComponentwise(Primitive right) {
       return new BVector2.Primitive(getX() != right.getX(), getY() != right.getY());
-    }
-
-    @Override
-    public Float swizzle(Swizzle.D21 value) {
-      return get(SwizzleUtils.getIndexForSwizzle(value.toString().charAt(0)));
-    }
-
-    @Override
-    public Vector2.Primitive swizzle(Swizzle.D22 value) {
-      return new Vector2.Primitive(
-          get(SwizzleUtils.getIndexForSwizzle(value.toString().charAt(0))),
-          get(SwizzleUtils.getIndexForSwizzle(value.toString().charAt(1))));
-    }
-
-    @Override
-    public Vector3.Primitive swizzle(Swizzle.D23 value) {
-      return new Vector3.Primitive(
-          get(SwizzleUtils.getIndexForSwizzle(value.toString().charAt(0))),
-          get(SwizzleUtils.getIndexForSwizzle(value.toString().charAt(1))),
-          get(SwizzleUtils.getIndexForSwizzle(value.toString().charAt(2))));
-    }
-
-    @Override
-    public Vector4.Primitive swizzle(Swizzle.D24 value) {
-      return new Vector4.Primitive(
-          get(SwizzleUtils.getIndexForSwizzle(value.toString().charAt(0))),
-          get(SwizzleUtils.getIndexForSwizzle(value.toString().charAt(1))),
-          get(SwizzleUtils.getIndexForSwizzle(value.toString().charAt(2))),
-          get(SwizzleUtils.getIndexForSwizzle(value.toString().charAt(3))));
     }
 
     @Override

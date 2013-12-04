@@ -1,6 +1,5 @@
 package com.lfscheidegger.jfacet.shade.expression.vector;
 
-import com.lfscheidegger.jfacet.shade.expression.vector.swizzle.Swizzle;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -132,16 +131,6 @@ public class Vector2PrimitiveTest {
     BVector2.Primitive notEqualComponentwise = vec.isNotEqualComponentwise(new Vector2.Primitive(1, 1));
     assertFalse(notEqualComponentwise.getX());
     assertTrue(notEqualComponentwise.getY());
-  }
-
-  @Test
-  public void testSwizzle() {
-    assertTrue(vec.swizzle(Swizzle.D21.X) == 1);
-    assertTrue(vec.swizzle(Swizzle.D21.Y) == 2);
-
-    assertEquals(vec.swizzle(Swizzle.D22.XX), new Vector2.Primitive(1, 1));
-    assertEquals(vec.swizzle(Swizzle.D23.XXX), new Vector3.Primitive(1, 1, 1));
-    assertEquals(vec.swizzle(Swizzle.D24.XXXX), new Vector4.Primitive(1, 1, 1, 1));
   }
 
   @Test
