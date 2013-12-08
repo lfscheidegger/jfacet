@@ -75,6 +75,23 @@ public interface Expression<T> {
       }
     }
 
+    public static final class SwizzleNodeType implements NodeType {
+
+      private final String mSwizzleString;
+
+      SwizzleNodeType(String swizzleString) {
+        mSwizzleString = swizzleString;
+      }
+
+      public static NodeType forSwizzle(String swizzleString) {
+        return new SwizzleNodeType(swizzleString);
+      }
+
+      public String getSwizzleString() {
+        return mSwizzleString;
+      }
+    }
+
     /**
      * Used for constructor expressions, where the parents are the components of a compound
      * expression (a vector or matrix)

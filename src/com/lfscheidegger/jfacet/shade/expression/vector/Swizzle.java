@@ -1,0 +1,592 @@
+package com.lfscheidegger.jfacet.shade.expression.vector;
+
+import com.google.common.collect.ImmutableList;
+import com.lfscheidegger.jfacet.shade.expression.Bool;
+import com.lfscheidegger.jfacet.shade.expression.Expression;
+import com.lfscheidegger.jfacet.shade.expression.Real;
+import com.lfscheidegger.jfacet.utils.SwizzleUtils;
+
+public class Swizzle {
+
+  private Swizzle() {}
+
+  private static Object getInstance(Object parent, String swizzleString) {
+    if (parent instanceof Expression) {
+      ImmutableList<Expression> parents = ImmutableList.of((Expression) parent);
+      Expression.NodeType nodeType = Expression.NodeType.SwizzleNodeType.forSwizzle(swizzleString);
+      if (parent instanceof Vector2 || parent instanceof Vector3 || parent instanceof Vector4) {
+        switch(swizzleString.length()) {
+          case 1: return new Real(parents, nodeType);
+          case 2: return new Vector2(parents, nodeType);
+          case 3: return new Vector3(parents, nodeType);
+          case 4: return new Vector4(parents, nodeType);
+        }
+      } else if (
+          parent instanceof BVector2 ||
+          parent instanceof BVector3 ||
+          parent instanceof BVector4) {
+        switch(swizzleString.length()) {
+          case 1: return new Bool(parents, nodeType);
+          case 2: return new BVector2(parents, nodeType);
+          case 3: return new BVector3(parents, nodeType);
+          case 4: return new BVector4(parents, nodeType);
+        }
+      }
+    } else if (parent instanceof BVectorPrimitive) {
+      BVectorPrimitive vec = (BVectorPrimitive) parent;
+      switch(swizzleString.length()) {
+        case 1: return vec.get(SwizzleUtils.getIndexForSwizzle(swizzleString.charAt(0)));
+        case 2: return new BVector2.Primitive(
+            vec.get(SwizzleUtils.getIndexForSwizzle(swizzleString.charAt(0))),
+            vec.get(SwizzleUtils.getIndexForSwizzle(swizzleString.charAt(1))));
+        case 3: return new BVector3.Primitive(
+            vec.get(SwizzleUtils.getIndexForSwizzle(swizzleString.charAt(0))),
+            vec.get(SwizzleUtils.getIndexForSwizzle(swizzleString.charAt(1))),
+            vec.get(SwizzleUtils.getIndexForSwizzle(swizzleString.charAt(2))));
+        case 4: return new BVector4.Primitive(
+            vec.get(SwizzleUtils.getIndexForSwizzle(swizzleString.charAt(0))),
+            vec.get(SwizzleUtils.getIndexForSwizzle(swizzleString.charAt(1))),
+            vec.get(SwizzleUtils.getIndexForSwizzle(swizzleString.charAt(2))),
+            vec.get(SwizzleUtils.getIndexForSwizzle(swizzleString.charAt(3))));
+      }
+    } else if (parent instanceof VectorPrimitive) {
+      VectorPrimitive vec = (VectorPrimitive) parent;
+      switch(swizzleString.length()) {
+        case 1: return vec.get(SwizzleUtils.getIndexForSwizzle(swizzleString.charAt(0)));
+        case 2: return new Vector2.Primitive(
+            vec.get(SwizzleUtils.getIndexForSwizzle(swizzleString.charAt(0))),
+            vec.get(SwizzleUtils.getIndexForSwizzle(swizzleString.charAt(1))));
+        case 3: return new Vector3.Primitive(
+            vec.get(SwizzleUtils.getIndexForSwizzle(swizzleString.charAt(0))),
+            vec.get(SwizzleUtils.getIndexForSwizzle(swizzleString.charAt(1))),
+            vec.get(SwizzleUtils.getIndexForSwizzle(swizzleString.charAt(2))));
+        case 4: return new Vector4.Primitive(
+            vec.get(SwizzleUtils.getIndexForSwizzle(swizzleString.charAt(0))),
+            vec.get(SwizzleUtils.getIndexForSwizzle(swizzleString.charAt(1))),
+            vec.get(SwizzleUtils.getIndexForSwizzle(swizzleString.charAt(2))),
+            vec.get(SwizzleUtils.getIndexForSwizzle(swizzleString.charAt(3))));
+      }
+    }
+
+    throw new IllegalArgumentException("Can't swizzle object of type " + parent.getClass());
+  }
+
+  public static class Swizzle20<REAL_T, VEC2_T, VEC3_T, VEC4_T> {
+    private final Object mVector;
+    public Swizzle20(Object vector ) {
+      mVector = vector;
+    }
+    public Swizzle21XYZW<REAL_T, VEC2_T, VEC3_T, VEC4_T> x() {
+      return new Swizzle21XYZW<REAL_T, VEC2_T, VEC3_T, VEC4_T>("x", mVector);
+    }
+    public Swizzle21XYZW<REAL_T, VEC2_T, VEC3_T, VEC4_T> y() {
+      return new Swizzle21XYZW<REAL_T, VEC2_T, VEC3_T, VEC4_T>("y", mVector);
+    }
+    public Swizzle21RGBA<REAL_T, VEC2_T, VEC3_T, VEC4_T> r() {
+      return new Swizzle21RGBA<REAL_T, VEC2_T, VEC3_T, VEC4_T>("r", mVector);
+    }
+    public Swizzle21RGBA<REAL_T, VEC2_T, VEC3_T, VEC4_T> g() {
+      return new Swizzle21RGBA<REAL_T, VEC2_T, VEC3_T, VEC4_T>("g", mVector);
+    }
+    public Swizzle21STPQ<REAL_T, VEC2_T, VEC3_T, VEC4_T> s() {
+      return new Swizzle21STPQ<REAL_T, VEC2_T, VEC3_T, VEC4_T>("s", mVector);
+    }
+    public Swizzle21STPQ<REAL_T, VEC2_T, VEC3_T, VEC4_T> t() {
+      return new Swizzle21STPQ<REAL_T, VEC2_T, VEC3_T, VEC4_T>("t", mVector);
+    }
+  }
+  public static class Swizzle21XYZW<REAL_T, VEC2_T, VEC3_T, VEC4_T> {
+    private final Object mVector;
+    private final String mSwizzleString;
+    public Swizzle21XYZW(String swizzleString, Object vector ) {
+      mVector = vector;
+      mSwizzleString = swizzleString;
+    }
+    public Swizzle22XYZW<VEC2_T, VEC3_T, VEC4_T> x() {
+      return new Swizzle22XYZW<VEC2_T, VEC3_T, VEC4_T>(mSwizzleString + "x", mVector);
+    }
+    public Swizzle22XYZW<VEC2_T, VEC3_T, VEC4_T> y() {
+      return new Swizzle22XYZW<VEC2_T, VEC3_T, VEC4_T>(mSwizzleString + "y", mVector);
+    }
+    @SuppressWarnings("all")
+    public REAL_T build() {
+      return (REAL_T)getInstance(mVector, mSwizzleString);
+    }
+  }
+  public static class Swizzle22XYZW<VEC2_T, VEC3_T, VEC4_T> {
+    private final Object mVector;
+    private final String mSwizzleString;
+    public Swizzle22XYZW(String swizzleString, Object vector ) {
+      mVector = vector;
+      mSwizzleString = swizzleString;
+    }
+    public Swizzle23XYZW<VEC3_T, VEC4_T> x() {
+      return new Swizzle23XYZW<VEC3_T, VEC4_T>(mSwizzleString + "x", mVector);
+    }
+    public Swizzle23XYZW<VEC3_T, VEC4_T> y() {
+      return new Swizzle23XYZW<VEC3_T, VEC4_T>(mSwizzleString + "y", mVector);
+    }
+    @SuppressWarnings("all")
+    public VEC2_T build() {
+      return (VEC2_T)getInstance(mVector, mSwizzleString);
+    }
+  }
+  public static class Swizzle23XYZW<VEC3_T, VEC4_T> {
+    private final Object mVector;
+    private final String mSwizzleString;
+    public Swizzle23XYZW(String swizzleString, Object vector ) {
+      mVector = vector;
+      mSwizzleString = swizzleString;
+    }
+    public Swizzle4<VEC4_T> x() {
+      return new Swizzle4<VEC4_T>(mSwizzleString + "x", mVector);
+    }
+    public Swizzle4<VEC4_T> y() {
+      return new Swizzle4<VEC4_T>(mSwizzleString + "y", mVector);
+    }
+    @SuppressWarnings("all")
+    public VEC3_T build() {
+      return (VEC3_T)getInstance(mVector, mSwizzleString);
+    }
+  }
+  public static class Swizzle30<REAL_T, VEC2_T, VEC3_T, VEC4_T> extends Swizzle20<REAL_T, VEC2_T, VEC3_T, VEC4_T> {
+    private final Object mVector;
+    public Swizzle30(Object vector ) {
+      super(vector);
+      mVector = vector;
+    }
+    public Swizzle31XYZW<REAL_T, VEC2_T, VEC3_T, VEC4_T> z() {
+      return new Swizzle31XYZW<REAL_T, VEC2_T, VEC3_T, VEC4_T>("z", mVector);
+    }
+    public Swizzle31RGBA<REAL_T, VEC2_T, VEC3_T, VEC4_T> b() {
+      return new Swizzle31RGBA<REAL_T, VEC2_T, VEC3_T, VEC4_T>("b", mVector);
+    }
+    public Swizzle31STPQ<REAL_T, VEC2_T, VEC3_T, VEC4_T> p() {
+      return new Swizzle31STPQ<REAL_T, VEC2_T, VEC3_T, VEC4_T>("p", mVector);
+    }
+  }
+  public static class Swizzle31XYZW<REAL_T, VEC2_T, VEC3_T, VEC4_T> extends Swizzle21XYZW<REAL_T, VEC2_T, VEC3_T, VEC4_T> {
+    private final Object mVector;
+    private final String mSwizzleString;
+    public Swizzle31XYZW(String swizzleString, Object vector ) {
+      super(swizzleString, vector);
+      mVector = vector;
+      mSwizzleString = swizzleString;
+    }
+    public Swizzle32XYZW<VEC2_T, VEC3_T, VEC4_T> z() {
+      return new Swizzle32XYZW<VEC2_T, VEC3_T, VEC4_T>(mSwizzleString + "z", mVector);
+    }
+    @SuppressWarnings("all")
+    public REAL_T build() {
+      return (REAL_T)getInstance(mVector, mSwizzleString);
+    }
+  }
+  public static class Swizzle32XYZW<VEC2_T, VEC3_T, VEC4_T> extends Swizzle22XYZW<VEC2_T, VEC3_T, VEC4_T> {
+    private final Object mVector;
+    private final String mSwizzleString;
+    public Swizzle32XYZW(String swizzleString, Object vector ) {
+      super(swizzleString, vector);
+      mVector = vector;
+      mSwizzleString = swizzleString;
+    }
+    public Swizzle33XYZW<VEC3_T, VEC4_T> z() {
+      return new Swizzle33XYZW<VEC3_T, VEC4_T>(mSwizzleString + "z", mVector);
+    }
+    @SuppressWarnings("all")
+    public VEC2_T build() {
+      return (VEC2_T)getInstance(mVector, mSwizzleString);
+    }
+  }
+  public static class Swizzle33XYZW<VEC3_T, VEC4_T> extends Swizzle23XYZW<VEC3_T, VEC4_T> {
+    private final Object mVector;
+    private final String mSwizzleString;
+    public Swizzle33XYZW(String swizzleString, Object vector ) {
+      super(swizzleString, vector);
+      mVector = vector;
+      mSwizzleString = swizzleString;
+    }
+    public Swizzle4<VEC4_T> z() {
+      return new Swizzle4<VEC4_T>(mSwizzleString + "z", mVector);
+    }
+    @SuppressWarnings("all")
+    public VEC3_T build() {
+      return (VEC3_T)getInstance(mVector, mSwizzleString);
+    }
+  }
+  public static class Swizzle40<REAL_T, VEC2_T, VEC3_T, VEC4_T> extends Swizzle30<REAL_T, VEC2_T, VEC3_T, VEC4_T> {
+    private final Object mVector;
+    public Swizzle40(Object vector ) {
+      super(vector);
+      mVector = vector;
+    }
+    public Swizzle41XYZW<REAL_T, VEC2_T, VEC3_T, VEC4_T> w() {
+      return new Swizzle41XYZW<REAL_T, VEC2_T, VEC3_T, VEC4_T>("w", mVector);
+    }
+    public Swizzle41RGBA<REAL_T, VEC2_T, VEC3_T, VEC4_T> a() {
+      return new Swizzle41RGBA<REAL_T, VEC2_T, VEC3_T, VEC4_T>("a", mVector);
+    }
+    public Swizzle41STPQ<REAL_T, VEC2_T, VEC3_T, VEC4_T> q() {
+      return new Swizzle41STPQ<REAL_T, VEC2_T, VEC3_T, VEC4_T>("q", mVector);
+    }
+  }
+  public static class Swizzle41XYZW<REAL_T, VEC2_T, VEC3_T, VEC4_T> extends Swizzle31XYZW<REAL_T, VEC2_T, VEC3_T, VEC4_T> {
+    private final Object mVector;
+    private final String mSwizzleString;
+    public Swizzle41XYZW(String swizzleString, Object vector ) {
+      super(swizzleString, vector);
+      mVector = vector;
+      mSwizzleString = swizzleString;
+    }
+    public Swizzle42XYZW<VEC2_T, VEC3_T, VEC4_T> w() {
+      return new Swizzle42XYZW<VEC2_T, VEC3_T, VEC4_T>(mSwizzleString + "w", mVector);
+    }
+    @SuppressWarnings("all")
+    public REAL_T build() {
+      return (REAL_T)getInstance(mVector, mSwizzleString);
+    }
+  }
+  public static class Swizzle42XYZW<VEC2_T, VEC3_T, VEC4_T> extends Swizzle32XYZW<VEC2_T, VEC3_T, VEC4_T> {
+    private final Object mVector;
+    private final String mSwizzleString;
+    public Swizzle42XYZW(String swizzleString, Object vector ) {
+      super(swizzleString, vector);
+      mVector = vector;
+      mSwizzleString = swizzleString;
+    }
+    public Swizzle43XYZW<VEC3_T, VEC4_T> w() {
+      return new Swizzle43XYZW<VEC3_T, VEC4_T>(mSwizzleString + "w", mVector);
+    }
+    @SuppressWarnings("all")
+    public VEC2_T build() {
+      return (VEC2_T)getInstance(mVector, mSwizzleString);
+    }
+  }
+  public static class Swizzle43XYZW<VEC3_T, VEC4_T> extends Swizzle33XYZW<VEC3_T, VEC4_T> {
+    private final Object mVector;
+    private final String mSwizzleString;
+    public Swizzle43XYZW(String swizzleString, Object vector ) {
+      super(swizzleString, vector);
+      mVector = vector;
+      mSwizzleString = swizzleString;
+    }
+    public Swizzle4<VEC4_T> w() {
+      return new Swizzle4<VEC4_T>(mSwizzleString + "w", mVector);
+    }
+    @SuppressWarnings("all")
+    public VEC3_T build() {
+      return (VEC3_T)getInstance(mVector, mSwizzleString);
+    }
+  }
+  public static class Swizzle4<VEC4_T> {
+    private final Object mVector;
+    private final String mSwizzleString;
+    public Swizzle4(String swizzleString, Object vector ) {
+      mVector = vector;
+      mSwizzleString = swizzleString;
+    }
+    @SuppressWarnings("all")
+    public VEC4_T build() {
+      return (VEC4_T)getInstance(mVector, mSwizzleString);
+    }
+  }
+  public static class Swizzle21RGBA<REAL_T, VEC2_T, VEC3_T, VEC4_T> {
+    private final Object mVector;
+    private final String mSwizzleString;
+    public Swizzle21RGBA(String swizzleString, Object vector ) {
+      mVector = vector;
+      mSwizzleString = swizzleString;
+    }
+    public Swizzle22RGBA<VEC2_T, VEC3_T, VEC4_T> r() {
+      return new Swizzle22RGBA<VEC2_T, VEC3_T, VEC4_T>(mSwizzleString + "r", mVector);
+    }
+    public Swizzle22RGBA<VEC2_T, VEC3_T, VEC4_T> g() {
+      return new Swizzle22RGBA<VEC2_T, VEC3_T, VEC4_T>(mSwizzleString + "g", mVector);
+    }
+    @SuppressWarnings("all")
+    public REAL_T build() {
+      return (REAL_T)getInstance(mVector, mSwizzleString);
+    }
+  }
+  public static class Swizzle22RGBA<VEC2_T, VEC3_T, VEC4_T> {
+    private final Object mVector;
+    private final String mSwizzleString;
+    public Swizzle22RGBA(String swizzleString, Object vector ) {
+      mVector = vector;
+      mSwizzleString = swizzleString;
+    }
+    public Swizzle23RGBA<VEC3_T, VEC4_T> r() {
+      return new Swizzle23RGBA<VEC3_T, VEC4_T>(mSwizzleString + "r", mVector);
+    }
+    public Swizzle23RGBA<VEC3_T, VEC4_T> g() {
+      return new Swizzle23RGBA<VEC3_T, VEC4_T>(mSwizzleString + "g", mVector);
+    }
+    @SuppressWarnings("all")
+    public VEC2_T build() {
+      return (VEC2_T)getInstance(mVector, mSwizzleString);
+    }
+  }
+  public static class Swizzle23RGBA<VEC3_T, VEC4_T> {
+    private final Object mVector;
+    private final String mSwizzleString;
+    public Swizzle23RGBA(String swizzleString, Object vector ) {
+      mVector = vector;
+      mSwizzleString = swizzleString;
+    }
+    public Swizzle4<VEC4_T> r() {
+      return new Swizzle4<VEC4_T>(mSwizzleString + "r", mVector);
+    }
+    public Swizzle4<VEC4_T> g() {
+      return new Swizzle4<VEC4_T>(mSwizzleString + "g", mVector);
+    }
+    @SuppressWarnings("all")
+    public VEC3_T build() {
+      return (VEC3_T)getInstance(mVector, mSwizzleString);
+    }
+  }
+  public static class Swizzle31RGBA<REAL_T, VEC2_T, VEC3_T, VEC4_T> extends Swizzle21RGBA<REAL_T, VEC2_T, VEC3_T, VEC4_T> {
+    private final Object mVector;
+    private final String mSwizzleString;
+    public Swizzle31RGBA(String swizzleString, Object vector ) {
+      super(swizzleString, vector);
+      mVector = vector;
+      mSwizzleString = swizzleString;
+    }
+    public Swizzle32RGBA<VEC2_T, VEC3_T, VEC4_T> b() {
+      return new Swizzle32RGBA<VEC2_T, VEC3_T, VEC4_T>(mSwizzleString + "b", mVector);
+    }
+    @SuppressWarnings("all")
+    public REAL_T build() {
+      return (REAL_T)getInstance(mVector, mSwizzleString);
+    }
+  }
+  public static class Swizzle32RGBA<VEC2_T, VEC3_T, VEC4_T> extends Swizzle22RGBA<VEC2_T, VEC3_T, VEC4_T> {
+    private final Object mVector;
+    private final String mSwizzleString;
+    public Swizzle32RGBA(String swizzleString, Object vector ) {
+      super(swizzleString, vector);
+      mVector = vector;
+      mSwizzleString = swizzleString;
+    }
+    public Swizzle33RGBA<VEC3_T, VEC4_T> b() {
+      return new Swizzle33RGBA<VEC3_T, VEC4_T>(mSwizzleString + "b", mVector);
+    }
+    @SuppressWarnings("all")
+    public VEC2_T build() {
+      return (VEC2_T)getInstance(mVector, mSwizzleString);
+    }
+  }
+  public static class Swizzle33RGBA<VEC3_T, VEC4_T> extends Swizzle23RGBA<VEC3_T, VEC4_T> {
+    private final Object mVector;
+    private final String mSwizzleString;
+    public Swizzle33RGBA(String swizzleString, Object vector ) {
+      super(swizzleString, vector);
+      mVector = vector;
+      mSwizzleString = swizzleString;
+    }
+    public Swizzle4<VEC4_T> b() {
+      return new Swizzle4<VEC4_T>(mSwizzleString + "b", mVector);
+    }
+    @SuppressWarnings("all")
+    public VEC3_T build() {
+      return (VEC3_T)getInstance(mVector, mSwizzleString);
+    }
+  }
+  public static class Swizzle41RGBA<REAL_T, VEC2_T, VEC3_T, VEC4_T> extends Swizzle31RGBA<REAL_T, VEC2_T, VEC3_T, VEC4_T> {
+    private final Object mVector;
+    private final String mSwizzleString;
+    public Swizzle41RGBA(String swizzleString, Object vector ) {
+      super(swizzleString, vector);
+      mVector = vector;
+      mSwizzleString = swizzleString;
+    }
+    public Swizzle42RGBA<VEC2_T, VEC3_T, VEC4_T> a() {
+      return new Swizzle42RGBA<VEC2_T, VEC3_T, VEC4_T>(mSwizzleString + "a", mVector);
+    }
+    @SuppressWarnings("all")
+    public REAL_T build() {
+      return (REAL_T)getInstance(mVector, mSwizzleString);
+    }
+  }
+  public static class Swizzle42RGBA<VEC2_T, VEC3_T, VEC4_T> extends Swizzle32RGBA<VEC2_T, VEC3_T, VEC4_T> {
+    private final Object mVector;
+    private final String mSwizzleString;
+    public Swizzle42RGBA(String swizzleString, Object vector ) {
+      super(swizzleString, vector);
+      mVector = vector;
+      mSwizzleString = swizzleString;
+    }
+    public Swizzle43RGBA<VEC3_T, VEC4_T> a() {
+      return new Swizzle43RGBA<VEC3_T, VEC4_T>(mSwizzleString + "a", mVector);
+    }
+    @SuppressWarnings("all")
+    public VEC2_T build() {
+      return (VEC2_T)getInstance(mVector, mSwizzleString);
+    }
+  }
+  public static class Swizzle43RGBA<VEC3_T, VEC4_T> extends Swizzle33RGBA<VEC3_T, VEC4_T> {
+    private final Object mVector;
+    private final String mSwizzleString;
+    public Swizzle43RGBA(String swizzleString, Object vector ) {
+      super(swizzleString, vector);
+      mVector = vector;
+      mSwizzleString = swizzleString;
+    }
+    public Swizzle4<VEC4_T> a() {
+      return new Swizzle4<VEC4_T>(mSwizzleString + "a", mVector);
+    }
+    @SuppressWarnings("all")
+    public VEC3_T build() {
+      return (VEC3_T)getInstance(mVector, mSwizzleString);
+    }
+  }
+  public static class Swizzle21STPQ<REAL_T, VEC2_T, VEC3_T, VEC4_T> {
+    private final Object mVector;
+    private final String mSwizzleString;
+    public Swizzle21STPQ(String swizzleString, Object vector ) {
+      mVector = vector;
+      mSwizzleString = swizzleString;
+    }
+    public Swizzle22STPQ<VEC2_T, VEC3_T, VEC4_T> s() {
+      return new Swizzle22STPQ<VEC2_T, VEC3_T, VEC4_T>(mSwizzleString + "s", mVector);
+    }
+    public Swizzle22STPQ<VEC2_T, VEC3_T, VEC4_T> t() {
+      return new Swizzle22STPQ<VEC2_T, VEC3_T, VEC4_T>(mSwizzleString + "t", mVector);
+    }
+    @SuppressWarnings("all")
+    public REAL_T build() {
+      return (REAL_T)getInstance(mVector, mSwizzleString);
+    }
+  }
+  public static class Swizzle22STPQ<VEC2_T, VEC3_T, VEC4_T> {
+    private final Object mVector;
+    private final String mSwizzleString;
+    public Swizzle22STPQ(String swizzleString, Object vector ) {
+      mVector = vector;
+      mSwizzleString = swizzleString;
+    }
+    public Swizzle23STPQ<VEC3_T, VEC4_T> s() {
+      return new Swizzle23STPQ<VEC3_T, VEC4_T>(mSwizzleString + "s", mVector);
+    }
+    public Swizzle23STPQ<VEC3_T, VEC4_T> t() {
+      return new Swizzle23STPQ<VEC3_T, VEC4_T>(mSwizzleString + "t", mVector);
+    }
+    @SuppressWarnings("all")
+    public VEC2_T build() {
+      return (VEC2_T)getInstance(mVector, mSwizzleString);
+    }
+  }
+  public static class Swizzle23STPQ<VEC3_T, VEC4_T> {
+    private final Object mVector;
+    private final String mSwizzleString;
+    public Swizzle23STPQ(String swizzleString, Object vector ) {
+      mVector = vector;
+      mSwizzleString = swizzleString;
+    }
+    public Swizzle4<VEC4_T> s() {
+      return new Swizzle4<VEC4_T>(mSwizzleString + "s", mVector);
+    }
+    public Swizzle4<VEC4_T> t() {
+      return new Swizzle4<VEC4_T>(mSwizzleString + "t", mVector);
+    }
+    @SuppressWarnings("all")
+    public VEC3_T build() {
+      return (VEC3_T)getInstance(mVector, mSwizzleString);
+    }
+  }
+  public static class Swizzle31STPQ<REAL_T, VEC2_T, VEC3_T, VEC4_T> extends Swizzle21STPQ<REAL_T, VEC2_T, VEC3_T, VEC4_T> {
+    private final Object mVector;
+    private final String mSwizzleString;
+    public Swizzle31STPQ(String swizzleString, Object vector ) {
+      super(swizzleString, vector);
+      mVector = vector;
+      mSwizzleString = swizzleString;
+    }
+    public Swizzle32STPQ<VEC2_T, VEC3_T, VEC4_T> p() {
+      return new Swizzle32STPQ<VEC2_T, VEC3_T, VEC4_T>(mSwizzleString + "p", mVector);
+    }
+    @SuppressWarnings("all")
+    public REAL_T build() {
+      return (REAL_T)getInstance(mVector, mSwizzleString);
+    }
+  }
+  public static class Swizzle32STPQ<VEC2_T, VEC3_T, VEC4_T> extends Swizzle22STPQ<VEC2_T, VEC3_T, VEC4_T> {
+    private final Object mVector;
+    private final String mSwizzleString;
+    public Swizzle32STPQ(String swizzleString, Object vector ) {
+      super(swizzleString, vector);
+      mVector = vector;
+      mSwizzleString = swizzleString;
+    }
+    public Swizzle33STPQ<VEC3_T, VEC4_T> p() {
+      return new Swizzle33STPQ<VEC3_T, VEC4_T>(mSwizzleString + "p", mVector);
+    }
+    @SuppressWarnings("all")
+    public VEC2_T build() {
+      return (VEC2_T)getInstance(mVector, mSwizzleString);
+    }
+  }
+  public static class Swizzle33STPQ<VEC3_T, VEC4_T> extends Swizzle23STPQ<VEC3_T, VEC4_T> {
+    private final Object mVector;
+    private final String mSwizzleString;
+    public Swizzle33STPQ(String swizzleString, Object vector ) {
+      super(swizzleString, vector);
+      mVector = vector;
+      mSwizzleString = swizzleString;
+    }
+    public Swizzle4<VEC4_T> p() {
+      return new Swizzle4<VEC4_T>(mSwizzleString + "p", mVector);
+    }
+    @SuppressWarnings("all")
+    public VEC3_T build() {
+      return (VEC3_T)getInstance(mVector, mSwizzleString);
+    }
+  }
+  public static class Swizzle41STPQ<REAL_T, VEC2_T, VEC3_T, VEC4_T> extends Swizzle31STPQ<REAL_T, VEC2_T, VEC3_T, VEC4_T> {
+    private final Object mVector;
+    private final String mSwizzleString;
+    public Swizzle41STPQ(String swizzleString, Object vector ) {
+      super(swizzleString, vector);
+      mVector = vector;
+      mSwizzleString = swizzleString;
+    }
+    public Swizzle42STPQ<VEC2_T, VEC3_T, VEC4_T> q() {
+      return new Swizzle42STPQ<VEC2_T, VEC3_T, VEC4_T>(mSwizzleString + "q", mVector);
+    }
+    @SuppressWarnings("all")
+    public REAL_T build() {
+      return (REAL_T)getInstance(mVector, mSwizzleString);
+    }
+  }
+  public static class Swizzle42STPQ<VEC2_T, VEC3_T, VEC4_T> extends Swizzle32STPQ<VEC2_T, VEC3_T, VEC4_T> {
+    private final Object mVector;
+    private final String mSwizzleString;
+    public Swizzle42STPQ(String swizzleString, Object vector ) {
+      super(swizzleString, vector);
+      mVector = vector;
+      mSwizzleString = swizzleString;
+    }
+    public Swizzle43STPQ<VEC3_T, VEC4_T> q() {
+      return new Swizzle43STPQ<VEC3_T, VEC4_T>(mSwizzleString + "q", mVector);
+    }
+    @SuppressWarnings("all")
+    public VEC2_T build() {
+      return (VEC2_T)getInstance(mVector, mSwizzleString);
+    }
+  }
+  public static class Swizzle43STPQ<VEC3_T, VEC4_T> extends Swizzle33STPQ<VEC3_T, VEC4_T> {
+    private final Object mVector;
+    private final String mSwizzleString;
+    public Swizzle43STPQ(String swizzleString, Object vector ) {
+      super(swizzleString, vector);
+      mVector = vector;
+      mSwizzleString = swizzleString;
+    }
+    public Swizzle4<VEC4_T> q() {
+      return new Swizzle4<VEC4_T>(mSwizzleString + "q", mVector);
+    }
+    @SuppressWarnings("all")
+    public VEC3_T build() {
+      return (VEC3_T)getInstance(mVector, mSwizzleString);
+    }
+  }
+}

@@ -28,12 +28,12 @@ public final class Program {
   private final Expression[] mUniformExpressions;
   private final int[] mUniformLocations;*/
 
-  private final Vector4 mPosition;
-  private final Vector4 mFragColor;
+  //private final Vector4 mPosition;
+  //private final Vector4 mFragColor;
 
-  public Program(VectorExpression position, VectorExpression fragColor) {
-    mPosition = position.fill(Shade.vec(0, 0, 0, 1));
-    mFragColor = position.fill(Shade.vec(0, 0, 0, 1));
+  public Program(Expression position, Expression fragColor) {
+    //mPosition = position.fill(Shade.vec(0, 0, 0, 1));
+    //mFragColor = position.fill(Shade.vec(0, 0, 0, 1));
     /*mCompilationContext = new DefaultCompilationContext();
 
     ASTOptimizer optimizer = new ASTOptimizer();

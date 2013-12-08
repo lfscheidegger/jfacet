@@ -210,7 +210,7 @@ public final class Geometry {
     return new Vector4(attributeBuffer);
   }
 
-  public Drawable bake(VectorExpression vertexPosition, VectorExpression fragmentColor) {
+  public Drawable bake(Expression vertexPosition, Expression fragmentColor) {
     return new Drawable(this, vertexPosition, fragmentColor);
   }
 }

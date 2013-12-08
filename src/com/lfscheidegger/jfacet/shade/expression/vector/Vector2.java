@@ -14,10 +14,10 @@ import com.lfscheidegger.jfacet.utils.SwizzleUtils;
 import java.util.Arrays;
 
 public final class Vector2 extends AbstractExpression<Vector2.Primitive>
-    implements VectorExpression<Vector2, Vector2.Primitive> {
+    implements VectorExpression<Real> {
 
   public static final class Primitive implements
-      SupportsBasicArithmetic<Primitive> {
+      SupportsBasicArithmetic<Primitive>, VectorPrimitive {
 
     private final float[] mValues;
 
@@ -37,8 +37,33 @@ public final class Vector2 extends AbstractExpression<Vector2.Primitive>
       return mValues[1];
     }
 
+    @Override
     public float get(int idx) {
       return mValues[idx];
+    }
+
+    public Swizzle.Swizzle21XYZW<Float, Vector2.Primitive, Vector3.Primitive, Vector4.Primitive> x() {
+      return new Swizzle.Swizzle21XYZW<Float, Vector2.Primitive, Vector3.Primitive, Vector4.Primitive>("x", this);
+    }
+
+    public Swizzle.Swizzle21XYZW<Float, Vector2.Primitive, Vector3.Primitive, Vector4.Primitive> y() {
+      return new Swizzle.Swizzle21XYZW<Float, Vector2.Primitive, Vector3.Primitive, Vector4.Primitive>("y", this);
+    }
+
+    public Swizzle.Swizzle21RGBA<Float, Vector2.Primitive, Vector3.Primitive, Vector4.Primitive> r() {
+      return new Swizzle.Swizzle21RGBA<Float, Vector2.Primitive, Vector3.Primitive, Vector4.Primitive>("r", this);
+    }
+
+    public Swizzle.Swizzle21RGBA<Float, Vector2.Primitive, Vector3.Primitive, Vector4.Primitive> g() {
+      return new Swizzle.Swizzle21RGBA<Float, Vector2.Primitive, Vector3.Primitive, Vector4.Primitive>("g", this);
+    }
+
+    public Swizzle.Swizzle21STPQ<Float, Vector2.Primitive, Vector3.Primitive, Vector4.Primitive> s() {
+      return new Swizzle.Swizzle21STPQ<Float, Vector2.Primitive, Vector3.Primitive, Vector4.Primitive>("s", this);
+    }
+
+    public Swizzle.Swizzle21STPQ<Float, Vector2.Primitive, Vector3.Primitive, Vector4.Primitive> t() {
+      return new Swizzle.Swizzle21STPQ<Float, Vector2.Primitive, Vector3.Primitive, Vector4.Primitive>("t", this);
     }
 
     @Override
@@ -196,86 +221,94 @@ public final class Vector2 extends AbstractExpression<Vector2.Primitive>
         NodeType.ComponentNodeType.forComponent(idx));
   }
 
-  @Override
+  public Swizzle.Swizzle21XYZW<Real, Vector2, Vector3, Vector4> x() {
+    return new Swizzle.Swizzle21XYZW<Real, Vector2, Vector3, Vector4>("x", this);
+  }
+
+  public Swizzle.Swizzle21XYZW<Real, Vector2, Vector3, Vector4> y() {
+    return new Swizzle.Swizzle21XYZW<Real, Vector2, Vector3, Vector4>("y", this);
+  }
+
+  public Swizzle.Swizzle21RGBA<Real, Vector2, Vector3, Vector4> r() {
+    return new Swizzle.Swizzle21RGBA<Real, Vector2, Vector3, Vector4>("r", this);
+  }
+
+  public Swizzle.Swizzle21RGBA<Real, Vector2, Vector3, Vector4> g() {
+    return new Swizzle.Swizzle21RGBA<Real, Vector2, Vector3, Vector4>("g", this);
+  }
+
+  public Swizzle.Swizzle21STPQ<Real, Vector2, Vector3, Vector4> s() {
+    return new Swizzle.Swizzle21STPQ<Real, Vector2, Vector3, Vector4>("s", this);
+  }
+
+  public Swizzle.Swizzle21STPQ<Real, Vector2, Vector3, Vector4> t() {
+    return new Swizzle.Swizzle21STPQ<Real, Vector2, Vector3, Vector4>("t", this);
+  }
+
   public Vector2 add(float right) {
     return add(new Real(right));
   }
 
-  @Override
   public Vector2 add(Real right) {
     return new Vector2(ImmutableList.<Expression>of(this, right), NodeType.ADD);
   }
 
-  @Override
   public Vector2 add(Vector2 right) {
     return new Vector2(ImmutableList.<Expression>of(this, right), NodeType.ADD);
   }
 
-  @Override
   public Vector2 sub(float right) {
     return sub(new Real(right));
   }
 
-  @Override
   public Vector2 sub(Real right) {
     return new Vector2(ImmutableList.<Expression>of(this, right), NodeType.SUB);
   }
 
-  @Override
   public Vector2 sub(Vector2 right) {
     return new Vector2(ImmutableList.<Expression>of(this, right), NodeType.SUB);
   }
 
-  @Override
   public Vector2 mul(float right) {
     return mul(new Real(right));
   }
 
-  @Override
   public Vector2 mul(Real right) {
     return new Vector2(ImmutableList.<Expression>of(this, right), NodeType.MUL);
   }
 
-  @Override
   public Vector2 mul(Vector2 right) {
     return new Vector2(ImmutableList.<Expression>of(this, right), NodeType.MUL);
   }
 
-  @Override
   public Vector2 div(float right) {
     return div(new Real(right));
   }
 
-  @Override
   public Vector2 div(Real right) {
     return new Vector2(ImmutableList.<Expression>of(this, right), NodeType.DIV);
   }
 
-  @Override
   public Vector2 div(Vector2 right) {
     return new Vector2(ImmutableList.<Expression>of(this, right), NodeType.DIV);
   }
 
-  @Override
   public Vector2 neg() {
     return new Vector2(ImmutableList.<Expression>of(this), NodeType.NEG);
   }
 
-  @Override
   public Real dot(Vector2 right) {
     return new Real(
         ImmutableList.<Expression>of(this, right),
         NodeType.FunctionNodeType.forFunction("dot"));
   }
 
-  @Override
   public Vector2 normalize() {
     return new Vector2(
         ImmutableList.<Expression>of(this),
         NodeType.FunctionNodeType.forFunction("normalize"));
   }
 
-  @Override
   public Real length() {
     return new Real(
         ImmutableList.<Expression>of(this),
@@ -327,9 +360,6 @@ public final class Vector2 extends AbstractExpression<Vector2.Primitive>
     return new Bool(ImmutableList.<Expression>of(this, right), NodeType.NEQ);
   }
 
-  // TODO: swizzling
-
-  @Override
   public Vector4 fill(Vector4 defaultExpression) {
     return new Vector4(getX(), getY(), defaultExpression.getZ(), defaultExpression.getW());
   }

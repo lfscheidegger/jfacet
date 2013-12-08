@@ -2,12 +2,11 @@ package com.lfscheidegger.jfacet.shade.expression.vector;
 
 import com.lfscheidegger.jfacet.shade.expression.*;
 
-public interface VectorExpression<T, PRIMITIVE_T>
-    extends SupportsBasicArithmetic<T>, Expression<PRIMITIVE_T> {
+public interface VectorExpression<T> {
 
-  public Real get(int idx);
+  public T get(int idx);
 
-  public T add(Real right);
+  /*public T add(Real right);
 
   public T sub(Real right);
 
