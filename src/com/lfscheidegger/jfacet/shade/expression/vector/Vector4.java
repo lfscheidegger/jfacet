@@ -72,12 +72,12 @@ public final class Vector4 extends AbstractExpression<Vector4.Primitive>
       return new Swizzle.Swizzle41RGBA<Float, Vector2.Primitive, Vector3.Primitive, Vector4.Primitive>("g", this);
     }
 
-    public Swizzle.Swizzle41XYZW<Float, Vector2.Primitive, Vector3.Primitive, Vector4.Primitive> b() {
-      return new Swizzle.Swizzle41XYZW<Float, Vector2.Primitive, Vector3.Primitive, Vector4.Primitive>("b", this);
+    public Swizzle.Swizzle41RGBA<Float, Vector2.Primitive, Vector3.Primitive, Vector4.Primitive> b() {
+      return new Swizzle.Swizzle41RGBA<Float, Vector2.Primitive, Vector3.Primitive, Vector4.Primitive>("b", this);
     }
 
-    public Swizzle.Swizzle41XYZW<Float, Vector2.Primitive, Vector3.Primitive, Vector4.Primitive> a() {
-      return new Swizzle.Swizzle41XYZW<Float, Vector2.Primitive, Vector3.Primitive, Vector4.Primitive>("a", this);
+    public Swizzle.Swizzle41RGBA<Float, Vector2.Primitive, Vector3.Primitive, Vector4.Primitive> a() {
+      return new Swizzle.Swizzle41RGBA<Float, Vector2.Primitive, Vector3.Primitive, Vector4.Primitive>("a", this);
     }
 
     public Swizzle.Swizzle41STPQ<Float, Vector2.Primitive, Vector3.Primitive, Vector4.Primitive> s() {
@@ -88,12 +88,12 @@ public final class Vector4 extends AbstractExpression<Vector4.Primitive>
       return new Swizzle.Swizzle41STPQ<Float, Vector2.Primitive, Vector3.Primitive, Vector4.Primitive>("t", this);
     }
 
-    public Swizzle.Swizzle41XYZW<Float, Vector2.Primitive, Vector3.Primitive, Vector4.Primitive> p() {
-      return new Swizzle.Swizzle41XYZW<Float, Vector2.Primitive, Vector3.Primitive, Vector4.Primitive>("p", this);
+    public Swizzle.Swizzle41STPQ<Float, Vector2.Primitive, Vector3.Primitive, Vector4.Primitive> p() {
+      return new Swizzle.Swizzle41STPQ<Float, Vector2.Primitive, Vector3.Primitive, Vector4.Primitive>("p", this);
     }
 
-    public Swizzle.Swizzle41XYZW<Float, Vector2.Primitive, Vector3.Primitive, Vector4.Primitive> q() {
-      return new Swizzle.Swizzle41XYZW<Float, Vector2.Primitive, Vector3.Primitive, Vector4.Primitive>("q", this);
+    public Swizzle.Swizzle41STPQ<Float, Vector2.Primitive, Vector3.Primitive, Vector4.Primitive> q() {
+      return new Swizzle.Swizzle41STPQ<Float, Vector2.Primitive, Vector3.Primitive, Vector4.Primitive>("q", this);
     }
 
     @Override
@@ -291,12 +291,12 @@ public final class Vector4 extends AbstractExpression<Vector4.Primitive>
     return new Swizzle.Swizzle41RGBA<Real, Vector2, Vector3, Vector4>("g", this);
   }
 
-  public Swizzle.Swizzle41XYZW<Real, Vector2, Vector3, Vector4> b() {
-    return new Swizzle.Swizzle41XYZW<Real, Vector2, Vector3, Vector4>("b", this);
+  public Swizzle.Swizzle41RGBA<Real, Vector2, Vector3, Vector4> b() {
+    return new Swizzle.Swizzle41RGBA<Real, Vector2, Vector3, Vector4>("b", this);
   }
 
-  public Swizzle.Swizzle41XYZW<Real, Vector2, Vector3, Vector4> a() {
-    return new Swizzle.Swizzle41XYZW<Real, Vector2, Vector3, Vector4>("a", this);
+  public Swizzle.Swizzle41RGBA<Real, Vector2, Vector3, Vector4> a() {
+    return new Swizzle.Swizzle41RGBA<Real, Vector2, Vector3, Vector4>("a", this);
   }
 
   public Swizzle.Swizzle41STPQ<Real, Vector2, Vector3, Vector4> s() {
@@ -307,12 +307,12 @@ public final class Vector4 extends AbstractExpression<Vector4.Primitive>
     return new Swizzle.Swizzle41STPQ<Real, Vector2, Vector3, Vector4>("t", this);
   }
 
-  public Swizzle.Swizzle41XYZW<Real, Vector2, Vector3, Vector4> p() {
-    return new Swizzle.Swizzle41XYZW<Real, Vector2, Vector3, Vector4>("p", this);
+  public Swizzle.Swizzle41STPQ<Real, Vector2, Vector3, Vector4> p() {
+    return new Swizzle.Swizzle41STPQ<Real, Vector2, Vector3, Vector4>("p", this);
   }
 
-  public Swizzle.Swizzle41XYZW<Real, Vector2, Vector3, Vector4> q() {
-    return new Swizzle.Swizzle41XYZW<Real, Vector2, Vector3, Vector4>("q", this);
+  public Swizzle.Swizzle41STPQ<Real, Vector2, Vector3, Vector4> q() {
+    return new Swizzle.Swizzle41STPQ<Real, Vector2, Vector3, Vector4>("q", this);
   }
 
   public Vector4 add(float right) {

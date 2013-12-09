@@ -70,12 +70,12 @@ public final class BVector4 extends AbstractExpression<BVector4.Primitive>
       return new Swizzle.Swizzle41RGBA<Boolean, BVector2.Primitive, BVector3.Primitive, BVector4.Primitive>("g", this);
     }
 
-    public Swizzle.Swizzle41XYZW<Boolean, BVector2.Primitive, BVector3.Primitive, BVector4.Primitive> b() {
-      return new Swizzle.Swizzle41XYZW<Boolean, BVector2.Primitive, BVector3.Primitive, BVector4.Primitive>("b", this);
+    public Swizzle.Swizzle41RGBA<Boolean, BVector2.Primitive, BVector3.Primitive, BVector4.Primitive> b() {
+      return new Swizzle.Swizzle41RGBA<Boolean, BVector2.Primitive, BVector3.Primitive, BVector4.Primitive>("b", this);
     }
 
-    public Swizzle.Swizzle41XYZW<Boolean, BVector2.Primitive, BVector3.Primitive, BVector4.Primitive> a() {
-      return new Swizzle.Swizzle41XYZW<Boolean, BVector2.Primitive, BVector3.Primitive, BVector4.Primitive>("a", this);
+    public Swizzle.Swizzle41RGBA<Boolean, BVector2.Primitive, BVector3.Primitive, BVector4.Primitive> a() {
+      return new Swizzle.Swizzle41RGBA<Boolean, BVector2.Primitive, BVector3.Primitive, BVector4.Primitive>("a", this);
     }
 
     public Swizzle.Swizzle41STPQ<Boolean, BVector2.Primitive, BVector3.Primitive, BVector4.Primitive> s() {
@@ -86,12 +86,12 @@ public final class BVector4 extends AbstractExpression<BVector4.Primitive>
       return new Swizzle.Swizzle41STPQ<Boolean, BVector2.Primitive, BVector3.Primitive, BVector4.Primitive>("t", this);
     }
 
-    public Swizzle.Swizzle41XYZW<Boolean, BVector2.Primitive, BVector3.Primitive, BVector4.Primitive> p() {
-      return new Swizzle.Swizzle41XYZW<Boolean, BVector2.Primitive, BVector3.Primitive, BVector4.Primitive>("p", this);
+    public Swizzle.Swizzle41STPQ<Boolean, BVector2.Primitive, BVector3.Primitive, BVector4.Primitive> p() {
+      return new Swizzle.Swizzle41STPQ<Boolean, BVector2.Primitive, BVector3.Primitive, BVector4.Primitive>("p", this);
     }
 
-    public Swizzle.Swizzle41XYZW<Boolean, BVector2.Primitive, BVector3.Primitive, BVector4.Primitive> q() {
-      return new Swizzle.Swizzle41XYZW<Boolean, BVector2.Primitive, BVector3.Primitive, BVector4.Primitive>("q", this);
+    public Swizzle.Swizzle41STPQ<Boolean, BVector2.Primitive, BVector3.Primitive, BVector4.Primitive> q() {
+      return new Swizzle.Swizzle41STPQ<Boolean, BVector2.Primitive, BVector3.Primitive, BVector4.Primitive>("q", this);
     }
 
     public boolean any() {
@@ -203,12 +203,12 @@ public final class BVector4 extends AbstractExpression<BVector4.Primitive>
     return new Swizzle.Swizzle41RGBA<Bool, BVector2, BVector3, BVector4>("g", this);
   }
 
-  public Swizzle.Swizzle41XYZW<Bool, BVector2, BVector3, BVector4> b() {
-    return new Swizzle.Swizzle41XYZW<Bool, BVector2, BVector3, BVector4>("b", this);
+  public Swizzle.Swizzle41RGBA<Bool, BVector2, BVector3, BVector4> b() {
+    return new Swizzle.Swizzle41RGBA<Bool, BVector2, BVector3, BVector4>("b", this);
   }
 
-  public Swizzle.Swizzle41XYZW<Bool, BVector2, BVector3, BVector4> a() {
-    return new Swizzle.Swizzle41XYZW<Bool, BVector2, BVector3, BVector4>("a", this);
+  public Swizzle.Swizzle41RGBA<Bool, BVector2, BVector3, BVector4> a() {
+    return new Swizzle.Swizzle41RGBA<Bool, BVector2, BVector3, BVector4>("a", this);
   }
 
   public Swizzle.Swizzle41STPQ<Bool, BVector2, BVector3, BVector4> s() {
@@ -219,12 +219,12 @@ public final class BVector4 extends AbstractExpression<BVector4.Primitive>
     return new Swizzle.Swizzle41STPQ<Bool, BVector2, BVector3, BVector4>("t", this);
   }
 
-  public Swizzle.Swizzle41XYZW<Bool, BVector2, BVector3, BVector4> p() {
-    return new Swizzle.Swizzle41XYZW<Bool, BVector2, BVector3, BVector4>("p", this);
+  public Swizzle.Swizzle41STPQ<Bool, BVector2, BVector3, BVector4> p() {
+    return new Swizzle.Swizzle41STPQ<Bool, BVector2, BVector3, BVector4>("p", this);
   }
 
-  public Swizzle.Swizzle41XYZW<Bool, BVector2, BVector3, BVector4> q() {
-    return new Swizzle.Swizzle41XYZW<Bool, BVector2, BVector3, BVector4>("q", this);
+  public Swizzle.Swizzle41STPQ<Bool, BVector2, BVector3, BVector4> q() {
+    return new Swizzle.Swizzle41STPQ<Bool, BVector2, BVector3, BVector4>("q", this);
   }
 
   public Bool any() {
