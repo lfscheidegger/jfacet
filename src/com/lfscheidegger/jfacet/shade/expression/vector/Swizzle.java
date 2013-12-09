@@ -1,6 +1,5 @@
 package com.lfscheidegger.jfacet.shade.expression.vector;
 
-
 import com.google.common.collect.ImmutableList;
 import com.lfscheidegger.jfacet.shade.expression.Bool;
 import com.lfscheidegger.jfacet.shade.expression.Expression;
@@ -111,7 +110,7 @@ public class Swizzle {
       return new Swizzle22XYZW<VEC2_T, VEC3_T, VEC4_T>(mSwizzleString + "y", mVector);
     }
     @SuppressWarnings("all")
-    public REAL_T build() {
+    public REAL_T get() {
       return (REAL_T)getInstance(mVector, mSwizzleString);
     }
   }
@@ -129,7 +128,7 @@ public class Swizzle {
       return new Swizzle23XYZW<VEC3_T, VEC4_T>(mSwizzleString + "y", mVector);
     }
     @SuppressWarnings("all")
-    public VEC2_T build() {
+    public VEC2_T get() {
       return (VEC2_T)getInstance(mVector, mSwizzleString);
     }
   }
@@ -147,7 +146,7 @@ public class Swizzle {
       return new Swizzle4<VEC4_T>(mSwizzleString + "y", mVector);
     }
     @SuppressWarnings("all")
-    public VEC3_T build() {
+    public VEC3_T get() {
       return (VEC3_T)getInstance(mVector, mSwizzleString);
     }
   }
@@ -183,7 +182,7 @@ public class Swizzle {
       return new Swizzle32XYZW<VEC2_T, VEC3_T, VEC4_T>(mSwizzleString + "z", mVector);
     }
     @SuppressWarnings("all")
-    public REAL_T build() {
+    public REAL_T get() {
       return (REAL_T)getInstance(mVector, mSwizzleString);
     }
   }
@@ -204,7 +203,7 @@ public class Swizzle {
       return new Swizzle33XYZW<VEC3_T, VEC4_T>(mSwizzleString + "z", mVector);
     }
     @SuppressWarnings("all")
-    public VEC2_T build() {
+    public VEC2_T get() {
       return (VEC2_T)getInstance(mVector, mSwizzleString);
     }
   }
@@ -225,7 +224,7 @@ public class Swizzle {
       return new Swizzle4<VEC4_T>(mSwizzleString + "z", mVector);
     }
     @SuppressWarnings("all")
-    public VEC3_T build() {
+    public VEC3_T get() {
       return (VEC3_T)getInstance(mVector, mSwizzleString);
     }
   }
@@ -264,7 +263,7 @@ public class Swizzle {
       return new Swizzle42XYZW<VEC2_T, VEC3_T, VEC4_T>(mSwizzleString + "w", mVector);
     }
     @SuppressWarnings("all")
-    public REAL_T build() {
+    public REAL_T get() {
       return (REAL_T)getInstance(mVector, mSwizzleString);
     }
   }
@@ -288,7 +287,7 @@ public class Swizzle {
       return new Swizzle43XYZW<VEC3_T, VEC4_T>(mSwizzleString + "w", mVector);
     }
     @SuppressWarnings("all")
-    public VEC2_T build() {
+    public VEC2_T get() {
       return (VEC2_T)getInstance(mVector, mSwizzleString);
     }
   }
@@ -312,7 +311,7 @@ public class Swizzle {
       return new Swizzle4<VEC4_T>(mSwizzleString + "w", mVector);
     }
     @SuppressWarnings("all")
-    public VEC3_T build() {
+    public VEC3_T get() {
       return (VEC3_T)getInstance(mVector, mSwizzleString);
     }
   }
@@ -324,7 +323,7 @@ public class Swizzle {
       mSwizzleString = swizzleString;
     }
     @SuppressWarnings("all")
-    public VEC4_T build() {
+    public VEC4_T get() {
       return (VEC4_T)getInstance(mVector, mSwizzleString);
     }
   }
@@ -342,7 +341,7 @@ public class Swizzle {
       return new Swizzle22RGBA<VEC2_T, VEC3_T, VEC4_T>(mSwizzleString + "g", mVector);
     }
     @SuppressWarnings("all")
-    public REAL_T build() {
+    public REAL_T get() {
       return (REAL_T)getInstance(mVector, mSwizzleString);
     }
   }
@@ -360,7 +359,7 @@ public class Swizzle {
       return new Swizzle23RGBA<VEC3_T, VEC4_T>(mSwizzleString + "g", mVector);
     }
     @SuppressWarnings("all")
-    public VEC2_T build() {
+    public VEC2_T get() {
       return (VEC2_T)getInstance(mVector, mSwizzleString);
     }
   }
@@ -378,7 +377,7 @@ public class Swizzle {
       return new Swizzle4<VEC4_T>(mSwizzleString + "g", mVector);
     }
     @SuppressWarnings("all")
-    public VEC3_T build() {
+    public VEC3_T get() {
       return (VEC3_T)getInstance(mVector, mSwizzleString);
     }
   }
@@ -399,7 +398,7 @@ public class Swizzle {
       return new Swizzle32RGBA<VEC2_T, VEC3_T, VEC4_T>(mSwizzleString + "b", mVector);
     }
     @SuppressWarnings("all")
-    public REAL_T build() {
+    public REAL_T get() {
       return (REAL_T)getInstance(mVector, mSwizzleString);
     }
   }
@@ -420,7 +419,7 @@ public class Swizzle {
       return new Swizzle33RGBA<VEC3_T, VEC4_T>(mSwizzleString + "b", mVector);
     }
     @SuppressWarnings("all")
-    public VEC2_T build() {
+    public VEC2_T get() {
       return (VEC2_T)getInstance(mVector, mSwizzleString);
     }
   }
@@ -441,7 +440,7 @@ public class Swizzle {
       return new Swizzle4<VEC4_T>(mSwizzleString + "b", mVector);
     }
     @SuppressWarnings("all")
-    public VEC3_T build() {
+    public VEC3_T get() {
       return (VEC3_T)getInstance(mVector, mSwizzleString);
     }
   }
@@ -465,7 +464,7 @@ public class Swizzle {
       return new Swizzle42RGBA<VEC2_T, VEC3_T, VEC4_T>(mSwizzleString + "a", mVector);
     }
     @SuppressWarnings("all")
-    public REAL_T build() {
+    public REAL_T get() {
       return (REAL_T)getInstance(mVector, mSwizzleString);
     }
   }
@@ -489,7 +488,7 @@ public class Swizzle {
       return new Swizzle43RGBA<VEC3_T, VEC4_T>(mSwizzleString + "a", mVector);
     }
     @SuppressWarnings("all")
-    public VEC2_T build() {
+    public VEC2_T get() {
       return (VEC2_T)getInstance(mVector, mSwizzleString);
     }
   }
@@ -513,7 +512,7 @@ public class Swizzle {
       return new Swizzle4<VEC4_T>(mSwizzleString + "a", mVector);
     }
     @SuppressWarnings("all")
-    public VEC3_T build() {
+    public VEC3_T get() {
       return (VEC3_T)getInstance(mVector, mSwizzleString);
     }
   }
@@ -531,7 +530,7 @@ public class Swizzle {
       return new Swizzle22STPQ<VEC2_T, VEC3_T, VEC4_T>(mSwizzleString + "t", mVector);
     }
     @SuppressWarnings("all")
-    public REAL_T build() {
+    public REAL_T get() {
       return (REAL_T)getInstance(mVector, mSwizzleString);
     }
   }
@@ -549,7 +548,7 @@ public class Swizzle {
       return new Swizzle23STPQ<VEC3_T, VEC4_T>(mSwizzleString + "t", mVector);
     }
     @SuppressWarnings("all")
-    public VEC2_T build() {
+    public VEC2_T get() {
       return (VEC2_T)getInstance(mVector, mSwizzleString);
     }
   }
@@ -567,7 +566,7 @@ public class Swizzle {
       return new Swizzle4<VEC4_T>(mSwizzleString + "t", mVector);
     }
     @SuppressWarnings("all")
-    public VEC3_T build() {
+    public VEC3_T get() {
       return (VEC3_T)getInstance(mVector, mSwizzleString);
     }
   }
@@ -588,7 +587,7 @@ public class Swizzle {
       return new Swizzle32STPQ<VEC2_T, VEC3_T, VEC4_T>(mSwizzleString + "p", mVector);
     }
     @SuppressWarnings("all")
-    public REAL_T build() {
+    public REAL_T get() {
       return (REAL_T)getInstance(mVector, mSwizzleString);
     }
   }
@@ -609,7 +608,7 @@ public class Swizzle {
       return new Swizzle33STPQ<VEC3_T, VEC4_T>(mSwizzleString + "p", mVector);
     }
     @SuppressWarnings("all")
-    public VEC2_T build() {
+    public VEC2_T get() {
       return (VEC2_T)getInstance(mVector, mSwizzleString);
     }
   }
@@ -630,7 +629,7 @@ public class Swizzle {
       return new Swizzle4<VEC4_T>(mSwizzleString + "p", mVector);
     }
     @SuppressWarnings("all")
-    public VEC3_T build() {
+    public VEC3_T get() {
       return (VEC3_T)getInstance(mVector, mSwizzleString);
     }
   }
@@ -654,7 +653,7 @@ public class Swizzle {
       return new Swizzle42STPQ<VEC2_T, VEC3_T, VEC4_T>(mSwizzleString + "q", mVector);
     }
     @SuppressWarnings("all")
-    public REAL_T build() {
+    public REAL_T get() {
       return (REAL_T)getInstance(mVector, mSwizzleString);
     }
   }
@@ -678,7 +677,7 @@ public class Swizzle {
       return new Swizzle43STPQ<VEC3_T, VEC4_T>(mSwizzleString + "q", mVector);
     }
     @SuppressWarnings("all")
-    public VEC2_T build() {
+    public VEC2_T get() {
       return (VEC2_T)getInstance(mVector, mSwizzleString);
     }
   }
@@ -702,7 +701,7 @@ public class Swizzle {
       return new Swizzle4<VEC4_T>(mSwizzleString + "q", mVector);
     }
     @SuppressWarnings("all")
-    public VEC3_T build() {
+    public VEC3_T get() {
       return (VEC3_T)getInstance(mVector, mSwizzleString);
     }
   }

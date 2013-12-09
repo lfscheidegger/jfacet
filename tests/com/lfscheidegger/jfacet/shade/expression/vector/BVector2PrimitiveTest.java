@@ -35,113 +35,113 @@ public class BVector2PrimitiveTest {
 
   @Test
   public void testSwizzleXYZW() {
-    assertTrue(vec.x().build() == true);
-    assertTrue(vec.y().build() == false);
+    assertTrue(vec.x().get() == true);
+    assertTrue(vec.y().get() == false);
 
-    assertEquals(vec.x().x().build(), new BVector2.Primitive(true, true));
-    assertEquals(vec.x().y().build(), new BVector2.Primitive(true, false));
-    assertEquals(vec.y().x().build(), new BVector2.Primitive(false, true));
-    assertEquals(vec.y().y().build(), new BVector2.Primitive(false, false));
+    assertEquals(vec.x().x().get(), new BVector2.Primitive(true, true));
+    assertEquals(vec.x().y().get(), new BVector2.Primitive(true, false));
+    assertEquals(vec.y().x().get(), new BVector2.Primitive(false, true));
+    assertEquals(vec.y().y().get(), new BVector2.Primitive(false, false));
 
-    assertEquals(vec.x().x().x().build(), new BVector3.Primitive(true, true, true));
-    assertEquals(vec.x().x().y().build(), new BVector3.Primitive(true, true, false));
-    assertEquals(vec.x().y().x().build(), new BVector3.Primitive(true, false, true));
-    assertEquals(vec.x().y().y().build(), new BVector3.Primitive(true, false, false));
-    assertEquals(vec.y().x().x().build(), new BVector3.Primitive(false, true, true));
-    assertEquals(vec.y().x().y().build(), new BVector3.Primitive(false, true, false));
-    assertEquals(vec.y().y().x().build(), new BVector3.Primitive(false, false, true));
-    assertEquals(vec.y().y().y().build(), new BVector3.Primitive(false, false, false));
+    assertEquals(vec.x().x().x().get(), new BVector3.Primitive(true, true, true));
+    assertEquals(vec.x().x().y().get(), new BVector3.Primitive(true, true, false));
+    assertEquals(vec.x().y().x().get(), new BVector3.Primitive(true, false, true));
+    assertEquals(vec.x().y().y().get(), new BVector3.Primitive(true, false, false));
+    assertEquals(vec.y().x().x().get(), new BVector3.Primitive(false, true, true));
+    assertEquals(vec.y().x().y().get(), new BVector3.Primitive(false, true, false));
+    assertEquals(vec.y().y().x().get(), new BVector3.Primitive(false, false, true));
+    assertEquals(vec.y().y().y().get(), new BVector3.Primitive(false, false, false));
 
-    assertEquals(vec.x().x().x().x().build(), new BVector4.Primitive(true, true, true, true));
-    assertEquals(vec.x().x().x().y().build(), new BVector4.Primitive(true, true, true, false));
-    assertEquals(vec.x().x().y().x().build(), new BVector4.Primitive(true, true, false, true));
-    assertEquals(vec.x().x().y().y().build(), new BVector4.Primitive(true, true, false, false));
-    assertEquals(vec.x().y().x().x().build(), new BVector4.Primitive(true, false, true, true));
-    assertEquals(vec.x().y().x().y().build(), new BVector4.Primitive(true, false, true, false));
-    assertEquals(vec.x().y().y().x().build(), new BVector4.Primitive(true, false, false, true));
-    assertEquals(vec.x().y().y().y().build(), new BVector4.Primitive(true, false, false, false));
-    assertEquals(vec.y().x().x().x().build(), new BVector4.Primitive(false, true, true, true));
-    assertEquals(vec.y().x().x().y().build(), new BVector4.Primitive(false, true, true, false));
-    assertEquals(vec.y().x().y().x().build(), new BVector4.Primitive(false, true, false, true));
-    assertEquals(vec.y().x().y().y().build(), new BVector4.Primitive(false, true, false, false));
-    assertEquals(vec.y().y().x().x().build(), new BVector4.Primitive(false, false, true, true));
-    assertEquals(vec.y().y().x().y().build(), new BVector4.Primitive(false, false, true, false));
-    assertEquals(vec.y().y().y().x().build(), new BVector4.Primitive(false, false, false, true));
-    assertEquals(vec.y().y().y().y().build(), new BVector4.Primitive(false, false, false, false));
+    assertEquals(vec.x().x().x().x().get(), new BVector4.Primitive(true, true, true, true));
+    assertEquals(vec.x().x().x().y().get(), new BVector4.Primitive(true, true, true, false));
+    assertEquals(vec.x().x().y().x().get(), new BVector4.Primitive(true, true, false, true));
+    assertEquals(vec.x().x().y().y().get(), new BVector4.Primitive(true, true, false, false));
+    assertEquals(vec.x().y().x().x().get(), new BVector4.Primitive(true, false, true, true));
+    assertEquals(vec.x().y().x().y().get(), new BVector4.Primitive(true, false, true, false));
+    assertEquals(vec.x().y().y().x().get(), new BVector4.Primitive(true, false, false, true));
+    assertEquals(vec.x().y().y().y().get(), new BVector4.Primitive(true, false, false, false));
+    assertEquals(vec.y().x().x().x().get(), new BVector4.Primitive(false, true, true, true));
+    assertEquals(vec.y().x().x().y().get(), new BVector4.Primitive(false, true, true, false));
+    assertEquals(vec.y().x().y().x().get(), new BVector4.Primitive(false, true, false, true));
+    assertEquals(vec.y().x().y().y().get(), new BVector4.Primitive(false, true, false, false));
+    assertEquals(vec.y().y().x().x().get(), new BVector4.Primitive(false, false, true, true));
+    assertEquals(vec.y().y().x().y().get(), new BVector4.Primitive(false, false, true, false));
+    assertEquals(vec.y().y().y().x().get(), new BVector4.Primitive(false, false, false, true));
+    assertEquals(vec.y().y().y().y().get(), new BVector4.Primitive(false, false, false, false));
   }
 
   @Test
   public void testSwizzleRGBA() {
-    assertTrue(vec.r().build() == true);
-    assertTrue(vec.g().build() == false);
+    assertTrue(vec.r().get() == true);
+    assertTrue(vec.g().get() == false);
 
-    assertEquals(vec.r().r().build(), new BVector2.Primitive(true, true));
-    assertEquals(vec.r().g().build(), new BVector2.Primitive(true, false));
-    assertEquals(vec.g().r().build(), new BVector2.Primitive(false, true));
-    assertEquals(vec.g().g().build(), new BVector2.Primitive(false, false));
+    assertEquals(vec.r().r().get(), new BVector2.Primitive(true, true));
+    assertEquals(vec.r().g().get(), new BVector2.Primitive(true, false));
+    assertEquals(vec.g().r().get(), new BVector2.Primitive(false, true));
+    assertEquals(vec.g().g().get(), new BVector2.Primitive(false, false));
 
-    assertEquals(vec.r().r().r().build(), new BVector3.Primitive(true, true, true));
-    assertEquals(vec.r().r().g().build(), new BVector3.Primitive(true, true, false));
-    assertEquals(vec.r().g().r().build(), new BVector3.Primitive(true, false, true));
-    assertEquals(vec.r().g().g().build(), new BVector3.Primitive(true, false, false));
-    assertEquals(vec.g().r().r().build(), new BVector3.Primitive(false, true, true));
-    assertEquals(vec.g().r().g().build(), new BVector3.Primitive(false, true, false));
-    assertEquals(vec.g().g().r().build(), new BVector3.Primitive(false, false, true));
-    assertEquals(vec.g().g().g().build(), new BVector3.Primitive(false, false, false));
+    assertEquals(vec.r().r().r().get(), new BVector3.Primitive(true, true, true));
+    assertEquals(vec.r().r().g().get(), new BVector3.Primitive(true, true, false));
+    assertEquals(vec.r().g().r().get(), new BVector3.Primitive(true, false, true));
+    assertEquals(vec.r().g().g().get(), new BVector3.Primitive(true, false, false));
+    assertEquals(vec.g().r().r().get(), new BVector3.Primitive(false, true, true));
+    assertEquals(vec.g().r().g().get(), new BVector3.Primitive(false, true, false));
+    assertEquals(vec.g().g().r().get(), new BVector3.Primitive(false, false, true));
+    assertEquals(vec.g().g().g().get(), new BVector3.Primitive(false, false, false));
 
-    assertEquals(vec.r().r().r().r().build(), new BVector4.Primitive(true, true, true, true));
-    assertEquals(vec.r().r().r().g().build(), new BVector4.Primitive(true, true, true, false));
-    assertEquals(vec.r().r().g().r().build(), new BVector4.Primitive(true, true, false, true));
-    assertEquals(vec.r().r().g().g().build(), new BVector4.Primitive(true, true, false, false));
-    assertEquals(vec.r().g().r().r().build(), new BVector4.Primitive(true, false, true, true));
-    assertEquals(vec.r().g().r().g().build(), new BVector4.Primitive(true, false, true, false));
-    assertEquals(vec.r().g().g().r().build(), new BVector4.Primitive(true, false, false, true));
-    assertEquals(vec.r().g().g().g().build(), new BVector4.Primitive(true, false, false, false));
-    assertEquals(vec.g().r().r().r().build(), new BVector4.Primitive(false, true, true, true));
-    assertEquals(vec.g().r().r().g().build(), new BVector4.Primitive(false, true, true, false));
-    assertEquals(vec.g().r().g().r().build(), new BVector4.Primitive(false, true, false, true));
-    assertEquals(vec.g().r().g().g().build(), new BVector4.Primitive(false, true, false, false));
-    assertEquals(vec.g().g().r().r().build(), new BVector4.Primitive(false, false, true, true));
-    assertEquals(vec.g().g().r().g().build(), new BVector4.Primitive(false, false, true, false));
-    assertEquals(vec.g().g().g().r().build(), new BVector4.Primitive(false, false, false, true));
-    assertEquals(vec.g().g().g().g().build(), new BVector4.Primitive(false, false, false, false));
+    assertEquals(vec.r().r().r().r().get(), new BVector4.Primitive(true, true, true, true));
+    assertEquals(vec.r().r().r().g().get(), new BVector4.Primitive(true, true, true, false));
+    assertEquals(vec.r().r().g().r().get(), new BVector4.Primitive(true, true, false, true));
+    assertEquals(vec.r().r().g().g().get(), new BVector4.Primitive(true, true, false, false));
+    assertEquals(vec.r().g().r().r().get(), new BVector4.Primitive(true, false, true, true));
+    assertEquals(vec.r().g().r().g().get(), new BVector4.Primitive(true, false, true, false));
+    assertEquals(vec.r().g().g().r().get(), new BVector4.Primitive(true, false, false, true));
+    assertEquals(vec.r().g().g().g().get(), new BVector4.Primitive(true, false, false, false));
+    assertEquals(vec.g().r().r().r().get(), new BVector4.Primitive(false, true, true, true));
+    assertEquals(vec.g().r().r().g().get(), new BVector4.Primitive(false, true, true, false));
+    assertEquals(vec.g().r().g().r().get(), new BVector4.Primitive(false, true, false, true));
+    assertEquals(vec.g().r().g().g().get(), new BVector4.Primitive(false, true, false, false));
+    assertEquals(vec.g().g().r().r().get(), new BVector4.Primitive(false, false, true, true));
+    assertEquals(vec.g().g().r().g().get(), new BVector4.Primitive(false, false, true, false));
+    assertEquals(vec.g().g().g().r().get(), new BVector4.Primitive(false, false, false, true));
+    assertEquals(vec.g().g().g().g().get(), new BVector4.Primitive(false, false, false, false));
   }
 
   @Test
   public void testSwizzleSTPQ() {
-    assertTrue(vec.s().build() == true);
-    assertTrue(vec.t().build() == false);
+    assertTrue(vec.s().get() == true);
+    assertTrue(vec.t().get() == false);
 
-    assertEquals(vec.s().s().build(), new BVector2.Primitive(true, true));
-    assertEquals(vec.s().t().build(), new BVector2.Primitive(true, false));
-    assertEquals(vec.t().s().build(), new BVector2.Primitive(false, true));
-    assertEquals(vec.t().t().build(), new BVector2.Primitive(false, false));
+    assertEquals(vec.s().s().get(), new BVector2.Primitive(true, true));
+    assertEquals(vec.s().t().get(), new BVector2.Primitive(true, false));
+    assertEquals(vec.t().s().get(), new BVector2.Primitive(false, true));
+    assertEquals(vec.t().t().get(), new BVector2.Primitive(false, false));
 
-    assertEquals(vec.s().s().s().build(), new BVector3.Primitive(true, true, true));
-    assertEquals(vec.s().s().t().build(), new BVector3.Primitive(true, true, false));
-    assertEquals(vec.s().t().s().build(), new BVector3.Primitive(true, false, true));
-    assertEquals(vec.s().t().t().build(), new BVector3.Primitive(true, false, false));
-    assertEquals(vec.t().s().s().build(), new BVector3.Primitive(false, true, true));
-    assertEquals(vec.t().s().t().build(), new BVector3.Primitive(false, true, false));
-    assertEquals(vec.t().t().s().build(), new BVector3.Primitive(false, false, true));
-    assertEquals(vec.t().t().t().build(), new BVector3.Primitive(false, false, false));
+    assertEquals(vec.s().s().s().get(), new BVector3.Primitive(true, true, true));
+    assertEquals(vec.s().s().t().get(), new BVector3.Primitive(true, true, false));
+    assertEquals(vec.s().t().s().get(), new BVector3.Primitive(true, false, true));
+    assertEquals(vec.s().t().t().get(), new BVector3.Primitive(true, false, false));
+    assertEquals(vec.t().s().s().get(), new BVector3.Primitive(false, true, true));
+    assertEquals(vec.t().s().t().get(), new BVector3.Primitive(false, true, false));
+    assertEquals(vec.t().t().s().get(), new BVector3.Primitive(false, false, true));
+    assertEquals(vec.t().t().t().get(), new BVector3.Primitive(false, false, false));
 
-    assertEquals(vec.s().s().s().s().build(), new BVector4.Primitive(true, true, true, true));
-    assertEquals(vec.s().s().s().t().build(), new BVector4.Primitive(true, true, true, false));
-    assertEquals(vec.s().s().t().s().build(), new BVector4.Primitive(true, true, false, true));
-    assertEquals(vec.s().s().t().t().build(), new BVector4.Primitive(true, true, false, false));
-    assertEquals(vec.s().t().s().s().build(), new BVector4.Primitive(true, false, true, true));
-    assertEquals(vec.s().t().s().t().build(), new BVector4.Primitive(true, false, true, false));
-    assertEquals(vec.s().t().t().s().build(), new BVector4.Primitive(true, false, false, true));
-    assertEquals(vec.s().t().t().t().build(), new BVector4.Primitive(true, false, false, false));
-    assertEquals(vec.t().s().s().s().build(), new BVector4.Primitive(false, true, true, true));
-    assertEquals(vec.t().s().s().t().build(), new BVector4.Primitive(false, true, true, false));
-    assertEquals(vec.t().s().t().s().build(), new BVector4.Primitive(false, true, false, true));
-    assertEquals(vec.t().s().t().t().build(), new BVector4.Primitive(false, true, false, false));
-    assertEquals(vec.t().t().s().s().build(), new BVector4.Primitive(false, false, true, true));
-    assertEquals(vec.t().t().s().t().build(), new BVector4.Primitive(false, false, true, false));
-    assertEquals(vec.t().t().t().s().build(), new BVector4.Primitive(false, false, false, true));
-    assertEquals(vec.t().t().t().t().build(), new BVector4.Primitive(false, false, false, false));
+    assertEquals(vec.s().s().s().s().get(), new BVector4.Primitive(true, true, true, true));
+    assertEquals(vec.s().s().s().t().get(), new BVector4.Primitive(true, true, true, false));
+    assertEquals(vec.s().s().t().s().get(), new BVector4.Primitive(true, true, false, true));
+    assertEquals(vec.s().s().t().t().get(), new BVector4.Primitive(true, true, false, false));
+    assertEquals(vec.s().t().s().s().get(), new BVector4.Primitive(true, false, true, true));
+    assertEquals(vec.s().t().s().t().get(), new BVector4.Primitive(true, false, true, false));
+    assertEquals(vec.s().t().t().s().get(), new BVector4.Primitive(true, false, false, true));
+    assertEquals(vec.s().t().t().t().get(), new BVector4.Primitive(true, false, false, false));
+    assertEquals(vec.t().s().s().s().get(), new BVector4.Primitive(false, true, true, true));
+    assertEquals(vec.t().s().s().t().get(), new BVector4.Primitive(false, true, true, false));
+    assertEquals(vec.t().s().t().s().get(), new BVector4.Primitive(false, true, false, true));
+    assertEquals(vec.t().s().t().t().get(), new BVector4.Primitive(false, true, false, false));
+    assertEquals(vec.t().t().s().s().get(), new BVector4.Primitive(false, false, true, true));
+    assertEquals(vec.t().t().s().t().get(), new BVector4.Primitive(false, false, true, false));
+    assertEquals(vec.t().t().t().s().get(), new BVector4.Primitive(false, false, false, true));
+    assertEquals(vec.t().t().t().t().get(), new BVector4.Primitive(false, false, false, false));
   }
 
   @Test
