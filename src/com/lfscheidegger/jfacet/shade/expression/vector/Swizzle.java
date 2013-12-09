@@ -6,7 +6,6 @@ import com.lfscheidegger.jfacet.shade.expression.Expression;
 import com.lfscheidegger.jfacet.shade.expression.Real;
 import com.lfscheidegger.jfacet.utils.SwizzleUtils;
 
-// This file was auto-generated - do not modify manually!
 public class Swizzle {
   private Swizzle() {
   }
@@ -115,18 +114,19 @@ public class Swizzle {
       mVector = vector;
       mSwizzleString = swizzleString;
     }
-    public Swizzle4<VEC4_T> x() {
-      return new Swizzle4<VEC4_T>(mSwizzleString + "x", mVector);
+    @SuppressWarnings("all")
+    public VEC4_T x() {
+      return (VEC4_T)getInstance(mVector, mSwizzleString + "x");
     }
-    public Swizzle4<VEC4_T> y() {
-      return new Swizzle4<VEC4_T>(mSwizzleString + "y", mVector);
+    @SuppressWarnings("all")
+    public VEC4_T y() {
+      return (VEC4_T)getInstance(mVector, mSwizzleString + "y");
     }
     @SuppressWarnings("all")
     public VEC3_T get() {
       return (VEC3_T)getInstance(mVector, mSwizzleString);
     }
   }
-
   public static class Swizzle31XYZW<REAL_T, VEC2_T, VEC3_T, VEC4_T> {
     private final Object mVector;
     private final String mSwizzleString;
@@ -176,21 +176,23 @@ public class Swizzle {
       mVector = vector;
       mSwizzleString = swizzleString;
     }
-    public Swizzle4<VEC4_T> x() {
-      return new Swizzle4<VEC4_T>(mSwizzleString + "x", mVector);
+    @SuppressWarnings("all")
+    public VEC4_T x() {
+      return (VEC4_T)getInstance(mVector, mSwizzleString + "x");
     }
-    public Swizzle4<VEC4_T> y() {
-      return new Swizzle4<VEC4_T>(mSwizzleString + "y", mVector);
+    @SuppressWarnings("all")
+    public VEC4_T y() {
+      return (VEC4_T)getInstance(mVector, mSwizzleString + "y");
     }
-    public Swizzle4<VEC4_T> z() {
-      return new Swizzle4<VEC4_T>(mSwizzleString + "z", mVector);
+    @SuppressWarnings("all")
+    public VEC4_T z() {
+      return (VEC4_T)getInstance(mVector, mSwizzleString + "z");
     }
     @SuppressWarnings("all")
     public VEC3_T get() {
       return (VEC3_T)getInstance(mVector, mSwizzleString);
     }
   }
-
   public static class Swizzle41XYZW<REAL_T, VEC2_T, VEC3_T, VEC4_T> {
     private final Object mVector;
     private final String mSwizzleString;
@@ -246,33 +248,25 @@ public class Swizzle {
       mVector = vector;
       mSwizzleString = swizzleString;
     }
-    public Swizzle4<VEC4_T> x() {
-      return new Swizzle4<VEC4_T>(mSwizzleString + "x", mVector);
+    @SuppressWarnings("all")
+    public VEC4_T x() {
+      return (VEC4_T)getInstance(mVector, mSwizzleString + "x");
     }
-    public Swizzle4<VEC4_T> y() {
-      return new Swizzle4<VEC4_T>(mSwizzleString + "y", mVector);
+    @SuppressWarnings("all")
+    public VEC4_T y() {
+      return (VEC4_T)getInstance(mVector, mSwizzleString + "y");
     }
-    public Swizzle4<VEC4_T> z() {
-      return new Swizzle4<VEC4_T>(mSwizzleString + "z", mVector);
+    @SuppressWarnings("all")
+    public VEC4_T z() {
+      return (VEC4_T)getInstance(mVector, mSwizzleString + "z");
     }
-    public Swizzle4<VEC4_T> w() {
-      return new Swizzle4<VEC4_T>(mSwizzleString + "w", mVector);
+    @SuppressWarnings("all")
+    public VEC4_T w() {
+      return (VEC4_T)getInstance(mVector, mSwizzleString + "w");
     }
     @SuppressWarnings("all")
     public VEC3_T get() {
       return (VEC3_T)getInstance(mVector, mSwizzleString);
-    }
-  }
-  public static class Swizzle4<VEC4_T> {
-    private final Object mVector;
-    private final String mSwizzleString;
-    public Swizzle4(String swizzleString, Object vector ) {
-      mVector = vector;
-      mSwizzleString = swizzleString;
-    }
-    @SuppressWarnings("all")
-    public VEC4_T get() {
-      return (VEC4_T)getInstance(mVector, mSwizzleString);
     }
   }
   public static class Swizzle21RGBA<REAL_T, VEC2_T, VEC3_T, VEC4_T> {
@@ -318,11 +312,13 @@ public class Swizzle {
       mVector = vector;
       mSwizzleString = swizzleString;
     }
-    public Swizzle4<VEC4_T> r() {
-      return new Swizzle4<VEC4_T>(mSwizzleString + "r", mVector);
+    @SuppressWarnings("all")
+    public VEC4_T r() {
+      return (VEC4_T)getInstance(mVector, mSwizzleString + "r");
     }
-    public Swizzle4<VEC4_T> g() {
-      return new Swizzle4<VEC4_T>(mSwizzleString + "g", mVector);
+    @SuppressWarnings("all")
+    public VEC4_T g() {
+      return (VEC4_T)getInstance(mVector, mSwizzleString + "g");
     }
     @SuppressWarnings("all")
     public VEC3_T get() {
@@ -378,14 +374,17 @@ public class Swizzle {
       mVector = vector;
       mSwizzleString = swizzleString;
     }
-    public Swizzle4<VEC4_T> r() {
-      return new Swizzle4<VEC4_T>(mSwizzleString + "r", mVector);
+    @SuppressWarnings("all")
+    public VEC4_T r() {
+      return (VEC4_T)getInstance(mVector, mSwizzleString + "r");
     }
-    public Swizzle4<VEC4_T> g() {
-      return new Swizzle4<VEC4_T>(mSwizzleString + "g", mVector);
+    @SuppressWarnings("all")
+    public VEC4_T g() {
+      return (VEC4_T)getInstance(mVector, mSwizzleString + "g");
     }
-    public Swizzle4<VEC4_T> b() {
-      return new Swizzle4<VEC4_T>(mSwizzleString + "b", mVector);
+    @SuppressWarnings("all")
+    public VEC4_T b() {
+      return (VEC4_T)getInstance(mVector, mSwizzleString + "b");
     }
     @SuppressWarnings("all")
     public VEC3_T get() {
@@ -447,17 +446,21 @@ public class Swizzle {
       mVector = vector;
       mSwizzleString = swizzleString;
     }
-    public Swizzle4<VEC4_T> r() {
-      return new Swizzle4<VEC4_T>(mSwizzleString + "r", mVector);
+    @SuppressWarnings("all")
+    public VEC4_T r() {
+      return (VEC4_T)getInstance(mVector, mSwizzleString + "r");
     }
-    public Swizzle4<VEC4_T> g() {
-      return new Swizzle4<VEC4_T>(mSwizzleString + "g", mVector);
+    @SuppressWarnings("all")
+    public VEC4_T g() {
+      return (VEC4_T)getInstance(mVector, mSwizzleString + "g");
     }
-    public Swizzle4<VEC4_T> b() {
-      return new Swizzle4<VEC4_T>(mSwizzleString + "b", mVector);
+    @SuppressWarnings("all")
+    public VEC4_T b() {
+      return (VEC4_T)getInstance(mVector, mSwizzleString + "b");
     }
-    public Swizzle4<VEC4_T> a() {
-      return new Swizzle4<VEC4_T>(mSwizzleString + "a", mVector);
+    @SuppressWarnings("all")
+    public VEC4_T a() {
+      return (VEC4_T)getInstance(mVector, mSwizzleString + "a");
     }
     @SuppressWarnings("all")
     public VEC3_T get() {
@@ -507,11 +510,13 @@ public class Swizzle {
       mVector = vector;
       mSwizzleString = swizzleString;
     }
-    public Swizzle4<VEC4_T> s() {
-      return new Swizzle4<VEC4_T>(mSwizzleString + "s", mVector);
+    @SuppressWarnings("all")
+    public VEC4_T s() {
+      return (VEC4_T)getInstance(mVector, mSwizzleString + "s");
     }
-    public Swizzle4<VEC4_T> t() {
-      return new Swizzle4<VEC4_T>(mSwizzleString + "t", mVector);
+    @SuppressWarnings("all")
+    public VEC4_T t() {
+      return (VEC4_T)getInstance(mVector, mSwizzleString + "t");
     }
     @SuppressWarnings("all")
     public VEC3_T get() {
@@ -567,14 +572,17 @@ public class Swizzle {
       mVector = vector;
       mSwizzleString = swizzleString;
     }
-    public Swizzle4<VEC4_T> s() {
-      return new Swizzle4<VEC4_T>(mSwizzleString + "s", mVector);
+    @SuppressWarnings("all")
+    public VEC4_T s() {
+      return (VEC4_T)getInstance(mVector, mSwizzleString + "s");
     }
-    public Swizzle4<VEC4_T> t() {
-      return new Swizzle4<VEC4_T>(mSwizzleString + "t", mVector);
+    @SuppressWarnings("all")
+    public VEC4_T t() {
+      return (VEC4_T)getInstance(mVector, mSwizzleString + "t");
     }
-    public Swizzle4<VEC4_T> p() {
-      return new Swizzle4<VEC4_T>(mSwizzleString + "p", mVector);
+    @SuppressWarnings("all")
+    public VEC4_T p() {
+      return (VEC4_T)getInstance(mVector, mSwizzleString + "p");
     }
     @SuppressWarnings("all")
     public VEC3_T get() {
@@ -636,17 +644,21 @@ public class Swizzle {
       mVector = vector;
       mSwizzleString = swizzleString;
     }
-    public Swizzle4<VEC4_T> s() {
-      return new Swizzle4<VEC4_T>(mSwizzleString + "s", mVector);
+    @SuppressWarnings("all")
+    public VEC4_T s() {
+      return (VEC4_T)getInstance(mVector, mSwizzleString + "s");
     }
-    public Swizzle4<VEC4_T> t() {
-      return new Swizzle4<VEC4_T>(mSwizzleString + "t", mVector);
+    @SuppressWarnings("all")
+    public VEC4_T t() {
+      return (VEC4_T)getInstance(mVector, mSwizzleString + "t");
     }
-    public Swizzle4<VEC4_T> p() {
-      return new Swizzle4<VEC4_T>(mSwizzleString + "p", mVector);
+    @SuppressWarnings("all")
+    public VEC4_T p() {
+      return (VEC4_T)getInstance(mVector, mSwizzleString + "p");
     }
-    public Swizzle4<VEC4_T> q() {
-      return new Swizzle4<VEC4_T>(mSwizzleString + "q", mVector);
+    @SuppressWarnings("all")
+    public VEC4_T q() {
+      return (VEC4_T)getInstance(mVector, mSwizzleString + "q");
     }
     @SuppressWarnings("all")
     public VEC3_T get() {

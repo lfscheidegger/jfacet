@@ -33,6 +33,7 @@ public class Vector2PrimitiveTest {
   }
 
   @Test
+  @SuppressWarnings("all")
   public void testSwizzleXYZW() {
     assertTrue(vec.x().get() == 1);
     assertTrue(vec.y().get() == 2);
@@ -51,25 +52,27 @@ public class Vector2PrimitiveTest {
     assertEquals(vec.y().y().x().get(), new Vector3.Primitive(2, 2, 1));
     assertEquals(vec.y().y().y().get(), new Vector3.Primitive(2, 2, 2));
 
-    assertEquals(vec.x().x().x().x().get(), new Vector4.Primitive(1, 1, 1, 1));
-    assertEquals(vec.x().x().x().y().get(), new Vector4.Primitive(1, 1, 1, 2));
-    assertEquals(vec.x().x().y().x().get(), new Vector4.Primitive(1, 1, 2, 1));
-    assertEquals(vec.x().x().y().y().get(), new Vector4.Primitive(1, 1, 2, 2));
-    assertEquals(vec.x().y().x().x().get(), new Vector4.Primitive(1, 2, 1, 1));
-    assertEquals(vec.x().y().x().y().get(), new Vector4.Primitive(1, 2, 1, 2));
-    assertEquals(vec.x().y().y().x().get(), new Vector4.Primitive(1, 2, 2, 1));
-    assertEquals(vec.x().y().y().y().get(), new Vector4.Primitive(1, 2, 2, 2));
-    assertEquals(vec.y().x().x().x().get(), new Vector4.Primitive(2, 1, 1, 1));
-    assertEquals(vec.y().x().x().y().get(), new Vector4.Primitive(2, 1, 1, 2));
-    assertEquals(vec.y().x().y().x().get(), new Vector4.Primitive(2, 1, 2, 1));
-    assertEquals(vec.y().x().y().y().get(), new Vector4.Primitive(2, 1, 2, 2));
-    assertEquals(vec.y().y().x().x().get(), new Vector4.Primitive(2, 2, 1, 1));
-    assertEquals(vec.y().y().x().y().get(), new Vector4.Primitive(2, 2, 1, 2));
-    assertEquals(vec.y().y().y().x().get(), new Vector4.Primitive(2, 2, 2, 1));
-    assertEquals(vec.y().y().y().y().get(), new Vector4.Primitive(2, 2, 2, 2));
+    assertEquals(vec.x().x().x().x(), new Vector4.Primitive(1, 1, 1, 1));
+    assertEquals(vec.x().x().x().y(), new Vector4.Primitive(1, 1, 1, 2));
+    assertEquals(vec.x().x().y().x(), new Vector4.Primitive(1, 1, 2, 1));
+    assertEquals(vec.x().x().y().y(), new Vector4.Primitive(1, 1, 2, 2));
+    assertEquals(vec.x().y().x().x(), new Vector4.Primitive(1, 2, 1, 1));
+    assertEquals(vec.x().y().x().y(), new Vector4.Primitive(1, 2, 1, 2));
+    assertEquals(vec.x().y().y().x(), new Vector4.Primitive(1, 2, 2, 1));
+    assertEquals(vec.x().y().y().y(), new Vector4.Primitive(1, 2, 2, 2));
+    assertEquals(vec.y().x().x().x(), new Vector4.Primitive(2, 1, 1, 1));
+    assertEquals(vec.y().x().x().y(), new Vector4.Primitive(2, 1, 1, 2));
+    assertEquals(vec.y().x().y().x(), new Vector4.Primitive(2, 1, 2, 1));
+    assertEquals(vec.y().x().y().y(), new Vector4.Primitive(2, 1, 2, 2));
+    assertEquals(vec.y().y().x().x(), new Vector4.Primitive(2, 2, 1, 1));
+    assertEquals(vec.y().y().x().y(), new Vector4.Primitive(2, 2, 1, 2));
+    assertEquals(vec.y().y().y().x(), new Vector4.Primitive(2, 2, 2, 1));
+    assertEquals(vec.y().y().y().y(), new Vector4.Primitive(2, 2, 2, 2));
+
   }
 
   @Test
+  @SuppressWarnings("all")
   public void testSwizzleRGBA() {
     assertTrue(vec.r().get() == 1);
     assertTrue(vec.g().get() == 2);
@@ -88,25 +91,27 @@ public class Vector2PrimitiveTest {
     assertEquals(vec.g().g().r().get(), new Vector3.Primitive(2, 2, 1));
     assertEquals(vec.g().g().g().get(), new Vector3.Primitive(2, 2, 2));
 
-    assertEquals(vec.r().r().r().r().get(), new Vector4.Primitive(1, 1, 1, 1));
-    assertEquals(vec.r().r().r().g().get(), new Vector4.Primitive(1, 1, 1, 2));
-    assertEquals(vec.r().r().g().r().get(), new Vector4.Primitive(1, 1, 2, 1));
-    assertEquals(vec.r().r().g().g().get(), new Vector4.Primitive(1, 1, 2, 2));
-    assertEquals(vec.r().g().r().r().get(), new Vector4.Primitive(1, 2, 1, 1));
-    assertEquals(vec.r().g().r().g().get(), new Vector4.Primitive(1, 2, 1, 2));
-    assertEquals(vec.r().g().g().r().get(), new Vector4.Primitive(1, 2, 2, 1));
-    assertEquals(vec.r().g().g().g().get(), new Vector4.Primitive(1, 2, 2, 2));
-    assertEquals(vec.g().r().r().r().get(), new Vector4.Primitive(2, 1, 1, 1));
-    assertEquals(vec.g().r().r().g().get(), new Vector4.Primitive(2, 1, 1, 2));
-    assertEquals(vec.g().r().g().r().get(), new Vector4.Primitive(2, 1, 2, 1));
-    assertEquals(vec.g().r().g().g().get(), new Vector4.Primitive(2, 1, 2, 2));
-    assertEquals(vec.g().g().r().r().get(), new Vector4.Primitive(2, 2, 1, 1));
-    assertEquals(vec.g().g().r().g().get(), new Vector4.Primitive(2, 2, 1, 2));
-    assertEquals(vec.g().g().g().r().get(), new Vector4.Primitive(2, 2, 2, 1));
-    assertEquals(vec.g().g().g().g().get(), new Vector4.Primitive(2, 2, 2, 2));
+    assertEquals(vec.r().r().r().r(), new Vector4.Primitive(1, 1, 1, 1));
+    assertEquals(vec.r().r().r().g(), new Vector4.Primitive(1, 1, 1, 2));
+    assertEquals(vec.r().r().g().r(), new Vector4.Primitive(1, 1, 2, 1));
+    assertEquals(vec.r().r().g().g(), new Vector4.Primitive(1, 1, 2, 2));
+    assertEquals(vec.r().g().r().r(), new Vector4.Primitive(1, 2, 1, 1));
+    assertEquals(vec.r().g().r().g(), new Vector4.Primitive(1, 2, 1, 2));
+    assertEquals(vec.r().g().g().r(), new Vector4.Primitive(1, 2, 2, 1));
+    assertEquals(vec.r().g().g().g(), new Vector4.Primitive(1, 2, 2, 2));
+    assertEquals(vec.g().r().r().r(), new Vector4.Primitive(2, 1, 1, 1));
+    assertEquals(vec.g().r().r().g(), new Vector4.Primitive(2, 1, 1, 2));
+    assertEquals(vec.g().r().g().r(), new Vector4.Primitive(2, 1, 2, 1));
+    assertEquals(vec.g().r().g().g(), new Vector4.Primitive(2, 1, 2, 2));
+    assertEquals(vec.g().g().r().r(), new Vector4.Primitive(2, 2, 1, 1));
+    assertEquals(vec.g().g().r().g(), new Vector4.Primitive(2, 2, 1, 2));
+    assertEquals(vec.g().g().g().r(), new Vector4.Primitive(2, 2, 2, 1));
+    assertEquals(vec.g().g().g().g(), new Vector4.Primitive(2, 2, 2, 2));
+
   }
 
   @Test
+  @SuppressWarnings("all")
   public void testSwizzleSTPQ() {
     assertTrue(vec.s().get() == 1);
     assertTrue(vec.t().get() == 2);
@@ -125,22 +130,23 @@ public class Vector2PrimitiveTest {
     assertEquals(vec.t().t().s().get(), new Vector3.Primitive(2, 2, 1));
     assertEquals(vec.t().t().t().get(), new Vector3.Primitive(2, 2, 2));
 
-    assertEquals(vec.s().s().s().s().get(), new Vector4.Primitive(1, 1, 1, 1));
-    assertEquals(vec.s().s().s().t().get(), new Vector4.Primitive(1, 1, 1, 2));
-    assertEquals(vec.s().s().t().s().get(), new Vector4.Primitive(1, 1, 2, 1));
-    assertEquals(vec.s().s().t().t().get(), new Vector4.Primitive(1, 1, 2, 2));
-    assertEquals(vec.s().t().s().s().get(), new Vector4.Primitive(1, 2, 1, 1));
-    assertEquals(vec.s().t().s().t().get(), new Vector4.Primitive(1, 2, 1, 2));
-    assertEquals(vec.s().t().t().s().get(), new Vector4.Primitive(1, 2, 2, 1));
-    assertEquals(vec.s().t().t().t().get(), new Vector4.Primitive(1, 2, 2, 2));
-    assertEquals(vec.t().s().s().s().get(), new Vector4.Primitive(2, 1, 1, 1));
-    assertEquals(vec.t().s().s().t().get(), new Vector4.Primitive(2, 1, 1, 2));
-    assertEquals(vec.t().s().t().s().get(), new Vector4.Primitive(2, 1, 2, 1));
-    assertEquals(vec.t().s().t().t().get(), new Vector4.Primitive(2, 1, 2, 2));
-    assertEquals(vec.t().t().s().s().get(), new Vector4.Primitive(2, 2, 1, 1));
-    assertEquals(vec.t().t().s().t().get(), new Vector4.Primitive(2, 2, 1, 2));
-    assertEquals(vec.t().t().t().s().get(), new Vector4.Primitive(2, 2, 2, 1));
-    assertEquals(vec.t().t().t().t().get(), new Vector4.Primitive(2, 2, 2, 2));
+    assertEquals(vec.s().s().s().s(), new Vector4.Primitive(1, 1, 1, 1));
+    assertEquals(vec.s().s().s().t(), new Vector4.Primitive(1, 1, 1, 2));
+    assertEquals(vec.s().s().t().s(), new Vector4.Primitive(1, 1, 2, 1));
+    assertEquals(vec.s().s().t().t(), new Vector4.Primitive(1, 1, 2, 2));
+    assertEquals(vec.s().t().s().s(), new Vector4.Primitive(1, 2, 1, 1));
+    assertEquals(vec.s().t().s().t(), new Vector4.Primitive(1, 2, 1, 2));
+    assertEquals(vec.s().t().t().s(), new Vector4.Primitive(1, 2, 2, 1));
+    assertEquals(vec.s().t().t().t(), new Vector4.Primitive(1, 2, 2, 2));
+    assertEquals(vec.t().s().s().s(), new Vector4.Primitive(2, 1, 1, 1));
+    assertEquals(vec.t().s().s().t(), new Vector4.Primitive(2, 1, 1, 2));
+    assertEquals(vec.t().s().t().s(), new Vector4.Primitive(2, 1, 2, 1));
+    assertEquals(vec.t().s().t().t(), new Vector4.Primitive(2, 1, 2, 2));
+    assertEquals(vec.t().t().s().s(), new Vector4.Primitive(2, 2, 1, 1));
+    assertEquals(vec.t().t().s().t(), new Vector4.Primitive(2, 2, 1, 2));
+    assertEquals(vec.t().t().t().s(), new Vector4.Primitive(2, 2, 2, 1));
+    assertEquals(vec.t().t().t().t(), new Vector4.Primitive(2, 2, 2, 2));
+
   }
 
   @Test
