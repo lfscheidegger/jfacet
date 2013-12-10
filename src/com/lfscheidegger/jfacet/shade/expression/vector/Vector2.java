@@ -9,7 +9,6 @@ import com.lfscheidegger.jfacet.shade.GlSlQualifier;
 import com.lfscheidegger.jfacet.shade.expression.*;
 import com.lfscheidegger.jfacet.utils.ArrayUtils;
 import com.lfscheidegger.jfacet.utils.StringUtils;
-import com.lfscheidegger.jfacet.utils.SwizzleUtils;
 
 import java.util.Arrays;
 
@@ -219,6 +218,15 @@ public final class Vector2 extends AbstractExpression<Vector2.Primitive>
     return new Real(
         ImmutableList.<Expression>of(this),
         NodeType.ComponentNodeType.forComponent(idx));
+  }
+
+  @Override
+  public Optional<Vector2.Primitive> getPrimitive() {
+    return mPrimitive;
+  }
+
+  public Optional<AttribBuffer> getAttribBuffer() {
+    return mAttributeBuffer;
   }
 
   public Swizzle.Swizzle21XYZW<Real, Vector2, Vector3, Vector4> x() {

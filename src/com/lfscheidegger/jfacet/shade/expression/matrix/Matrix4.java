@@ -200,6 +200,11 @@ public final class Matrix4
   }
 
   @Override
+  public Optional<Primitive> getPrimitive() {
+    return mPrimitive;
+  }
+
+  @Override
   public Matrix4 add(float right) {
     return add(new Real(right));
   }

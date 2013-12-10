@@ -267,6 +267,11 @@ public final class Vector4 extends AbstractExpression<Vector4.Primitive>
         NodeType.ComponentNodeType.forComponent(idx));
   }
 
+  @Override
+  public Optional<Primitive> getPrimitive() {
+    return mPrimitive;
+  }
+
   public Swizzle.Swizzle41XYZW<Real, Vector2, Vector3, Vector4> x() {
     return new Swizzle.Swizzle41XYZW<Real, Vector2, Vector3, Vector4>("x", this);
   }
@@ -429,8 +434,6 @@ public final class Vector4 extends AbstractExpression<Vector4.Primitive>
   public Bool isNotEqual(Vector4 right) {
     return new Bool(ImmutableList.<Expression>of(this, right), NodeType.NEQ);
   }
-
-  // TODO: swizzling
 
   public Vector4 fill(Vector4 defaultExpression) {
     return this;

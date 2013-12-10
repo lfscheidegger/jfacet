@@ -37,6 +37,11 @@ public final class Bool extends AbstractExpression<Boolean> {
   }
 
   @Override
+  public Optional<Boolean> getPrimitive() {
+    return mPrimitive;
+  }
+
+  @Override
   public Bool getExpressionForTernaryOperator(Bool condition, Expression<Boolean> elseExpression) {
     return new Bool(
         ImmutableList.<Expression>of(condition, this, elseExpression),

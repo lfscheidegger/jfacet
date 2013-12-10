@@ -134,6 +134,8 @@ public interface Expression<T> {
    */
   public Optional<NodeType> getNodeType();
 
+  public Optional<T> getPrimitive();
+
   /**
    * Returns a possibly empty list of parents for this expression.
    */

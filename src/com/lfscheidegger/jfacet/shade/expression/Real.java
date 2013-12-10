@@ -39,6 +39,14 @@ public final class Real extends AbstractExpression<Float> implements SupportsBas
         NodeType.TERNARY);
   }
 
+  public Optional<Float> getPrimitive() {
+    return mPrimitive;
+  }
+
+  public Optional<AttribBuffer> getAttribBuffer() {
+    return mAttributeBuffer;
+  }
+
   @Override
   public Real add(Real right) {
     return new Real(ImmutableList.<Expression>of(this, right), NodeType.ADD);

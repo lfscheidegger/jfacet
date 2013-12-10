@@ -179,6 +179,11 @@ public final class BVector4 extends AbstractExpression<BVector4.Primitive>
         NodeType.ComponentNodeType.forComponent(idx));
   }
 
+  @Override
+  public Optional<Primitive> getPrimitive() {
+    return mPrimitive;
+  }
+
   public Swizzle.Swizzle41XYZW<Bool, BVector2, BVector3, BVector4> x() {
     return new Swizzle.Swizzle41XYZW<Bool, BVector2, BVector3, BVector4>("x", this);
   }

@@ -179,6 +179,11 @@ public final class Matrix2
   }
 
   @Override
+  public Optional<Primitive> getPrimitive() {
+    return mPrimitive;
+  }
+
+  @Override
   public Matrix2 add(float right) {
     return add(new Real(right));
   }
