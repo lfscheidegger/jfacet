@@ -254,6 +254,10 @@ public final class Vector3 extends AbstractExpression<Vector3.Primitive>
     return mPrimitive;
   }
 
+  public Optional<AttribBuffer> getAttribBuffer() {
+    return mAttributeBuffer;
+  }
+
   public Swizzle.Swizzle31XYZW<Real, Vector2, Vector3, Vector4> x() {
     return new Swizzle.Swizzle31XYZW<Real, Vector2, Vector3, Vector4>("x", this);
   }
