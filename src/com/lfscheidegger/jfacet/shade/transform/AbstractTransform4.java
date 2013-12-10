@@ -30,7 +30,7 @@ public abstract class AbstractTransform4 implements Transform<Matrix4, Vector4> 
     mQueuedTransforms.clear();
     mQueuedTransforms.add(this);
 
-    return mat.transform(exp);
+    return mat.mul(exp);
   }
 
   @Override

@@ -12,8 +12,7 @@ import com.lfscheidegger.jfacet.utils.StringUtils;
 import java.util.Arrays;
 
 public final class Matrix2
-    extends AbstractExpression<Matrix2.Primitive>
-    implements MatrixExpression<Matrix2, Matrix2.Primitive, Vector2> {
+    extends AbstractExpression<Matrix2.Primitive> {
 
   public static final class Primitive implements SupportsBasicArithmetic<Primitive> {
 
@@ -78,6 +77,12 @@ public final class Matrix2
       return new Primitive(ArrayUtils.mul(mValues, t));
     }
 
+    public Vector2.Primitive mul(Vector2.Primitive vec) {
+      return new Vector2.Primitive(
+          mValues[0] * vec.getX() + mValues[2] * vec.getY(),
+          mValues[1] * vec.getX() + mValues[3] * vec.getY());
+    }
+
     @Override
     public Primitive div(Primitive other) {
       return new Primitive(ArrayUtils.div(mValues, other.mValues));
@@ -91,12 +96,6 @@ public final class Matrix2
     @Override
     public Primitive neg() {
       return new Primitive(ArrayUtils.mul(mValues, -1));
-    }
-
-    public Vector2.Primitive transform(Vector2.Primitive vec) {
-      return new Vector2.Primitive(
-          mValues[0] * vec.getX() + mValues[2] * vec.getY(),
-          mValues[1] * vec.getX() + mValues[3] * vec.getY());
     }
 
     public float determinant() {
@@ -170,7 +169,6 @@ public final class Matrix2
     return get(1);
   }
 
-  @Override
   public Vector2 get(int idx) {
     Preconditions.checkState(idx < 2);
     return new Vector2(
@@ -183,82 +181,66 @@ public final class Matrix2
     return mPrimitive;
   }
 
-  @Override
   public Matrix2 add(float right) {
     return add(new Real(right));
   }
 
-  @Override
   public Matrix2 add(Real right) {
     return new Matrix2(ImmutableList.<Expression>of(this, right), NodeType.ADD);
   }
 
-  @Override
   public Matrix2 add(Matrix2 right) {
     return new Matrix2(ImmutableList.<Expression>of(this, right), NodeType.ADD);
   }
 
-  @Override
   public Matrix2 sub(float right) {
     return sub(new Real(right));
   }
 
-  @Override
   public Matrix2 sub(Real right) {
     return new Matrix2(ImmutableList.<Expression>of(this, right), NodeType.SUB);
   }
 
-  @Override
   public Matrix2 sub(Matrix2 right) {
     return new Matrix2(ImmutableList.<Expression>of(this, right), NodeType.SUB);
   }
 
-  @Override
   public Matrix2 mul(float right) {
     return mul(new Real(right));
   }
 
-  @Override
   public Matrix2 mul(Real right) {
     return new Matrix2(ImmutableList.<Expression>of(this, right), NodeType.MUL);
   }
 
-  @Override
   public Matrix2 mul(Matrix2 right) {
     return new Matrix2(ImmutableList.<Expression>of(this, right), NodeType.MUL);
   }
 
-  @Override
+  public Vector2 mul(Vector2 right) {
+    return new Vector2(ImmutableList.<Expression>of(this, right), NodeType.MUL);
+  }
+
   public Matrix2 div(float right) {
     return div(new Real(right));
   }
 
-  @Override
   public Matrix2 div(Real right) {
     return new Matrix2(ImmutableList.<Expression>of(this, right), NodeType.DIV);
   }
 
-  @Override
   public Matrix2 div(Matrix2 right) {
     return new Matrix2(ImmutableList.<Expression>of(this, right), NodeType.DIV);
   }
 
-  @Override
   public Matrix2 neg() {
     return new Matrix2(ImmutableList.<Expression>of(this), NodeType.NEG);
   }
 
-  @Override
-  public Vector2 transform(Vector2 right) {
-    return new Vector2(ImmutableList.<Expression>of(this, right), NodeType.MUL);
-  }
-
-  @Override
   public Bool isEqual(Matrix2 right) {
     return new Bool(ImmutableList.<Expression>of(this, right), NodeType.EQ);
   }
 
-  @Override
   public Bool isNotEqual(Matrix2 right) {
     return new Bool(ImmutableList.<Expression>of(this, right), NodeType.NEQ);
   }

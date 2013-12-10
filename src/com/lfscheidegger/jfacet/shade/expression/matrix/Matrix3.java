@@ -12,8 +12,7 @@ import com.lfscheidegger.jfacet.utils.StringUtils;
 import java.util.Arrays;
 
 public final class Matrix3
-    extends AbstractExpression<Matrix3.Primitive>
-    implements MatrixExpression<Matrix3, Matrix3.Primitive, Vector3> {
+    extends AbstractExpression<Matrix3.Primitive> {
 
   public static final class Primitive implements SupportsBasicArithmetic<Primitive> {
 
@@ -85,6 +84,13 @@ public final class Matrix3
       return new Primitive(ArrayUtils.mul(mValues, t));
     }
 
+    public Vector3.Primitive mul(Vector3.Primitive vec) {
+      return new Vector3.Primitive(
+          mValues[0] * vec.getX() + mValues[3] * vec.getY() + mValues[6] * vec.getZ(),
+          mValues[1] * vec.getX() + mValues[4] * vec.getY() + mValues[7] * vec.getZ(),
+          mValues[2] * vec.getX() + mValues[5] * vec.getY() + mValues[8] * vec.getZ());
+    }
+
     @Override
     public Primitive div(Primitive other) {
       return new Primitive(ArrayUtils.div(mValues, other.mValues));
@@ -98,13 +104,6 @@ public final class Matrix3
     @Override
     public Primitive neg() {
       return new Primitive(ArrayUtils.mul(mValues, -1));
-    }
-
-    public Vector3.Primitive transform(Vector3.Primitive vec) {
-      return new Vector3.Primitive(
-          mValues[0] * vec.getX() + mValues[3] * vec.getY() + mValues[6] * vec.getZ(),
-          mValues[1] * vec.getX() + mValues[4] * vec.getY() + mValues[7] * vec.getZ(),
-          mValues[2] * vec.getX() + mValues[5] * vec.getY() + mValues[8] * vec.getZ());
     }
 
     public float determinant() {
@@ -183,7 +182,6 @@ public final class Matrix3
     return get(2);
   }
 
-  @Override
   public Vector3 get(int idx) {
     Preconditions.checkState(idx < 3);
     return new Vector3(
@@ -196,84 +194,68 @@ public final class Matrix3
     return mPrimitive;
   }
 
-  @Override
   public Matrix3 add(float right) {
     return add(new Real(right));
   }
 
-  @Override
   public Matrix3 add(Real right) {
     return new Matrix3(ImmutableList.<Expression>of(this, right), NodeType.ADD);
   }
 
-  @Override
   public Matrix3 add(Matrix3 right) {
     return new Matrix3(ImmutableList.<Expression>of(this, right), NodeType.ADD);
   }
 
-  @Override
   public Matrix3 sub(float right) {
     return sub(new Real(right));
   }
 
-  @Override
   public Matrix3 sub(Real right) {
     return new Matrix3(ImmutableList.<Expression>of(this, right), NodeType.SUB);
   }
 
-  @Override
   public Matrix3 sub(Matrix3 right) {
     return new Matrix3(ImmutableList.<Expression>of(this, right), NodeType.SUB);
   }
 
-  @Override
   public Matrix3 mul(float right) {
     return mul(new Real(right));
   }
 
-  @Override
   public Matrix3 mul(Real right) {
     return new Matrix3(ImmutableList.<Expression>of(this, right), NodeType.MUL);
   }
 
-  @Override
   public Matrix3 mul(Matrix3 right) {
     return new Matrix3(ImmutableList.<Expression>of(this, right), NodeType.MUL);
   }
 
-  @Override
+  public Vector3 mul(Vector3 right) {
+    return new Vector3(ImmutableList.<Expression>of(this, right), NodeType.MUL);
+  }
+
   public Matrix3 div(float right) {
     return div(new Real(right));
   }
 
-  @Override
   public Matrix3 div(Real right) {
     return new Matrix3(ImmutableList.<Expression>of(this, right), NodeType.DIV);
   }
 
-  @Override
   public Matrix3 div(Matrix3 right) {
     return new Matrix3(ImmutableList.<Expression>of(this, right), NodeType.DIV);
   }
 
-  @Override
   public Matrix3 neg() {
     return new Matrix3(ImmutableList.<Expression>of(this), NodeType.NEG);
   }
 
-  @Override
-  public Vector3 transform(Vector3 right) {
-    return new Vector3(ImmutableList.<Expression>of(this, right), NodeType.MUL);
-  }
-
-  @Override
   public Bool isEqual(Matrix3 right) {
     return new Bool(ImmutableList.<Expression>of(this, right), NodeType.EQ);
   }
 
-  @Override
   public Bool isNotEqual(Matrix3 right) {
-    return new Bool(ImmutableList.<Expression>of(this, right), NodeType.EQ);
+    return new Bool(ImmutableList.<Expression>of(this, right), NodeType.NEQ);
   }
 
   public Matrix3 matrixCompMult(Matrix3 right) {

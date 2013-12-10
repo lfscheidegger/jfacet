@@ -86,6 +86,9 @@ public class Matrix3PrimitiveTest {
         new Vector3.Primitive(30, 36, 42),
         new Vector3.Primitive(66, 81, 96),
         new Vector3.Primitive(102, 126, 150)));
+
+    Vector3.Primitive transformed = mat.mul(new Vector3.Primitive(1, 2, 3));
+    assertEquals(transformed, new Vector3.Primitive(30, 36, 42));
   }
 
   @Test
@@ -110,13 +113,6 @@ public class Matrix3PrimitiveTest {
         new Vector3.Primitive(-1, -2, -3),
         new Vector3.Primitive(-4, -5, -6),
         new Vector3.Primitive(-7, -8, -9)));
-  }
-
-  @Test
-  public void testTransform() {
-    Vector3.Primitive transformed = mat.transform(new Vector3.Primitive(1, 2, 3));
-
-    assertEquals(transformed, new Vector3.Primitive(30, 36, 42));
   }
 
   @Test

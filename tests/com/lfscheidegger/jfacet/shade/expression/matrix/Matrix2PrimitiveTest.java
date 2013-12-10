@@ -74,6 +74,9 @@ public class Matrix2PrimitiveTest {
     assertEquals(multiplied, new Matrix2.Primitive(
         new Vector2.Primitive(7, 10),
         new Vector2.Primitive(15, 22)));
+
+    Vector2.Primitive transformed = mat.mul(new Vector2.Primitive(1, 2));
+    assertEquals(transformed, new Vector2.Primitive(7, 10));
   }
 
   @Test
@@ -95,13 +98,6 @@ public class Matrix2PrimitiveTest {
     assertEquals(negated, new Matrix2.Primitive(
         new Vector2.Primitive(-1, -2),
         new Vector2.Primitive(-3, -4)));
-  }
-
-  @Test
-  public void testTransform() {
-    Vector2.Primitive transformed = mat.transform(new Vector2.Primitive(1, 2));
-
-    assertEquals(transformed, new Vector2.Primitive(7, 10));
   }
 
   @Test

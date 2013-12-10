@@ -97,6 +97,9 @@ public class Matrix4PrimitiveTest {
         new Vector4.Primitive(136, 158, 180, 202),
         new Vector4.Primitive(202, 236, 270, 304),
         new Vector4.Primitive(268, 314, 360, 406)));
+
+    Vector4.Primitive transformed = mat.mul(new Vector4.Primitive(1, 2, 3, 4));
+    assertEquals(transformed, new Vector4.Primitive(70, 80, 90, 100));
   }
 
   @Test
@@ -124,13 +127,6 @@ public class Matrix4PrimitiveTest {
         new Vector4.Primitive(-4, -5, -6, -7),
         new Vector4.Primitive(-7, -8, -9, -10),
         new Vector4.Primitive(-10, -11, -12, -13)));
-  }
-
-  @Test
-  public void testTransform() {
-    Vector4.Primitive transformed = mat.transform(new Vector4.Primitive(1, 2, 3, 4));
-
-    assertEquals(transformed, new Vector4.Primitive(70, 80, 90, 100));
   }
 
   @Test

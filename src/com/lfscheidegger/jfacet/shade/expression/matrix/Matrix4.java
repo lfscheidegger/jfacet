@@ -12,8 +12,7 @@ import com.lfscheidegger.jfacet.utils.StringUtils;
 import java.util.Arrays;
 
 public final class Matrix4
-    extends AbstractExpression<Matrix4.Primitive>
-    implements MatrixExpression<Matrix4, Matrix4.Primitive, Vector4> {
+    extends AbstractExpression<Matrix4.Primitive> {
 
   public static final class Primitive implements SupportsBasicArithmetic<Primitive> {
 
@@ -90,6 +89,14 @@ public final class Matrix4
       return new Primitive(ArrayUtils.mul(mValues, t));
     }
 
+    public Vector4.Primitive mul(Vector4.Primitive vec) {
+      return new Vector4.Primitive(
+          mValues[0] * vec.getX() + mValues[4] * vec.getY() + mValues[ 8] * vec.getZ() + mValues[12] * vec.getW(),
+          mValues[1] * vec.getX() + mValues[5] * vec.getY() + mValues[ 9] * vec.getZ() + mValues[13] * vec.getW(),
+          mValues[2] * vec.getX() + mValues[6] * vec.getY() + mValues[10] * vec.getZ() + mValues[14] * vec.getW(),
+          mValues[3] * vec.getX() + mValues[7] * vec.getY() + mValues[11] * vec.getZ() + mValues[15] * vec.getW());
+    }
+
     @Override
     public Primitive div(Primitive other) {
       return new Primitive(ArrayUtils.div(mValues, other.mValues));
@@ -103,14 +110,6 @@ public final class Matrix4
     @Override
     public Primitive neg() {
       return new Primitive(ArrayUtils.mul(mValues, -1));
-    }
-
-    public Vector4.Primitive transform(Vector4.Primitive vec) {
-      return new Vector4.Primitive(
-          mValues[0] * vec.getX() + mValues[4] * vec.getY() + mValues[ 8] * vec.getZ() + mValues[12] * vec.getW(),
-          mValues[1] * vec.getX() + mValues[5] * vec.getY() + mValues[ 9] * vec.getZ() + mValues[13] * vec.getW(),
-          mValues[2] * vec.getX() + mValues[6] * vec.getY() + mValues[10] * vec.getZ() + mValues[14] * vec.getW(),
-          mValues[3] * vec.getX() + mValues[7] * vec.getY() + mValues[11] * vec.getZ() + mValues[15] * vec.getW());
     }
 
     public float determinant() {
@@ -193,7 +192,6 @@ public final class Matrix4
     return get(3);
   }
 
-  @Override
   public Vector4 get(int idx) {
     Preconditions.checkState(idx < 4);
     return new Vector4(ImmutableList.<Expression>of(this), NodeType.ComponentNodeType.forComponent(idx));
@@ -204,82 +202,66 @@ public final class Matrix4
     return mPrimitive;
   }
 
-  @Override
   public Matrix4 add(float right) {
     return add(new Real(right));
   }
 
-  @Override
   public Matrix4 add(Real right) {
     return new Matrix4(ImmutableList.<Expression>of(this, right), NodeType.ADD);
   }
 
-  @Override
   public Matrix4 add(Matrix4 right) {
     return new Matrix4(ImmutableList.<Expression>of(this, right), NodeType.ADD);
   }
 
-  @Override
   public Matrix4 sub(float right) {
     return sub(new Real(right));
   }
 
-  @Override
   public Matrix4 sub(Real right) {
     return new Matrix4(ImmutableList.<Expression>of(this, right), NodeType.SUB);
   }
 
-  @Override
   public Matrix4 sub(Matrix4 right) {
     return new Matrix4(ImmutableList.<Expression>of(this, right), NodeType.SUB);
   }
 
-  @Override
   public Matrix4 mul(float right) {
     return mul(new Real(right));
   }
 
-  @Override
   public Matrix4 mul(Real right) {
     return new Matrix4(ImmutableList.<Expression>of(this, right), NodeType.MUL);
   }
 
-  @Override
   public Matrix4 mul(Matrix4 right) {
     return new Matrix4(ImmutableList.<Expression>of(this, right), NodeType.MUL);
   }
 
-  @Override
+  public Vector4 mul(Vector4 right) {
+    return new Vector4(ImmutableList.<Expression>of(this, right), NodeType.MUL);
+  }
+
   public Matrix4 div(float right) {
     return div(new Real(right));
   }
 
-  @Override
   public Matrix4 div(Real right) {
     return new Matrix4(ImmutableList.<Expression>of(this, right), NodeType.DIV);
   }
 
-  @Override
   public Matrix4 div(Matrix4 right) {
     return new Matrix4(ImmutableList.<Expression>of(this, right), NodeType.DIV);
   }
 
-  @Override
   public Matrix4 neg() {
     return new Matrix4(ImmutableList.<Expression>of(this), NodeType.NEG);
   }
 
-  @Override
-  public Vector4 transform(Vector4 right) {
-    return new Vector4(ImmutableList.<Expression>of(this, right), NodeType.MUL);
-  }
-
-  @Override
   public Bool isEqual(Matrix4 right) {
     return new Bool(ImmutableList.<Expression>of(this, right), NodeType.EQ);
   }
 
-  @Override
   public Bool isNotEqual(Matrix4 right) {
     return new Bool(ImmutableList.<Expression>of(this, right), NodeType.NEQ);
   }
