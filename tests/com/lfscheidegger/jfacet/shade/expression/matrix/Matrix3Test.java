@@ -67,34 +67,13 @@ public class Matrix3Test {
     testGetter(c2, 2, ImmutableList.<Expression>of(mMatrix));
   }
 
-  private void testArithmetic(
-      Matrix3 matWithFloat,
-      Matrix3 matWithReal,
-      Real real,
-      Matrix3 matWithMat,
-      Matrix3 rhs,
-      Expression.NodeType nodeType) {
-    testNonLeafExpression(matWithFloat);
-    assertEquals(matWithFloat.getNodeType().get(), nodeType);
-    assertEquals(matWithFloat.getParents().size(), 2);
-    assertEquals(matWithFloat.getParents().get(0), mMatrix);
-
-    testNonLeafExpression(matWithReal);
-    assertEquals(matWithReal.getNodeType().get(), nodeType);
-    assertEquals(matWithReal.getParents(), ImmutableList.<Expression>of(mMatrix, real));
-
-    testNonLeafExpression(matWithMat);
-    assertEquals(matWithMat.getNodeType().get(), nodeType);
-    assertEquals(matWithMat.getParents(), ImmutableList.<Expression>of(mMatrix, rhs));
-  }
-
   @Test
   public void testAdd() {
     Matrix3 mat = mMatrix.add(1);
     Real real = new Real(1);
     Matrix3 rhs = new Matrix3();
 
-    testArithmetic(mat, mMatrix.add(real), real, mMatrix.add(rhs), rhs, Expression.NodeType.ADD);
+    testArithmetic(mMatrix, mat, mMatrix.add(real), real, mMatrix.add(rhs), rhs, Expression.NodeType.ADD);
   }
 
   @Test
@@ -103,7 +82,7 @@ public class Matrix3Test {
     Real real = new Real(1);
     Matrix3 rhs = new Matrix3();
 
-    testArithmetic(mat, mMatrix.sub(real), real, mMatrix.sub(rhs), rhs, Expression.NodeType.SUB);
+    testArithmetic(mMatrix, mat, mMatrix.sub(real), real, mMatrix.sub(rhs), rhs, Expression.NodeType.SUB);
   }
 
   @Test
@@ -112,7 +91,7 @@ public class Matrix3Test {
     Real real = new Real(1);
     Matrix3 rhs = new Matrix3();
 
-    testArithmetic(mat, mMatrix.mul(real), real, mMatrix.mul(rhs), rhs, Expression.NodeType.MUL);
+    testArithmetic(mMatrix, mat, mMatrix.mul(real), real, mMatrix.mul(rhs), rhs, Expression.NodeType.MUL);
 
     Vector3 input = new Vector3(1, 2, 3);
     Vector3 transformed = mMatrix.mul(input);
@@ -127,7 +106,7 @@ public class Matrix3Test {
     Real real = new Real(1);
     Matrix3 rhs = new Matrix3();
 
-    testArithmetic(mat, mMatrix.div(real), real, mMatrix.div(rhs), rhs, Expression.NodeType.DIV);
+    testArithmetic(mMatrix, mat, mMatrix.div(real), real, mMatrix.div(rhs), rhs, Expression.NodeType.DIV);
   }
 
   @Test

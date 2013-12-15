@@ -32,4 +32,26 @@ public class ExpressionTestUtils {
     assertEquals(((Expression.NodeType.ComponentNodeType)
         component.getNodeType().get()).getComponent(), expectedComponent);
   }
+
+  public static void testArithmetic(
+      Expression lhs,
+      Expression withFloat,
+      Expression withReal,
+      Real real,
+      Expression withSame,
+      Expression  rhs,
+      Expression.NodeType nodeType) {
+    testNonLeafExpression(withFloat);
+    assertEquals(withFloat.getNodeType().get(), nodeType);
+    assertEquals(withFloat.getParents().size(), 2);
+    assertEquals(withFloat.getParents().get(0), lhs);
+
+    testNonLeafExpression(withReal);
+    assertEquals(withReal.getNodeType().get(), nodeType);
+    assertEquals(withReal.getParents(), ImmutableList.<Expression>of(lhs, real));
+
+    testNonLeafExpression(withSame);
+    assertEquals(withSame.getNodeType().get(), nodeType);
+    assertEquals(withSame.getParents(), ImmutableList.<Expression>of(lhs, rhs));
+  }
 }

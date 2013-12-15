@@ -110,27 +110,6 @@ public class Vector2Test {
     assertTrue(vec.getNodeType().isPresent());
   }
 
-  private void testArithmetic(
-      Vector2 vecWithFloat,
-      Vector2 vecWithReal,
-      Real real,
-      Vector2 vecWithVec,
-      Vector2 rhs,
-      Expression.NodeType nodeType) {
-    testNonLeafVector(vecWithFloat);
-    assertEquals(vecWithFloat.getNodeType().get(), nodeType);
-    assertEquals(vecWithFloat.getParents().size(), 2);
-    assertEquals(vecWithFloat.getParents().get(0), mVec);
-
-    testNonLeafVector(vecWithReal);
-    assertEquals(vecWithReal.getNodeType().get(), nodeType);
-    assertEquals(vecWithReal.getParents(), ImmutableList.<Expression>of(mVec, real));
-
-    testNonLeafVector(vecWithVec);
-    assertEquals(vecWithVec.getNodeType().get(), nodeType);
-    assertEquals(vecWithVec.getParents(), ImmutableList.<Expression>of(mVec, rhs));
-  }
-
   @Test
   @SuppressWarnings("all")
   public void testSwizzleXYZW() {
@@ -254,7 +233,7 @@ public class Vector2Test {
     Real real = new Real(1);
     Vector2 rhs = new Vector2(1, 2);
 
-    testArithmetic(vec, mVec.add(real), real, mVec.add(rhs), rhs, Expression.NodeType.ADD);
+    testArithmetic(mVec, vec, mVec.add(real), real, mVec.add(rhs), rhs, Expression.NodeType.ADD);
   }
 
   @Test
@@ -263,7 +242,7 @@ public class Vector2Test {
     Real real = new Real(1);
     Vector2 rhs = new Vector2(1, 2);
 
-    testArithmetic(vec, mVec.sub(real), real, mVec.sub(rhs), rhs, Expression.NodeType.SUB);
+    testArithmetic(mVec, vec, mVec.sub(real), real, mVec.sub(rhs), rhs, Expression.NodeType.SUB);
   }
 
   @Test
@@ -272,7 +251,7 @@ public class Vector2Test {
     Real real = new Real(1);
     Vector2 rhs = new Vector2(1, 2);
 
-    testArithmetic(vec, mVec.mul(real), real, mVec.mul(rhs), rhs, Expression.NodeType.MUL);
+    testArithmetic(mVec, vec, mVec.mul(real), real, mVec.mul(rhs), rhs, Expression.NodeType.MUL);
   }
 
   @Test
@@ -281,7 +260,7 @@ public class Vector2Test {
     Real real = new Real(1);
     Vector2 rhs = new Vector2(1, 2);
 
-    testArithmetic(vec, mVec.div(real), real, mVec.div(rhs), rhs, Expression.NodeType.DIV);
+    testArithmetic(mVec, vec, mVec.div(real), real, mVec.div(rhs), rhs, Expression.NodeType.DIV);
   }
 
   @Test
