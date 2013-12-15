@@ -143,14 +143,7 @@ public class Matrix3Test {
     Matrix3 rhs = new Matrix3();
     Matrix3 matrixCompMult = mMatrix.matrixCompMult(rhs);
 
-    testNonLeafExpression(matrixCompMult);
-    assertTrue(matrixCompMult.getNodeType().isPresent());
-    assertTrue(matrixCompMult.getNodeType().get() instanceof Expression.NodeType.FunctionNodeType);
-
-    Expression.NodeType.FunctionNodeType nodeType =
-        (Expression.NodeType.FunctionNodeType)matrixCompMult.getNodeType().get();
-    assertEquals(nodeType.getFunctionName(), "matrixCompMult");
-
+    testFunction(matrixCompMult, "matrixCompMult");
     assertEquals(matrixCompMult.getParents(), ImmutableList.<Expression>of(mMatrix, rhs));
   }
 }

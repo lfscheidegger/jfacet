@@ -63,4 +63,14 @@ public class ExpressionTestUtils {
         swizzled.getNodeType().get();
     assertEquals(nodeType.getSwizzleString(), expectedString);
   }
+
+  public static void testFunction(Expression expression, String functionName) {
+    testNonLeafExpression(expression);
+    assertTrue(expression.getNodeType().isPresent());
+    assertTrue(expression.getNodeType().get() instanceof Expression.NodeType.FunctionNodeType);
+
+    Expression.NodeType.FunctionNodeType nodeType =
+        (Expression.NodeType.FunctionNodeType)expression.getNodeType().get();
+    assertEquals(nodeType.getFunctionName(), functionName);
+  }
 }

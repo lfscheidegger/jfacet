@@ -263,17 +263,6 @@ public class Vector2Test {
     assertEquals(neg.getParents(), ImmutableList.<Expression>of(mVec));
   }
 
-  private void testFunction(
-      Expression expression,
-      String functionName) {
-    assertTrue(expression.getNodeType().isPresent());
-    assertTrue(expression.getNodeType().get() instanceof Expression.NodeType.FunctionNodeType);
-
-    Expression.NodeType.FunctionNodeType nodeType =
-        (Expression.NodeType.FunctionNodeType)expression.getNodeType().get();
-    assertEquals(nodeType.getFunctionName(), functionName);
-  }
-
   @Test
   public void testDot() {
     Vector2 vec = new Vector2(1, 2);
