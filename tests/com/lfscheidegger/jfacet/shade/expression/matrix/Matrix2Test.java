@@ -46,21 +46,6 @@ public class Matrix2Test {
     assertEquals(matrix.getParents(), ImmutableList.<Expression>of(c0, c1));
   }
 
-  private void testGetter(
-      Vector2 component,
-      int expectedComponent,
-      ImmutableList<Expression> expectedParents) {
-    assertFalse(component.getPrimitive().isPresent());
-    assertFalse(component.getAttribBuffer().isPresent());
-    assertFalse(component.getGlSlQualifier().isPresent());
-    assertTrue(component.getNodeType().isPresent());
-    assertTrue(component.getNodeType().get() instanceof Expression.NodeType.ComponentNodeType);
-
-    assertEquals(((Expression.NodeType.ComponentNodeType)
-        component.getNodeType().get()).getComponent(), expectedComponent);
-    assertEquals(component.getParents(), expectedParents);
-  }
-
   @Test
   public void testGetters() {
     Vector2 c0 = mMatrix.getC0();

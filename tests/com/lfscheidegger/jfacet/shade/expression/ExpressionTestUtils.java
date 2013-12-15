@@ -22,4 +22,14 @@ public class ExpressionTestUtils {
     assertFalse(expression.getGlSlQualifier().isPresent());
     assertTrue(expression.getNodeType().isPresent());
   }
+
+  public static void testGetter(
+      Expression component,
+      int expectedComponent,
+      ImmutableList<Expression> expectedParents) {
+    testNonLeafExpression(component, expectedParents);
+    assertTrue(component.getNodeType().get() instanceof Expression.NodeType.ComponentNodeType);
+    assertEquals(((Expression.NodeType.ComponentNodeType)
+        component.getNodeType().get()).getComponent(), expectedComponent);
+  }
 }

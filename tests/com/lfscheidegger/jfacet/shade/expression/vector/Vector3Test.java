@@ -58,22 +58,6 @@ public class Vector3Test {
     assertEquals(vec.getParents(), ImmutableList.<Expression>of());
   }
 
-  private void testGetter(
-      Real component,
-      int expectedComponent,
-      ImmutableList<Expression> expectedParents) {
-
-    assertFalse(component.getPrimitive().isPresent());
-    assertFalse(component.getAttribBuffer().isPresent());
-    assertFalse(component.getGlSlQualifier().isPresent());
-    assertTrue(component.getNodeType().isPresent());
-    assertTrue(component.getNodeType().get() instanceof Expression.NodeType.ComponentNodeType);
-
-    assertEquals(((Expression.NodeType.ComponentNodeType)
-        component.getNodeType().get()).getComponent(), expectedComponent);
-    assertEquals(component.getParents(), expectedParents);
-  }
-
   @Test
   public void testGetters() {
     Vector3 vec = new Vector3(1, 2, 3);

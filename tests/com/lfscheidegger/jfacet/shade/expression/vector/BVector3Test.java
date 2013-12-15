@@ -44,17 +44,6 @@ public class BVector3Test {
     testGetter(mVec.get(2), 2, ImmutableList.<Expression>of(mVec));
   }
 
-  private void testGetter(
-      Bool component,
-      int expectedComponent,
-      ImmutableList<Expression> expectedParents) {
-
-    testNonLeafExpression(component, expectedParents);
-    assertTrue(component.getNodeType().get() instanceof Expression.NodeType.ComponentNodeType);
-    assertEquals(((Expression.NodeType.ComponentNodeType)
-        component.getNodeType().get()).getComponent(), expectedComponent);
-  }
-
   private void testSwizzle1(Expression swizzled, String expectedString) {
     assertTrue(swizzled instanceof Bool);
     testSwizzle(swizzled, expectedString);
