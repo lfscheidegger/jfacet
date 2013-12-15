@@ -9,6 +9,8 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
+import static com.lfscheidegger.jfacet.shade.expression.ExpressionTestUtils.*;
+
 /**
  * Unit tests for {@code Matrix3}
  */
@@ -78,12 +80,6 @@ public class Matrix3Test {
 
     c2 = mMatrix.get(2);
     testGetter(c2, 2, ImmutableList.<Expression>of(mMatrix));
-  }
-
-  private void testNonLeafExpression(Expression exp) {
-    assertFalse(exp.getPrimitive().isPresent());
-    assertFalse(exp.getGlSlQualifier().isPresent());
-    assertTrue(exp.getNodeType().isPresent());
   }
 
   private void testArithmetic(

@@ -5,9 +5,9 @@ import com.lfscheidegger.jfacet.shade.expression.Bool;
 import com.lfscheidegger.jfacet.shade.expression.Expression;
 import org.junit.Test;
 
-import javax.annotation.Nullable;
-
 import static org.junit.Assert.*;
+
+import static com.lfscheidegger.jfacet.shade.expression.ExpressionTestUtils.*;
 
 /**
  * Unit tests for {@code BVector2}
@@ -32,18 +32,6 @@ public class BVector2Test {
     vec = new BVector2(ImmutableList.<Expression>of(x, y), Expression.NodeType.CONS);
     testNonLeafExpression(vec, ImmutableList.<Expression>of(x, y));
     assertEquals(vec.getNodeType().get(), Expression.NodeType.CONS);
-  }
-
-  private void testNonLeafExpression(
-      Expression exp,
-      @Nullable ImmutableList<Expression> expectedParents) {
-    assertFalse(exp.getPrimitive().isPresent());
-    assertFalse(exp.getGlSlQualifier().isPresent());
-    assertTrue(exp.getNodeType().isPresent());
-
-    if (expectedParents != null) {
-      assertEquals(exp.getParents(), expectedParents);
-    }
   }
 
   @Test
@@ -86,7 +74,7 @@ public class BVector2Test {
   }
 
   private void testSwizzle(Expression swizzled, String expectedString) {
-    testNonLeafExpression(swizzled, null);
+    testNonLeafExpression(swizzled);
     assertEquals(swizzled.getParents(), ImmutableList.<Expression>of(mVec));
     assertTrue(swizzled.getNodeType().get() instanceof Expression.NodeType.SwizzleNodeType);
     Expression.NodeType.SwizzleNodeType nodeType = (Expression.NodeType.SwizzleNodeType)
@@ -245,7 +233,7 @@ public class BVector2Test {
   public void testFill() {
     BVector4 defaultExpression = new BVector4(true, true, true, true);
     BVector4 fill = mVec.fill(defaultExpression);
-    testNonLeafExpression(fill, null);
+    testNonLeafExpression(fill);
     assertEquals(fill.getNodeType().get(), Expression.NodeType.CONS);
     assertEquals(fill.getParents().size(), 4);
   }

@@ -5,9 +5,9 @@ import com.lfscheidegger.jfacet.shade.expression.Bool;
 import com.lfscheidegger.jfacet.shade.expression.Expression;
 import org.junit.Test;
 
-import javax.annotation.Nullable;
-
 import static org.junit.Assert.*;
+
+import static com.lfscheidegger.jfacet.shade.expression.ExpressionTestUtils.*;
 
 /**
  * Unit tests for {@code BVector4}
@@ -32,18 +32,6 @@ public class BVector4Test {
     vec = new BVector4(ImmutableList.<Expression>of(x, y, z, w), Expression.NodeType.CONS);
     testNonLeafExpression(vec, ImmutableList.<Expression>of(x, y, z, w));
     assertEquals(vec.getNodeType().get(), Expression.NodeType.CONS);
-  }
-
-  private void testNonLeafExpression(
-      Expression exp,
-      @Nullable ImmutableList<Expression> expectedParents) {
-    assertFalse(exp.getPrimitive().isPresent());
-    assertFalse(exp.getGlSlQualifier().isPresent());
-    assertTrue(exp.getNodeType().isPresent());
-
-    if (expectedParents != null) {
-      assertEquals(exp.getParents(), expectedParents);
-    }
   }
 
   @Test
@@ -90,7 +78,7 @@ public class BVector4Test {
   }
 
   private void testSwizzle(Expression swizzled, String expectedString) {
-    testNonLeafExpression(swizzled, null);
+    testNonLeafExpression(swizzled);
     assertEquals(swizzled.getParents(), ImmutableList.<Expression>of(mVec));
     assertTrue(swizzled.getNodeType().get() instanceof Expression.NodeType.SwizzleNodeType);
     Expression.NodeType.SwizzleNodeType nodeType = (Expression.NodeType.SwizzleNodeType)

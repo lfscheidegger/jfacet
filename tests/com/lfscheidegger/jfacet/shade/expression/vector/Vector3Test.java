@@ -9,6 +9,7 @@ import com.lfscheidegger.jfacet.shade.expression.Real;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
+import static com.lfscheidegger.jfacet.shade.expression.ExpressionTestUtils.*;
 
 /**
  * Unit tests for {@code Vector3}
@@ -516,12 +517,6 @@ public class Vector3Test {
     assertFalse(vec.getAttribBuffer().isPresent());
     assertFalse(vec.getGlSlQualifier().isPresent());
     assertTrue(vec.getNodeType().isPresent());
-  }
-
-  private void testNonLeafExpression(Expression exp) {
-    assertFalse(exp.getPrimitive().isPresent());
-    assertFalse(exp.getGlSlQualifier().isPresent());
-    assertTrue(exp.getNodeType().isPresent());
   }
 
   private void testArithmetic(
