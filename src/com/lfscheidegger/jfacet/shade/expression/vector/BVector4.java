@@ -11,7 +11,7 @@ import com.lfscheidegger.jfacet.utils.StringUtils;
 import java.util.Arrays;
 
 public final class BVector4 extends AbstractExpression<BVector4.Primitive>
-    implements VectorExpression<Bool> {
+    implements VectorExpression<Bool, BVector4> {
 
   public static final class Primitive implements BVectorPrimitive {
 
@@ -248,5 +248,10 @@ public final class BVector4 extends AbstractExpression<BVector4.Primitive>
     return new BVector4(
         ImmutableList.<Expression>of(this),
         NodeType.FunctionNodeType.forFunction("not"));
+  }
+
+  @Override
+  public BVector4 fill(BVector4 defaultExpression) {
+    return this;
   }
 }

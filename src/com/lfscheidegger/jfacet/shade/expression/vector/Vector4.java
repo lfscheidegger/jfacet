@@ -12,7 +12,7 @@ import com.lfscheidegger.jfacet.utils.StringUtils;
 import java.util.Arrays;
 
 public final class Vector4 extends AbstractExpression<Vector4.Primitive>
-    implements VectorExpression<Real> {
+    implements VectorExpression<Real, Vector4> {
 
   public static final class Primitive implements
       SupportsBasicArithmetic<Primitive>, VectorPrimitive {
@@ -437,5 +437,10 @@ public final class Vector4 extends AbstractExpression<Vector4.Primitive>
 
   public Bool isNotEqual(Vector4 right) {
     return new Bool(ImmutableList.<Expression>of(this, right), NodeType.NEQ);
+  }
+
+  @Override
+  public Vector4 fill(Vector4 defaultExpression) {
+    return this;
   }
 }

@@ -3,6 +3,9 @@ package com.lfscheidegger.jfacet;
 import com.google.common.collect.*;
 import com.lfscheidegger.jfacet.shade.Shade;
 import com.lfscheidegger.jfacet.shade.expression.Expression;
+import com.lfscheidegger.jfacet.shade.expression.Real;
+import com.lfscheidegger.jfacet.shade.expression.vector.Vector2;
+import com.lfscheidegger.jfacet.shade.expression.vector.Vector3;
 import com.lfscheidegger.jfacet.shade.expression.vector.Vector4;
 import com.lfscheidegger.jfacet.shade.expression.vector.VectorExpression;
 
@@ -13,9 +16,6 @@ public final class Program {
   /*private int mProgramHandle;
 
   private final CompilationContext mCompilationContext;
-
-  private final Expression mPosition;
-  private final Expression mFragColor;
 
   private AndroidGL20 mAndroidGL;
 
@@ -28,10 +28,15 @@ public final class Program {
   private final Expression[] mUniformExpressions;
   private final int[] mUniformLocations;*/
 
-  //private final Vector4 mPosition;
-  //private final Vector4 mFragColor;
+  private final Vector4 mPosition;
+  private final Vector4 mFragColor;
 
-  public Program(Expression position, Expression fragColor) {
+  public <T> Program(VectorExpression<T, Vector4> position, VectorExpression<T, Vector4> fragColor) {
+    mPosition = position.fill(new Vector4(0, 0, 0, 1));
+    mFragColor = fragColor.fill(new Vector4(0, 0, 0, 1));
+  }
+
+  //public Program(Expression position, Expression fragColor) {
     //mPosition = position.fill(Shade.vec(0, 0, 0, 1));
     //mFragColor = position.fill(Shade.vec(0, 0, 0, 1));
     /*mCompilationContext = new DefaultCompilationContext();
@@ -68,7 +73,7 @@ public final class Program {
       mUniformExpressions[count++] = expression;
     }
     mUniformLocations = new int[uniformExpressions.size()];*/
-  }
+  //}
 
   public void bake() {
     /*mAndroidGL = new AndroidGL20();

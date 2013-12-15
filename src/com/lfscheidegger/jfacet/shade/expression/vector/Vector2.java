@@ -13,7 +13,7 @@ import com.lfscheidegger.jfacet.utils.StringUtils;
 import java.util.Arrays;
 
 public final class Vector2 extends AbstractExpression<Vector2.Primitive>
-    implements VectorExpression<Real> {
+    implements VectorExpression<Real, Vector4> {
 
   public static final class Primitive implements
       SupportsBasicArithmetic<Primitive>, VectorPrimitive {
@@ -368,6 +368,7 @@ public final class Vector2 extends AbstractExpression<Vector2.Primitive>
     return new Bool(ImmutableList.<Expression>of(this, right), NodeType.NEQ);
   }
 
+  @Override
   public Vector4 fill(Vector4 defaultExpression) {
     return new Vector4(getX(), getY(), defaultExpression.getZ(), defaultExpression.getW());
   }

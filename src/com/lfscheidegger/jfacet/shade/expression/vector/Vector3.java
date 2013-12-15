@@ -14,7 +14,7 @@ import com.lfscheidegger.jfacet.utils.SwizzleUtils;
 import java.util.Arrays;
 
 public final class Vector3 extends AbstractExpression<Vector3.Primitive>
-    implements VectorExpression<Real> {
+    implements VectorExpression<Real, Vector4> {
 
   public static final class Primitive implements
       SupportsBasicArithmetic<Primitive>, VectorPrimitive {
@@ -415,6 +415,7 @@ public final class Vector3 extends AbstractExpression<Vector3.Primitive>
     return new Bool(ImmutableList.<Expression>of(this, right), NodeType.NEQ);
   }
 
+  @Override
   public Vector4 fill(Vector4 defaultExpression) {
     return new Vector4(getX(), getY(), getZ(), defaultExpression.getW());
   }

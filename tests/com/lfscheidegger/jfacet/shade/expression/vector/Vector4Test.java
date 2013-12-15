@@ -1364,4 +1364,12 @@ public class Vector4Test {
     assertEquals(notEqual.getNodeType().get(), Expression.NodeType.NEQ);
     assertEquals(notEqual.getParents(), ImmutableList.<Expression>of(mVec, rhs));
   }
+
+  @Test
+  public void testFill() {
+    Vector4 defaultValues = new Vector4(1, 2, 3, 4);
+    Vector4 fill = mVec.fill(defaultValues);
+
+    assertSame(mVec, fill);
+  }
 }
