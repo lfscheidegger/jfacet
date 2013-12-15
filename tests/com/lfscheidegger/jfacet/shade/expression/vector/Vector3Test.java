@@ -82,31 +82,22 @@ public class Vector3Test {
 
   private void testSwizzle1(Expression swizzled, String expectedString) {
     assertTrue(swizzled instanceof Real);
-    testSwizzle(swizzled, expectedString);
+    testSwizzle(mVec, swizzled, expectedString);
   }
 
   private void testSwizzle2(Expression swizzled, String expectedString) {
     assertTrue(swizzled instanceof Vector2);
-    testSwizzle(swizzled, expectedString);
+    testSwizzle(mVec, swizzled, expectedString);
   }
 
   private void testSwizzle3(Expression swizzled, String expectedString) {
     assertTrue(swizzled instanceof Vector3);
-    testSwizzle(swizzled, expectedString);
+    testSwizzle(mVec, swizzled, expectedString);
   }
 
   private void testSwizzle4(Expression swizzled, String expectedString) {
     assertTrue(swizzled instanceof Vector4);
-    testSwizzle(swizzled, expectedString);
-  }
-
-  private void testSwizzle(Expression swizzled, String expectedString) {
-    testNonLeafExpression(swizzled);
-    assertEquals(swizzled.getParents(), ImmutableList.<Expression>of(mVec));
-    assertTrue(swizzled.getNodeType().get() instanceof Expression.NodeType.SwizzleNodeType);
-    Expression.NodeType.SwizzleNodeType nodeType = (Expression.NodeType.SwizzleNodeType)
-        swizzled.getNodeType().get();
-    assertEquals(nodeType.getSwizzleString(), expectedString);
+    testSwizzle(mVec, swizzled, expectedString);
   }
 
   @Test

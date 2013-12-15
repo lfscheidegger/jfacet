@@ -54,4 +54,13 @@ public class ExpressionTestUtils {
     assertEquals(withSame.getNodeType().get(), nodeType);
     assertEquals(withSame.getParents(), ImmutableList.<Expression>of(lhs, rhs));
   }
+
+  public static void testSwizzle(Expression parent, Expression swizzled, String expectedString) {
+    testNonLeafExpression(swizzled);
+    assertEquals(swizzled.getParents(), ImmutableList.<Expression>of(parent));
+    assertTrue(swizzled.getNodeType().get() instanceof Expression.NodeType.SwizzleNodeType);
+    Expression.NodeType.SwizzleNodeType nodeType = (Expression.NodeType.SwizzleNodeType)
+        swizzled.getNodeType().get();
+    assertEquals(nodeType.getSwizzleString(), expectedString);
+  }
 }
