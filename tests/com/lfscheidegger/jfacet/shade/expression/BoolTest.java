@@ -1,7 +1,6 @@
 package com.lfscheidegger.jfacet.shade.expression;
 
 import com.google.common.collect.ImmutableList;
-import com.lfscheidegger.jfacet.shade.expression.vector.Vector2;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
