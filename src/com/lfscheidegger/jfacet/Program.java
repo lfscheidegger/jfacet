@@ -1,11 +1,8 @@
 package com.lfscheidegger.jfacet;
 
+import com.badlogic.gdx.backends.android.AndroidGL20;
 import com.google.common.collect.*;
-import com.lfscheidegger.jfacet.shade.Shade;
 import com.lfscheidegger.jfacet.shade.expression.Expression;
-import com.lfscheidegger.jfacet.shade.expression.Real;
-import com.lfscheidegger.jfacet.shade.expression.vector.Vector2;
-import com.lfscheidegger.jfacet.shade.expression.vector.Vector3;
 import com.lfscheidegger.jfacet.shade.expression.vector.Vector4;
 import com.lfscheidegger.jfacet.shade.expression.vector.VectorExpression;
 
@@ -30,6 +27,8 @@ public final class Program {
 
   private final Vector4 mPosition;
   private final Vector4 mFragColor;
+
+  private AndroidGL20 mAndroidGL;
 
   public <T> Program(VectorExpression<T, Vector4> position, VectorExpression<T, Vector4> fragColor) {
     mPosition = position.fill(new Vector4(0, 0, 0, 1));
@@ -76,9 +75,9 @@ public final class Program {
   //}
 
   public void bake() {
-    /*mAndroidGL = new AndroidGL20();
+    mAndroidGL = new AndroidGL20();
 
-    FragmentShaderCompiler fragmentShaderCompiler = new FragmentShaderCompiler(
+    /*FragmentShaderCompiler fragmentShaderCompiler = new FragmentShaderCompiler(
         ImmutableMap.<String, Expression>of("gl_FragColor", mFragColor),
         mCompilationContext);
     String fragmentShaderSource = fragmentShaderCompiler.compile();

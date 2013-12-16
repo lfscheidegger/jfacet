@@ -14,8 +14,7 @@ import java.util.Arrays;
 public final class Vector4 extends AbstractExpression<Vector4.Primitive>
     implements VectorExpression<Real, Vector4> {
 
-  public static final class Primitive implements
-      SupportsBasicArithmetic<Primitive>, VectorPrimitive {
+  public static final class Primitive implements VectorPrimitive {
 
     private final float[] mValues;
 
@@ -96,47 +95,38 @@ public final class Vector4 extends AbstractExpression<Vector4.Primitive>
       return new Swizzle.Swizzle41STPQ<Float, Vector2.Primitive, Vector3.Primitive, Vector4.Primitive>("q", this);
     }
 
-    @Override
     public Primitive add(Primitive other) {
       return new Primitive(ArrayUtils.add(mValues, other.mValues));
     }
 
-    @Override
     public Primitive add(float t) {
       return new Primitive(ArrayUtils.add(mValues, t));
     }
 
-    @Override
     public Primitive sub(Primitive other) {
       return new Primitive(ArrayUtils.sub(mValues, other.mValues));
     }
 
-    @Override
     public Primitive sub(float t) {
       return new Primitive(ArrayUtils.sub(mValues, t));
     }
 
-    @Override
     public Primitive mul(Primitive other) {
       return new Primitive(ArrayUtils.mul(mValues, other.mValues));
     }
 
-    @Override
     public Primitive mul(float t) {
       return new Primitive(ArrayUtils.mul(mValues, t));
     }
 
-    @Override
     public Primitive div(Primitive other) {
       return new Primitive(ArrayUtils.div(mValues, other.mValues));
     }
 
-    @Override
     public Primitive div(float t) {
       return new Primitive(ArrayUtils.div(mValues, t));
     }
 
-    @Override
     public Primitive neg() {
       return new Primitive(ArrayUtils.neg(mValues));
     }

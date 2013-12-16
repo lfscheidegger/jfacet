@@ -14,7 +14,7 @@ import java.util.Arrays;
 public final class Matrix2
     extends AbstractExpression<Matrix2.Primitive> {
 
-  public static final class Primitive implements SupportsBasicArithmetic<Primitive> {
+  public static final class Primitive {
 
     private final float[] mValues;
 
@@ -47,32 +47,26 @@ public final class Matrix2
       return new Vector2.Primitive(mValues[2 * idx], mValues[2 * idx + 1]);
     }
 
-    @Override
     public Primitive add(Primitive other) {
       return new Primitive(ArrayUtils.add(mValues, other.mValues));
     }
 
-    @Override
     public Primitive add(float t) {
       return new Primitive(ArrayUtils.add(mValues, t));
     }
 
-    @Override
     public Primitive sub(Primitive other) {
       return new Primitive(ArrayUtils.sub(mValues, other.mValues));
     }
 
-    @Override
     public Primitive sub(float t) {
       return new Primitive(ArrayUtils.sub(mValues, t));
     }
 
-    @Override
     public Primitive mul(Primitive other) {
       return new Primitive(ArrayUtils.mulMatrix(mValues, other.mValues, 2));
     }
 
-    @Override
     public Primitive mul(float t) {
       return new Primitive(ArrayUtils.mul(mValues, t));
     }
@@ -83,17 +77,14 @@ public final class Matrix2
           mValues[1] * vec.getX() + mValues[3] * vec.getY());
     }
 
-    @Override
     public Primitive div(Primitive other) {
       return new Primitive(ArrayUtils.div(mValues, other.mValues));
     }
 
-    @Override
     public Primitive div(float t) {
       return new Primitive(ArrayUtils.div(mValues, t));
     }
 
-    @Override
     public Primitive neg() {
       return new Primitive(ArrayUtils.mul(mValues, -1));
     }

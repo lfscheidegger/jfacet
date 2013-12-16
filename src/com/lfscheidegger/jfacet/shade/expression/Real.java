@@ -8,7 +8,7 @@ import com.lfscheidegger.jfacet.shade.GlSlQualifier;
 /**
  * {code Expression} for floats
  */
-public final class Real extends AbstractExpression<Float> implements SupportsBasicArithmetic<Real> {
+public final class Real extends AbstractExpression<Float> {
 
   private final Optional<Float> mPrimitive;
 
@@ -47,47 +47,38 @@ public final class Real extends AbstractExpression<Float> implements SupportsBas
     return mAttributeBuffer;
   }
 
-  @Override
   public Real add(Real right) {
     return new Real(ImmutableList.<Expression>of(this, right), NodeType.ADD);
   }
 
-  @Override
   public Real add(float right) {
     return add(new Real(right));
   }
 
-  @Override
   public Real sub(Real right) {
     return new Real(ImmutableList.<Expression>of(this, right), NodeType.SUB);
   }
 
-  @Override
   public Real sub(float right) {
     return sub(new Real(right));
   }
 
-  @Override
   public Real mul(Real right) {
     return new Real(ImmutableList.<Expression>of(this, right), NodeType.MUL);
   }
 
-  @Override
   public Real mul(float right) {
     return mul(new Real(right));
   }
 
-  @Override
   public Real div(Real right) {
     return new Real(ImmutableList.<Expression>of(this, right), NodeType.DIV);
   }
 
-  @Override
   public Real div(float right) {
     return div(new Real(right));
   }
 
-  @Override
   public Real neg() {
     return new Real(ImmutableList.<Expression>of(this), NodeType.NEG);
   }
