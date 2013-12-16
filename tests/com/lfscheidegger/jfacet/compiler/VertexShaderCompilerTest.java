@@ -32,6 +32,7 @@ public class VertexShaderCompilerTest {
 
     String expected =
         "attribute vec4 var_0;\n" +
+        "\n" +
         "void main() {\n" +
         "gl_Position = var_0;\n" +
         "}\n";
@@ -55,6 +56,7 @@ public class VertexShaderCompilerTest {
 
     String expected =
         "attribute vec2 var_0;\n" +
+        "\n" +
         "void main() {\n" +
         "float var_1 = var_0.x;\n" +
         "float var_2 = var_0.y;\n" +
@@ -90,6 +92,7 @@ public class VertexShaderCompilerTest {
     String expected =
         "attribute vec4 var_0;\n" +
         "attribute vec4 var_1;\n" +
+        "\n" +
         "void main() {\n" +
         "bool var_2 = true;\n" +
         "vec4 var_3 = var_2 ? var_0 : var_1;\n" +
@@ -122,6 +125,7 @@ public class VertexShaderCompilerTest {
     String expected =
         "attribute vec4 var_0;\n" +
         "attribute vec4 var_1;\n" +
+        "\n" +
         "void main() {\n" +
         "vec4 var_2 = var_0 + var_1;\n" +
         "gl_Position = var_2;\n" +
