@@ -7,6 +7,8 @@ import android.view.Display;
 import com.lfscheidegger.jfacet.R;
 import com.lfscheidegger.jfacet.facet.*;
 import com.lfscheidegger.jfacet.facet.renderer.FacetRenderer;
+import com.lfscheidegger.jfacet.shade.expression.Bool;
+import com.lfscheidegger.jfacet.shade.expression.Real;
 import com.lfscheidegger.jfacet.shade.expression.vector.Vector2;
 import com.lfscheidegger.jfacet.shade.expression.vector.Vector3;
 import com.lfscheidegger.jfacet.shade.expression.vector.Vector4;
@@ -62,11 +64,16 @@ public class JFacetDemoActivity extends Activity {
     Geometry triangleModel = new Geometry(
         new int[] {0, 1, 2},
         new float[] {
-            0, 0, 0, 1,
-            1, 0, 0, 1,
-            1, 1, 0, 1}, 4);
-    Vector4 trianglePosition = triangleModel.getVertices4();
-    Drawable triangle = triangleModel.bake(trianglePosition, new Vector3(1, 1, 1));
+            0, 0,
+            1, 0,
+            1, 1}, 2);
+    Drawable triangle = triangleModel.bake(
+        triangleModel.getVertices2(),
+        new Vector3(
+            triangleModel.getVertices2().getX(),
+            triangleModel.getVertices2().getY(), new Real(1)));
+
+    //triangleModel.getColors4());
     scene.add(triangle);
   }
 

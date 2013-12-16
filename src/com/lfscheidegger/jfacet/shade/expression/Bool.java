@@ -7,7 +7,7 @@ import com.google.common.collect.ImmutableList;
  */
 public final class Bool extends AbstractExpression<Boolean> {
 
-  static class TernaryElse<T extends Expression> {
+  public static class TernaryElse<T extends Expression> {
 
     private final Bool mCondition;
     private final T mIfExpression;

@@ -12,18 +12,7 @@ public interface Expression<T> {
 
   public static interface NodeType {
 
-    public static final class BasicNodeType implements NodeType {
-
-      private final String mValue;
-
-      BasicNodeType(String value) {
-        mValue = value;
-      }
-
-      public String getValue() {
-        return mValue;
-      }
-    }
+    public static final class BasicNodeType implements NodeType {}
 
     public static final class OperatorNodeType implements NodeType {
 
@@ -97,12 +86,12 @@ public interface Expression<T> {
      * Used for constructor expressions, where the parents are the components of a compound
      * expression (a vector or matrix)
      */
-    public static final NodeType CONS = new BasicNodeType("");
+    public static final NodeType CONS = new BasicNodeType();
 
     /**
      * Used for the ternary operator
      */
-    public static final NodeType TERNARY = new BasicNodeType("");
+    public static final NodeType TERNARY = new BasicNodeType();
 
     public static final NodeType ADD = new OperatorNodeType("+");
     public static final NodeType SUB = new OperatorNodeType("-");

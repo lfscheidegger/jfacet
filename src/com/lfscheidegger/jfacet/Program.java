@@ -3,13 +3,14 @@ package com.lfscheidegger.jfacet;
 import android.opengl.GLES20;
 import com.badlogic.gdx.backends.android.AndroidGL20;
 import com.google.common.base.Optional;
-import com.google.common.collect.*;
 import com.lfscheidegger.jfacet.compiler.FragmentShaderCompiler;
 import com.lfscheidegger.jfacet.compiler.VertexShaderCompiler;
 import com.lfscheidegger.jfacet.facet.AttribBuffer;
 import com.lfscheidegger.jfacet.shade.expression.Expression;
 import com.lfscheidegger.jfacet.shade.expression.vector.Vector4;
 import com.lfscheidegger.jfacet.shade.expression.vector.VectorExpression;
+
+import java.util.List;
 
 public final class Program {
 
@@ -34,6 +35,8 @@ public final class Program {
     mAndroidGL = new AndroidGL20();
 
     String fragmentShaderSource = mFragmentShaderCompiler.compile();
+
+    mVertexShaderCompiler.setVaryingExpressions(mFragmentShaderCompiler.getVaryingExpressions());
     String vertexShaderSource = mVertexShaderCompiler.compile();
 
     int vertexShaderHandle = GLES20.glCreateShader(GLES20.GL_VERTEX_SHADER);
@@ -88,19 +91,19 @@ public final class Program {
   }
 
   private void bindAttributeLocations() {
-    ImmutableList<Expression> attributeExpressions =
-        mVertexShaderCompiler.getAttributeExpressions();
+    List<Expression> attributeExpressions = mVertexShaderCompiler.getAttributeExpressions();
     for (int i = 0; i < attributeExpressions.size(); i++) {
       GLES20.glBindAttribLocation(
           mProgramHandle,
           i,
-          mVertexShaderCompiler.getNameForExpression(attributeExpressions.get(i)));
+          mVertexShaderCompiler
+              .getCompilationHelper()
+              .getNameForExpression(attributeExpressions.get(i)));
     }
   }
 
   private void bindAttributes() {
-    ImmutableList<Expression> attributeExpressions =
-        mVertexShaderCompiler.getAttributeExpressions();
+    List<Expression> attributeExpressions = mVertexShaderCompiler.getAttributeExpressions();
     for (int i = 0; i < attributeExpressions.size(); i++) {
       Optional<AttribBuffer> optional = attributeExpressions.get(i).getAttributeBuffer();
       AttribBuffer buffer = optional.get();
