@@ -184,31 +184,25 @@ public final class Vector3 extends AbstractExpression<Vector3.Primitive>
     }
   }
 
-  private final Optional<Primitive> mPrimitive;
-
   private final Optional<AttribBuffer> mAttributeBuffer;
 
   public Vector3(float x, float y, float z) {
-    super();
-    mPrimitive = Optional.of(new Primitive(x, y, z));
+    super(new Primitive(x, y, z));
     mAttributeBuffer = Optional.absent();
   }
 
   public Vector3(Real x, Real y, Real z) {
     super(ImmutableList.<Expression>of(x, y, z), NodeType.CONS);
-    mPrimitive = Optional.absent();
     mAttributeBuffer = Optional.absent();
   }
 
   public Vector3(ImmutableList<Expression> parents, NodeType nodeType) {
     super(parents, nodeType);
-    mPrimitive = Optional.absent();
     mAttributeBuffer = Optional.absent();
   }
 
   public Vector3(AttribBuffer attributeBuffer) {
     super(GlSlQualifier.ATTRIBUTE_T);
-    mPrimitive = Optional.absent();
     mAttributeBuffer = Optional.of(attributeBuffer);
   }
 
@@ -240,12 +234,13 @@ public final class Vector3 extends AbstractExpression<Vector3.Primitive>
   }
 
   @Override
-  public Optional<Primitive> getPrimitive() {
-    return mPrimitive;
+  public Optional<AttribBuffer> getAttributeBuffer() {
+    return mAttributeBuffer;
   }
 
-  public Optional<AttribBuffer> getAttribBuffer() {
-    return mAttributeBuffer;
+  @Override
+  public String getGlSlTypeName() {
+    return "vec3";
   }
 
   public Swizzle.Swizzle31XYZW<Real, Vector2, Vector3, Vector4> x() {

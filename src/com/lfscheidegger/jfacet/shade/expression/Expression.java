@@ -2,6 +2,7 @@ package com.lfscheidegger.jfacet.shade.expression;
 
 import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableList;
+import com.lfscheidegger.jfacet.facet.AttribBuffer;
 import com.lfscheidegger.jfacet.shade.GlSlQualifier;
 
 /**
@@ -136,10 +137,14 @@ public interface Expression<T> {
 
   public Optional<T> getPrimitive();
 
+  public Optional<AttribBuffer> getAttributeBuffer();
+
   /**
    * Returns a possibly empty list of parents for this expression.
    */
   public ImmutableList<Expression> getParents();
 
   public Expression<T> getExpressionForTernaryOperator(Bool condition, Expression<T> elseExpression);
+
+  public String getGlSlTypeName();
 }

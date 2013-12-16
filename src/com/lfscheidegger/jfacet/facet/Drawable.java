@@ -8,34 +8,34 @@ import com.lfscheidegger.jfacet.shade.expression.vector.Vector2;
 import com.lfscheidegger.jfacet.shade.expression.vector.Vector4;
 import com.lfscheidegger.jfacet.shade.expression.vector.VectorExpression;
 
-public final class Drawable {
+public final class Drawable<T> {
 
   private final Geometry mGeometry;
   private Program mProgram;
 
-  private final Expression mPosition;
-  private final Expression mFragColor;
+  private final VectorExpression<T, Vector4> mPosition;
+  private final VectorExpression<T, Vector4> mFragColor;
 
-  public Drawable(Geometry geometry, Expression position, Expression fragColor) {
+  public Drawable(
+      Geometry geometry,
+      VectorExpression<T, Vector4> position,
+      VectorExpression<T, Vector4> fragColor) {
     mPosition = position;
     mFragColor = fragColor;
-
     mGeometry = geometry;
   }
 
   public void bake() {
-    /*mProgram = new Program(mPosition, mFragColor, mGeometry.getAttributeMap());
-    mProgram.bake();*/
+    mProgram = new Program(mPosition, mFragColor);
+    mProgram.bake();
   }
 
   public void draw() {
-    /*Preconditions.checkNotNull(mProgram);
-
     mProgram.use();
     GLES20.glDrawElements(
         GLES20.GL_TRIANGLES,
         mGeometry.getIndexBuffer().getElementCount(),
         GLES20.GL_UNSIGNED_INT,
-        mGeometry.getIndexBuffer().getBuffer());*/
+        mGeometry.getIndexBuffer().getBuffer());
   }
 }

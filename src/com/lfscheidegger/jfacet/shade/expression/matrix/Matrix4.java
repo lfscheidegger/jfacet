@@ -144,27 +144,28 @@ public final class Matrix4
     }
   }
 
-  private final Optional<Primitive> mPrimitive;
-
   public Matrix4() {
-    super();
-    mPrimitive = Optional.of(new Primitive());
+    super(new Primitive());
   }
 
   public Matrix4(Vector4 c0, Vector4 c1, Vector4 c2, Vector4 c3) {
     super(ImmutableList.<Expression>of(c0, c1, c2, c3), NodeType.CONS);
-    mPrimitive = Optional.absent();
   }
 
   public Matrix4(ImmutableList<Expression> parents, NodeType nodeType) {
     super(parents, nodeType);
-    mPrimitive = Optional.absent();
   }
+
   @Override
   public Matrix4 getExpressionForTernaryOperator(Bool condition, Expression<Primitive> elseExpression) {
     return new Matrix4(
         ImmutableList.<Expression>of(condition, this, elseExpression),
         NodeType.TERNARY);
+  }
+
+  @Override
+  public String getGlSlTypeName() {
+    return "mat4";
   }
 
   public Vector4 getC0() {
@@ -186,11 +187,6 @@ public final class Matrix4
   public Vector4 get(int idx) {
     Preconditions.checkState(idx < 4);
     return new Vector4(ImmutableList.<Expression>of(this), NodeType.ComponentNodeType.forComponent(idx));
-  }
-
-  @Override
-  public Optional<Primitive> getPrimitive() {
-    return mPrimitive;
   }
 
   public Matrix4 add(float right) {

@@ -1,6 +1,5 @@
 package com.lfscheidegger.jfacet.shade.expression.vector;
 
-import com.google.common.base.Optional;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableList;
 import com.lfscheidegger.jfacet.shade.expression.AbstractExpression;
@@ -131,21 +130,16 @@ public final class BVector4 extends AbstractExpression<BVector4.Primitive>
     }
   }
 
-  private final Optional<Primitive> mPrimitive;
-
   public BVector4(boolean x, boolean y, boolean z, boolean w) {
-    super();
-    mPrimitive = Optional.of(new Primitive(x, y, z, w));
+    super(new Primitive(x, y, z, w));
   }
 
   public BVector4(Bool x, Bool y, Bool z, Bool w) {
     super(ImmutableList.<Expression>of(x, y, z, w), NodeType.CONS);
-    mPrimitive = Optional.absent();
   }
 
   public BVector4(ImmutableList<Expression> parents, NodeType nodeType) {
     super(parents, nodeType);
-    mPrimitive = Optional.absent();
   }
 
   @Override
@@ -180,8 +174,8 @@ public final class BVector4 extends AbstractExpression<BVector4.Primitive>
   }
 
   @Override
-  public Optional<Primitive> getPrimitive() {
-    return mPrimitive;
+  public String getGlSlTypeName() {
+    return "bvec4";
   }
 
   public Swizzle.Swizzle41XYZW<Bool, BVector2, BVector3, BVector4> x() {

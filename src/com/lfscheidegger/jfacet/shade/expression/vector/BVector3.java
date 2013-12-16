@@ -114,21 +114,16 @@ public final class BVector3 extends AbstractExpression<BVector3.Primitive>
     }
   }
 
-  private final Optional<Primitive> mPrimitive;
-
   public BVector3(boolean x, boolean y, boolean z) {
-    super();
-    mPrimitive = Optional.of(new Primitive(x, y, z));
+    super(new Primitive(x, y, z));
   }
 
   public BVector3(Bool x, Bool y, Bool z) {
     super(ImmutableList.<Expression>of(x, y, z), NodeType.CONS);
-    mPrimitive = Optional.absent();
   }
 
   public BVector3(ImmutableList<Expression> parents, NodeType nodeType) {
     super(parents, nodeType);
-    mPrimitive = Optional.absent();
   }
 
   @Override
@@ -159,8 +154,8 @@ public final class BVector3 extends AbstractExpression<BVector3.Primitive>
   }
 
   @Override
-  public Optional<Primitive> getPrimitive() {
-    return mPrimitive;
+  public String getGlSlTypeName() {
+    return "bvec3";
   }
 
   public Swizzle.Swizzle31XYZW<Bool, BVector2, BVector3, BVector4> x() {

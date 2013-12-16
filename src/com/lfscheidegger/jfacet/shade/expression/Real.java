@@ -10,25 +10,20 @@ import com.lfscheidegger.jfacet.shade.GlSlQualifier;
  */
 public final class Real extends AbstractExpression<Float> {
 
-  private final Optional<Float> mPrimitive;
-
   private final Optional<AttribBuffer> mAttributeBuffer;
 
   public Real(float c) {
-    super();
-    mPrimitive = Optional.of(c);
+    super(c);
     mAttributeBuffer = Optional.absent();
   }
 
   public Real(ImmutableList<Expression> parents, NodeType nodeType) {
     super(parents, nodeType);
-    mPrimitive = Optional.absent();
     mAttributeBuffer = Optional.absent();
   }
 
   public Real(AttribBuffer attributeBuffer) {
     super(GlSlQualifier.ATTRIBUTE_T);
-    mPrimitive = Optional.absent();
     mAttributeBuffer = Optional.of(attributeBuffer);
   }
 
@@ -39,12 +34,14 @@ public final class Real extends AbstractExpression<Float> {
         NodeType.TERNARY);
   }
 
-  public Optional<Float> getPrimitive() {
-    return mPrimitive;
+  @Override
+  public Optional<AttribBuffer> getAttributeBuffer() {
+    return mAttributeBuffer;
   }
 
-  public Optional<AttribBuffer> getAttribBuffer() {
-    return mAttributeBuffer;
+  @Override
+  public String getGlSlTypeName() {
+    return "float";
   }
 
   public Real add(Real right) {

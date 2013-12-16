@@ -24,7 +24,7 @@ public class Vector2Test {
 
     assertTrue(vec.getPrimitive().isPresent());
     assertEquals(vec.getPrimitive().get(), new Vector2.Primitive(1, 2));
-    assertFalse(vec.getAttribBuffer().isPresent());
+    assertFalse(vec.getAttributeBuffer().isPresent());
     assertFalse(vec.getGlSlQualifier().isPresent());
     assertFalse(vec.getNodeType().isPresent());
     assertEquals(vec.getParents(), ImmutableList.of());
@@ -33,7 +33,7 @@ public class Vector2Test {
     vec = new Vector2(x, y);
 
     assertFalse(vec.getPrimitive().isPresent());
-    assertFalse(vec.getAttribBuffer().isPresent());
+    assertFalse(vec.getAttributeBuffer().isPresent());
     assertFalse(vec.getGlSlQualifier().isPresent());
     assertTrue(vec.getNodeType().isPresent());
     assertEquals(vec.getNodeType().get(), Expression.NodeType.CONS);
@@ -42,7 +42,7 @@ public class Vector2Test {
     vec = new Vector2(ImmutableList.<Expression>of(x, y), Expression.NodeType.CONS);
 
     assertFalse(vec.getPrimitive().isPresent());
-    assertFalse(vec.getAttribBuffer().isPresent());
+    assertFalse(vec.getAttributeBuffer().isPresent());
     assertFalse(vec.getGlSlQualifier().isPresent());
     assertTrue(vec.getNodeType().isPresent());
     assertEquals(vec.getNodeType().get(), Expression.NodeType.CONS);
@@ -51,7 +51,7 @@ public class Vector2Test {
     vec = new Vector2(new AttribBuffer(new float[] {0, 0, 1, 0, 1, 1}, 2));
 
     assertFalse(vec.getPrimitive().isPresent());
-    assertTrue(vec.getAttribBuffer().isPresent());
+    assertTrue(vec.getAttributeBuffer().isPresent());
     assertTrue(vec.getGlSlQualifier().isPresent());
     assertEquals(vec.getGlSlQualifier().get(), GlSlQualifier.ATTRIBUTE_T);
     assertFalse(vec.getNodeType().isPresent());
@@ -96,7 +96,7 @@ public class Vector2Test {
 
   private void testNonLeafVector(Vector2 vec) {
     assertFalse(vec.getPrimitive().isPresent());
-    assertFalse(vec.getAttribBuffer().isPresent());
+    assertFalse(vec.getAttributeBuffer().isPresent());
     assertFalse(vec.getGlSlQualifier().isPresent());
     assertTrue(vec.getNodeType().isPresent());
   }

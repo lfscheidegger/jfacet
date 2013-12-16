@@ -9,6 +9,7 @@ import com.lfscheidegger.jfacet.facet.*;
 import com.lfscheidegger.jfacet.facet.renderer.FacetRenderer;
 import com.lfscheidegger.jfacet.shade.expression.vector.Vector2;
 import com.lfscheidegger.jfacet.shade.expression.vector.Vector3;
+import com.lfscheidegger.jfacet.shade.expression.vector.Vector4;
 import com.lfscheidegger.jfacet.view.FacetView;
 
 public class JFacetDemoActivity extends Activity {
@@ -60,10 +61,13 @@ public class JFacetDemoActivity extends Activity {
   private void prepareLesson0(Scene scene) {
     Geometry triangleModel = new Geometry(
         new int[] {0, 1, 2},
-        new float[] {0, 0, 1, 0, 1, 1}, 2);
-    Vector2 trianglePosition = triangleModel.getVertices2();
+        new float[] {
+            0, 0, 0, 1,
+            1, 0, 0, 1,
+            1, 1, 0, 1}, 4);
+    Vector4 trianglePosition = triangleModel.getVertices4();
     Drawable triangle = triangleModel.bake(trianglePosition, new Vector3(1, 1, 1));
-
+    scene.add(triangle);
   }
 
   private void prepareLesson2(Scene scene) {

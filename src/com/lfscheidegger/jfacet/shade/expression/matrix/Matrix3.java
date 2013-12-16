@@ -137,21 +137,16 @@ public final class Matrix3
     }
   }
 
-  private final Optional<Primitive> mPrimitive;
-
   public Matrix3() {
-    super();
-    mPrimitive = Optional.of(new Primitive());
+    super(new Primitive());
   }
 
   public Matrix3(Vector3 c0, Vector3 c1, Vector3 c2) {
     super(ImmutableList.<Expression>of(c0, c1, c2), NodeType.CONS);
-    mPrimitive = Optional.absent();
   }
 
   public Matrix3(ImmutableList<Expression> parents, NodeType nodeType) {
     super(parents, nodeType);
-    mPrimitive = Optional.absent();
   }
 
   @Override
@@ -159,6 +154,11 @@ public final class Matrix3
     return new Matrix3(
         ImmutableList.<Expression>of(condition, this, elseExpression),
         NodeType.TERNARY);
+  }
+
+  @Override
+  public String getGlSlTypeName() {
+    return "mat3";
   }
 
   public Vector3 getC0() {
@@ -178,11 +178,6 @@ public final class Matrix3
     return new Vector3(
         ImmutableList.<Expression>of(this),
         NodeType.ComponentNodeType.forComponent(idx));
-  }
-
-  @Override
-  public Optional<Primitive> getPrimitive() {
-    return mPrimitive;
   }
 
   public Matrix3 add(float right) {

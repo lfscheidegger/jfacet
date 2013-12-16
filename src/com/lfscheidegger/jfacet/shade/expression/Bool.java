@@ -1,6 +1,5 @@
 package com.lfscheidegger.jfacet.shade.expression;
 
-import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableList;
 
 /**
@@ -24,21 +23,12 @@ public final class Bool extends AbstractExpression<Boolean> {
     }
   }
 
-  private final Optional<Boolean> mPrimitive;
-
   public Bool(boolean c) {
-    super();
-    mPrimitive = Optional.of(c);
+    super(c);
   }
 
   public Bool(ImmutableList<Expression> parents, NodeType nodeType) {
     super(parents, nodeType);
-    mPrimitive = Optional.absent();
-  }
-
-  @Override
-  public Optional<Boolean> getPrimitive() {
-    return mPrimitive;
   }
 
   @Override
@@ -46,6 +36,11 @@ public final class Bool extends AbstractExpression<Boolean> {
     return new Bool(
         ImmutableList.<Expression>of(condition, this, elseExpression),
         NodeType.TERNARY);
+  }
+
+  @Override
+  public String getGlSlTypeName() {
+    return "bool";
   }
 
   public Bool and(Bool right) {
