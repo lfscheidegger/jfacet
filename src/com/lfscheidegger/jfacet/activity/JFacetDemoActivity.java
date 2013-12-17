@@ -7,6 +7,7 @@ import android.view.Display;
 import com.lfscheidegger.jfacet.R;
 import com.lfscheidegger.jfacet.facet.*;
 import com.lfscheidegger.jfacet.facet.renderer.FacetRenderer;
+import com.lfscheidegger.jfacet.shade.Shade;
 import com.lfscheidegger.jfacet.shade.camera.Camera;
 import com.lfscheidegger.jfacet.shade.expression.Bool;
 import com.lfscheidegger.jfacet.shade.expression.Real;
@@ -75,9 +76,6 @@ public class JFacetDemoActivity extends Activity {
     Drawable triangle = triangleModel.bake(
         triangleModel.getVertices2(),
         triangleModel.getColors3());
-    //new Vector3(
-    //    triangleModel.getVertices2().getX(),
-    //    triangleModel.getVertices2().getY(), new Real(1)));
 
     scene.add(triangle);
   }
@@ -92,11 +90,11 @@ public class JFacetDemoActivity extends Activity {
 
     Camera camera = Camera.perspective(mSize.x, mSize.y);
 
-    Vector4 squarePosition = camera.apply(new Translation4(1.5f, 0, -12)).apply(squareModel.getVertices4());
-    Vector4 trianglePosition = camera.apply(new Translation4(-1.5f, 0, -12)).apply(triangleModel.getVertices4());
+    Vector4 squarePosition = camera.apply(Shade.translate(1.5f, 0, -12)).apply(squareModel.getVertices4());
+    Vector4 trianglePosition = camera.apply(Shade.translate(-1.5f, 0, -12)).apply(triangleModel.getVertices4());
 
-    Drawable square = squareModel.bake(squarePosition, new Vector3(1, 1, 1));
-    Drawable triangle = triangleModel.bake(trianglePosition, new Vector3(1, 1, 1));
+    Drawable square = squareModel.bake(squarePosition, Shade.vec(1, 1, 1));
+    Drawable triangle = triangleModel.bake(trianglePosition, Shade.vec(1, 1, 1));
 
     scene.add(square);
     scene.add(triangle);
@@ -119,7 +117,7 @@ public class JFacetDemoActivity extends Activity {
     Vector4 squarePosition = camera.apply(new Translation4(1.5f, 0, -12)).apply(squareModel.getVertices4());
     Vector4 trianglePosition = camera.apply(new Translation4(-1.5f, 0, -12)).apply(triangleModel.getVertices4());
 
-    Drawable square = squareModel.bake(squarePosition, new Vector3(0.5f, 0.5f, 1));
+    Drawable square = squareModel.bake(squarePosition, Shade.vec(0.5f, 0.5f, 1));
     Drawable triangle = triangleModel.bake(trianglePosition, triangleModel.getColors3());
 
     scene.add(square);

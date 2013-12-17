@@ -7,6 +7,9 @@ import com.lfscheidegger.jfacet.shade.expression.matrix.Matrix4;
 import com.lfscheidegger.jfacet.shade.expression.vector.Vector2;
 import com.lfscheidegger.jfacet.shade.expression.vector.Vector3;
 import com.lfscheidegger.jfacet.shade.expression.vector.Vector4;
+import com.lfscheidegger.jfacet.shade.transform.Translation2;
+import com.lfscheidegger.jfacet.shade.transform.Translation3;
+import com.lfscheidegger.jfacet.shade.transform.Translation4;
 
 /**
  * Convenience methods to fill primitive types into expressions
@@ -151,5 +154,61 @@ public final class Shade {
 
   public static Matrix4 identity4() {
     return new Matrix4();
+  }
+
+  public static Translation4 translate(float x, float y, float z) {
+    return new Translation4(new Real(x), new Real(y), new Real(z));
+  }
+
+  public static Translation4 translate(float x, float y, Real z) {
+    return new Translation4(new Real(x), new Real(y), z);
+  }
+
+  public static Translation4 translate(float x, Real y, float z) {
+    return new Translation4(new Real(x), y, new Real(z));
+  }
+
+  public static Translation4 translate(float x, Real y, Real z) {
+    return new Translation4(new Real(x), y, z);
+  }
+
+  public static Translation4 translate(Real x, float y, float z) {
+    return new Translation4(x, new Real(y), new Real(z));
+  }
+
+  public static Translation4 translate(Real x, float y, Real z) {
+    return new Translation4(x, new Real(y), z);
+  }
+
+  public static Translation4 translate(Real x, Real y, float z) {
+    return new Translation4(x, y, new Real(z));
+  }
+
+  public static Translation4 translate(Real x, Real y, Real z) {
+    return new Translation4(x, y, z);
+  }
+
+  public static Translation3 translate(float x, float y) {
+    return new Translation3(new Real(x), new Real(y));
+  }
+
+  public static Translation3 translate(float x, Real y) {
+    return new Translation3(new Real(x), y);
+  }
+
+  public static Translation3 translate(Real x, float y) {
+    return new Translation3(x, new Real(y));
+  }
+
+  public static Translation3 translate(Real x, Real y) {
+    return new Translation3(x, y);
+  }
+
+  public static Translation2 translate(float x) {
+    return new Translation2(new Real(x));
+  }
+
+  public static Translation2 translate(Real x) {
+    return new Translation2(x);
   }
 }
