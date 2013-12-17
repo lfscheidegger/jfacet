@@ -29,25 +29,20 @@ public final class Geometry {
     mVertices = new AttribBuffer(vertices, vertexDimension);
     mAttribBufferMap = Maps.newHashMap();
     mExpressionMap = Maps.newHashMap();
-
-    mAttribBufferMap.put(getNameForVertices(vertexDimension), mVertices);
   }
 
   public Geometry setColors(float[] colors, int dimension) {
     mColors = new AttribBuffer(colors, dimension);
-    mAttribBufferMap.put(getNameForColors(dimension), new AttribBuffer(colors, dimension));
     return this;
   }
 
   public Geometry setTexCoords(float[] texCoords, int dimension) {
     mTexCoords = new AttribBuffer(texCoords, dimension);
-    mAttribBufferMap.put(getNameForTexCoords(dimension), mTexCoords);
     return this;
   }
 
   public Geometry setNormals(float[] normals, int dimension) {
     mNormals = new AttribBuffer(normals, dimension);
-    mAttribBufferMap.put(getNameForNormals(dimension), mNormals);
     return this;
   }
 
@@ -64,7 +59,7 @@ public final class Geometry {
     String attributeName = getNameForVertices(1);
 
     if (mExpressionMap.get(attributeName) == null) {
-      mExpressionMap.put(attributeName, new Real(mAttribBufferMap.get(attributeName)));
+      mExpressionMap.put(attributeName, new Real(mVertices));
     }
 
     return (Real)mExpressionMap.get(attributeName);
@@ -74,7 +69,7 @@ public final class Geometry {
     String attributeName = getNameForVertices(2);
 
     if (mExpressionMap.get(attributeName) == null) {
-      mExpressionMap.put(attributeName, new Vector2(mAttribBufferMap.get(attributeName)));
+      mExpressionMap.put(attributeName, new Vector2(mVertices));
     }
 
     return (Vector2)mExpressionMap.get(attributeName);
@@ -84,7 +79,7 @@ public final class Geometry {
     String attributeName = getNameForVertices(3);
 
     if (mExpressionMap.get(attributeName) == null) {
-      mExpressionMap.put(attributeName, new Vector3(mAttribBufferMap.get(attributeName)));
+      mExpressionMap.put(attributeName, new Vector3(mVertices));
     }
 
     return (Vector3)mExpressionMap.get(attributeName);
@@ -94,7 +89,7 @@ public final class Geometry {
     String attributeName = getNameForVertices(4);
 
     if (mExpressionMap.get(attributeName) == null) {
-      mExpressionMap.put(attributeName, new Vector4(mAttribBufferMap.get(attributeName)));
+      mExpressionMap.put(attributeName, new Vector4(mVertices));
     }
 
     return (Vector4)mExpressionMap.get(attributeName);
@@ -102,10 +97,9 @@ public final class Geometry {
 
   public Real getColors1() {
     String attributeName = getNameForColors(1);
-    Preconditions.checkNotNull(mAttribBufferMap.get(attributeName));
 
     if (mExpressionMap.get(attributeName) == null) {
-      mExpressionMap.put(attributeName, new Real(mAttribBufferMap.get(attributeName)));
+      mExpressionMap.put(attributeName, new Real(mColors));
     }
 
     return (Real)mExpressionMap.get(attributeName);
@@ -113,10 +107,9 @@ public final class Geometry {
 
   public Vector2 getColors2() {
     String attributeName = getNameForColors(2);
-    Preconditions.checkNotNull(mAttribBufferMap.get(attributeName));
 
     if (mExpressionMap.get(attributeName) == null) {
-      mExpressionMap.put(attributeName, new Vector2(mAttribBufferMap.get(attributeName)));
+      mExpressionMap.put(attributeName, new Vector2(mColors));
     }
 
     return (Vector2)mExpressionMap.get(attributeName);
@@ -124,10 +117,9 @@ public final class Geometry {
 
   public Vector3 getColors3() {
     String attributeName = getNameForColors(3);
-    Preconditions.checkNotNull(mAttribBufferMap.get(attributeName));
 
     if (mExpressionMap.get(attributeName) == null) {
-      mExpressionMap.put(attributeName, new Vector3(mAttribBufferMap.get(attributeName)));
+      mExpressionMap.put(attributeName, new Vector3(mColors));
     }
 
     return (Vector3)mExpressionMap.get(attributeName);
@@ -135,10 +127,9 @@ public final class Geometry {
 
   public Vector4 getColors4() {
     String attributeName = getNameForColors(4);
-    Preconditions.checkNotNull(mAttribBufferMap.get(attributeName));
 
     if (mExpressionMap.get(attributeName) == null) {
-      mExpressionMap.put(attributeName, new Vector4(mAttribBufferMap.get(attributeName)));
+      mExpressionMap.put(attributeName, new Vector4(mColors));
     }
 
     return (Vector4)mExpressionMap.get(attributeName);
@@ -146,10 +137,9 @@ public final class Geometry {
 
   public Real getTexCoords1() {
     String attributeName = getNameForTexCoords(1);
-    Preconditions.checkNotNull(mAttribBufferMap.get(attributeName));
 
     if (mExpressionMap.get(attributeName) == null) {
-      mExpressionMap.put(attributeName, new Real(mAttribBufferMap.get(attributeName)));
+      mExpressionMap.put(attributeName, new Real(mColors));
     }
 
     return (Real)mExpressionMap.get(attributeName);
@@ -157,10 +147,9 @@ public final class Geometry {
 
   public Vector2 getTexCoords2() {
     String attributeName = getNameForTexCoords(2);
-    Preconditions.checkNotNull(mAttribBufferMap.get(attributeName));
 
     if (mExpressionMap.get(attributeName) == null) {
-      mExpressionMap.put(attributeName, new Vector2(mAttribBufferMap.get(attributeName)));
+      mExpressionMap.put(attributeName, new Vector2(mTexCoords));
     }
 
     return (Vector2)mExpressionMap.get(attributeName);
@@ -168,10 +157,9 @@ public final class Geometry {
 
   public Vector3 getTexCoords3() {
     String attributeName = getNameForTexCoords(3);
-    Preconditions.checkNotNull(mAttribBufferMap.get(attributeName));
 
     if (mExpressionMap.get(attributeName) == null) {
-      mExpressionMap.put(attributeName, new Vector3(mAttribBufferMap.get(attributeName)));
+      mExpressionMap.put(attributeName, new Vector3(mTexCoords));
     }
 
     return (Vector3)mExpressionMap.get(attributeName);
@@ -179,10 +167,9 @@ public final class Geometry {
 
   public Vector4 getTexCoords4() {
     String attributeName = getNameForTexCoords(4);
-    Preconditions.checkNotNull(mAttribBufferMap.get(attributeName));
 
     if (mExpressionMap.get(attributeName) == null) {
-      mExpressionMap.put(attributeName, new Vector4(mAttribBufferMap.get(attributeName)));
+      mExpressionMap.put(attributeName, new Vector4(mTexCoords));
     }
 
     return (Vector4)mExpressionMap.get(attributeName);
@@ -190,10 +177,9 @@ public final class Geometry {
 
   public Real getNormals1() {
     String attributeName = getNameForNormals(1);
-    Preconditions.checkNotNull(mAttribBufferMap.get(attributeName));
 
     if (mExpressionMap.get(attributeName) == null) {
-      mExpressionMap.put(attributeName, new Real(mAttribBufferMap.get(attributeName)));
+      mExpressionMap.put(attributeName, new Real(mNormals));
     }
 
     return (Real)mExpressionMap.get(attributeName);
@@ -201,10 +187,9 @@ public final class Geometry {
 
   public Vector2 getNormals2() {
     String attributeName = getNameForNormals(2);
-    Preconditions.checkNotNull(mAttribBufferMap.get(attributeName));
 
     if (mExpressionMap.get(attributeName) == null) {
-      mExpressionMap.put(attributeName, new Vector2(mAttribBufferMap.get(attributeName)));
+      mExpressionMap.put(attributeName, new Vector2(mNormals));
     }
 
     return (Vector2)mExpressionMap.get(attributeName);
@@ -212,10 +197,9 @@ public final class Geometry {
 
   public Vector3 getNormals3() {
     String attributeName = getNameForNormals(3);
-    Preconditions.checkNotNull(mAttribBufferMap.get(attributeName));
 
     if (mExpressionMap.get(attributeName) == null) {
-      mExpressionMap.put(attributeName, new Vector3(mAttribBufferMap.get(attributeName)));
+      mExpressionMap.put(attributeName, new Vector3(mNormals));
     }
 
     return (Vector3)mExpressionMap.get(attributeName);
@@ -223,10 +207,9 @@ public final class Geometry {
 
   public Vector4 getNormals4() {
     String attributeName = getNameForNormals(4);
-    Preconditions.checkNotNull(mAttribBufferMap.get(attributeName));
 
     if (mExpressionMap.get(attributeName) == null) {
-      mExpressionMap.put(attributeName, new Vector4(mAttribBufferMap.get(attributeName)));
+      mExpressionMap.put(attributeName, new Vector4(mNormals));
     }
 
     return (Vector4)mExpressionMap.get(attributeName);

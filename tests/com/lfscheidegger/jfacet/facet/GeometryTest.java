@@ -13,7 +13,6 @@ import static org.junit.Assert.*;
 /**
  * Unit tests for {@code Geometry}
  */
-@Ignore
 public class GeometryTest {
 
   private Geometry mGeometry;

@@ -59,6 +59,10 @@ public class CompilationHelper {
         emitComponent(sb, expression);
       } else if (nodeType instanceof Expression.NodeType.OperatorNodeType) {
         emitOperator(sb, expression);
+      } else if (nodeType instanceof Expression.NodeType.UnaryNodeType) {
+        emitUnary(sb, expression);
+      } else if (nodeType instanceof Expression.NodeType.FunctionNodeType) {
+        emitFunctionCall(sb, expression);
       }
     } else if (expression.getPrimitive().isPresent()) {
       emitPrimitive(sb, expression);
@@ -147,6 +151,33 @@ public class CompilationHelper {
         getNameForExpression(lhs),
         nodeType.getOperator(),
         getNameForExpression(rhs)));
+  }
+
+  private void emitUnary(StringBuilder sb, Expression expression) {
+    String typeName = expression.getGlSlTypeName();
+    Expression.NodeType.UnaryNodeType nodeType =
+        (Expression.NodeType.UnaryNodeType)expression.getNodeType().get();
+    Expression lhs = (Expression)expression.getParents().get(0);
+    sb.append(String.format(
+        "%s %s = %s%s;\n",
+        typeName,
+        getNameForExpression(expression),
+        nodeType.getOperator(),
+        getNameForExpression(lhs)));
+  }
+
+  private void emitFunctionCall(StringBuilder sb, Expression expression) {
+    String typeName = expression.getGlSlTypeName();
+    Expression.NodeType.FunctionNodeType nodeType =
+        (Expression.NodeType.FunctionNodeType)expression.getNodeType().get();
+
+    String parentsString = getParentsString(expression.getParents());
+    sb.append(String.format(
+        "%s %s = %s(%s);\n",
+        typeName,
+        getNameForExpression(expression),
+        nodeType.getFunctionName(),
+        parentsString));
   }
 
   public void emitAssignment(StringBuilder sb, String expressionName, Expression rhs) {

@@ -7,12 +7,16 @@ import android.view.Display;
 import com.lfscheidegger.jfacet.R;
 import com.lfscheidegger.jfacet.facet.*;
 import com.lfscheidegger.jfacet.facet.renderer.FacetRenderer;
+import com.lfscheidegger.jfacet.shade.camera.Camera;
 import com.lfscheidegger.jfacet.shade.expression.Bool;
 import com.lfscheidegger.jfacet.shade.expression.Real;
 import com.lfscheidegger.jfacet.shade.expression.vector.Vector2;
 import com.lfscheidegger.jfacet.shade.expression.vector.Vector3;
 import com.lfscheidegger.jfacet.shade.expression.vector.Vector4;
+import com.lfscheidegger.jfacet.shade.transform.Translation4;
 import com.lfscheidegger.jfacet.view.FacetView;
+
+import java.util.Vector;
 
 public class JFacetDemoActivity extends Activity {
 
@@ -66,55 +70,60 @@ public class JFacetDemoActivity extends Activity {
         new float[] {
             0, 0,
             1, 0,
-            1, 1}, 2);
+            1, 1}, 2)
+        .setColors(new float[]{1, 0, 0, 0, 1, 0, 0, 0, 1}, 3);
     Drawable triangle = triangleModel.bake(
         triangleModel.getVertices2(),
-        new Vector3(
-            triangleModel.getVertices2().getX(),
-            triangleModel.getVertices2().getY(), new Real(1)));
+        triangleModel.getColors3());
+    //new Vector3(
+    //    triangleModel.getVertices2().getX(),
+    //    triangleModel.getVertices2().getY(), new Real(1)));
 
-    //triangleModel.getColors4());
     scene.add(triangle);
   }
 
   private void prepareLesson2(Scene scene) {
-    /*Geometry squareModel = Facet.model(new GeometryConfig(
+    Geometry squareModel = new Geometry(
         new int[] {0, 1, 2, 0, 2, 3},
-        new float[] {-1, -1, 1, -1, 1, 1, -1, 1}, 2)
-    ), triangleModel = Facet.model(new GeometryConfig(
-        new int[] {0, 1, 2},
-        new float[] {0, 1, -1, -1, 1, -1}, 2));
+        new float[] {-1, -1, 1, -1, 1, 1, -1, 1}, 2),
+        triangleModel = new Geometry(
+            new int[] {0, 1, 2},
+            new float[] {0, 1, -1, -1, 1, -1}, 2);
 
     Camera camera = Camera.perspective(mSize.x, mSize.y);
-    Expression squarePosition = camera.apply(Shade.translation(1.5f, 0, -12)).apply(squareModel.getVertices());
-    Expression trianglePosition = camera.apply(Shade.translation(-1.5f, 0, -12)).apply(triangleModel.getVertices());
 
-    Drawable square = Facet.bake(squareModel, squarePosition);
-    Drawable triangle = Facet.bake(triangleModel, trianglePosition);
+    Vector4 squarePosition = camera.apply(new Translation4(1.5f, 0, -12)).apply(squareModel.getVertices4());
+    Vector4 trianglePosition = camera.apply(new Translation4(-1.5f, 0, -12)).apply(triangleModel.getVertices4());
+
+    Drawable square = squareModel.bake(squarePosition, new Vector3(1, 1, 1));
+    Drawable triangle = triangleModel.bake(trianglePosition, new Vector3(1, 1, 1));
 
     scene.add(square);
-    scene.add(triangle);*/
+    scene.add(triangle);
   }
 
   private void prepareLesson3(Scene scene) {
-    /*Geometry squareModel = Facet.model(new GeometryConfig(
+    Geometry squareModel = new Geometry(
         new int[] {0, 1, 2, 0, 2, 3},
         new float[] {-1, -1, 1, -1, 1, 1, -1, 1}, 2
-    )), triangleModel = Facet.model(new GeometryConfig(
+    ), triangleModel = new Geometry(
         new int[]{0, 1, 2},
-        new float[]{0, 1, -1, -1, 1, -1}, 2)
-        .setColors(new float[]{1, 0, 0, 0, 1, 0, 0, 0, 1}, 3));
+        new float[]{0, 1, 0, -1, -1, 0, 1, -1, 0}, 3)
+        .setColors(new float[]{
+            1, 0, 0,
+            0, 1, 0,
+            0, 0, 1}, 3);
 
     Camera camera = Camera.perspective(mSize.x, mSize.y);
 
-    Expression squarePosition = camera.apply(Shade.translation(1.5f, 0, -12)).apply(squareModel.getVertices());
-    Expression trianglePosition = camera.apply(Shade.translation(-1.5f, 0, -12)).apply(triangleModel.getVertices());
+    Vector4 squarePosition = camera.apply(new Translation4(1.5f, 0, -12)).apply(squareModel.getVertices4());
+    Vector4 trianglePosition = camera.apply(new Translation4(-1.5f, 0, -12)).apply(triangleModel.getVertices4());
 
-    Drawable square = Facet.bake(squareModel, squarePosition, Shade.vec(0.5f, 0.5f, 1));
-    Drawable triangle = Facet.bake(triangleModel, trianglePosition, triangleModel.getColors());
+    Drawable square = squareModel.bake(squarePosition, new Vector3(0.5f, 0.5f, 1));
+    Drawable triangle = triangleModel.bake(trianglePosition, triangleModel.getColors3());
 
     scene.add(square);
-    scene.add(triangle);*/
+    scene.add(triangle);
   }
 
   private void prepareLesson4(Scene scene) {

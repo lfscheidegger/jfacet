@@ -37,6 +37,7 @@ public class JFacetLandingActivity extends Activity {
 
     mListView = (ListView)findViewById(R.id.list_view);
     mListView.setAdapter(new DemoSelectorAdapter(this, R.layout.landing_item, ImmutableList.<String>of(
+        "Lesson 0",
         "Lesson 2",
         "Lesson 3",
         "Lesson 4",

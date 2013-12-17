@@ -27,6 +27,19 @@ public interface Expression<T> {
       }
     }
 
+    public static final class UnaryNodeType implements NodeType {
+
+      private final String mOperator;
+
+      UnaryNodeType(String operator) {
+        mOperator = operator;
+      }
+
+      public String getOperator() {
+        return mOperator;
+      }
+    }
+
     /**
      * Used for component expressions, where the parent is a compound expression (a vector
      * or matrix)
@@ -97,7 +110,8 @@ public interface Expression<T> {
     public static final NodeType SUB = new OperatorNodeType("-");
     public static final NodeType MUL = new OperatorNodeType("*");
     public static final NodeType DIV = new OperatorNodeType("/");
-    public static final NodeType NEG = new OperatorNodeType("-");
+
+    public static final NodeType NEG = new UnaryNodeType("-");
 
     public static final NodeType GT = new OperatorNodeType(">");
     public static final NodeType GEQ = new OperatorNodeType(">=");
@@ -109,7 +123,8 @@ public interface Expression<T> {
     public static final NodeType AND = new OperatorNodeType("&&");
     public static final NodeType OR = new OperatorNodeType("||");
     public static final NodeType XOR = new OperatorNodeType("^^");
-    public static final NodeType NOT = new OperatorNodeType("!");
+
+    public static final NodeType NOT = new UnaryNodeType("!");
   }
 
   /**
