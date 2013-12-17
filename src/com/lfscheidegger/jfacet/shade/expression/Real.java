@@ -2,7 +2,7 @@ package com.lfscheidegger.jfacet.shade.expression;
 
 import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableList;
-import com.lfscheidegger.jfacet.facet.AttribBuffer;
+import com.lfscheidegger.jfacet.facet.AttributeBuffer;
 import com.lfscheidegger.jfacet.shade.GlSlQualifier;
 
 /**
@@ -10,7 +10,7 @@ import com.lfscheidegger.jfacet.shade.GlSlQualifier;
  */
 public final class Real extends AbstractExpression<Float> {
 
-  private final Optional<AttribBuffer> mAttributeBuffer;
+  private final Optional<AttributeBuffer> mAttributeBuffer;
 
   public Real(float c) {
     super(c);
@@ -22,7 +22,7 @@ public final class Real extends AbstractExpression<Float> {
     mAttributeBuffer = Optional.absent();
   }
 
-  public Real(AttribBuffer attributeBuffer) {
+  public Real(AttributeBuffer attributeBuffer) {
     super(GlSlQualifier.ATTRIBUTE_T);
     mAttributeBuffer = Optional.of(attributeBuffer);
   }
@@ -35,7 +35,7 @@ public final class Real extends AbstractExpression<Float> {
   }
 
   @Override
-  public Optional<AttribBuffer> getAttributeBuffer() {
+  public Optional<AttributeBuffer> getAttributeBuffer() {
     return mAttributeBuffer;
   }
 

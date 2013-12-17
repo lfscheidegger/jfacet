@@ -2,7 +2,7 @@ package com.lfscheidegger.jfacet.shade.expression;
 
 import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableList;
-import com.lfscheidegger.jfacet.facet.AttribBuffer;
+import com.lfscheidegger.jfacet.facet.AttributeBuffer;
 import com.lfscheidegger.jfacet.shade.GlSlQualifier;
 
 public abstract class AbstractExpression<T> implements Expression<T> {
@@ -54,7 +54,7 @@ public abstract class AbstractExpression<T> implements Expression<T> {
   }
 
   @Override
-  public Optional<AttribBuffer> getAttributeBuffer() {
+  public Optional<AttributeBuffer> getAttributeBuffer() {
     return Optional.absent();
   }
 }

@@ -4,7 +4,7 @@ import com.google.common.base.Optional;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableList;
 
-import com.lfscheidegger.jfacet.facet.AttribBuffer;
+import com.lfscheidegger.jfacet.facet.AttributeBuffer;
 import com.lfscheidegger.jfacet.shade.GlSlQualifier;
 import com.lfscheidegger.jfacet.shade.expression.*;
 import com.lfscheidegger.jfacet.utils.ArrayUtils;
@@ -159,7 +159,7 @@ public final class Vector2 extends AbstractExpression<Vector2.Primitive>
     }
   }
 
-  private final Optional<AttribBuffer> mAttributeBuffer;
+  private final Optional<AttributeBuffer> mAttributeBuffer;
 
   public Vector2(float x, float y) {
     super(new Primitive(x, y));
@@ -176,7 +176,7 @@ public final class Vector2 extends AbstractExpression<Vector2.Primitive>
     mAttributeBuffer = Optional.absent();
   }
 
-  public Vector2(AttribBuffer attributeBuffer) {
+  public Vector2(AttributeBuffer attributeBuffer) {
     super(GlSlQualifier.ATTRIBUTE_T);
     mAttributeBuffer = Optional.of(attributeBuffer);
   }
@@ -205,7 +205,7 @@ public final class Vector2 extends AbstractExpression<Vector2.Primitive>
   }
 
   @Override
-  public Optional<AttribBuffer> getAttributeBuffer() {
+  public Optional<AttributeBuffer> getAttributeBuffer() {
     return mAttributeBuffer;
   }
 

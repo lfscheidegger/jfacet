@@ -1,7 +1,7 @@
 package com.lfscheidegger.jfacet.shade.expression.vector;
 
 import com.google.common.collect.ImmutableList;
-import com.lfscheidegger.jfacet.facet.AttribBuffer;
+import com.lfscheidegger.jfacet.facet.AttributeBuffer;
 import com.lfscheidegger.jfacet.shade.GlSlQualifier;
 import com.lfscheidegger.jfacet.shade.expression.Bool;
 import com.lfscheidegger.jfacet.shade.expression.Expression;
@@ -48,7 +48,7 @@ public class Vector3Test {
     assertEquals(vec.getNodeType().get(), Expression.NodeType.CONS);
     assertEquals(vec.getParents(), ImmutableList.of(x, y, z));
 
-    vec = new Vector3(new AttribBuffer(new float[] {0, 0, 1, 0, 1, 1}, 2));
+    vec = new Vector3(new AttributeBuffer(new float[] {0, 0, 1, 0, 1, 1}, 2));
 
     assertFalse(vec.getPrimitive().isPresent());
     assertTrue(vec.getAttributeBuffer().isPresent());

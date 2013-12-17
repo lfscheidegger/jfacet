@@ -1,6 +1,6 @@
 package com.lfscheidegger.jfacet.compiler;
 
-import com.lfscheidegger.jfacet.facet.AttribBuffer;
+import com.lfscheidegger.jfacet.facet.AttributeBuffer;
 import com.lfscheidegger.jfacet.shade.expression.Bool;
 import com.lfscheidegger.jfacet.shade.expression.vector.Vector2;
 import com.lfscheidegger.jfacet.shade.expression.vector.Vector4;
@@ -20,7 +20,7 @@ public class VertexShaderCompilerTest {
 
   @Test
   public void testNoTransform() {
-    AttribBuffer vertexCoordinates = new AttribBuffer(
+    AttributeBuffer vertexCoordinates = new AttributeBuffer(
         new float[]{
             0, 0, 0, 1,
             1, 0, 0, 1,
@@ -42,7 +42,7 @@ public class VertexShaderCompilerTest {
 
   @Test
   public void testNoTransformWithFill() {
-    AttribBuffer vertexCoordinates = new AttribBuffer(
+    AttributeBuffer vertexCoordinates = new AttributeBuffer(
         new float[] {
             0, 0,
             1, 0,
@@ -71,12 +71,12 @@ public class VertexShaderCompilerTest {
 
   @Test
   public void testNoTransformWithTernary() {
-    AttribBuffer vertexCoordinates1 = new AttribBuffer(new float[] {
+    AttributeBuffer vertexCoordinates1 = new AttributeBuffer(new float[] {
         0, 0, 0, 1,
         1, 0, 0, 1,
         1, 1, 0, 1,
         0, 1, 0, 1}, 4),
-        vertexCoordinates2 = new AttribBuffer(new float[] {
+        vertexCoordinates2 = new AttributeBuffer(new float[] {
             0, 0, 0, 1,
             1, 0, 0, 1,
             1, 1, 0, 1,
@@ -103,13 +103,13 @@ public class VertexShaderCompilerTest {
 
   @Test
   public void testNoTransformWithAddition() {
-    AttribBuffer
-        vertexCoordinates1 = new AttribBuffer(new float[] {
+    AttributeBuffer
+        vertexCoordinates1 = new AttributeBuffer(new float[] {
         0, 0, 0, 1,
         1, 0, 0, 1,
         1, 1, 0, 1,
         0, 1, 0, 1}, 4),
-        vertexCoordinates2 = new AttribBuffer(new float[] {
+        vertexCoordinates2 = new AttributeBuffer(new float[] {
         0, 0, 0, 1,
         1, 0, 0, 1,
         1, 1, 0, 1,

@@ -5,7 +5,7 @@ import com.badlogic.gdx.backends.android.AndroidGL20;
 import com.google.common.base.Optional;
 import com.lfscheidegger.jfacet.compiler.FragmentShaderCompiler;
 import com.lfscheidegger.jfacet.compiler.VertexShaderCompiler;
-import com.lfscheidegger.jfacet.facet.AttribBuffer;
+import com.lfscheidegger.jfacet.facet.AttributeBuffer;
 import com.lfscheidegger.jfacet.shade.expression.Expression;
 import com.lfscheidegger.jfacet.shade.expression.vector.Vector4;
 import com.lfscheidegger.jfacet.shade.expression.vector.VectorExpression;
@@ -105,8 +105,8 @@ public final class Program {
   private void bindAttributes() {
     List<Expression> attributeExpressions = mVertexShaderCompiler.getAttributeExpressions();
     for (int i = 0; i < attributeExpressions.size(); i++) {
-      Optional<AttribBuffer> optional = attributeExpressions.get(i).getAttributeBuffer();
-      AttribBuffer buffer = optional.get();
+      Optional<AttributeBuffer> optional = attributeExpressions.get(i).getAttributeBuffer();
+      AttributeBuffer buffer = optional.get();
       int dimension = buffer.getDimension();
 
       GLES20.glVertexAttribPointer(i, dimension, GLES20.GL_FLOAT, false, 0, buffer.getBuffer());
