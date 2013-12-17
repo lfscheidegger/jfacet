@@ -10,7 +10,6 @@ import com.lfscheidegger.jfacet.shade.expression.vector.Vector4;
 import com.lfscheidegger.jfacet.shade.expression.vector.VectorExpression;
 
 import javax.annotation.Nullable;
-import java.util.HashMap;
 import java.util.Map;
 
 public final class Geometry {
@@ -96,6 +95,7 @@ public final class Geometry {
   }
 
   public Real getColors1() {
+    Preconditions.checkNotNull(mColors);
     String attributeName = getNameForColors(1);
 
     if (mExpressionMap.get(attributeName) == null) {
@@ -106,6 +106,7 @@ public final class Geometry {
   }
 
   public Vector2 getColors2() {
+    Preconditions.checkNotNull(mColors);
     String attributeName = getNameForColors(2);
 
     if (mExpressionMap.get(attributeName) == null) {
@@ -116,6 +117,7 @@ public final class Geometry {
   }
 
   public Vector3 getColors3() {
+    Preconditions.checkNotNull(mColors);
     String attributeName = getNameForColors(3);
 
     if (mExpressionMap.get(attributeName) == null) {
@@ -126,6 +128,7 @@ public final class Geometry {
   }
 
   public Vector4 getColors4() {
+    Preconditions.checkNotNull(mColors);
     String attributeName = getNameForColors(4);
 
     if (mExpressionMap.get(attributeName) == null) {
@@ -136,6 +139,7 @@ public final class Geometry {
   }
 
   public Real getTexCoords1() {
+    Preconditions.checkNotNull(mTexCoords);
     String attributeName = getNameForTexCoords(1);
 
     if (mExpressionMap.get(attributeName) == null) {
@@ -146,6 +150,7 @@ public final class Geometry {
   }
 
   public Vector2 getTexCoords2() {
+    Preconditions.checkNotNull(mTexCoords);
     String attributeName = getNameForTexCoords(2);
 
     if (mExpressionMap.get(attributeName) == null) {
@@ -156,6 +161,7 @@ public final class Geometry {
   }
 
   public Vector3 getTexCoords3() {
+    Preconditions.checkNotNull(mTexCoords);
     String attributeName = getNameForTexCoords(3);
 
     if (mExpressionMap.get(attributeName) == null) {
@@ -166,6 +172,7 @@ public final class Geometry {
   }
 
   public Vector4 getTexCoords4() {
+    Preconditions.checkNotNull(mTexCoords);
     String attributeName = getNameForTexCoords(4);
 
     if (mExpressionMap.get(attributeName) == null) {
@@ -176,6 +183,7 @@ public final class Geometry {
   }
 
   public Real getNormals1() {
+    Preconditions.checkNotNull(mNormals);
     String attributeName = getNameForNormals(1);
 
     if (mExpressionMap.get(attributeName) == null) {
@@ -186,6 +194,7 @@ public final class Geometry {
   }
 
   public Vector2 getNormals2() {
+    Preconditions.checkNotNull(mNormals);
     String attributeName = getNameForNormals(2);
 
     if (mExpressionMap.get(attributeName) == null) {
@@ -196,6 +205,7 @@ public final class Geometry {
   }
 
   public Vector3 getNormals3() {
+    Preconditions.checkNotNull(mNormals);
     String attributeName = getNameForNormals(3);
 
     if (mExpressionMap.get(attributeName) == null) {
@@ -206,6 +216,7 @@ public final class Geometry {
   }
 
   public Vector4 getNormals4() {
+    Preconditions.checkNotNull(mNormals);
     String attributeName = getNameForNormals(4);
 
     if (mExpressionMap.get(attributeName) == null) {
