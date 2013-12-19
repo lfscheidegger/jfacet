@@ -3,9 +3,7 @@ package com.lfscheidegger.jfacet.shade.expression;
 import com.google.common.collect.ImmutableList;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
-
-import static com.lfscheidegger.jfacet.shade.expression.ExpressionTestUtils.*;
+import static org.junit.Assert.assertEquals;
 
 /**
  * Unit tests for {@code Bool}

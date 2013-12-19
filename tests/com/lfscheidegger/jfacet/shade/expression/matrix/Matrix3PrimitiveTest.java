@@ -1,6 +1,5 @@
 package com.lfscheidegger.jfacet.shade.expression.matrix;
 
-import com.lfscheidegger.jfacet.shade.expression.matrix.Matrix3;
 import com.lfscheidegger.jfacet.shade.expression.vector.Vector3;
 import org.junit.Test;
 

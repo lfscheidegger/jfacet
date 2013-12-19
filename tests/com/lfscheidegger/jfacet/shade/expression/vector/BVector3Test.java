@@ -5,9 +5,9 @@ import com.lfscheidegger.jfacet.shade.expression.Bool;
 import com.lfscheidegger.jfacet.shade.expression.Expression;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
-
 import static com.lfscheidegger.jfacet.shade.expression.ExpressionTestUtils.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Unit tests for {@code BVector3}

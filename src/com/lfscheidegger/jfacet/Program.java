@@ -2,7 +2,6 @@ package com.lfscheidegger.jfacet;
 
 import android.opengl.GLES20;
 import com.badlogic.gdx.backends.android.AndroidGL20;
-import com.google.common.base.Optional;
 import com.lfscheidegger.jfacet.compiler.FragmentShaderCompiler;
 import com.lfscheidegger.jfacet.compiler.VertexShaderCompiler;
 import com.lfscheidegger.jfacet.facet.AttributeBuffer;

@@ -1,6 +1,6 @@
 package com.lfscheidegger.jfacet.shade;
 
-import com.lfscheidegger.jfacet.shade.expression.*;
+import com.lfscheidegger.jfacet.shade.expression.Real;
 import com.lfscheidegger.jfacet.shade.expression.matrix.Matrix2;
 import com.lfscheidegger.jfacet.shade.expression.matrix.Matrix3;
 import com.lfscheidegger.jfacet.shade.expression.matrix.Matrix4;

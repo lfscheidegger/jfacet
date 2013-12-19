@@ -1,10 +1,7 @@
 package com.lfscheidegger.jfacet.facet;
 
 import android.opengl.GLES20;
-import com.google.common.base.Preconditions;
 import com.lfscheidegger.jfacet.Program;
-import com.lfscheidegger.jfacet.shade.expression.Expression;
-import com.lfscheidegger.jfacet.shade.expression.vector.Vector2;
 import com.lfscheidegger.jfacet.shade.expression.vector.Vector4;
 import com.lfscheidegger.jfacet.shade.expression.vector.VectorExpression;
 
