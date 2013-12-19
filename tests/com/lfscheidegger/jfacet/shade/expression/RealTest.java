@@ -18,15 +18,14 @@ public class RealTest {
   public void testConstructors() {
     Real real = new Real(1);
 
-    assertTrue(real.getPrimitive().isPresent());
-    assertTrue(real.getPrimitive().get() == 1);
+    assertEquals(
+        ((Expression.NodeType.PrimitiveNodeType) real.getNodeType().get()).getPrimitive(), 1.0f);
+
     assertFalse(real.getGlSlQualifier().isPresent());
-    assertFalse(real.getNodeType().isPresent());
     assertEquals(real.getParents(), ImmutableList.of());
 
     Real one = new Real(1), two = new Real(2);
     real = new Real(ImmutableList.<Expression>of(one, two), Expression.NodeType.ADD);
-    assertFalse(real.getPrimitive().isPresent());
     assertFalse(real.getGlSlQualifier().isPresent());
     assertTrue(real.getNodeType().isPresent());
     assertEquals(real.getNodeType().get(), Expression.NodeType.ADD);

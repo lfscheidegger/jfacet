@@ -18,7 +18,6 @@ public class ExpressionTestUtils {
   }
 
   public static void testNonLeafExpression(Expression expression) {
-    assertFalse(expression.getPrimitive().isPresent());
     assertFalse(expression.getGlSlQualifier().isPresent());
     assertTrue(expression.getNodeType().isPresent());
   }

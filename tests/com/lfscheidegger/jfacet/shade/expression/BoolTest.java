@@ -18,15 +18,13 @@ public class BoolTest {
   public void testConstructors() {
     Bool bool = new Bool(false);
 
-    assertTrue(bool.getPrimitive().isPresent());
-    assertEquals(bool.getPrimitive().get(), false);
+    assertEquals(
+        ((Expression.NodeType.PrimitiveNodeType) bool.getNodeType().get()).getPrimitive(), false);
     assertFalse(bool.getGlSlQualifier().isPresent());
-    assertFalse(bool.getNodeType().isPresent());
     assertEquals(bool.getParents(), ImmutableList.of());
 
     Bool true_ = new Bool(true), false_ = new Bool(false);
     bool = new Bool(ImmutableList.<Expression>of(true_, false_), Expression.NodeType.AND);
-    assertFalse(bool.getPrimitive().isPresent());
     assertFalse(bool.getGlSlQualifier().isPresent());
     assertTrue(bool.getNodeType().isPresent());
     assertEquals(bool.getNodeType().get(), Expression.NodeType.AND);

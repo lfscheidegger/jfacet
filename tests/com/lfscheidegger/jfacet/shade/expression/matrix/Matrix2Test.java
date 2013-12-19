@@ -22,16 +22,16 @@ public class Matrix2Test {
   public void testConstructors() {
     Matrix2 matrix = new Matrix2();
 
-    assertTrue(matrix.getPrimitive().isPresent());
-    assertEquals(matrix.getPrimitive().get(), new Matrix2.Primitive());
+    assertEquals(
+        ((Expression.NodeType.PrimitiveNodeType) matrix.getNodeType().get()).getPrimitive(),
+        new Matrix2.Primitive());
+
     assertFalse(matrix.getGlSlQualifier().isPresent());
-    assertFalse(matrix.getNodeType().isPresent());
     assertEquals(matrix.getParents(), ImmutableList.of());
 
     Vector2 c0 = new Vector2(1, 2), c1 = new Vector2(3, 4);
     matrix = new Matrix2(c0, c1);
 
-    assertFalse(matrix.getPrimitive().isPresent());
     assertFalse(matrix.getGlSlQualifier().isPresent());
     assertTrue(matrix.getNodeType().isPresent());
     assertEquals(matrix.getNodeType().get(), Expression.NodeType.CONS);
@@ -39,7 +39,6 @@ public class Matrix2Test {
 
     matrix = new Matrix2(ImmutableList.<Expression>of(c0, c1), Expression.NodeType.CONS);
 
-    assertFalse(matrix.getPrimitive().isPresent());
     assertFalse(matrix.getGlSlQualifier().isPresent());
     assertTrue(matrix.getNodeType().isPresent());
     assertEquals(matrix.getNodeType().get(), Expression.NodeType.CONS);

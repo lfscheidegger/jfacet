@@ -18,10 +18,12 @@ public class BVector2Test {
 
   @Test
   public void testConstructors() {
-    assertTrue(mVec.getPrimitive().isPresent());
-    assertEquals(mVec.getPrimitive().get(), new BVector2.Primitive(true, false));
+    assertEquals(
+        ((Expression.NodeType.PrimitiveNodeType) mVec.getNodeType().get()).getPrimitive(),
+        new BVector2.Primitive(true, false));
+
+
     assertFalse(mVec.getGlSlQualifier().isPresent());
-    assertFalse(mVec.getNodeType().isPresent());
     assertEquals(mVec.getParents(), ImmutableList.of());
 
     Bool x = new Bool(true), y = new Bool(false);

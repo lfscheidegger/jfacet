@@ -22,10 +22,10 @@ public class Matrix4Test {
   public void testConstructors() {
     Matrix4 matrix = new Matrix4();
 
-    assertTrue(matrix.getPrimitive().isPresent());
-    assertEquals(matrix.getPrimitive().get(), new Matrix4.Primitive());
+    assertEquals(
+        ((Expression.NodeType.PrimitiveNodeType) matrix.getNodeType().get()).getPrimitive(),
+        new Matrix4.Primitive());
     assertFalse(matrix.getGlSlQualifier().isPresent());
-    assertFalse(matrix.getNodeType().isPresent());
     assertEquals(matrix.getParents(), ImmutableList.of());
 
     Vector4 c0 = new Vector4(1, 2, 3, 4),
@@ -34,7 +34,6 @@ public class Matrix4Test {
         c3 = new Vector4(5, 6, 7, 8);
     matrix = new Matrix4(c0, c1, c2, c3);
 
-    assertFalse(matrix.getPrimitive().isPresent());
     assertFalse(matrix.getGlSlQualifier().isPresent());
     assertTrue(matrix.getNodeType().isPresent());
     assertEquals(matrix.getNodeType().get(), Expression.NodeType.CONS);
@@ -42,7 +41,6 @@ public class Matrix4Test {
 
     matrix = new Matrix4(ImmutableList.<Expression>of(c0, c1, c2, c3), Expression.NodeType.CONS);
 
-    assertFalse(matrix.getPrimitive().isPresent());
     assertFalse(matrix.getGlSlQualifier().isPresent());
     assertTrue(matrix.getNodeType().isPresent());
     assertEquals(matrix.getNodeType().get(), Expression.NodeType.CONS);

@@ -99,6 +99,23 @@ public interface Expression<T> {
       }
     }
 
+    public static final class PrimitiveNodeType<T> implements NodeType {
+
+      private final T mValue;
+
+      PrimitiveNodeType(T value) {
+        mValue = value;
+      }
+
+      public static <T> NodeType forPrimitive(T primitive) {
+        return new PrimitiveNodeType<T>(primitive);
+      }
+
+      public T getPrimitive() {
+        return mValue;
+      }
+    }
+
     public static final class UniformNodeType<T> implements NodeType {
 
       private final T mValue;
@@ -199,8 +216,6 @@ public interface Expression<T> {
    * Optional.absent() otherwise
    */
   public Optional<NodeType> getNodeType();
-
-  public Optional<T> getPrimitive();
 
   public Optional<AttributeBuffer> getAttributeBuffer();
 

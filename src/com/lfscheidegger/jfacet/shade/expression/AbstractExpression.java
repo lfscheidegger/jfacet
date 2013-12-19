@@ -8,27 +8,23 @@ import com.lfscheidegger.jfacet.shade.GlSlQualifier;
 public abstract class AbstractExpression<T> implements Expression<T> {
 
   private final Optional<GlSlQualifier> mGlSlQualifier;
-  private final Optional<T> mPrimitive;
   private final Optional<NodeType> mNodeType;
   private final ImmutableList<Expression> mParents;
 
   public AbstractExpression(T primitive) {
     mGlSlQualifier = Optional.absent();
-    mPrimitive = Optional.of(primitive);
-    mNodeType = Optional.absent();
+    mNodeType = Optional.of(NodeType.PrimitiveNodeType.forPrimitive(primitive));
     mParents = ImmutableList.of();
   }
 
   public AbstractExpression(GlSlQualifier glSlQUalifier) {
     mGlSlQualifier = Optional.of(glSlQUalifier);
-    mPrimitive = Optional.absent();
     mNodeType = Optional.absent();
     mParents = ImmutableList.of();
   }
 
   public AbstractExpression(ImmutableList<Expression> parents, NodeType nodeType) {
     mGlSlQualifier = Optional.absent();
-    mPrimitive = Optional.absent();
     mNodeType = Optional.of(nodeType);
     mParents = parents;
   }
@@ -46,11 +42,6 @@ public abstract class AbstractExpression<T> implements Expression<T> {
   @Override
   public Optional<NodeType> getNodeType() {
     return mNodeType;
-  }
-
-  @Override
-  public Optional<T> getPrimitive() {
-    return mPrimitive;
   }
 
   @Override

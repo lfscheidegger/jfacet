@@ -49,6 +49,7 @@ public class CompilationHelper {
   }
 
   public void emitExpression(StringBuilder sb, Expression expression) {
+
     if (!expression.getParents().isEmpty()) {
       Expression.NodeType nodeType = (Expression.NodeType)expression.getNodeType().get();
       if (nodeType.equals(Expression.NodeType.CONS)) {
@@ -64,8 +65,11 @@ public class CompilationHelper {
       } else if (nodeType instanceof Expression.NodeType.FunctionNodeType) {
         emitFunctionCall(sb, expression);
       }
-    } else if (expression.getPrimitive().isPresent()) {
-      emitPrimitive(sb, expression);
+    } else if (expression.getNodeType().isPresent()) {
+      Expression.NodeType nodeType = (Expression.NodeType)expression.getNodeType().get();
+      if (nodeType instanceof Expression.NodeType.PrimitiveNodeType) {
+        emitPrimitive(sb, expression);
+      }
     }
   }
 
@@ -129,12 +133,15 @@ public class CompilationHelper {
   }
 
   private void emitPrimitive(StringBuilder sb, Expression expression) {
+    Object primitive =
+        ((Expression.NodeType.PrimitiveNodeType) expression.getNodeType().get()).getPrimitive();
+
     String typeName = expression.getGlSlTypeName();
     sb.append(String.format(
         "%s %s = %s;\n",
         typeName,
         getNameForExpression(expression),
-        expression.getPrimitive().get()));
+        primitive));
   }
 
   private void emitOperator(StringBuilder sb, Expression expression) {
