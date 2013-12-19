@@ -9,15 +9,9 @@ import com.lfscheidegger.jfacet.facet.*;
 import com.lfscheidegger.jfacet.facet.renderer.FacetRenderer;
 import com.lfscheidegger.jfacet.shade.Shade;
 import com.lfscheidegger.jfacet.shade.camera.Camera;
-import com.lfscheidegger.jfacet.shade.expression.Bool;
-import com.lfscheidegger.jfacet.shade.expression.Real;
-import com.lfscheidegger.jfacet.shade.expression.vector.Vector2;
-import com.lfscheidegger.jfacet.shade.expression.vector.Vector3;
 import com.lfscheidegger.jfacet.shade.expression.vector.Vector4;
 import com.lfscheidegger.jfacet.shade.transform.Translation4;
 import com.lfscheidegger.jfacet.view.FacetView;
-
-import java.util.Vector;
 
 public class JFacetDemoActivity extends Activity {
 

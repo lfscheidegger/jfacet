@@ -4,6 +4,10 @@ import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableList;
 import com.lfscheidegger.jfacet.facet.AttributeBuffer;
 import com.lfscheidegger.jfacet.shade.GlSlQualifier;
+import com.lfscheidegger.jfacet.shade.expression.matrix.Matrix2;
+import com.lfscheidegger.jfacet.shade.expression.matrix.Matrix3;
+import com.lfscheidegger.jfacet.shade.expression.matrix.Matrix4;
+import com.lfscheidegger.jfacet.shade.expression.vector.*;
 
 /**
  * A Shade expression.
@@ -92,6 +96,63 @@ public interface Expression<T> {
 
       public String getSwizzleString() {
         return mSwizzleString;
+      }
+    }
+
+    public static final class UniformNodeType<T> implements NodeType {
+
+      private final T mValue;
+
+      UniformNodeType(T value) {
+        mValue = value;
+      }
+
+      public static UniformNodeType<Float> forFloat(Float primitive) {
+        return new UniformNodeType<Float>(primitive);
+      }
+
+      public static UniformNodeType<Vector2.Primitive> forVector2(Vector2.Primitive primitive) {
+        return new UniformNodeType<Vector2.Primitive>(primitive);
+      }
+
+      public static UniformNodeType<Vector3.Primitive> forVector3(Vector3.Primitive primitive) {
+        return new UniformNodeType<Vector3.Primitive>(primitive);
+      }
+
+      public static UniformNodeType<Vector4.Primitive> forVector4(Vector4.Primitive primitive) {
+        return new UniformNodeType<Vector4.Primitive>(primitive);
+      }
+
+      public static UniformNodeType<Boolean> forBoolean(Boolean primitive) {
+        return new UniformNodeType<Boolean>(primitive);
+      }
+
+      public static UniformNodeType<BVector2.Primitive> forBVector2(BVector2.Primitive primitive) {
+        return new UniformNodeType<BVector2.Primitive>(primitive);
+      }
+
+      public static UniformNodeType<BVector3.Primitive> forBVector3(BVector3.Primitive primitive) {
+        return new UniformNodeType<BVector3.Primitive>(primitive);
+      }
+
+      public static UniformNodeType<BVector4.Primitive> forBVector4(BVector4.Primitive primitive) {
+        return new UniformNodeType<BVector4.Primitive>(primitive);
+      }
+
+      public static UniformNodeType<Matrix2.Primitive> forMatrix2(Matrix2.Primitive primitive) {
+        return new UniformNodeType<Matrix2.Primitive>(primitive);
+      }
+
+      public static UniformNodeType<Matrix3.Primitive> forMatrix3(Matrix3.Primitive primitive) {
+        return new UniformNodeType<Matrix3.Primitive>(primitive);
+      }
+
+      public static UniformNodeType<Matrix4.Primitive> forMatrix4(Matrix4.Primitive primitive) {
+        return new UniformNodeType<Matrix4.Primitive>(primitive);
+      }
+
+      public T getValue() {
+        return mValue;
       }
     }
 
