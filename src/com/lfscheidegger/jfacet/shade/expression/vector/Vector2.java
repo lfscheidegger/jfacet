@@ -170,7 +170,7 @@ public final class Vector2 extends AbstractExpression<Vector2.Primitive>
   }
 
   public Vector2(AttributeBuffer attributeBuffer) {
-    super(ImmutableList.<Expression>of(), NodeType.AttributeNodeType.forAttribute(attributeBuffer));
+    super(NodeType.AttributeNodeType.forAttribute(attributeBuffer));
   }
 
   @Override

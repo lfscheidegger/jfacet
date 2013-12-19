@@ -13,6 +13,11 @@ public abstract class AbstractExpression<T> implements Expression<T> {
     mParents = ImmutableList.of();
   }
 
+  public AbstractExpression(NodeType nodeType) {
+    mNodeType = Optional.of(nodeType);
+    mParents = ImmutableList.of();
+  }
+
   public AbstractExpression(ImmutableList<Expression> parents, NodeType nodeType) {
     mNodeType = Optional.of(nodeType);
     mParents = parents;

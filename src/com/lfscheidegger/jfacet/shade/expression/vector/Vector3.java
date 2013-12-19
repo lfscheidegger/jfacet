@@ -193,7 +193,7 @@ public final class Vector3 extends AbstractExpression<Vector3.Primitive>
   }
 
   public Vector3(AttributeBuffer attributeBuffer) {
-    super(ImmutableList.<Expression>of(), NodeType.AttributeNodeType.forAttribute(attributeBuffer));
+    super(NodeType.AttributeNodeType.forAttribute(attributeBuffer));
   }
 
   @Override

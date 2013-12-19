@@ -17,7 +17,7 @@ public final class Real extends AbstractExpression<Float> {
   }
 
   public Real(AttributeBuffer attributeBuffer) {
-    super(ImmutableList.<Expression>of(), NodeType.AttributeNodeType.forAttribute(attributeBuffer));
+    super(NodeType.AttributeNodeType.forAttribute(attributeBuffer));
   }
 
   @Override
