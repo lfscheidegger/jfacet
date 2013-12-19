@@ -3,7 +3,6 @@ package com.lfscheidegger.jfacet.shade.expression;
 import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableList;
 import com.lfscheidegger.jfacet.facet.AttributeBuffer;
-import com.lfscheidegger.jfacet.shade.GlSlQualifier;
 import com.lfscheidegger.jfacet.shade.expression.matrix.Matrix2;
 import com.lfscheidegger.jfacet.shade.expression.matrix.Matrix3;
 import com.lfscheidegger.jfacet.shade.expression.matrix.Matrix4;
@@ -221,12 +220,6 @@ public interface Expression<T> {
 
     public static final NodeType NOT = new UnaryNodeType("!");
   }
-
-  /**
-   * Returns the GLSL type of the value for this expression if it has one, or Optional.absent()
-   * otherwise
-   */
-  public Optional<GlSlQualifier> getGlSlQualifier();
 
   /**
    * Returns the {@code NodeType} of this expression of its a compound expression, or

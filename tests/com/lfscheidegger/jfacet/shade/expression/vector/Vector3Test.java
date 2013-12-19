@@ -2,7 +2,6 @@ package com.lfscheidegger.jfacet.shade.expression.vector;
 
 import com.google.common.collect.ImmutableList;
 import com.lfscheidegger.jfacet.facet.AttributeBuffer;
-import com.lfscheidegger.jfacet.shade.GlSlQualifier;
 import com.lfscheidegger.jfacet.shade.expression.Bool;
 import com.lfscheidegger.jfacet.shade.expression.Expression;
 import com.lfscheidegger.jfacet.shade.expression.Real;
@@ -26,20 +25,17 @@ public class Vector3Test {
         ((Expression.NodeType.PrimitiveNodeType) vec.getNodeType().get()).getPrimitive(),
         new Vector3.Primitive(1, 2, 3));
 
-    assertFalse(vec.getGlSlQualifier().isPresent());
     assertEquals(vec.getParents(), ImmutableList.of());
 
     Real x = new Real(1), y = new Real(2), z = new Real(3);
     vec = new Vector3(x, y, z);
 
-    assertFalse(vec.getGlSlQualifier().isPresent());
     assertTrue(vec.getNodeType().isPresent());
     assertEquals(vec.getNodeType().get(), Expression.NodeType.CONS);
     assertEquals(vec.getParents(), ImmutableList.of(x, y, z));
 
     vec = new Vector3(ImmutableList.<Expression>of(x, y, z), Expression.NodeType.CONS);
 
-    assertFalse(vec.getGlSlQualifier().isPresent());
     assertTrue(vec.getNodeType().isPresent());
     assertEquals(vec.getNodeType().get(), Expression.NodeType.CONS);
     assertEquals(vec.getParents(), ImmutableList.of(x, y, z));
@@ -480,7 +476,6 @@ public class Vector3Test {
   }
 
   private void testNonLeafVector(Vector3 vec) {
-    assertFalse(vec.getGlSlQualifier().isPresent());
     assertTrue(vec.getNodeType().isPresent());
   }
 

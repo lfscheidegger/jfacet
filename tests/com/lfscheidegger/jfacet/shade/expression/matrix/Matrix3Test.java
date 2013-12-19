@@ -26,20 +26,17 @@ public class Matrix3Test {
         ((Expression.NodeType.PrimitiveNodeType) matrix.getNodeType().get()).getPrimitive(),
         new Matrix3.Primitive());
 
-    assertFalse(matrix.getGlSlQualifier().isPresent());
     assertEquals(matrix.getParents(), ImmutableList.of());
 
     Vector3 c0 = new Vector3(1, 2, 3), c1 = new Vector3(3, 4, 5), c2 = new Vector3(4, 5, 6);
     matrix = new Matrix3(c0, c1, c2);
 
-    assertFalse(matrix.getGlSlQualifier().isPresent());
     assertTrue(matrix.getNodeType().isPresent());
     assertEquals(matrix.getNodeType().get(), Expression.NodeType.CONS);
     assertEquals(matrix.getParents(), ImmutableList.<Expression>of(c0, c1, c2));
 
     matrix = new Matrix3(ImmutableList.<Expression>of(c0, c1, c2), Expression.NodeType.CONS);
 
-    assertFalse(matrix.getGlSlQualifier().isPresent());
     assertTrue(matrix.getNodeType().isPresent());
     assertEquals(matrix.getNodeType().get(), Expression.NodeType.CONS);
     assertEquals(matrix.getParents(), ImmutableList.<Expression>of(c0, c1, c2));

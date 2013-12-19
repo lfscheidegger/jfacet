@@ -20,12 +20,10 @@ public class BoolTest {
 
     assertEquals(
         ((Expression.NodeType.PrimitiveNodeType) bool.getNodeType().get()).getPrimitive(), false);
-    assertFalse(bool.getGlSlQualifier().isPresent());
     assertEquals(bool.getParents(), ImmutableList.of());
 
     Bool true_ = new Bool(true), false_ = new Bool(false);
     bool = new Bool(ImmutableList.<Expression>of(true_, false_), Expression.NodeType.AND);
-    assertFalse(bool.getGlSlQualifier().isPresent());
     assertTrue(bool.getNodeType().isPresent());
     assertEquals(bool.getNodeType().get(), Expression.NodeType.AND);
     assertEquals(bool.getParents(), ImmutableList.<Expression>of(true_, false_));

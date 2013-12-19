@@ -1,12 +1,10 @@
 package com.lfscheidegger.jfacet.facet;
 
-import com.lfscheidegger.jfacet.shade.GlSlQualifier;
 import com.lfscheidegger.jfacet.shade.expression.Expression;
 import com.lfscheidegger.jfacet.shade.expression.Real;
 import com.lfscheidegger.jfacet.shade.expression.vector.Vector2;
 import com.lfscheidegger.jfacet.shade.expression.vector.Vector3;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import static org.junit.Assert.*;

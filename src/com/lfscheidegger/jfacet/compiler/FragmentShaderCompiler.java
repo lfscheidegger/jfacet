@@ -5,7 +5,6 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Maps;
-import com.lfscheidegger.jfacet.shade.GlSlQualifier;
 import com.lfscheidegger.jfacet.shade.expression.Expression;
 import com.lfscheidegger.jfacet.shade.expression.vector.Vector4;
 
@@ -41,8 +40,8 @@ public class FragmentShaderCompiler {
     sb.append("void main() {\n");
 
     for (Expression expression : sortedExpressions) {
-      if(expression.getGlSlQualifier().isPresent() &&
-          expression.getGlSlQualifier().get().equals(GlSlQualifier.ATTRIBUTE_T)) {
+      if(expression.getNodeType().isPresent() &&
+          expression.getNodeType().get() instanceof Expression.NodeType.AttributeNodeType) {
         continue;
       } else {
         mCompilationHelper.emitExpression(sb, expression);
@@ -65,8 +64,8 @@ public class FragmentShaderCompiler {
     ImmutableSet.Builder<Expression> builder = new ImmutableSet.Builder<Expression>();
 
     for (Expression expression : sortedExpressions) {
-      if (expression.getGlSlQualifier().isPresent() &&
-          expression.getGlSlQualifier().get().equals(GlSlQualifier.ATTRIBUTE_T)) {
+      if(expression.getNodeType().isPresent() &&
+          expression.getNodeType().get() instanceof Expression.NodeType.AttributeNodeType) {
         builder.add(expression);
       }
     }

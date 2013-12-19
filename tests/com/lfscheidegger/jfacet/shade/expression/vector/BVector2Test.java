@@ -22,8 +22,6 @@ public class BVector2Test {
         ((Expression.NodeType.PrimitiveNodeType) mVec.getNodeType().get()).getPrimitive(),
         new BVector2.Primitive(true, false));
 
-
-    assertFalse(mVec.getGlSlQualifier().isPresent());
     assertEquals(mVec.getParents(), ImmutableList.of());
 
     Bool x = new Bool(true), y = new Bool(false);

@@ -21,12 +21,10 @@ public class RealTest {
     assertEquals(
         ((Expression.NodeType.PrimitiveNodeType) real.getNodeType().get()).getPrimitive(), 1.0f);
 
-    assertFalse(real.getGlSlQualifier().isPresent());
     assertEquals(real.getParents(), ImmutableList.of());
 
     Real one = new Real(1), two = new Real(2);
     real = new Real(ImmutableList.<Expression>of(one, two), Expression.NodeType.ADD);
-    assertFalse(real.getGlSlQualifier().isPresent());
     assertTrue(real.getNodeType().isPresent());
     assertEquals(real.getNodeType().get(), Expression.NodeType.ADD);
     assertEquals(real.getParents(), ImmutableList.<Expression>of(one, two));

@@ -22,7 +22,6 @@ public class BVector3Test {
         ((Expression.NodeType.PrimitiveNodeType) mVec.getNodeType().get()).getPrimitive(),
         new BVector3.Primitive(true, false, false));
 
-    assertFalse(mVec.getGlSlQualifier().isPresent());
     assertEquals(mVec.getParents(), ImmutableList.of());
 
     Bool x = new Bool(true), y = new Bool(false), z = new Bool(false);
