@@ -40,6 +40,21 @@ public final class Vector2 extends AbstractExpression<Vector2.Primitive>
       return mValues[idx];
     }
 
+    public Primitive setX(float value) {
+      set(value, 0);
+      return this;
+    }
+
+    public Primitive setY(float value) {
+      set(value, 1);
+      return this;
+    }
+
+    public Primitive set(float value, int idx) {
+      mValues[idx] = value;
+      return this;
+    }
+
     public Swizzle.Swizzle21XYZW<Float, Vector2.Primitive, Vector3.Primitive, Vector4.Primitive> x() {
       return new Swizzle.Swizzle21XYZW<Float, Vector2.Primitive, Vector3.Primitive, Vector4.Primitive>("x", this);
     }
