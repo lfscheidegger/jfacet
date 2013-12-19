@@ -23,7 +23,7 @@ public class Vector4Test {
     Vector4 vec = new Vector4(1, 2, 3, 4);
 
     assertEquals(
-        ((Expression.NodeType.PrimitiveNodeType) vec.getNodeType().get()).getPrimitive(),
+        ((Expression.NodeType.PrimitiveNodeType) vec.getNodeType()).getPrimitive(),
         new Vector4.Primitive(1, 2, 3, 4));
 
     assertEquals(vec.getParents(), ImmutableList.of());
@@ -31,19 +31,17 @@ public class Vector4Test {
     Real x = new Real(1), y = new Real(2), z = new Real(3), w = new Real(4);
     vec = new Vector4(x, y, z, w);
 
-    assertTrue(vec.getNodeType().isPresent());
-    assertEquals(vec.getNodeType().get(), Expression.NodeType.CONS);
+    assertEquals(vec.getNodeType(), Expression.NodeType.CONS);
     assertEquals(vec.getParents(), ImmutableList.of(x, y, z, w));
 
     vec = new Vector4(ImmutableList.<Expression>of(x, y, z, w), Expression.NodeType.CONS);
 
-    assertTrue(vec.getNodeType().isPresent());
-    assertEquals(vec.getNodeType().get(), Expression.NodeType.CONS);
+    assertEquals(vec.getNodeType(), Expression.NodeType.CONS);
     assertEquals(vec.getParents(), ImmutableList.of(x, y, z, w));
 
     vec = new Vector4(new AttributeBuffer(new float[] {0, 0, 1, 0, 1, 1}, 2));
 
-    assertTrue(vec.getNodeType().get() instanceof Expression.NodeType.AttributeNodeType);
+    assertTrue(vec.getNodeType() instanceof Expression.NodeType.AttributeNodeType);
     assertEquals(vec.getParents(), ImmutableList.<Expression>of());
   }
 
@@ -1130,10 +1128,6 @@ public class Vector4Test {
 
   }
 
-  private void testNonLeafVector(Vector4 vec) {
-    assertTrue(vec.getNodeType().isPresent());
-  }
-
   @Test
   public void testAdd() {
     Vector4 vec = mVec.add(1);
@@ -1174,8 +1168,7 @@ public class Vector4Test {
   public void testNeg() {
     Vector4 neg = mVec.neg();
 
-    testNonLeafVector(neg);
-    assertEquals(neg.getNodeType().get(), Expression.NodeType.NEG);
+    assertEquals(neg.getNodeType(), Expression.NodeType.NEG);
     assertEquals(neg.getParents(), ImmutableList.<Expression>of(mVec));
   }
 
@@ -1184,7 +1177,6 @@ public class Vector4Test {
     Vector4 vec = new Vector4(1, 2, 3, 4);
     Real dot = mVec.dot(vec);
 
-    testNonLeafExpression(dot);
     testFunction(dot, "dot");
     assertEquals(dot.getParents(), ImmutableList.<Expression>of(mVec, vec));
   }
@@ -1193,7 +1185,6 @@ public class Vector4Test {
   public void testNormalize() {
     Vector4 normalized = mVec.normalize();
 
-    testNonLeafVector(normalized);
     testFunction(normalized, "normalize");
     assertEquals(normalized.getParents(), ImmutableList.<Expression>of(mVec));
   }
@@ -1202,7 +1193,6 @@ public class Vector4Test {
   public void testLength() {
     Real length = mVec.length();
 
-    testNonLeafExpression(length);
     testFunction(length, "length");
     assertEquals(length.getParents(), ImmutableList.<Expression>of(mVec));
   }
@@ -1212,7 +1202,6 @@ public class Vector4Test {
     Vector4 rhs = new Vector4(1, 2, 3, 4);
     BVector4 lessThan = mVec.isLessThan(rhs);
 
-    testNonLeafExpression(lessThan);
     testFunction(lessThan, "lessThan");
     assertEquals(lessThan.getParents(), ImmutableList.<Expression>of(mVec, rhs));
   }
@@ -1222,7 +1211,6 @@ public class Vector4Test {
     Vector4 rhs = new Vector4(1, 2, 3, 4);
     BVector4 lessThanOrEqual = mVec.isLessThanOrEqual(rhs);
 
-    testNonLeafExpression(lessThanOrEqual);
     testFunction(lessThanOrEqual, "lessThanEqual");
     assertEquals(lessThanOrEqual.getParents(), ImmutableList.<Expression>of(mVec, rhs));
   }
@@ -1232,7 +1220,6 @@ public class Vector4Test {
     Vector4 rhs = new Vector4(1, 2, 3, 4);
     BVector4 greaterThan = mVec.isGreaterThan(rhs);
 
-    testNonLeafExpression(greaterThan);
     testFunction(greaterThan, "greaterThan");
     assertEquals(greaterThan.getParents(), ImmutableList.<Expression>of(mVec, rhs));
   }
@@ -1242,7 +1229,6 @@ public class Vector4Test {
     Vector4 rhs = new Vector4(1, 2, 3, 4);
     BVector4 greaterThanOrEqual = mVec.isGreaterThanOrEqual(rhs);
 
-    testNonLeafExpression(greaterThanOrEqual);
     testFunction(greaterThanOrEqual, "greaterThanEqual");
     assertEquals(greaterThanOrEqual.getParents(), ImmutableList.<Expression>of(mVec, rhs));
   }
@@ -1252,7 +1238,6 @@ public class Vector4Test {
     Vector4 rhs = new Vector4(1, 2, 3, 4);
     BVector4 equalComponentwise = mVec.isEqualComponentwise(rhs);
 
-    testNonLeafExpression(equalComponentwise);
     testFunction(equalComponentwise, "equal");
     assertEquals(equalComponentwise.getParents(), ImmutableList.<Expression>of(mVec, rhs));
   }
@@ -1262,7 +1247,6 @@ public class Vector4Test {
     Vector4 rhs = new Vector4(1, 2, 3, 4);
     BVector4 notEqualComponentwise = mVec.isNotEqualComponentwise(rhs);
 
-    testNonLeafExpression(notEqualComponentwise);
     testFunction(notEqualComponentwise, "notEqual");
     assertEquals(notEqualComponentwise.getParents(), ImmutableList.<Expression>of(mVec, rhs));
   }
@@ -1272,9 +1256,7 @@ public class Vector4Test {
     Vector4 rhs = new Vector4(1, 2, 3, 4);
     Bool equal = mVec.isEqual(rhs);
 
-    testNonLeafExpression(equal);
-    assertTrue(equal.getNodeType().isPresent());
-    assertEquals(equal.getNodeType().get(), Expression.NodeType.EQ);
+    assertEquals(equal.getNodeType(), Expression.NodeType.EQ);
     assertEquals(equal.getParents(), ImmutableList.<Expression>of(mVec, rhs));
   }
 
@@ -1283,9 +1265,7 @@ public class Vector4Test {
     Vector4 rhs = new Vector4(1, 2, 3, 4);
     Bool notEqual = mVec.isNotEqual(rhs);
 
-    testNonLeafExpression(notEqual);
-    assertTrue(notEqual.getNodeType().isPresent());
-    assertEquals(notEqual.getNodeType().get(), Expression.NodeType.NEQ);
+    assertEquals(notEqual.getNodeType(), Expression.NodeType.NEQ);
     assertEquals(notEqual.getParents(), ImmutableList.<Expression>of(mVec, rhs));
   }
 

@@ -23,7 +23,7 @@ public class Matrix3Test {
     Matrix3 matrix = new Matrix3();
 
     assertEquals(
-        ((Expression.NodeType.PrimitiveNodeType) matrix.getNodeType().get()).getPrimitive(),
+        ((Expression.NodeType.PrimitiveNodeType) matrix.getNodeType()).getPrimitive(),
         new Matrix3.Primitive());
 
     assertEquals(matrix.getParents(), ImmutableList.of());
@@ -31,14 +31,12 @@ public class Matrix3Test {
     Vector3 c0 = new Vector3(1, 2, 3), c1 = new Vector3(3, 4, 5), c2 = new Vector3(4, 5, 6);
     matrix = new Matrix3(c0, c1, c2);
 
-    assertTrue(matrix.getNodeType().isPresent());
-    assertEquals(matrix.getNodeType().get(), Expression.NodeType.CONS);
+    assertEquals(matrix.getNodeType(), Expression.NodeType.CONS);
     assertEquals(matrix.getParents(), ImmutableList.<Expression>of(c0, c1, c2));
 
     matrix = new Matrix3(ImmutableList.<Expression>of(c0, c1, c2), Expression.NodeType.CONS);
 
-    assertTrue(matrix.getNodeType().isPresent());
-    assertEquals(matrix.getNodeType().get(), Expression.NodeType.CONS);
+    assertEquals(matrix.getNodeType(), Expression.NodeType.CONS);
     assertEquals(matrix.getParents(), ImmutableList.<Expression>of(c0, c1, c2));
   }
 
@@ -91,8 +89,7 @@ public class Matrix3Test {
 
     Vector3 input = new Vector3(1, 2, 3);
     Vector3 transformed = mMatrix.mul(input);
-    testNonLeafExpression(transformed);
-    assertEquals(transformed.getNodeType().get(), Expression.NodeType.MUL);
+    assertEquals(transformed.getNodeType(), Expression.NodeType.MUL);
     assertEquals(transformed.getParents(), ImmutableList.<Expression>of(mMatrix, input));
   }
 
@@ -109,8 +106,7 @@ public class Matrix3Test {
   public void testNeg() {
     Matrix3 neg = mMatrix.neg();
 
-    testNonLeafExpression(neg);
-    assertEquals(neg.getNodeType().get(), Expression.NodeType.NEG);
+    assertEquals(neg.getNodeType(), Expression.NodeType.NEG);
     assertEquals(neg.getParents(), ImmutableList.<Expression>of(mMatrix));
   }
 
@@ -119,8 +115,7 @@ public class Matrix3Test {
     Matrix3 rhs = new Matrix3();
     Bool isEqual = mMatrix.isEqual(rhs);
 
-    testNonLeafExpression(isEqual);
-    assertEquals(isEqual.getNodeType().get(), Expression.NodeType.EQ);
+    assertEquals(isEqual.getNodeType(), Expression.NodeType.EQ);
     assertEquals(isEqual.getParents(), ImmutableList.<Expression>of(mMatrix, rhs));
   }
 
@@ -129,8 +124,7 @@ public class Matrix3Test {
     Matrix3 rhs = new Matrix3();
     Bool isNotEqual = mMatrix.isNotEqual(rhs);
 
-    testNonLeafExpression(isNotEqual);
-    assertEquals(isNotEqual.getNodeType().get(), Expression.NodeType.NEQ);
+    assertEquals(isNotEqual.getNodeType(), Expression.NodeType.NEQ);
     assertEquals(isNotEqual.getParents(), ImmutableList.<Expression>of(mMatrix, rhs));
   }
 

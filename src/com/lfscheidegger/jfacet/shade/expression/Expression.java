@@ -222,10 +222,9 @@ public interface Expression<T> {
   }
 
   /**
-   * Returns the {@code NodeType} of this expression of its a compound expression, or
-   * Optional.absent() otherwise
+   * Returns the {@code NodeType} of this expression
    */
-  public Optional<NodeType> getNodeType();
+  public NodeType getNodeType();
 
   /**
    * Returns a possibly empty list of parents for this expression.

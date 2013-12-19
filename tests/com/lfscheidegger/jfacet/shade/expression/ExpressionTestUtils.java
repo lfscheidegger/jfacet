@@ -12,13 +12,7 @@ public class ExpressionTestUtils {
   public static void testNonLeafExpression(
       Expression expression,
       ImmutableList<Expression> expectedParents) {
-    testNonLeafExpression(expression);
-
     assertEquals(expression.getParents(), expectedParents);
-  }
-
-  public static void testNonLeafExpression(Expression expression) {
-    assertTrue(expression.getNodeType().isPresent());
   }
 
   public static void testGetter(
@@ -26,9 +20,9 @@ public class ExpressionTestUtils {
       int expectedComponent,
       ImmutableList<Expression> expectedParents) {
     testNonLeafExpression(component, expectedParents);
-    assertTrue(component.getNodeType().get() instanceof Expression.NodeType.ComponentNodeType);
+    assertTrue(component.getNodeType() instanceof Expression.NodeType.ComponentNodeType);
     assertEquals(((Expression.NodeType.ComponentNodeType)
-        component.getNodeType().get()).getComponent(), expectedComponent);
+        component.getNodeType()).getComponent(), expectedComponent);
   }
 
   public static void testArithmetic(
@@ -39,36 +33,30 @@ public class ExpressionTestUtils {
       Expression withSame,
       Expression  rhs,
       Expression.NodeType nodeType) {
-    testNonLeafExpression(withFloat);
-    assertEquals(withFloat.getNodeType().get(), nodeType);
+    assertEquals(withFloat.getNodeType(), nodeType);
     assertEquals(withFloat.getParents().size(), 2);
     assertEquals(withFloat.getParents().get(0), lhs);
 
-    testNonLeafExpression(withReal);
-    assertEquals(withReal.getNodeType().get(), nodeType);
+    assertEquals(withReal.getNodeType(), nodeType);
     assertEquals(withReal.getParents(), ImmutableList.<Expression>of(lhs, real));
 
-    testNonLeafExpression(withSame);
-    assertEquals(withSame.getNodeType().get(), nodeType);
+    assertEquals(withSame.getNodeType(), nodeType);
     assertEquals(withSame.getParents(), ImmutableList.<Expression>of(lhs, rhs));
   }
 
   public static void testSwizzle(Expression parent, Expression swizzled, String expectedString) {
-    testNonLeafExpression(swizzled);
     assertEquals(swizzled.getParents(), ImmutableList.<Expression>of(parent));
-    assertTrue(swizzled.getNodeType().get() instanceof Expression.NodeType.SwizzleNodeType);
+    assertTrue(swizzled.getNodeType() instanceof Expression.NodeType.SwizzleNodeType);
     Expression.NodeType.SwizzleNodeType nodeType = (Expression.NodeType.SwizzleNodeType)
-        swizzled.getNodeType().get();
+        swizzled.getNodeType();
     assertEquals(nodeType.getSwizzleString(), expectedString);
   }
 
   public static void testFunction(Expression expression, String functionName) {
-    testNonLeafExpression(expression);
-    assertTrue(expression.getNodeType().isPresent());
-    assertTrue(expression.getNodeType().get() instanceof Expression.NodeType.FunctionNodeType);
+    assertTrue(expression.getNodeType() instanceof Expression.NodeType.FunctionNodeType);
 
     Expression.NodeType.FunctionNodeType nodeType =
-        (Expression.NodeType.FunctionNodeType)expression.getNodeType().get();
+        (Expression.NodeType.FunctionNodeType)expression.getNodeType();
     assertEquals(nodeType.getFunctionName(), functionName);
   }
 }

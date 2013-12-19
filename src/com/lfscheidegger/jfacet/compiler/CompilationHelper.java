@@ -49,27 +49,21 @@ public class CompilationHelper {
   }
 
   public void emitExpression(StringBuilder sb, Expression expression) {
-
-    if (!expression.getParents().isEmpty()) {
-      Expression.NodeType nodeType = (Expression.NodeType)expression.getNodeType().get();
-      if (nodeType.equals(Expression.NodeType.CONS)) {
-        emitConstructor(sb, expression);
-      } else if (nodeType.equals(Expression.NodeType.TERNARY)) {
-        emitTernary(sb, expression);
-      } else if (nodeType instanceof Expression.NodeType.ComponentNodeType) {
-        emitComponent(sb, expression);
-      } else if (nodeType instanceof Expression.NodeType.OperatorNodeType) {
-        emitOperator(sb, expression);
-      } else if (nodeType instanceof Expression.NodeType.UnaryNodeType) {
-        emitUnary(sb, expression);
-      } else if (nodeType instanceof Expression.NodeType.FunctionNodeType) {
-        emitFunctionCall(sb, expression);
-      }
-    } else if (expression.getNodeType().isPresent()) {
-      Expression.NodeType nodeType = (Expression.NodeType)expression.getNodeType().get();
-      if (nodeType instanceof Expression.NodeType.PrimitiveNodeType) {
-        emitPrimitive(sb, expression);
-      }
+    Expression.NodeType nodeType = expression.getNodeType();
+    if (nodeType.equals(Expression.NodeType.CONS)) {
+      emitConstructor(sb, expression);
+    } else if (nodeType.equals(Expression.NodeType.TERNARY)) {
+      emitTernary(sb, expression);
+    } else if (nodeType instanceof Expression.NodeType.ComponentNodeType) {
+      emitComponent(sb, expression);
+    } else if (nodeType instanceof Expression.NodeType.OperatorNodeType) {
+      emitOperator(sb, expression);
+    } else if (nodeType instanceof Expression.NodeType.UnaryNodeType) {
+      emitUnary(sb, expression);
+    } else if (nodeType instanceof Expression.NodeType.FunctionNodeType) {
+      emitFunctionCall(sb, expression);
+    } else if (nodeType instanceof Expression.NodeType.PrimitiveNodeType) {
+      emitPrimitive(sb, expression);
     }
   }
 
@@ -113,7 +107,7 @@ public class CompilationHelper {
 
   private void emitComponent(StringBuilder sb, Expression expression) {
     Expression.NodeType.ComponentNodeType nodeType =
-        (Expression.NodeType.ComponentNodeType) expression.getNodeType().get();
+        (Expression.NodeType.ComponentNodeType) expression.getNodeType();
     String typeName = expression.getGlSlTypeName();
     sb.append(String.format(
         "%s %s = %s;\n",
@@ -134,7 +128,7 @@ public class CompilationHelper {
 
   private void emitPrimitive(StringBuilder sb, Expression expression) {
     Object primitive =
-        ((Expression.NodeType.PrimitiveNodeType) expression.getNodeType().get()).getPrimitive();
+        ((Expression.NodeType.PrimitiveNodeType) expression.getNodeType()).getPrimitive();
 
     String typeName = expression.getGlSlTypeName();
     sb.append(String.format(
@@ -147,7 +141,7 @@ public class CompilationHelper {
   private void emitOperator(StringBuilder sb, Expression expression) {
     String typeName = expression.getGlSlTypeName();
     Expression.NodeType.OperatorNodeType nodeType =
-        (Expression.NodeType.OperatorNodeType)expression.getNodeType().get();
+        (Expression.NodeType.OperatorNodeType)expression.getNodeType();
     Expression
         lhs = (Expression)expression.getParents().get(0),
         rhs = (Expression)expression.getParents().get(1);
@@ -163,7 +157,7 @@ public class CompilationHelper {
   private void emitUnary(StringBuilder sb, Expression expression) {
     String typeName = expression.getGlSlTypeName();
     Expression.NodeType.UnaryNodeType nodeType =
-        (Expression.NodeType.UnaryNodeType)expression.getNodeType().get();
+        (Expression.NodeType.UnaryNodeType)expression.getNodeType();
     Expression lhs = (Expression)expression.getParents().get(0);
     sb.append(String.format(
         "%s %s = %s%s;\n",
@@ -176,7 +170,7 @@ public class CompilationHelper {
   private void emitFunctionCall(StringBuilder sb, Expression expression) {
     String typeName = expression.getGlSlTypeName();
     Expression.NodeType.FunctionNodeType nodeType =
-        (Expression.NodeType.FunctionNodeType)expression.getNodeType().get();
+        (Expression.NodeType.FunctionNodeType)expression.getNodeType();
 
     String parentsString = getParentsString(expression.getParents());
     sb.append(String.format(

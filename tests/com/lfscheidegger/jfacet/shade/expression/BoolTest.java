@@ -19,46 +19,39 @@ public class BoolTest {
     Bool bool = new Bool(false);
 
     assertEquals(
-        ((Expression.NodeType.PrimitiveNodeType) bool.getNodeType().get()).getPrimitive(), false);
+        ((Expression.NodeType.PrimitiveNodeType) bool.getNodeType()).getPrimitive(), false);
     assertEquals(bool.getParents(), ImmutableList.of());
 
     Bool true_ = new Bool(true), false_ = new Bool(false);
     bool = new Bool(ImmutableList.<Expression>of(true_, false_), Expression.NodeType.AND);
-    assertTrue(bool.getNodeType().isPresent());
-    assertEquals(bool.getNodeType().get(), Expression.NodeType.AND);
+    assertEquals(bool.getNodeType(), Expression.NodeType.AND);
     assertEquals(bool.getParents(), ImmutableList.<Expression>of(true_, false_));
   }
 
   @Test
   public void testAnd() {
     Bool and = mBool.and(new Bool(false));
-    testNonLeafExpression(and);
-    assertEquals(and.getNodeType().get(), Expression.NodeType.AND);
+    assertEquals(and.getNodeType(), Expression.NodeType.AND);
 
     and = mBool.and(false);
-    testNonLeafExpression(and);
-    assertEquals(and.getNodeType().get(), Expression.NodeType.AND);
+    assertEquals(and.getNodeType(), Expression.NodeType.AND);
   }
 
   @Test
   public void testOr() {
     Bool or = mBool.or(new Bool(false));
-    testNonLeafExpression(or);
-    assertEquals(or.getNodeType().get(), Expression.NodeType.OR);
+    assertEquals(or.getNodeType(), Expression.NodeType.OR);
 
     or = mBool.or(false);
-    testNonLeafExpression(or);
-    assertEquals(or.getNodeType().get(), Expression.NodeType.OR);
+    assertEquals(or.getNodeType(), Expression.NodeType.OR);
   }
 
   @Test
   public void testXor() {
     Bool xor = mBool.xor(new Bool(false));
-    testNonLeafExpression(xor);
-    assertEquals(xor.getNodeType().get(), Expression.NodeType.XOR);
+    assertEquals(xor.getNodeType(), Expression.NodeType.XOR);
 
     xor = mBool.xor(false);
-    testNonLeafExpression(xor);
-    assertEquals(xor.getNodeType().get(), Expression.NodeType.XOR);
+    assertEquals(xor.getNodeType(), Expression.NodeType.XOR);
   }
 }

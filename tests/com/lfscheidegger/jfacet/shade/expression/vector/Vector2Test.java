@@ -22,7 +22,7 @@ public class Vector2Test {
     Vector2 vec = new Vector2(1, 2);
 
     assertEquals(
-        ((Expression.NodeType.PrimitiveNodeType) vec.getNodeType().get()).getPrimitive(),
+        ((Expression.NodeType.PrimitiveNodeType) vec.getNodeType()).getPrimitive(),
         new Vector2.Primitive(1, 2));
 
     assertEquals(vec.getParents(), ImmutableList.of());
@@ -30,19 +30,17 @@ public class Vector2Test {
     Real x = new Real(1), y = new Real(2);
     vec = new Vector2(x, y);
 
-    assertTrue(vec.getNodeType().isPresent());
-    assertEquals(vec.getNodeType().get(), Expression.NodeType.CONS);
+    assertEquals(vec.getNodeType(), Expression.NodeType.CONS);
     assertEquals(vec.getParents(), ImmutableList.of(x, y));
 
     vec = new Vector2(ImmutableList.<Expression>of(x, y), Expression.NodeType.CONS);
 
-    assertTrue(vec.getNodeType().isPresent());
-    assertEquals(vec.getNodeType().get(), Expression.NodeType.CONS);
+    assertEquals(vec.getNodeType(), Expression.NodeType.CONS);
     assertEquals(vec.getParents(), ImmutableList.of(x, y));
 
     vec = new Vector2(new AttributeBuffer(new float[] {0, 0, 1, 0, 1, 1}, 2));
 
-    assertTrue(vec.getNodeType().get() instanceof Expression.NodeType.AttributeNodeType);
+    assertTrue(vec.getNodeType() instanceof Expression.NodeType.AttributeNodeType);
     assertEquals(vec.getParents(), ImmutableList.<Expression>of());
   }
 
@@ -80,10 +78,6 @@ public class Vector2Test {
   private void testSwizzle4(Expression swizzled, String expectedString) {
     assertTrue(swizzled instanceof Vector4);
     testSwizzle(mVec, swizzled, expectedString);
-  }
-
-  private void testNonLeafVector(Vector2 vec) {
-    assertTrue(vec.getNodeType().isPresent());
   }
 
   @Test
@@ -243,8 +237,7 @@ public class Vector2Test {
   public void testNeg() {
     Vector2 neg = mVec.neg();
 
-    testNonLeafVector(neg);
-    assertEquals(neg.getNodeType().get(), Expression.NodeType.NEG);
+    assertEquals(neg.getNodeType(), Expression.NodeType.NEG);
     assertEquals(neg.getParents(), ImmutableList.<Expression>of(mVec));
   }
 
@@ -253,7 +246,6 @@ public class Vector2Test {
     Vector2 vec = new Vector2(1, 2);
     Real dot = mVec.dot(vec);
 
-    testNonLeafExpression(dot);
     testFunction(dot, "dot");
     assertEquals(dot.getParents(), ImmutableList.<Expression>of(mVec, vec));
   }
@@ -262,7 +254,6 @@ public class Vector2Test {
   public void testNormalize() {
     Vector2 normalized = mVec.normalize();
 
-    testNonLeafVector(normalized);
     testFunction(normalized, "normalize");
     assertEquals(normalized.getParents(), ImmutableList.<Expression>of(mVec));
   }
@@ -271,7 +262,6 @@ public class Vector2Test {
   public void testLength() {
     Real length = mVec.length();
 
-    testNonLeafExpression(length);
     testFunction(length, "length");
     assertEquals(length.getParents(), ImmutableList.<Expression>of(mVec));
   }
@@ -281,7 +271,6 @@ public class Vector2Test {
     Vector2 rhs = new Vector2(1, 2);
     BVector2 lessThan = mVec.isLessThan(rhs);
 
-    testNonLeafExpression(lessThan);
     testFunction(lessThan, "lessThan");
     assertEquals(lessThan.getParents(), ImmutableList.<Expression>of(mVec, rhs));
   }
@@ -291,7 +280,6 @@ public class Vector2Test {
     Vector2 rhs = new Vector2(1, 2);
     BVector2 lessThanOrEqual = mVec.isLessThanOrEqual(rhs);
 
-    testNonLeafExpression(lessThanOrEqual);
     testFunction(lessThanOrEqual, "lessThanEqual");
     assertEquals(lessThanOrEqual.getParents(), ImmutableList.<Expression>of(mVec, rhs));
   }
@@ -301,7 +289,6 @@ public class Vector2Test {
     Vector2 rhs = new Vector2(1, 2);
     BVector2 greaterThan = mVec.isGreaterThan(rhs);
 
-    testNonLeafExpression(greaterThan);
     testFunction(greaterThan, "greaterThan");
     assertEquals(greaterThan.getParents(), ImmutableList.<Expression>of(mVec, rhs));
   }
@@ -311,7 +298,6 @@ public class Vector2Test {
     Vector2 rhs = new Vector2(1, 2);
     BVector2 greaterThanOrEqual = mVec.isGreaterThanOrEqual(rhs);
 
-    testNonLeafExpression(greaterThanOrEqual);
     testFunction(greaterThanOrEqual, "greaterThanEqual");
     assertEquals(greaterThanOrEqual.getParents(), ImmutableList.<Expression>of(mVec, rhs));
   }
@@ -321,7 +307,6 @@ public class Vector2Test {
     Vector2 rhs = new Vector2(1, 2);
     BVector2 equalComponentwise = mVec.isEqualComponentwise(rhs);
 
-    testNonLeafExpression(equalComponentwise);
     testFunction(equalComponentwise, "equal");
     assertEquals(equalComponentwise.getParents(), ImmutableList.<Expression>of(mVec, rhs));
   }
@@ -331,7 +316,6 @@ public class Vector2Test {
     Vector2 rhs = new Vector2(1, 2);
     BVector2 notEqualComponentwise = mVec.isNotEqualComponentwise(rhs);
 
-    testNonLeafExpression(notEqualComponentwise);
     testFunction(notEqualComponentwise, "notEqual");
     assertEquals(notEqualComponentwise.getParents(), ImmutableList.<Expression>of(mVec, rhs));
   }
@@ -341,9 +325,7 @@ public class Vector2Test {
     Vector2 rhs = new Vector2(1, 2);
     Bool equal = mVec.isEqual(rhs);
 
-    testNonLeafExpression(equal);
-    assertTrue(equal.getNodeType().isPresent());
-    assertEquals(equal.getNodeType().get(), Expression.NodeType.EQ);
+    assertEquals(equal.getNodeType(), Expression.NodeType.EQ);
     assertEquals(equal.getParents(), ImmutableList.<Expression>of(mVec, rhs));
   }
 
@@ -352,9 +334,7 @@ public class Vector2Test {
     Vector2 rhs = new Vector2(1, 2);
     Bool notEqual = mVec.isNotEqual(rhs);
 
-    testNonLeafExpression(notEqual);
-    assertTrue(notEqual.getNodeType().isPresent());
-    assertEquals(notEqual.getNodeType().get(), Expression.NodeType.NEQ);
+    assertEquals(notEqual.getNodeType(), Expression.NodeType.NEQ);
     assertEquals(notEqual.getParents(), ImmutableList.<Expression>of(mVec, rhs));
   }
 
@@ -363,8 +343,7 @@ public class Vector2Test {
     Vector4 defaultValues = new Vector4(1, 2, 3, 4);
     Vector4 fill = mVec.fill(defaultValues);
 
-    testNonLeafExpression(fill);
-    assertEquals(fill.getNodeType().get(), Expression.NodeType.CONS);
+    assertEquals(fill.getNodeType(), Expression.NodeType.CONS);
     assertEquals(fill.getParents().size(), 4);
   }
 }

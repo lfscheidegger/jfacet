@@ -19,7 +19,7 @@ public class BVector2Test {
   @Test
   public void testConstructors() {
     assertEquals(
-        ((Expression.NodeType.PrimitiveNodeType) mVec.getNodeType().get()).getPrimitive(),
+        ((Expression.NodeType.PrimitiveNodeType) mVec.getNodeType()).getPrimitive(),
         new BVector2.Primitive(true, false));
 
     assertEquals(mVec.getParents(), ImmutableList.of());
@@ -27,11 +27,11 @@ public class BVector2Test {
     Bool x = new Bool(true), y = new Bool(false);
     BVector2 vec = new BVector2(x, y);
     testNonLeafExpression(vec, ImmutableList.<Expression>of(x, y));
-    assertEquals(vec.getNodeType().get(), Expression.NodeType.CONS);
+    assertEquals(vec.getNodeType(), Expression.NodeType.CONS);
 
     vec = new BVector2(ImmutableList.<Expression>of(x, y), Expression.NodeType.CONS);
     testNonLeafExpression(vec, ImmutableList.<Expression>of(x, y));
-    assertEquals(vec.getNodeType().get(), Expression.NodeType.CONS);
+    assertEquals(vec.getNodeType(), Expression.NodeType.CONS);
   }
 
   @Test
@@ -183,9 +183,9 @@ public class BVector2Test {
   public void testAny() {
     Bool any = mVec.any();
     testNonLeafExpression(any, ImmutableList.<Expression>of(mVec));
-    assertTrue(any.getNodeType().get() instanceof Expression.NodeType.FunctionNodeType);
+    assertTrue(any.getNodeType() instanceof Expression.NodeType.FunctionNodeType);
     Expression.NodeType.FunctionNodeType nodeType =
-        (Expression.NodeType.FunctionNodeType)any.getNodeType().get();
+        (Expression.NodeType.FunctionNodeType)any.getNodeType();
     assertEquals(nodeType.getFunctionName(), "any");
   }
 
@@ -193,9 +193,9 @@ public class BVector2Test {
   public void testAll() {
     Bool all = mVec.all();
     testNonLeafExpression(all, ImmutableList.<Expression>of(mVec));
-    assertTrue(all.getNodeType().get() instanceof Expression.NodeType.FunctionNodeType);
+    assertTrue(all.getNodeType() instanceof Expression.NodeType.FunctionNodeType);
     Expression.NodeType.FunctionNodeType nodeType =
-        (Expression.NodeType.FunctionNodeType)all.getNodeType().get();
+        (Expression.NodeType.FunctionNodeType)all.getNodeType();
     assertEquals(nodeType.getFunctionName(), "all");
   }
 
@@ -203,9 +203,9 @@ public class BVector2Test {
   public void testNot() {
     BVector2 not = mVec.not();
     testNonLeafExpression(not, ImmutableList.<Expression>of(mVec));
-    assertTrue(not.getNodeType().get() instanceof Expression.NodeType.FunctionNodeType);
+    assertTrue(not.getNodeType() instanceof Expression.NodeType.FunctionNodeType);
     Expression.NodeType.FunctionNodeType nodeType =
-        (Expression.NodeType.FunctionNodeType)not.getNodeType().get();
+        (Expression.NodeType.FunctionNodeType)not.getNodeType();
     assertEquals(nodeType.getFunctionName(), "not");
   }
 
@@ -213,8 +213,7 @@ public class BVector2Test {
   public void testFill() {
     BVector4 defaultExpression = new BVector4(true, true, true, true);
     BVector4 fill = mVec.fill(defaultExpression);
-    testNonLeafExpression(fill);
-    assertEquals(fill.getNodeType().get(), Expression.NodeType.CONS);
+    assertEquals(fill.getNodeType(), Expression.NodeType.CONS);
     assertEquals(fill.getParents().size(), 4);
   }
 }

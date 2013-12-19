@@ -109,8 +109,7 @@ public final class Program {
       AttributeBuffer buffer =
           ((Expression.NodeType.AttributeNodeType) attributeExpressions
               .get(i)
-              .getNodeType()
-              .get())
+              .getNodeType())
               .getAttributeBuffer();
       int dimension = buffer.getDimension();
 

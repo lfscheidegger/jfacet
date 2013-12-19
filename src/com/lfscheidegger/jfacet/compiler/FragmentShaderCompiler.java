@@ -40,8 +40,7 @@ public class FragmentShaderCompiler {
     sb.append("void main() {\n");
 
     for (Expression expression : sortedExpressions) {
-      if(expression.getNodeType().isPresent() &&
-          expression.getNodeType().get() instanceof Expression.NodeType.AttributeNodeType) {
+      if (expression.getNodeType() instanceof Expression.NodeType.AttributeNodeType) {
         continue;
       } else {
         mCompilationHelper.emitExpression(sb, expression);
@@ -64,8 +63,7 @@ public class FragmentShaderCompiler {
     ImmutableSet.Builder<Expression> builder = new ImmutableSet.Builder<Expression>();
 
     for (Expression expression : sortedExpressions) {
-      if(expression.getNodeType().isPresent() &&
-          expression.getNodeType().get() instanceof Expression.NodeType.AttributeNodeType) {
+      if (expression.getNodeType() instanceof Expression.NodeType.AttributeNodeType) {
         builder.add(expression);
       }
     }

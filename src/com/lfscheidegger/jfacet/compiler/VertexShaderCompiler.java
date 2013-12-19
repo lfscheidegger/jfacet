@@ -27,8 +27,7 @@ public class VertexShaderCompiler {
     new ExpressionVisitor(mVertexPosition) {
       @Override
       public void visit(Expression expression) {
-        if (expression.getNodeType().isPresent() &&
-            expression.getNodeType().get() instanceof Expression.NodeType.AttributeNodeType) {
+        if (expression.getNodeType() instanceof Expression.NodeType.AttributeNodeType) {
           builder.add(expression);
         }
       }
