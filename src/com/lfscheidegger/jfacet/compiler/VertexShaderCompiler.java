@@ -16,7 +16,6 @@ public class VertexShaderCompiler {
   private final Vector4 mVertexPosition;
   private final CompilationHelper mCompilationHelper;
   private final List<Expression> mAttributeExpressions;
-  //private final ImmutableList<Expression> mAttributeExpressions;
 
   private Map<Expression, String> mVaryingExpressions = Maps.newHashMap();
 
@@ -28,7 +27,8 @@ public class VertexShaderCompiler {
     new ExpressionVisitor(mVertexPosition) {
       @Override
       public void visit(Expression expression) {
-        if (expression.getAttributeBuffer().isPresent()) {
+        if (expression.getNodeType().isPresent() &&
+            expression.getNodeType().get() instanceof Expression.NodeType.AttributeNodeType) {
           builder.add(expression);
         }
       }

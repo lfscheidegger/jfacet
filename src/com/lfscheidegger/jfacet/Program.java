@@ -105,8 +105,13 @@ public final class Program {
   private void bindAttributes() {
     List<Expression> attributeExpressions = mVertexShaderCompiler.getAttributeExpressions();
     for (int i = 0; i < attributeExpressions.size(); i++) {
-      Optional<AttributeBuffer> optional = attributeExpressions.get(i).getAttributeBuffer();
-      AttributeBuffer buffer = optional.get();
+
+      AttributeBuffer buffer =
+          ((Expression.NodeType.AttributeNodeType) attributeExpressions
+              .get(i)
+              .getNodeType()
+              .get())
+              .getAttributeBuffer();
       int dimension = buffer.getDimension();
 
       GLES20.glVertexAttribPointer(i, dimension, GLES20.GL_FLOAT, false, 0, buffer.getBuffer());

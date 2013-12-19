@@ -26,14 +26,12 @@ public class Vector2Test {
         ((Expression.NodeType.PrimitiveNodeType) vec.getNodeType().get()).getPrimitive(),
         new Vector2.Primitive(1, 2));
 
-    assertFalse(vec.getAttributeBuffer().isPresent());
     assertFalse(vec.getGlSlQualifier().isPresent());
     assertEquals(vec.getParents(), ImmutableList.of());
 
     Real x = new Real(1), y = new Real(2);
     vec = new Vector2(x, y);
 
-    assertFalse(vec.getAttributeBuffer().isPresent());
     assertFalse(vec.getGlSlQualifier().isPresent());
     assertTrue(vec.getNodeType().isPresent());
     assertEquals(vec.getNodeType().get(), Expression.NodeType.CONS);
@@ -41,7 +39,6 @@ public class Vector2Test {
 
     vec = new Vector2(ImmutableList.<Expression>of(x, y), Expression.NodeType.CONS);
 
-    assertFalse(vec.getAttributeBuffer().isPresent());
     assertFalse(vec.getGlSlQualifier().isPresent());
     assertTrue(vec.getNodeType().isPresent());
     assertEquals(vec.getNodeType().get(), Expression.NodeType.CONS);
@@ -49,10 +46,7 @@ public class Vector2Test {
 
     vec = new Vector2(new AttributeBuffer(new float[] {0, 0, 1, 0, 1, 1}, 2));
 
-    assertTrue(vec.getAttributeBuffer().isPresent());
-    assertTrue(vec.getGlSlQualifier().isPresent());
-    assertEquals(vec.getGlSlQualifier().get(), GlSlQualifier.ATTRIBUTE_T);
-    assertFalse(vec.getNodeType().isPresent());
+    assertTrue(vec.getNodeType().get() instanceof Expression.NodeType.AttributeNodeType);
     assertEquals(vec.getParents(), ImmutableList.<Expression>of());
   }
 
@@ -93,7 +87,6 @@ public class Vector2Test {
   }
 
   private void testNonLeafVector(Vector2 vec) {
-    assertFalse(vec.getAttributeBuffer().isPresent());
     assertFalse(vec.getGlSlQualifier().isPresent());
     assertTrue(vec.getNodeType().isPresent());
   }

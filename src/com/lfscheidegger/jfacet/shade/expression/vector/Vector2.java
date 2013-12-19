@@ -159,26 +159,20 @@ public final class Vector2 extends AbstractExpression<Vector2.Primitive>
     }
   }
 
-  private final Optional<AttributeBuffer> mAttributeBuffer;
-
   public Vector2(float x, float y) {
     super(new Primitive(x, y));
-    mAttributeBuffer = Optional.absent();
   }
 
   public Vector2(Real x, Real y) {
     super(ImmutableList.<Expression>of(x, y), NodeType.CONS);
-    mAttributeBuffer = Optional.absent();
   }
 
   public Vector2(ImmutableList<Expression> parents, NodeType nodeType) {
     super(parents, nodeType);
-    mAttributeBuffer = Optional.absent();
   }
 
   public Vector2(AttributeBuffer attributeBuffer) {
-    super(GlSlQualifier.ATTRIBUTE_T);
-    mAttributeBuffer = Optional.of(attributeBuffer);
+    super(ImmutableList.<Expression>of(), NodeType.AttributeNodeType.forAttribute(attributeBuffer));
   }
 
   @Override
@@ -202,11 +196,6 @@ public final class Vector2 extends AbstractExpression<Vector2.Primitive>
     return new Real(
         ImmutableList.<Expression>of(this),
         NodeType.ComponentNodeType.forComponent(idx));
-  }
-
-  @Override
-  public Optional<AttributeBuffer> getAttributeBuffer() {
-    return mAttributeBuffer;
   }
 
   @Override

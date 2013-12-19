@@ -116,6 +116,23 @@ public interface Expression<T> {
       }
     }
 
+    public static final class AttributeNodeType implements NodeType {
+
+      private final AttributeBuffer mAttributeBuffer;
+
+      AttributeNodeType(AttributeBuffer attributeBuffer) {
+        mAttributeBuffer = attributeBuffer;
+      }
+
+      public static NodeType forAttribute(AttributeBuffer attributeBuffer) {
+        return new AttributeNodeType(attributeBuffer);
+      }
+
+      public AttributeBuffer getAttributeBuffer() {
+        return mAttributeBuffer;
+      }
+    }
+
     public static final class UniformNodeType<T> implements NodeType {
 
       private final T mValue;
@@ -216,8 +233,6 @@ public interface Expression<T> {
    * Optional.absent() otherwise
    */
   public Optional<NodeType> getNodeType();
-
-  public Optional<AttributeBuffer> getAttributeBuffer();
 
   /**
    * Returns a possibly empty list of parents for this expression.

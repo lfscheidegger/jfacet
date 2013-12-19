@@ -198,26 +198,20 @@ public final class Vector4 extends AbstractExpression<Vector4.Primitive>
     }
   }
 
-  private Optional<AttributeBuffer> mAttributeBuffer;
-
   public Vector4(float x, float y, float z, float w) {
     super(new Primitive(x, y, z, w));
-    mAttributeBuffer = Optional.absent();
   }
 
   public Vector4(Real x, Real y, Real z, Real w) {
     super(ImmutableList.<Expression>of(x, y, z, w), NodeType.CONS);
-    mAttributeBuffer = Optional.absent();
   }
 
   public Vector4(ImmutableList<Expression> parents, NodeType nodeType) {
     super(parents, nodeType);
-    mAttributeBuffer = Optional.absent();
   }
 
   public Vector4(AttributeBuffer attributeBuffer) {
-    super(GlSlQualifier.ATTRIBUTE_T);
-    mAttributeBuffer = Optional.of(attributeBuffer);
+    super(ImmutableList.<Expression>of(), NodeType.AttributeNodeType.forAttribute(attributeBuffer));
   }
 
   @Override
@@ -249,11 +243,6 @@ public final class Vector4 extends AbstractExpression<Vector4.Primitive>
     return new Real(
         ImmutableList.<Expression>of(this),
         NodeType.ComponentNodeType.forComponent(idx));
-  }
-
-  @Override
-  public Optional<AttributeBuffer> getAttributeBuffer() {
-    return mAttributeBuffer;
   }
 
   @Override

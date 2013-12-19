@@ -43,9 +43,4 @@ public abstract class AbstractExpression<T> implements Expression<T> {
   public Optional<NodeType> getNodeType() {
     return mNodeType;
   }
-
-  @Override
-  public Optional<AttributeBuffer> getAttributeBuffer() {
-    return Optional.absent();
-  }
 }

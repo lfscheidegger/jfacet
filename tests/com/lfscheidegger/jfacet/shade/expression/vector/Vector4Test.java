@@ -27,14 +27,12 @@ public class Vector4Test {
         ((Expression.NodeType.PrimitiveNodeType) vec.getNodeType().get()).getPrimitive(),
         new Vector4.Primitive(1, 2, 3, 4));
 
-    assertFalse(vec.getAttributeBuffer().isPresent());
     assertFalse(vec.getGlSlQualifier().isPresent());
     assertEquals(vec.getParents(), ImmutableList.of());
 
     Real x = new Real(1), y = new Real(2), z = new Real(3), w = new Real(4);
     vec = new Vector4(x, y, z, w);
 
-    assertFalse(vec.getAttributeBuffer().isPresent());
     assertFalse(vec.getGlSlQualifier().isPresent());
     assertTrue(vec.getNodeType().isPresent());
     assertEquals(vec.getNodeType().get(), Expression.NodeType.CONS);
@@ -42,7 +40,6 @@ public class Vector4Test {
 
     vec = new Vector4(ImmutableList.<Expression>of(x, y, z, w), Expression.NodeType.CONS);
 
-    assertFalse(vec.getAttributeBuffer().isPresent());
     assertFalse(vec.getGlSlQualifier().isPresent());
     assertTrue(vec.getNodeType().isPresent());
     assertEquals(vec.getNodeType().get(), Expression.NodeType.CONS);
@@ -50,10 +47,7 @@ public class Vector4Test {
 
     vec = new Vector4(new AttributeBuffer(new float[] {0, 0, 1, 0, 1, 1}, 2));
 
-    assertTrue(vec.getAttributeBuffer().isPresent());
-    assertTrue(vec.getGlSlQualifier().isPresent());
-    assertEquals(vec.getGlSlQualifier().get(), GlSlQualifier.ATTRIBUTE_T);
-    assertFalse(vec.getNodeType().isPresent());
+    assertTrue(vec.getNodeType().get() instanceof Expression.NodeType.AttributeNodeType);
     assertEquals(vec.getParents(), ImmutableList.<Expression>of());
   }
 
@@ -1141,7 +1135,6 @@ public class Vector4Test {
   }
 
   private void testNonLeafVector(Vector4 vec) {
-    assertFalse(vec.getAttributeBuffer().isPresent());
     assertFalse(vec.getGlSlQualifier().isPresent());
     assertTrue(vec.getNodeType().isPresent());
   }
