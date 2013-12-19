@@ -44,4 +44,26 @@ public final class Models {
              1,  0,  0,   1,  0,  0,   1,  0,  0,   1,  0,  0
         }, 3);
   }
+
+  public static Geometry flatPyramid() {
+    return new Geometry(
+        new int[]{
+            0, 1, 2,
+            0, 2, 3,
+            0, 3, 4,
+            0, 4, 1},
+        new float[]{
+            0, 1, 0,
+            -1, -1, 1,
+            -1, -1, -1,
+            1, -1, -1,
+            1, -1, 1}, 3)
+        .setColors(new float[]{
+            1, 0, 0,
+            0, 1, 0,
+            0, 0, 1,
+            0, 1, 0,
+            0, 0, 1
+        }, 3);
+  }
 }

@@ -8,7 +8,21 @@ import java.util.Map;
 
 public class CompilationHelper {
 
-  private int mNameCounter = 0;
+  public enum Qualifier {
+    UNIFORM("uniform"),
+    ATTRIBUTE("attribute");
+
+    private final String mQualifier;
+
+    Qualifier(String qualifier) {
+      mQualifier = qualifier;
+    }
+
+    public String getQualifier() {
+      return mQualifier;
+    }
+  }
+
   private final Map<Expression, String> mExpressionNames;
 
   public CompilationHelper() {
@@ -23,19 +37,29 @@ public class CompilationHelper {
     return mExpressionNames.get(expression);
   }
 
+  private static int sNameCounter = 0;
   private String getUniqueName() {
-    return "var_" + mNameCounter++;
+    return "var_" + sNameCounter++;
   }
 
   public String getVaryingName() {
-    return "interp_" + mNameCounter++;
+    return "interp_" + sNameCounter++;
   }
 
   public void emitAttributeDeclaration(StringBuilder sb, Expression attributeExpression) {
+    emitDeclaration(Qualifier.ATTRIBUTE, sb, attributeExpression);
+  }
+
+  public void emitUniformDeclaration(StringBuilder sb, Expression uniformExpression) {
+    emitDeclaration(Qualifier.UNIFORM, sb, uniformExpression);
+  }
+
+  private void emitDeclaration(Qualifier qualifier, StringBuilder sb, Expression expression) {
     sb.append(String.format(
-        "attribute %s %s;\n",
-        attributeExpression.getGlSlTypeName(),
-        getNameForExpression(attributeExpression)));
+        "%s %s %s;\n",
+        qualifier.getQualifier(),
+        expression.getGlSlTypeName(),
+        getNameForExpression(expression)));
   }
 
   public void emitVaryingDeclaration(

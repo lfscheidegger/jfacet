@@ -16,6 +16,10 @@ public final class Real extends AbstractExpression<Float> {
     super(parents, nodeType);
   }
 
+  public Real(NodeType nodeType) {
+    super(nodeType);
+  }
+
   public Real(AttributeBuffer attributeBuffer) {
     super(NodeType.AttributeNodeType.forAttribute(attributeBuffer));
   }
@@ -114,5 +118,23 @@ public final class Real extends AbstractExpression<Float> {
 
   public Bool isNotEqual(float right) {
     return isNotEqual(new Real(right));
+  }
+
+  public Real sin() {
+    return new Real(ImmutableList.<Expression>of(this), NodeType.FunctionNodeType.forFunction("sin"));
+  }
+
+  public Real cos() {
+    return new Real(ImmutableList.<Expression>of(this), NodeType.FunctionNodeType.forFunction("cos"));
+  }
+
+  private static final float DEGREES_TO_RADIANS = 0.01745329251f;
+  public Real radians() {
+    return mul(DEGREES_TO_RADIANS);
+  }
+
+  private static final float RADIANS_TO_DEGREES = 57.2957795131f;
+  public Real degrees() {
+    return mul(RADIANS_TO_DEGREES);
   }
 }

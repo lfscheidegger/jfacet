@@ -133,7 +133,7 @@ public interface Expression<T> {
 
     public static final class UniformNodeType<T> implements NodeType {
 
-      private final T mValue;
+      private T mValue;
 
       UniformNodeType(T value) {
         mValue = value;
@@ -186,6 +186,8 @@ public interface Expression<T> {
       public T getValue() {
         return mValue;
       }
+
+      public void setValue(T value) { mValue = value; }
     }
 
     /**

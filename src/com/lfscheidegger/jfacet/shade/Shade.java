@@ -7,6 +7,7 @@ import com.lfscheidegger.jfacet.shade.expression.matrix.Matrix4;
 import com.lfscheidegger.jfacet.shade.expression.vector.Vector2;
 import com.lfscheidegger.jfacet.shade.expression.vector.Vector3;
 import com.lfscheidegger.jfacet.shade.expression.vector.Vector4;
+import com.lfscheidegger.jfacet.shade.transform.Rotation4;
 import com.lfscheidegger.jfacet.shade.transform.Translation2;
 import com.lfscheidegger.jfacet.shade.transform.Translation3;
 import com.lfscheidegger.jfacet.shade.transform.Translation4;
@@ -16,8 +17,14 @@ import com.lfscheidegger.jfacet.shade.transform.Translation4;
  */
 public final class Shade {
 
+  private Shade() {}
+
   public static Real constant(float c) {
     return new Real(c);
+  }
+
+  public static Vector2 vec(Vector2.Primitive primitive) {
+    return new Vector2(primitive);
   }
 
   public static Vector2 vec(float x, float y) {
@@ -34,6 +41,10 @@ public final class Shade {
 
   public static Vector2 vec(Real x, Real y) {
     return new Vector2(x, y);
+  }
+
+  public static Vector3 vec(Vector3.Primitive primitive) {
+    return new Vector3(primitive);
   }
 
   public static Vector3 vec(float x, float y, float z) {
@@ -66,6 +77,10 @@ public final class Shade {
 
   public static Vector3 vec(Real x, Real y, Real z) {
     return new Vector3(x, y, z);
+  }
+
+  public static Vector4 vec(Vector4.Primitive primitive) {
+    return new Vector4(primitive);
   }
 
   public static Vector4 vec(float x, float y, float z, float w) {
@@ -210,5 +225,21 @@ public final class Shade {
 
   public static Translation2 translate(Real x) {
     return new Translation2(x);
+  }
+
+  public static Rotation4 rotate(float angle, Vector3.Primitive axis) {
+    return new Rotation4(Shade.constant(angle), Shade.vec(axis));
+  }
+
+  public static Rotation4 rotate(Real angle, Vector3.Primitive axis) {
+    return new Rotation4(angle, Shade.vec(axis));
+  }
+
+  public static Rotation4 rotate(float angle, Vector3 axis) {
+    return new Rotation4(Shade.constant(angle), axis);
+  }
+
+  public static Rotation4 rotate(Real angle, Vector3 axis) {
+    return new Rotation4(angle, axis);
   }
 }

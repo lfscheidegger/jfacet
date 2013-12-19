@@ -2,10 +2,16 @@ package com.lfscheidegger.jfacet;
 
 import android.opengl.GLES20;
 import com.badlogic.gdx.backends.android.AndroidGL20;
+import com.google.common.collect.ImmutableList;
+import com.lfscheidegger.jfacet.compiler.CompilationHelper;
 import com.lfscheidegger.jfacet.compiler.FragmentShaderCompiler;
 import com.lfscheidegger.jfacet.compiler.VertexShaderCompiler;
 import com.lfscheidegger.jfacet.facet.AttributeBuffer;
+import com.lfscheidegger.jfacet.shade.Parameter;
 import com.lfscheidegger.jfacet.shade.expression.Expression;
+import com.lfscheidegger.jfacet.shade.expression.Real;
+import com.lfscheidegger.jfacet.shade.expression.vector.Vector2;
+import com.lfscheidegger.jfacet.shade.expression.vector.Vector3;
 import com.lfscheidegger.jfacet.shade.expression.vector.Vector4;
 import com.lfscheidegger.jfacet.shade.expression.vector.VectorExpression;
 
@@ -117,8 +123,42 @@ public final class Program {
     }
   }
 
+  private void bindUniforms(
+      List<Expression> uniformExpressions,
+      CompilationHelper compilationHelper) {
+    for (Expression expression : uniformExpressions) {
+      String name = compilationHelper.getNameForExpression(expression);
+      int location = GLES20.glGetUniformLocation(mProgramHandle, name);
+      if (expression instanceof Real) {
+        GLES20.glUniform1f(location, Parameter.get((Real) expression));
+      } else if (expression instanceof Vector2) {
+        Vector2.Primitive primitive = Parameter.get((Vector2) expression);
+        GLES20.glUniform2f(location, primitive.getX(), primitive.getY());
+      } else if (expression instanceof Vector3) {
+        Vector3.Primitive primitive = Parameter.get((Vector3) expression);
+        GLES20.glUniform3f(location, primitive.getX(), primitive.getY(), primitive.getZ());
+      } else if (expression instanceof Vector4) {
+        Vector4.Primitive primitive = Parameter.get((Vector4) expression);
+        GLES20.glUniform4f(location, primitive.getX(), primitive.getY(), primitive.getZ(), primitive.getW());
+      }
+    }
+  }
+
+  private void bindUniforms() {
+    bindUniforms(
+        mVertexShaderCompiler.getUniformExpressions(),
+        mVertexShaderCompiler.getCompilationHelper());
+
+    bindUniforms(
+        mFragmentShaderCompiler.getUniformExpressions(),
+        mFragmentShaderCompiler.getCompilationHelper());
+  }
+
   public void use() {
     GLES20.glUseProgram(mProgramHandle);
+
+    bindUniforms();
+
     bindAttributes();
   }
 }

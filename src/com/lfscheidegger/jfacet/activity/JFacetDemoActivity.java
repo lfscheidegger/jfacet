@@ -3,14 +3,19 @@ package com.lfscheidegger.jfacet.activity;
 import android.app.Activity;
 import android.graphics.Point;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.SystemClock;
 import android.view.Display;
 import com.lfscheidegger.jfacet.R;
 import com.lfscheidegger.jfacet.facet.Drawable;
 import com.lfscheidegger.jfacet.facet.Geometry;
+import com.lfscheidegger.jfacet.facet.Models;
 import com.lfscheidegger.jfacet.facet.Scene;
 import com.lfscheidegger.jfacet.facet.renderer.FacetRenderer;
+import com.lfscheidegger.jfacet.shade.Parameter;
 import com.lfscheidegger.jfacet.shade.Shade;
 import com.lfscheidegger.jfacet.shade.camera.Camera;
+import com.lfscheidegger.jfacet.shade.expression.Real;
 import com.lfscheidegger.jfacet.shade.expression.vector.Vector4;
 import com.lfscheidegger.jfacet.shade.transform.Translation4;
 import com.lfscheidegger.jfacet.view.FacetView;
@@ -92,8 +97,7 @@ public class JFacetDemoActivity extends Activity {
     Drawable square = squareModel.bake(squarePosition, Shade.vec(1, 1, 1));
     Drawable triangle = triangleModel.bake(trianglePosition, Shade.vec(1, 1, 1));
 
-    scene.add(square);
-    scene.add(triangle);
+    scene.add(square, triangle);
   }
 
   private void prepareLesson3(Scene scene) {
@@ -116,99 +120,73 @@ public class JFacetDemoActivity extends Activity {
     Drawable square = squareModel.bake(squarePosition, Shade.vec(0.5f, 0.5f, 1));
     Drawable triangle = triangleModel.bake(trianglePosition, triangleModel.getColors3());
 
-    scene.add(square);
-    scene.add(triangle);
+    scene.add(square, triangle);
   }
 
   private void prepareLesson4(Scene scene) {
-    /*Geometry squareModel = Facet.model(new GeometryConfig(
+    Geometry squareModel = new Geometry(
         new int[] {0, 1, 2, 0, 2, 3},
         new float[] {-1, -1, 1, -1, 1, 1, -1, 1}, 2
-    )), triangleModel = Facet.model(new GeometryConfig(
+    ), triangleModel = new Geometry(
         new int[] {0, 1, 2},
         new float[] {0, 1, -1, -1, 1, -1}, 2)
-        .setColors(new float[] {1, 0, 0, 0, 1, 0, 0, 0, 1}, 3));
+        .setColors(new float[] {1, 0, 0, 0, 1, 0, 0, 0, 1}, 3);
 
     Camera camera = Camera.perspective(mSize.x, mSize.y);
-    Real angle = Parameter.now().mul(50).radians();
+    final Real param = Parameter.real(0);
+    Real angle = param.mul(50).radians();
 
-    Expression squarePosition = camera.apply(
-        Shade.translation(1.5f, 0, -12)).apply(
-        Shade.rotation(angle, Shade.vec(1, 0, 0))).apply(
-        squareModel.getVertices());
-    Expression trianglePosition = camera.apply(
-        Shade.translation(-1.5f, 0, -12)).apply(
-        Shade.rotation(angle, Shade.vec(0, 1, 0))).apply(
-        triangleModel.getVertices());
+    Vector4 squarePosition = camera
+        .apply(Shade.translate(1.5f, 0, -12))
+        .apply(Shade.rotate(angle, Shade.vec(1, 0, 0)))
+        .apply(squareModel.getVertices4()),
 
-    Drawable square = Facet.bake(squareModel, squarePosition, Shade.vec(0.5f, 0.5f, 1));
-    Drawable triangle = Facet.bake(triangleModel, trianglePosition, triangleModel.getColors());
+        trianglePosition = camera
+        .apply(Shade.translate(-1.5f, 0, -12))
+        .apply(Shade.rotate(angle, Shade.vec(0, 1, 0)))
+        .apply(triangleModel.getVertices4());
 
-    scene.add(square);
-    scene.add(triangle);*/
+    Drawable square = squareModel.bake(squarePosition, Shade.vec(0.5f, 0.5f, 1)),
+        triangle = triangleModel.bake(trianglePosition, triangleModel.getColors3());
+
+    scene
+        .add(square, triangle)
+        .add(new Runnable() {
+          @Override
+          public void run() {
+            Parameter.set(param, (float) SystemClock.uptimeMillis() / 1000);
+          }
+        });
   }
 
   private void prepareLesson5(Scene scene) {
-    /*Geometry cubeModel = Facet.model(new GeometryConfig(
-        new int[]{
-            0, 1, 2, 0, 2, 3,
-            4, 5, 6, 4, 6, 7,
-            8, 9, 10, 8, 10, 11,
-            12, 13, 14, 12, 14, 15,
-            16, 17, 18, 16, 18, 19,
-            20, 21, 22, 20, 22, 23},
-        new float[]{
-            1, 1, -1, -1, 1, -1, -1, 1, 1, 1, 1, 1,
-            1, -1, 1, -1, -1, 1, -1, -1, -1, 1, -1, -1,
-            1, 1, 1, -1, 1, 1, -1, -1, 1, 1, -1, 1,
-            1, -1, -1, -1, -1, -1, -1, 1, -1, 1, 1, -1,
-            -1, 1, 1, -1, 1, -1, -1, -1, -1, -1, -1, 1,
-            1, 1, -1, 1, 1, 1, 1, -1, 1, 1, -1, -1}, 3)
-        .setColors(new float[]{
-            0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0,
-            1, 0.5f, 0, 1, 0.5f, 0, 1, 0.5f, 0, 1, 0.5f, 0,
-            1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0,
-            1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 0,
-            0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1,
-            1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1}, 3));
-
-    Geometry pyramidModel = Facet.model(new GeometryConfig(
-        new int[]{
-            0, 1, 2,
-            0, 2, 3,
-            0, 3, 4,
-            0, 4, 1},
-        new float[]{
-            0, 1, 0,
-            -1, -1, 1,
-            -1, -1, -1,
-            1, -1, -1,
-            1, -1, 1}, 3)
-        .setColors(new float[]{
-            1, 0, 0,
-            0, 1, 0,
-            0, 0, 1,
-            0, 1, 0,
-            0, 0, 1
-        }, 3));
+    Geometry
+        cubeModel = Models.flatCube(),
+        pyramidModel = Models.flatPyramid();
 
     Camera camera = Camera.perspective(mSize.x, mSize.y);
-    Real angle = Parameter.now().mul(50).radians();
+    final Real param = Parameter.real(0);
+    Real angle = param.mul(50).radians();
 
-    Expression cubePosition =
-        camera.apply(
-            Shade.translation(1.5f, 0, -12)).apply(
-            Shade.rotation(angle, Shade.vec(1, 1, 1))).apply(
-            cubeModel.getVertices());
+    Vector4 cubePosition = camera
+        .apply(Shade.translate(1.5f, 0, -12))
+        .apply(Shade.rotate(angle, Shade.vec(1, 1, 1)))
+        .apply(cubeModel.getVertices4());
 
-    Expression pyramidPosition =
-        camera.apply(
-        Shade.translation(-1.5f, 0, -12)).apply(
-        Shade.rotation(angle, Shade.vec(0, 1, 0))).apply(
-        cubeModel.getVertices());
+    Vector4 pyramidPosition = camera
+        .apply(Shade.translate(-1.5f, 0, -12))
+        .apply(Shade.rotate(angle, Shade.vec(0, 1, 0)))
+        .apply(pyramidModel.getVertices4());
 
-    scene.add(Facet.bake(cubeModel, cubePosition, cubeModel.getColors()));
-    scene.add(Facet.bake(pyramidModel, pyramidPosition, pyramidModel.getColors()));*/
+    scene
+        .add(cubeModel.bake(cubePosition, cubeModel.getColors3()))
+        .add(pyramidModel.bake(pyramidPosition, pyramidModel.getColors3()))
+        .add(new Runnable() {
+          @Override
+          public void run() {
+            Parameter.set(param, (float) SystemClock.uptimeMillis() / 1000);
+          }
+        });
   }
 
   private void prepareLesson6(Scene scene) {

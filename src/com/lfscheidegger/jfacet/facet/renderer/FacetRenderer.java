@@ -17,6 +17,7 @@ public class FacetRenderer implements GLSurfaceView.Renderer {
 
   @Override
   public void onSurfaceCreated(GL10 gl, EGLConfig config) {
+    GLES20.glEnable(GLES20.GL_DEPTH_TEST);
     mScene.bake();
   }
 
@@ -27,7 +28,7 @@ public class FacetRenderer implements GLSurfaceView.Renderer {
 
   @Override
   public void onDrawFrame(GL10 gl) {
-    GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT);
+    GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT | GLES20.GL_DEPTH_BUFFER_BIT);
     mScene.draw();
   }
 }

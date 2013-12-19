@@ -204,11 +204,19 @@ public final class Vector3 extends AbstractExpression<Vector3.Primitive>
   }
 
   public Vector3(float x, float y, float z) {
-    super(new Primitive(x, y, z));
+    this(new Primitive(x, y, z));
+  }
+
+  public Vector3(Primitive primitive) {
+    super(primitive);
   }
 
   public Vector3(Real x, Real y, Real z) {
     super(ImmutableList.<Expression>of(x, y, z), NodeType.CONS);
+  }
+
+  public Vector3(NodeType nodeType) {
+    super(nodeType);
   }
 
   public Vector3(ImmutableList<Expression> parents, NodeType nodeType) {

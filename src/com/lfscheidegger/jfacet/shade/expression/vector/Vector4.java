@@ -225,11 +225,19 @@ public final class Vector4 extends AbstractExpression<Vector4.Primitive>
   }
 
   public Vector4(float x, float y, float z, float w) {
-    super(new Primitive(x, y, z, w));
+    this(new Primitive(x, y, z, w));
+  }
+
+  public Vector4(Primitive primitive) {
+    super(primitive);
   }
 
   public Vector4(Real x, Real y, Real z, Real w) {
     super(ImmutableList.<Expression>of(x, y, z, w), NodeType.CONS);
+  }
+
+  public Vector4(NodeType nodeType) {
+    super(nodeType);
   }
 
   public Vector4(ImmutableList<Expression> parents, NodeType nodeType) {

@@ -175,11 +175,19 @@ public final class Vector2 extends AbstractExpression<Vector2.Primitive>
   }
 
   public Vector2(float x, float y) {
-    super(new Primitive(x, y));
+    this(new Primitive(x, y));
+  }
+
+  public Vector2(Primitive primitive) {
+    super(primitive);
   }
 
   public Vector2(Real x, Real y) {
     super(ImmutableList.<Expression>of(x, y), NodeType.CONS);
+  }
+
+  public Vector2(NodeType nodeType) {
+    super(nodeType);
   }
 
   public Vector2(ImmutableList<Expression> parents, NodeType nodeType) {

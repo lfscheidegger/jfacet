@@ -1,13 +1,11 @@
 package com.lfscheidegger.jfacet.compiler;
 
 import android.util.Log;
-import com.google.common.collect.ImmutableList;
-import com.google.common.collect.ImmutableMap;
-import com.google.common.collect.ImmutableSet;
-import com.google.common.collect.Maps;
+import com.google.common.collect.*;
 import com.lfscheidegger.jfacet.shade.expression.Expression;
 import com.lfscheidegger.jfacet.shade.expression.vector.Vector4;
 
+import java.util.List;
 import java.util.Map;
 
 public class FragmentShaderCompiler {
@@ -17,10 +15,23 @@ public class FragmentShaderCompiler {
 
   private final Map<Expression, String> mVaryingExpressions;
 
+  private final List<Expression> mUniformExpressions;
+
   public FragmentShaderCompiler(Vector4 fragmentColor) {
     mFragmentColor = fragmentColor;
     mCompilationHelper = new CompilationHelper();
     mVaryingExpressions = Maps.newHashMap();
+
+    final ImmutableSet.Builder<Expression> uniformBuilder = new ImmutableSet.Builder<Expression>();
+    new ExpressionVisitor(mFragmentColor) {
+      @Override
+      public void visit(Expression expression) {
+        if (expression.getNodeType() instanceof Expression.NodeType.UniformNodeType) {
+          uniformBuilder.add(expression);
+        }
+      }
+    }.run();
+    mUniformExpressions = Lists.newArrayList(uniformBuilder.build());
   }
 
   public String compile() {
@@ -35,6 +46,14 @@ public class FragmentShaderCompiler {
       String varyingName = mCompilationHelper.getVaryingName();
       mVaryingExpressions.put(attributeExpression, varyingName);
       mCompilationHelper.emitVaryingDeclaration(sb, attributeExpression, varyingName);
+    }
+
+    if (!mUniformExpressions.isEmpty()) {
+      sb.append("\n");
+    }
+
+    for (Expression expression : mUniformExpressions) {
+      mCompilationHelper.emitUniformDeclaration(sb, expression);
     }
 
     sb.append("void main() {\n");
@@ -58,6 +77,15 @@ public class FragmentShaderCompiler {
     return source;
   }
 
+  private String replaceAttributeNames(String source) {
+    for (Expression attributeExpression : mVaryingExpressions.keySet()) {
+      String attributeName = mCompilationHelper.getNameForExpression(attributeExpression);
+      source = source.replaceAll(attributeName, mVaryingExpressions.get(attributeExpression));
+    }
+
+    return source;
+  }
+
   private ImmutableSet<Expression> extractAttributeExpressions(
       ImmutableList<Expression> sortedExpressions) {
     ImmutableSet.Builder<Expression> builder = new ImmutableSet.Builder<Expression>();
@@ -75,12 +103,11 @@ public class FragmentShaderCompiler {
     return ImmutableMap.copyOf(mVaryingExpressions);
   }
 
-  private String replaceAttributeNames(String source) {
-    for (Expression attributeExpression : mVaryingExpressions.keySet()) {
-      String attributeName = mCompilationHelper.getNameForExpression(attributeExpression);
-      source = source.replaceAll(attributeName, mVaryingExpressions.get(attributeExpression));
-    }
+  public List<Expression> getUniformExpressions() {
+    return mUniformExpressions;
+  }
 
-    return source;
+  public CompilationHelper getCompilationHelper() {
+    return mCompilationHelper;
   }
 }

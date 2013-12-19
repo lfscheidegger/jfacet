@@ -1,18 +1,18 @@
 package com.lfscheidegger.jfacet.shade.transform;
 
+import com.lfscheidegger.jfacet.shade.Shade;
 import com.lfscheidegger.jfacet.shade.expression.Real;
 import com.lfscheidegger.jfacet.shade.expression.matrix.Matrix4;
-import com.lfscheidegger.jfacet.shade.expression.vector.Vector4;
+import com.lfscheidegger.jfacet.shade.expression.vector.Vector3;
 
 public class Rotation4 extends AbstractTransform4 {
 
-  public Rotation4(Real angle, Vector4 axis) {
+  public Rotation4(Real angle, Vector3 axis) {
     super(getMatrix(angle, axis));
   }
 
-  private static Matrix4 getMatrix(Real angle, Vector4 axis) {
-    return null;
-    /*axis = axis.normalize();
+  private static Matrix4 getMatrix(Real angle, Vector3 axis) {
+    axis = axis.normalize();
 
     Real s = angle.sin();
     Real c = angle.cos();
@@ -35,6 +35,6 @@ public class Rotation4 extends AbstractTransform4 {
             y.mul(z).mul(t).sub(x.mul(s)),
             z.mul(z).mul(t).add(c),
             0),
-        Shade.vec(0,0,0,1));*/
+        Shade.vec(0, 0, 0, 1));
   }
 }

@@ -16,6 +16,7 @@ public class VertexShaderCompiler {
   private final Vector4 mVertexPosition;
   private final CompilationHelper mCompilationHelper;
   private final List<Expression> mAttributeExpressions;
+  private final List<Expression> mUniformExpressions;
 
   private Map<Expression, String> mVaryingExpressions = Maps.newHashMap();
 
@@ -23,16 +24,27 @@ public class VertexShaderCompiler {
     mVertexPosition = vertexPosition;
     mCompilationHelper = new CompilationHelper();
 
-    final ImmutableSet.Builder<Expression> builder = new ImmutableSet.Builder<Expression>();
+    final ImmutableSet.Builder<Expression> attributeBuilder = new ImmutableSet.Builder<Expression>();
     new ExpressionVisitor(mVertexPosition) {
       @Override
       public void visit(Expression expression) {
         if (expression.getNodeType() instanceof Expression.NodeType.AttributeNodeType) {
-          builder.add(expression);
+          attributeBuilder.add(expression);
         }
       }
     }.run();
-    mAttributeExpressions = Lists.newArrayList(builder.build());
+    mAttributeExpressions = Lists.newArrayList(attributeBuilder.build());
+
+    final ImmutableSet.Builder<Expression> uniformBuilder = new ImmutableSet.Builder<Expression>();
+    new ExpressionVisitor(mVertexPosition) {
+      @Override
+      public void visit(Expression expression) {
+        if (expression.getNodeType() instanceof Expression.NodeType.UniformNodeType) {
+          uniformBuilder.add(expression);
+        }
+      }
+    }.run();
+    mUniformExpressions = Lists.newArrayList(uniformBuilder.build());
   }
 
   public void setVaryingExpressions(Map<Expression, String> varyingExpressions) {
@@ -50,6 +62,14 @@ public class VertexShaderCompiler {
 
     for (Expression expression : builder.build()) {
       mCompilationHelper.emitAttributeDeclaration(sb, expression);
+    }
+
+    if (!mUniformExpressions.isEmpty()) {
+      sb.append("\n");
+    }
+
+    for (Expression expression : mUniformExpressions) {
+      mCompilationHelper.emitUniformDeclaration(sb, expression);
     }
 
     sb.append("\n");
@@ -81,6 +101,8 @@ public class VertexShaderCompiler {
   public List<Expression> getAttributeExpressions() {
     return mAttributeExpressions;
   }
+
+  public List<Expression> getUniformExpressions() { return mUniformExpressions; }
 
   public CompilationHelper getCompilationHelper() {
     return mCompilationHelper;
