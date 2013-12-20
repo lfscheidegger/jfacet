@@ -1,5 +1,6 @@
 package com.lfscheidegger.jfacet.shade.expression;
 
+import android.graphics.Bitmap;
 import com.google.common.collect.ImmutableList;
 import com.lfscheidegger.jfacet.facet.AttributeBuffer;
 import com.lfscheidegger.jfacet.shade.expression.matrix.Matrix2;
@@ -139,8 +140,10 @@ public interface Expression<T> {
         mValue = value;
       }
 
-      public static UniformNodeType<Integer> forSampler(Integer primitive) {
-        return new UniformNodeType<Integer>(primitive);
+      public static UniformNodeType<Sampler.SamplerData> forSampler(Bitmap bitmap) {
+        Sampler.SamplerData primitive = new Sampler.SamplerData();
+        primitive.bitmap = bitmap;
+        return new UniformNodeType<Sampler.SamplerData>(primitive);
       }
 
       public static UniformNodeType<Float> forFloat(Float primitive) {

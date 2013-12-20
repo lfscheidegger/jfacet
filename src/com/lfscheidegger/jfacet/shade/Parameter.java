@@ -1,5 +1,6 @@
 package com.lfscheidegger.jfacet.shade;
 
+import android.graphics.Bitmap;
 import com.google.common.base.Preconditions;
 import com.lfscheidegger.jfacet.shade.expression.Expression;
 import com.lfscheidegger.jfacet.shade.expression.Real;
@@ -16,8 +17,8 @@ public class Parameter {
     return new Real(Expression.NodeType.UniformNodeType.forFloat(value));
   }
 
-  public static Sampler sampler(int textureName) {
-    return new Sampler(Expression.NodeType.UniformNodeType.forSampler(textureName));
+  public static Sampler sampler(Bitmap texture) {
+    return new Sampler(Expression.NodeType.UniformNodeType.forSampler(texture));
   }
 
   public static Vector2 vec(float x, float y) {
@@ -105,9 +106,9 @@ public class Parameter {
     return Parameter.<Float>getNodeType(parameter).getValue();
   }
 
-  public static int get(Sampler parameter) {
+  public static Sampler.SamplerData get(Sampler parameter) {
     Preconditions.checkArgument(parameter.getNodeType() instanceof Expression.NodeType.UniformNodeType);
-    return Parameter.<Integer>getNodeType(parameter).getValue();
+    return Parameter.<Sampler.SamplerData>getNodeType(parameter).getValue();
   }
 
   public static Vector2.Primitive get(Vector2 vec) {

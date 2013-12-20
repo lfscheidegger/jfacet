@@ -1,6 +1,7 @@
 package com.lfscheidegger.jfacet;
 
 import android.opengl.GLES20;
+import android.opengl.GLUtils;
 import com.badlogic.gdx.backends.android.AndroidGL20;
 import com.google.common.collect.ImmutableList;
 import com.lfscheidegger.jfacet.compiler.CompilationHelper;
@@ -57,6 +58,9 @@ public final class Program {
     GLES20.glAttachShader(mProgramHandle, fragmentShaderHandle);
 
     linkProgram();
+
+    loadTextures(mFragmentShaderCompiler.getUniformExpressions());
+    loadTextures(mVertexShaderCompiler.getUniformExpressions());
   }
 
   private void compileShader(int shaderHandle, String shaderSource) {
@@ -93,6 +97,35 @@ public final class Program {
 
       GLES20.glDeleteProgram(mProgramHandle);
       throw new RuntimeException("Error linking program");
+    }
+  }
+
+  private void loadTextures(List<Expression> uniformExpressions) {
+    for (Expression expression : uniformExpressions) {
+      if (!(expression instanceof Sampler)) {
+        continue;
+      }
+
+      Sampler.SamplerData samplerData = Parameter.get((Sampler) expression);
+
+      final int[] textures = new int[1];
+      GLES20.glGenTextures(1, textures, 0);
+      GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, textures[0]);
+
+      GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_MIN_FILTER, GLES20.GL_LINEAR);
+      GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_MAG_FILTER, GLES20.GL_LINEAR);
+      GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_WRAP_S, GLES20.GL_REPEAT);
+      GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_WRAP_T, GLES20.GL_REPEAT);
+      GLUtils.texImage2D(
+          GLES20.GL_TEXTURE_2D,
+          0,
+          GLUtils.getInternalFormat(samplerData.bitmap),
+          samplerData.bitmap,
+          GLUtils.getType(samplerData.bitmap),
+          0);
+      GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, 0);
+
+      samplerData.textureHandle = textures[0];
     }
   }
 
@@ -133,8 +166,9 @@ public final class Program {
       if (expression instanceof Real) {
         GLES20.glUniform1f(location, Parameter.get((Real) expression));
       } else if (expression instanceof Sampler) {
+        Sampler.SamplerData samplerData = Parameter.get((Sampler) expression);
         GLES20.glActiveTexture(GLES20.GL_TEXTURE0);
-        GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, Parameter.get((Sampler) expression));
+        GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, samplerData.textureHandle);
         GLES20.glUniform1i(location, 0);
       } else if (expression instanceof Vector2) {
         Vector2.Primitive primitive = Parameter.get((Vector2) expression);

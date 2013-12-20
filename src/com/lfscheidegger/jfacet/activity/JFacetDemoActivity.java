@@ -51,7 +51,7 @@ public class JFacetDemoActivity extends Activity {
       case 3: prepareLesson4(scene); break;
       case 4: prepareLesson5(scene); break;
       case 5: prepareLesson6(scene); break;
-      //case 5: prepareLesson7(scene); break;
+      //case 6: prepareLesson7(scene); break;
     }
 
     mView.setRenderer(new FacetRenderer(scene));
@@ -133,7 +133,7 @@ public class JFacetDemoActivity extends Activity {
     ), triangleModel = new Geometry(
         new int[] {0, 1, 2},
         new float[] {0, 1, -1, -1, 1, -1}, 2)
-        .setColors(new float[] {1, 0, 0, 0, 1, 0, 0, 0, 1}, 3);
+        .setColors(new float[]{1, 0, 0, 0, 1, 0, 0, 0, 1}, 3);
 
     Camera camera = Camera.perspective(mSize.x, mSize.y);
     final Real param = Parameter.real(0);
@@ -193,18 +193,7 @@ public class JFacetDemoActivity extends Activity {
   }
 
   private void prepareLesson6(Scene scene) {
-    Geometry triangle = new Geometry(
-        new int[] {0, 1, 2},
-        new float[] {0, 0, 1, 0, 1, 1}, 2)
-        .setTexCoords(new float[]{0, 0, 1, 0, 1, 1}, 2);
-
-    Bitmap texture = BitmapFactory.decodeResource(getResources(), R.drawable.crate);
-    scene
-        .add(triangle.bake(triangle.getVertices2(), Shade.texture2(texture, triangle.getTexCoords2())));
-
-    texture.recycle();
-
-    /*Geometry cube = Models.flatCube();
+    Geometry cube = Models.flatCube();
 
     Camera camera = Camera.perspective(
         new LookAtConfig()
@@ -230,7 +219,7 @@ public class JFacetDemoActivity extends Activity {
           public void run() {
             Parameter.set(param, (float) SystemClock.uptimeMillis() / 1000);
           }
-        });*/
+        });
   }
 
   /*private void prepareLesson7(Scene scene) {
@@ -242,27 +231,27 @@ public class JFacetDemoActivity extends Activity {
             .setCenter(Shade.vec(0, 0, -1))
             .setUp(Shade.vec(0, 1, 0)), mSize.x, mSize.y);
 
-    Real angle = Parameter.now().mul(50).radians();
+    //Real angle = Parameter.now().mul(50).radians();
 
-    Transform modelTransform = Shade.rotation(angle, Shade.vec(1, 1, 1));
-    scene.add(Facet.bake(
-        cube,
-        camera.apply(cube.getVertices()),
+    //Transform modelTransform = Shade.rotation(angle, Shade.vec(1, 1, 1));
+    scene.add(cube.bake(
+        camera.apply(cube.getVertices4()),
         light(cube)));
   }
 
-  private Vec4Exp light(Geometry cube) {//}, Transform modelTransform) {
-    Vec4Exp materialColor = Shade.texture2D(Facet.texture(getResources(), R.drawable.crate), cube.getTexCoords());
+  private Vector4 light(Geometry cube) {
+    Bitmap texture = BitmapFactory.decodeResource(getResources(), R.drawable.crate);
+    Vector4 materialColor = Shade.texture2(texture, cube.getTexCoords2());
 
-    Vec4Exp ambientLight = Shade.vec(0.1f, 0.1f, 0.1f, 0.1f);
+    Vector4 ambientLight = Shade.vec(0.1f, 0.1f, 0.1f, 0.1f);
 
-    Vec3Exp lightPosition = Shade.vec(2, 2, 2);
+    Vector3 lightPosition = Shade.vec(2, 2, 2);
 
-    Vec3Exp fragPosition = Shade.varying3f((Vec3Exp) cube.getVertices());
-    Vec3Exp normal = (Vec3Exp)cube.getNormals();
+    Vector3 fragPosition = cube.getVertices3();
+    Vector3 normal = cube.getNormals3();
 
     Real diffuse = lightPosition.sub(fragPosition).dot(normal);
 
     return materialColor.mul(ambientLight).add(materialColor.mul(diffuse));
-  }   */
+  } } */
 }

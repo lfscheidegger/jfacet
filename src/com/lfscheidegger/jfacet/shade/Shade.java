@@ -168,24 +168,7 @@ public final class Shade {
   }
 
   public static Vector4 texture2(Bitmap bitmap, Vector2 textureCoordinates) {
-    final int[] textures = new int[1];
-    GLES20.glGenTextures(1, textures, 0);
-    GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, textures[0]);
-
-    GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_MIN_FILTER, GLES20.GL_LINEAR);
-    GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_MAG_FILTER, GLES20.GL_LINEAR);
-    GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_WRAP_S, GLES20.GL_REPEAT);
-    GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_WRAP_T, GLES20.GL_REPEAT);
-    GLUtils.texImage2D(
-        GLES20.GL_TEXTURE_2D,
-        0,
-        GLUtils.getInternalFormat(bitmap),
-        bitmap,
-        GLUtils.getType(bitmap),
-        0);
-
-    Sampler sampler = Parameter.sampler(textures[0]);
-    return Parameter.sampler(textures[0]).texture(textureCoordinates);
+    return Parameter.sampler(bitmap).texture(textureCoordinates);
   }
 
   public static Matrix2 identity2() {
