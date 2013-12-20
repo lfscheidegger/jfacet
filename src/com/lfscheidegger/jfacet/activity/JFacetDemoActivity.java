@@ -3,7 +3,6 @@ package com.lfscheidegger.jfacet.activity;
 import android.app.Activity;
 import android.graphics.Point;
 import android.os.Bundle;
-import android.os.Handler;
 import android.os.SystemClock;
 import android.view.Display;
 import com.lfscheidegger.jfacet.R;

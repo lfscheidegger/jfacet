@@ -5,7 +5,7 @@ import com.lfscheidegger.jfacet.Program;
 import com.lfscheidegger.jfacet.shade.expression.vector.Vector4;
 import com.lfscheidegger.jfacet.shade.expression.vector.VectorExpression;
 
-public final class Drawable<T> {
+public final class Drawable<T> implements Runnable {
 
   private final Geometry mGeometry;
   private Program mProgram;
@@ -27,7 +27,7 @@ public final class Drawable<T> {
     mProgram.bake();
   }
 
-  public void draw() {
+  public void run() {
     mProgram.use();
     GLES20.glDrawElements(
         GLES20.GL_TRIANGLES,
