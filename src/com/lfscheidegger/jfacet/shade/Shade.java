@@ -1,6 +1,14 @@
 package com.lfscheidegger.jfacet.shade;
 
+import android.content.Context;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.opengl.GLES20;
+import android.opengl.GLUtils;
+import com.lfscheidegger.jfacet.shade.expression.Expression;
 import com.lfscheidegger.jfacet.shade.expression.Real;
+import com.lfscheidegger.jfacet.shade.expression.Sampler;
 import com.lfscheidegger.jfacet.shade.expression.matrix.Matrix2;
 import com.lfscheidegger.jfacet.shade.expression.matrix.Matrix3;
 import com.lfscheidegger.jfacet.shade.expression.matrix.Matrix4;
@@ -157,6 +165,27 @@ public final class Shade {
 
   public static Matrix4 mat(Vector4 c0, Vector4 c1, Vector4 c2, Vector4 c3) {
     return new Matrix4(c0, c1, c2, c3);
+  }
+
+  public static Vector4 texture2(Bitmap bitmap, Vector2 textureCoordinates) {
+    final int[] textures = new int[1];
+    GLES20.glGenTextures(1, textures, 0);
+    GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, textures[0]);
+
+    GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_MIN_FILTER, GLES20.GL_LINEAR);
+    GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_MAG_FILTER, GLES20.GL_LINEAR);
+    GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_WRAP_S, GLES20.GL_REPEAT);
+    GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_WRAP_T, GLES20.GL_REPEAT);
+    GLUtils.texImage2D(
+        GLES20.GL_TEXTURE_2D,
+        0,
+        GLUtils.getInternalFormat(bitmap),
+        bitmap,
+        GLUtils.getType(bitmap),
+        0);
+
+    Sampler sampler = Parameter.sampler(textures[0]);
+    return Parameter.sampler(textures[0]).texture(textureCoordinates);
   }
 
   public static Matrix2 identity2() {

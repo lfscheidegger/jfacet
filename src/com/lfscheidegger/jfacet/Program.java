@@ -10,6 +10,7 @@ import com.lfscheidegger.jfacet.facet.AttributeBuffer;
 import com.lfscheidegger.jfacet.shade.Parameter;
 import com.lfscheidegger.jfacet.shade.expression.Expression;
 import com.lfscheidegger.jfacet.shade.expression.Real;
+import com.lfscheidegger.jfacet.shade.expression.Sampler;
 import com.lfscheidegger.jfacet.shade.expression.vector.Vector2;
 import com.lfscheidegger.jfacet.shade.expression.vector.Vector3;
 import com.lfscheidegger.jfacet.shade.expression.vector.Vector4;
@@ -131,6 +132,10 @@ public final class Program {
       int location = GLES20.glGetUniformLocation(mProgramHandle, name);
       if (expression instanceof Real) {
         GLES20.glUniform1f(location, Parameter.get((Real) expression));
+      } else if (expression instanceof Sampler) {
+        GLES20.glActiveTexture(GLES20.GL_TEXTURE0);
+        GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, Parameter.get((Sampler) expression));
+        GLES20.glUniform1i(location, 0);
       } else if (expression instanceof Vector2) {
         Vector2.Primitive primitive = Parameter.get((Vector2) expression);
         GLES20.glUniform2f(location, primitive.getX(), primitive.getY());

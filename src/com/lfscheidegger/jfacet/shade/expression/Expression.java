@@ -139,6 +139,10 @@ public interface Expression<T> {
         mValue = value;
       }
 
+      public static UniformNodeType<Integer> forSampler(Integer primitive) {
+        return new UniformNodeType<Integer>(primitive);
+      }
+
       public static UniformNodeType<Float> forFloat(Float primitive) {
         return new UniformNodeType<Float>(primitive);
       }

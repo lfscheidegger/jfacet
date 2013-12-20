@@ -3,6 +3,7 @@ package com.lfscheidegger.jfacet.shade;
 import com.google.common.base.Preconditions;
 import com.lfscheidegger.jfacet.shade.expression.Expression;
 import com.lfscheidegger.jfacet.shade.expression.Real;
+import com.lfscheidegger.jfacet.shade.expression.Sampler;
 import com.lfscheidegger.jfacet.shade.expression.vector.Vector2;
 import com.lfscheidegger.jfacet.shade.expression.vector.Vector3;
 import com.lfscheidegger.jfacet.shade.expression.vector.Vector4;
@@ -13,6 +14,10 @@ public class Parameter {
 
   public static Real real(float value) {
     return new Real(Expression.NodeType.UniformNodeType.forFloat(value));
+  }
+
+  public static Sampler sampler(int textureName) {
+    return new Sampler(Expression.NodeType.UniformNodeType.forSampler(textureName));
   }
 
   public static Vector2 vec(float x, float y) {
@@ -97,7 +102,12 @@ public class Parameter {
 
   public static float get(Real parameter) {
     Preconditions.checkArgument(parameter.getNodeType() instanceof Expression.NodeType.UniformNodeType);
-    return getNodeType(parameter).getValue();
+    return Parameter.<Float>getNodeType(parameter).getValue();
+  }
+
+  public static int get(Sampler parameter) {
+    Preconditions.checkArgument(parameter.getNodeType() instanceof Expression.NodeType.UniformNodeType);
+    return Parameter.<Integer>getNodeType(parameter).getValue();
   }
 
   public static Vector2.Primitive get(Vector2 vec) {
@@ -112,7 +122,7 @@ public class Parameter {
     return ((Expression.NodeType.UniformNodeType<Vector4.Primitive>) vec.getNodeType()).getValue();
   }
 
-  private static Expression.NodeType.UniformNodeType<Float> getNodeType(Real vec) {
-    return (Expression.NodeType.UniformNodeType<Float>) vec.getNodeType();
+  private static <T> Expression.NodeType.UniformNodeType<T> getNodeType(Expression vec) {
+    return (Expression.NodeType.UniformNodeType<T>) vec.getNodeType();
   }
 }

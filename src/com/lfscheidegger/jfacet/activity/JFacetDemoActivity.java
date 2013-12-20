@@ -1,6 +1,8 @@
 package com.lfscheidegger.jfacet.activity;
 
 import android.app.Activity;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.os.SystemClock;
@@ -14,7 +16,9 @@ import com.lfscheidegger.jfacet.facet.renderer.FacetRenderer;
 import com.lfscheidegger.jfacet.shade.Parameter;
 import com.lfscheidegger.jfacet.shade.Shade;
 import com.lfscheidegger.jfacet.shade.camera.Camera;
+import com.lfscheidegger.jfacet.shade.camera.LookAtConfig;
 import com.lfscheidegger.jfacet.shade.expression.Real;
+import com.lfscheidegger.jfacet.shade.expression.vector.Vector3;
 import com.lfscheidegger.jfacet.shade.expression.vector.Vector4;
 import com.lfscheidegger.jfacet.shade.transform.Translation4;
 import com.lfscheidegger.jfacet.view.FacetView;
@@ -189,6 +193,17 @@ public class JFacetDemoActivity extends Activity {
   }
 
   private void prepareLesson6(Scene scene) {
+    Geometry triangle = new Geometry(
+        new int[] {0, 1, 2},
+        new float[] {0, 0, 1, 0, 1, 1}, 2)
+        .setTexCoords(new float[]{0, 0, 1, 0, 1, 1}, 2);
+
+    Bitmap texture = BitmapFactory.decodeResource(getResources(), R.drawable.crate);
+    scene
+        .add(triangle.bake(triangle.getVertices2(), Shade.texture2(texture, triangle.getTexCoords2())));
+
+    texture.recycle();
+
     /*Geometry cube = Models.flatCube();
 
     Camera camera = Camera.perspective(
@@ -197,12 +212,25 @@ public class JFacetDemoActivity extends Activity {
             .setCenter(Shade.vec(0, 0, -1))
             .setUp(Shade.vec(0, 1, 0)), mSize.x, mSize.y);
 
-    Real angle = Parameter.now().mul(50).radians();
+    final Real param = Parameter.real(0);
+    Real angle = param.mul(50).radians();
 
-    scene.add(Facet.bake(
-        cube,
-        camera.apply(Shade.rotation(angle, Shade.vec(1, 1, 1))).apply(cube.getVertices()),
-        Shade.texture2D(Facet.texture(getResources(), R.drawable.nehe), cube.getTexCoords())));*/
+    Vector4 cubePosition = camera
+        .apply(Shade.rotate(angle, Shade.vec(1, 1, 1)))
+        .apply(cube.getVertices4());
+
+
+    Bitmap texture = BitmapFactory.decodeResource(getResources(), R.drawable.crate);
+    Vector4 cubeColor = Shade.texture2(texture, cube.getTexCoords2());
+
+    scene
+        .add(cube.bake(cubePosition, cubeColor))
+        .add(new Runnable() {
+          @Override
+          public void run() {
+            Parameter.set(param, (float) SystemClock.uptimeMillis() / 1000);
+          }
+        });*/
   }
 
   /*private void prepareLesson7(Scene scene) {
