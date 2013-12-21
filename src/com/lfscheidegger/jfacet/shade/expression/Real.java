@@ -6,7 +6,7 @@ import com.lfscheidegger.jfacet.facet.AttributeBuffer;
 /**
  * {code Expression} for floats
  */
-public final class Real extends AbstractExpression<Float> {
+public final class Real extends AbstractExpression {
 
   public Real(float c) {
     super(c);
@@ -25,7 +25,7 @@ public final class Real extends AbstractExpression<Float> {
   }
 
   @Override
-  public Real getExpressionForTernaryOperator(Bool condition, Expression<Float> elseExpression) {
+  public Real getExpressionForTernaryOperator(Bool condition, Expression elseExpression) {
     return new Real(
         ImmutableList.<Expression>of(condition, this, elseExpression),
         NodeType.TERNARY);

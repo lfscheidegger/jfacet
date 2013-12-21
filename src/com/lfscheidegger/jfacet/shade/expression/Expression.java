@@ -11,7 +11,7 @@ import com.lfscheidegger.jfacet.shade.expression.vector.*;
 /**
  * A Shade expression.
  */
-public interface Expression<T> {
+public interface Expression {
 
   public static interface NodeType {
 
@@ -239,7 +239,7 @@ public interface Expression<T> {
    */
   public ImmutableList<Expression> getParents();
 
-  public Expression<T> getExpressionForTernaryOperator(Bool condition, Expression<T> elseExpression);
+  public Expression getExpressionForTernaryOperator(Bool condition, Expression elseExpression);
 
   public String getGlSlTypeName();
 }

@@ -8,7 +8,7 @@ import com.lfscheidegger.jfacet.shade.expression.vector.Vector2;
 import com.lfscheidegger.jfacet.shade.expression.vector.Vector3;
 import com.lfscheidegger.jfacet.shade.expression.vector.Vector4;
 
-public class Sampler extends AbstractExpression<Integer> {
+public class Sampler extends AbstractExpression {
 
   public static final class SamplerData {
 
@@ -22,7 +22,7 @@ public class Sampler extends AbstractExpression<Integer> {
   }
 
   @Override
-  public Sampler getExpressionForTernaryOperator(Bool condition, Expression<Integer> elseExpression) {
+  public Sampler getExpressionForTernaryOperator(Bool condition, Expression elseExpression) {
     throw new UnsupportedOperationException("No ternary operator for samplers :(");
   }
 

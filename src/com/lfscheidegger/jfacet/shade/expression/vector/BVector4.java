@@ -9,8 +9,7 @@ import com.lfscheidegger.jfacet.utils.StringUtils;
 
 import java.util.Arrays;
 
-public final class BVector4 extends AbstractExpression<BVector4.Primitive>
-    implements VectorExpression<Bool, BVector4> {
+public final class BVector4 extends AbstractExpression implements VectorExpression<Bool, BVector4> {
 
   public static final class Primitive implements BVectorPrimitive {
 
@@ -143,7 +142,7 @@ public final class BVector4 extends AbstractExpression<BVector4.Primitive>
   }
 
   @Override
-  public BVector4 getExpressionForTernaryOperator(Bool condition, Expression<Primitive> elseExpression) {
+  public BVector4 getExpressionForTernaryOperator(Bool condition, Expression elseExpression) {
     return new BVector4(
         ImmutableList.<Expression>of(condition, this, elseExpression),
         NodeType.TERNARY);

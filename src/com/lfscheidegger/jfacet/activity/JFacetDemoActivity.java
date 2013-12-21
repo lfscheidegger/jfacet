@@ -17,6 +17,7 @@ import com.lfscheidegger.jfacet.shade.Parameter;
 import com.lfscheidegger.jfacet.shade.Shade;
 import com.lfscheidegger.jfacet.shade.camera.Camera;
 import com.lfscheidegger.jfacet.shade.camera.LookAtConfig;
+import com.lfscheidegger.jfacet.shade.expression.Bool;
 import com.lfscheidegger.jfacet.shade.expression.Real;
 import com.lfscheidegger.jfacet.shade.expression.vector.Vector3;
 import com.lfscheidegger.jfacet.shade.expression.vector.Vector4;
@@ -53,6 +54,7 @@ public class JFacetDemoActivity extends Activity {
       case 4: prepareLesson5(scene); break;
       case 5: prepareLesson6(scene); break;
       case 6: prepareLesson7(scene); break;
+      case 7: prepareLesson8(scene); break;
     }
 
     mView.setRenderer(new FacetRenderer(scene));
@@ -258,5 +260,19 @@ public class JFacetDemoActivity extends Activity {
     Real diffuse = lightPosition.sub(fragPosition).normalize().dot(normal);
 
     return materialColor.mul(diffuse);
+  }
+
+  private void prepareLesson8(Scene scene) {
+    Geometry square = new Geometry(
+        new int[]{0, 1, 2, 0, 2, 3},
+        new float[]{0, 0, 1, 0, 1, 1, 0, 1}, 2);
+
+    Bitmap a = BitmapFactory.decodeResource(getResources(), R.drawable.nehe);
+    Bitmap b = BitmapFactory.decodeResource(getResources(), R.drawable.crate);
+
+    Vector4 textureA = Shade.texture2(a, square.getVertices2());
+    Vector4 textureB = Shade.texture2(b, square.getVertices2());
+
+    scene.add(square.bake(square.getVertices2(), textureA.add(textureB)));
   }
 }

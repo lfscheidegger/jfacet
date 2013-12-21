@@ -5,7 +5,7 @@ import com.google.common.collect.ImmutableList;
 /**
  * {@code Expression} for boolean values
  */
-public final class Bool extends AbstractExpression<Boolean> {
+public final class Bool extends AbstractExpression {
 
   public static class TernaryElse<T extends Expression> {
 
@@ -32,7 +32,7 @@ public final class Bool extends AbstractExpression<Boolean> {
   }
 
   @Override
-  public Bool getExpressionForTernaryOperator(Bool condition, Expression<Boolean> elseExpression) {
+  public Bool getExpressionForTernaryOperator(Bool condition, Expression elseExpression) {
     return new Bool(
         ImmutableList.<Expression>of(condition, this, elseExpression),
         NodeType.TERNARY);

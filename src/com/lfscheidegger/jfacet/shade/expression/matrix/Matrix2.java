@@ -13,8 +13,7 @@ import com.lfscheidegger.jfacet.utils.StringUtils;
 
 import java.util.Arrays;
 
-public final class Matrix2
-    extends AbstractExpression<Matrix2.Primitive> {
+public final class Matrix2 extends AbstractExpression {
 
   public static final class Primitive {
 
@@ -143,7 +142,7 @@ public final class Matrix2
   }
 
   @Override
-  public Matrix2 getExpressionForTernaryOperator(Bool condition, Expression<Primitive> elseExpression) {
+  public Matrix2 getExpressionForTernaryOperator(Bool condition, Expression elseExpression) {
     return new Matrix2(
         ImmutableList.<Expression>of(condition, this, elseExpression),
         NodeType.TERNARY);

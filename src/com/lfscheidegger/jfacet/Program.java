@@ -3,6 +3,7 @@ package com.lfscheidegger.jfacet;
 import android.opengl.GLES20;
 import android.opengl.GLUtils;
 import com.badlogic.gdx.backends.android.AndroidGL20;
+import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableList;
 import com.lfscheidegger.jfacet.compiler.CompilationHelper;
 import com.lfscheidegger.jfacet.compiler.FragmentShaderCompiler;
@@ -28,6 +29,8 @@ public final class Program {
   private final FragmentShaderCompiler mFragmentShaderCompiler;
 
   private AndroidGL20 mAndroidGL;
+
+  private int mMaxTextureUnits;
   private int mProgramHandle;
 
   public <T> Program(VectorExpression<T, Vector4> position, VectorExpression<T, Vector4> fragColor) {
@@ -48,6 +51,10 @@ public final class Program {
 
     int vertexShaderHandle = GLES20.glCreateShader(GLES20.GL_VERTEX_SHADER);
     int fragmentShaderHandle = GLES20.glCreateShader(GLES20.GL_FRAGMENT_SHADER);
+
+    int[] intBuffer = new int[1];
+    GLES20.glGetIntegerv(GLES20.GL_MAX_COMBINED_TEXTURE_IMAGE_UNITS, intBuffer, 0);
+    mMaxTextureUnits = intBuffer[0];
 
     mProgramHandle = GLES20.glCreateProgram();
 
@@ -144,7 +151,6 @@ public final class Program {
   private void bindAttributes() {
     List<Expression> attributeExpressions = mVertexShaderCompiler.getAttributeExpressions();
     for (int i = 0; i < attributeExpressions.size(); i++) {
-
       AttributeBuffer buffer =
           ((Expression.NodeType.AttributeNodeType) attributeExpressions
               .get(i)
@@ -160,16 +166,21 @@ public final class Program {
   private void bindUniforms(
       List<Expression> uniformExpressions,
       CompilationHelper compilationHelper) {
+    int textureUnitCounter = 0;
+
     for (Expression expression : uniformExpressions) {
       String name = compilationHelper.getNameForExpression(expression);
       int location = GLES20.glGetUniformLocation(mProgramHandle, name);
       if (expression instanceof Real) {
         GLES20.glUniform1f(location, Parameter.get((Real) expression));
       } else if (expression instanceof Sampler) {
+        Preconditions.checkArgument(textureUnitCounter < mMaxTextureUnits);
+
         Sampler.SamplerData samplerData = Parameter.get((Sampler) expression);
-        GLES20.glActiveTexture(GLES20.GL_TEXTURE0);
+        GLES20.glActiveTexture(GLES20.GL_TEXTURE0 + textureUnitCounter);
         GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, samplerData.textureHandle);
-        GLES20.glUniform1i(location, 0);
+        GLES20.glUniform1i(location, textureUnitCounter);
+        textureUnitCounter++;
       } else if (expression instanceof Vector2) {
         Vector2.Primitive primitive = Parameter.get((Vector2) expression);
         GLES20.glUniform2f(location, primitive.getX(), primitive.getY());

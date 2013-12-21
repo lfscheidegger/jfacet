@@ -2,12 +2,12 @@ package com.lfscheidegger.jfacet.shade.expression;
 
 import com.google.common.collect.ImmutableList;
 
-public abstract class AbstractExpression<T> implements Expression<T> {
+public abstract class AbstractExpression implements Expression {
 
   private final NodeType mNodeType;
   private final ImmutableList<Expression> mParents;
 
-  public AbstractExpression(T primitive) {
+  public <T> AbstractExpression(T primitive) {
     mNodeType = NodeType.PrimitiveNodeType.forPrimitive(primitive);
     mParents = ImmutableList.of();
   }
