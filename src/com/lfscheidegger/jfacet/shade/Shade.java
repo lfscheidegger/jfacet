@@ -1,6 +1,9 @@
 package com.lfscheidegger.jfacet.shade;
 
 import android.graphics.Bitmap;
+import com.google.common.collect.ImmutableList;
+import com.lfscheidegger.jfacet.shade.expression.Expression;
+import com.lfscheidegger.jfacet.shade.expression.NodeType;
 import com.lfscheidegger.jfacet.shade.expression.Real;
 import com.lfscheidegger.jfacet.shade.expression.matrix.Matrix2;
 import com.lfscheidegger.jfacet.shade.expression.matrix.Matrix3;
@@ -44,6 +47,10 @@ public final class Shade {
     return new Vector2(x, y);
   }
 
+  public static Vector2 vec(Vector2 xy) {
+    return new Vector2(ImmutableList.<Expression>of(xy), NodeType.CONS);
+  }
+
   public static Vector3 vec(Vector3.Primitive primitive) {
     return new Vector3(primitive);
   }
@@ -78,6 +85,26 @@ public final class Shade {
 
   public static Vector3 vec(Real x, Real y, Real z) {
     return new Vector3(x, y, z);
+  }
+
+  public static Vector3 vec(Vector2 xy, float z) {
+    return vec(xy, new Real(z));
+  }
+
+  public static Vector3 vec(Vector2 xy, Real z) {
+    return new Vector3(ImmutableList.<Expression>of(xy, z), NodeType.CONS);
+  }
+
+  public static Vector3 vec(float x, Vector2 yz) {
+    return vec(new Real(x), yz);
+  }
+
+  public static Vector3 vec(Real x, Vector2 yz) {
+    return new Vector3(ImmutableList.<Expression>of(x, yz), NodeType.CONS);
+  }
+
+  public static Vector3 vec(Vector3 xyz) {
+    return new Vector3(ImmutableList.<Expression>of(xyz), NodeType.CONS);
   }
 
   public static Vector4 vec(Vector4.Primitive primitive) {
@@ -146,6 +173,74 @@ public final class Shade {
 
   public static Vector4 vec(Real x, Real y, Real z, Real w) {
     return new Vector4(x, y, z, w);
+  }
+
+  public static Vector4 vec(Vector3 xyz, float w) {
+    return vec(xyz, new Real(w));
+  }
+
+  public static Vector4 vec(Vector3 xyz, Real w) {
+    return new Vector4(ImmutableList.<Expression>of(xyz, w), NodeType.CONS);
+  }
+
+  public static Vector4 vec(float x, Vector3 yzw) {
+    return vec(new Real(x), yzw);
+  }
+
+  public static Vector4 vec(Real x, Vector3 yzw) {
+    return new Vector4(ImmutableList.<Expression>of(x, yzw), NodeType.CONS);
+  }
+
+  public static Vector4 vec(Vector2 xy, Vector2 zw) {
+    return new Vector4(ImmutableList.<Expression>of(xy, zw), NodeType.CONS);
+  }
+
+  public static Vector4 vec(Vector2 xy, float z, float w) {
+    return vec(xy, new Real(z), new Real(w));
+  }
+
+  public static Vector4 vec(Vector2 xy, float z, Real w) {
+    return vec(xy, new Real(z), w);
+  }
+
+  public static Vector4 vec(Vector2 xy, Real z, float w) {
+    return vec(xy, z, new Real(w));
+  }
+
+  public static Vector4 vec(Vector2 xy, Real z, Real w) {
+    return new Vector4(ImmutableList.<Expression>of(xy, z, w), NodeType.CONS);
+  }
+
+  public static Vector4 vec(float x, Vector2 yz, float w) {
+    return vec(constant(x), yz, constant(w));
+  }
+
+  public static Vector4 vec(float x, Vector2 yz, Real w) {
+    return vec(constant(x), yz, w);
+  }
+
+  public static Vector4 vec(Real x, Vector2 yz, float w) {
+    return vec(x, yz, constant(w));
+  }
+
+  public static Vector4 vec(Real x, Vector2 yz, Real w) {
+    return new Vector4(ImmutableList.<Expression>of(x, yz, w), NodeType.CONS);
+  }
+
+  public static Vector4 vec(float x, float y, Vector2 zw) {
+    return vec(constant(x), constant(y), zw);
+  }
+
+  public static Vector4 vec(float x, Real y, Vector2 zw) {
+    return vec(constant(x), y, zw);
+  }
+
+  public static Vector4 vec(Real x, float y, Vector2 zw) {
+    return vec(x, constant(y), zw);
+  }
+
+  public static Vector4 vec(Real x, Real y, Vector2 zw) {
+    return new Vector4(ImmutableList.<Expression>of(x, y, zw), NodeType.CONS);
   }
 
   public static Matrix2 mat(Vector2 c0, Vector2 c1) {
