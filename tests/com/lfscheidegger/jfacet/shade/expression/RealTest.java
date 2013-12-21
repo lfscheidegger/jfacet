@@ -18,13 +18,13 @@ public class RealTest {
     Real real = new Real(1);
 
     assertEquals(
-        ((Expression.NodeType.PrimitiveNodeType) real.getNodeType()).getPrimitive(), 1.0f);
+        ((NodeType.PrimitiveNodeType) real.getNodeType()).getPrimitive(), 1.0f);
 
     assertEquals(real.getParents(), ImmutableList.of());
 
     Real one = new Real(1), two = new Real(2);
-    real = new Real(ImmutableList.<Expression>of(one, two), Expression.NodeType.ADD);
-    assertEquals(real.getNodeType(), Expression.NodeType.ADD);
+    real = new Real(ImmutableList.<Expression>of(one, two), NodeType.ADD);
+    assertEquals(real.getNodeType(), NodeType.ADD);
     assertEquals(real.getParents(), ImmutableList.<Expression>of(one, two));
   }
 
@@ -33,10 +33,10 @@ public class RealTest {
     Real rhs = new Real(2);
     Real add = mReal.add(rhs);
     testNonLeafExpression(add, ImmutableList.<Expression>of(mReal, rhs));
-    assertEquals(add.getNodeType(), Expression.NodeType.ADD);
+    assertEquals(add.getNodeType(), NodeType.ADD);
 
     add = mReal.add(2);
-    assertEquals(add.getNodeType(), Expression.NodeType.ADD);
+    assertEquals(add.getNodeType(), NodeType.ADD);
   }
 
   @Test
@@ -44,10 +44,10 @@ public class RealTest {
     Real rhs = new Real(2);
     Real sub = mReal.sub(rhs);
     testNonLeafExpression(sub, ImmutableList.<Expression>of(mReal, rhs));
-    assertEquals(sub.getNodeType(), Expression.NodeType.SUB);
+    assertEquals(sub.getNodeType(), NodeType.SUB);
 
     sub = mReal.sub(2);
-    assertEquals(sub.getNodeType(), Expression.NodeType.SUB);
+    assertEquals(sub.getNodeType(), NodeType.SUB);
   }
 
   @Test
@@ -55,10 +55,10 @@ public class RealTest {
     Real rhs = new Real(2);
     Real mul = mReal.mul(rhs);
     testNonLeafExpression(mul, ImmutableList.<Expression>of(mReal, rhs));
-    assertEquals(mul.getNodeType(), Expression.NodeType.MUL);
+    assertEquals(mul.getNodeType(), NodeType.MUL);
 
     mul = mReal.mul(2);
-    assertEquals(mul.getNodeType(), Expression.NodeType.MUL);
+    assertEquals(mul.getNodeType(), NodeType.MUL);
   }
 
   @Test
@@ -66,17 +66,17 @@ public class RealTest {
     Real rhs = new Real(2);
     Real div = mReal.div(rhs);
     testNonLeafExpression(div, ImmutableList.<Expression>of(mReal, rhs));
-    assertEquals(div.getNodeType(), Expression.NodeType.DIV);
+    assertEquals(div.getNodeType(), NodeType.DIV);
 
     div = mReal.div(2);
-    assertEquals(div.getNodeType(), Expression.NodeType.DIV);
+    assertEquals(div.getNodeType(), NodeType.DIV);
   }
 
   @Test
   public void testNeg() {
     Real neg = mReal.neg();
     testNonLeafExpression(neg, ImmutableList.<Expression>of(mReal));
-    assertEquals(neg.getNodeType(), Expression.NodeType.NEG);
+    assertEquals(neg.getNodeType(), NodeType.NEG);
   }
 
   @Test
@@ -84,10 +84,10 @@ public class RealTest {
     Real rhs = new Real(0);
     Bool gt = mReal.isGreaterThan(rhs);
     testNonLeafExpression(gt, ImmutableList.<Expression>of(mReal, rhs));
-    assertEquals(gt.getNodeType(), Expression.NodeType.GT);
+    assertEquals(gt.getNodeType(), NodeType.GT);
 
     gt = mReal.isGreaterThan(0);
-    assertEquals(gt.getNodeType(), Expression.NodeType.GT);
+    assertEquals(gt.getNodeType(), NodeType.GT);
   }
 
   @Test
@@ -95,10 +95,10 @@ public class RealTest {
     Real rhs = new Real(0);
     Bool geq = mReal.isGreaterThanOrEqual(rhs);
     testNonLeafExpression(geq, ImmutableList.<Expression>of(mReal, rhs));
-    assertEquals(geq.getNodeType(), Expression.NodeType.GEQ);
+    assertEquals(geq.getNodeType(), NodeType.GEQ);
 
     geq = mReal.isGreaterThanOrEqual(0);
-    assertEquals(geq.getNodeType(), Expression.NodeType.GEQ);
+    assertEquals(geq.getNodeType(), NodeType.GEQ);
   }
 
   @Test
@@ -106,10 +106,10 @@ public class RealTest {
     Real rhs = new Real(0);
     Bool geq = mReal.isLessThan(rhs);
     testNonLeafExpression(geq, ImmutableList.<Expression>of(mReal, rhs));
-    assertEquals(geq.getNodeType(), Expression.NodeType.LT);
+    assertEquals(geq.getNodeType(), NodeType.LT);
 
     geq = mReal.isLessThan(0);
-    assertEquals(geq.getNodeType(), Expression.NodeType.LT);
+    assertEquals(geq.getNodeType(), NodeType.LT);
   }
 
   @Test
@@ -117,10 +117,10 @@ public class RealTest {
     Real rhs = new Real(0);
     Bool leq = mReal.isLessThanOrEqual(rhs);
     testNonLeafExpression(leq, ImmutableList.<Expression>of(mReal, rhs));
-    assertEquals(leq.getNodeType(), Expression.NodeType.LEQ);
+    assertEquals(leq.getNodeType(), NodeType.LEQ);
 
     leq = mReal.isLessThanOrEqual(0);
-    assertEquals(leq.getNodeType(), Expression.NodeType.LEQ);
+    assertEquals(leq.getNodeType(), NodeType.LEQ);
   }
 
   @Test
@@ -130,7 +130,7 @@ public class RealTest {
     testNonLeafExpression(eq, ImmutableList.<Expression>of(mReal, rhs));
 
     eq = mReal.isEqual(0);
-    assertEquals(eq.getNodeType(), Expression.NodeType.EQ);
+    assertEquals(eq.getNodeType(), NodeType.EQ);
   }
 
   @Test
@@ -138,9 +138,9 @@ public class RealTest {
     Real rhs = new Real(0);
     Bool neq = mReal.isNotEqual(rhs);
     testNonLeafExpression(neq, ImmutableList.<Expression>of(mReal, rhs));
-    assertEquals(neq.getNodeType(), Expression.NodeType.NEQ);
+    assertEquals(neq.getNodeType(), NodeType.NEQ);
 
     neq = mReal.isNotEqual(0);
-    assertEquals(neq.getNodeType(), Expression.NodeType.NEQ);
+    assertEquals(neq.getNodeType(), NodeType.NEQ);
   }
 }

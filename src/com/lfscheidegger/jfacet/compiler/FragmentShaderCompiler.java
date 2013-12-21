@@ -3,6 +3,7 @@ package com.lfscheidegger.jfacet.compiler;
 import android.util.Log;
 import com.google.common.collect.*;
 import com.lfscheidegger.jfacet.shade.expression.Expression;
+import com.lfscheidegger.jfacet.shade.expression.NodeType;
 import com.lfscheidegger.jfacet.shade.expression.vector.Vector4;
 
 import java.util.List;
@@ -26,7 +27,7 @@ public class FragmentShaderCompiler {
     new ExpressionVisitor(mFragmentColor) {
       @Override
       public void visit(Expression expression) {
-        if (expression.getNodeType() instanceof Expression.NodeType.UniformNodeType) {
+        if (expression.getNodeType() instanceof NodeType.UniformNodeType) {
           uniformBuilder.add(expression);
         }
       }
@@ -59,7 +60,7 @@ public class FragmentShaderCompiler {
     sb.append("void main() {\n");
 
     for (Expression expression : sortedExpressions) {
-      if (expression.getNodeType() instanceof Expression.NodeType.AttributeNodeType) {
+      if (expression.getNodeType() instanceof NodeType.AttributeNodeType) {
         continue;
       } else {
         mCompilationHelper.emitExpression(sb, expression);
@@ -91,7 +92,7 @@ public class FragmentShaderCompiler {
     ImmutableSet.Builder<Expression> builder = new ImmutableSet.Builder<Expression>();
 
     for (Expression expression : sortedExpressions) {
-      if (expression.getNodeType() instanceof Expression.NodeType.AttributeNodeType) {
+      if (expression.getNodeType() instanceof NodeType.AttributeNodeType) {
         builder.add(expression);
       }
     }

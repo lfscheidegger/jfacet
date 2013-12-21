@@ -3,6 +3,7 @@ package com.lfscheidegger.jfacet.shade.expression.vector;
 import com.google.common.collect.ImmutableList;
 import com.lfscheidegger.jfacet.shade.expression.Bool;
 import com.lfscheidegger.jfacet.shade.expression.Expression;
+import com.lfscheidegger.jfacet.shade.expression.NodeType;
 import com.lfscheidegger.jfacet.shade.expression.Real;
 import com.lfscheidegger.jfacet.utils.SwizzleUtils;
 
@@ -13,7 +14,7 @@ public class Swizzle {
   private static Object getInstance(Object parent, String swizzleString) {
     if (parent instanceof Expression) {
       ImmutableList<Expression> parents = ImmutableList.of((Expression) parent);
-      Expression.NodeType nodeType = Expression.NodeType.SwizzleNodeType.forSwizzle(swizzleString);
+      NodeType nodeType = NodeType.SwizzleNodeType.forSwizzle(swizzleString);
       if (parent instanceof Vector2 || parent instanceof Vector3 || parent instanceof Vector4) {
         switch(swizzleString.length()) {
           case 1: return new Real(parents, nodeType);

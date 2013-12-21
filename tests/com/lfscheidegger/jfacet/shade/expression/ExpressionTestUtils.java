@@ -21,8 +21,8 @@ public class ExpressionTestUtils {
       int expectedComponent,
       ImmutableList<Expression> expectedParents) {
     testNonLeafExpression(component, expectedParents);
-    assertTrue(component.getNodeType() instanceof Expression.NodeType.ComponentNodeType);
-    assertEquals(((Expression.NodeType.ComponentNodeType)
+    assertTrue(component.getNodeType() instanceof NodeType.ComponentNodeType);
+    assertEquals(((NodeType.ComponentNodeType)
         component.getNodeType()).getComponent(), expectedComponent);
   }
 
@@ -33,7 +33,7 @@ public class ExpressionTestUtils {
       Real real,
       Expression withSame,
       Expression  rhs,
-      Expression.NodeType nodeType) {
+      NodeType nodeType) {
     assertEquals(withFloat.getNodeType(), nodeType);
     assertEquals(withFloat.getParents().size(), 2);
     assertEquals(withFloat.getParents().get(0), lhs);
@@ -47,17 +47,17 @@ public class ExpressionTestUtils {
 
   public static void testSwizzle(Expression parent, Expression swizzled, String expectedString) {
     assertEquals(swizzled.getParents(), ImmutableList.<Expression>of(parent));
-    assertTrue(swizzled.getNodeType() instanceof Expression.NodeType.SwizzleNodeType);
-    Expression.NodeType.SwizzleNodeType nodeType = (Expression.NodeType.SwizzleNodeType)
+    assertTrue(swizzled.getNodeType() instanceof NodeType.SwizzleNodeType);
+    NodeType.SwizzleNodeType nodeType = (NodeType.SwizzleNodeType)
         swizzled.getNodeType();
     assertEquals(nodeType.getSwizzleString(), expectedString);
   }
 
   public static void testFunction(Expression expression, String functionName) {
-    assertTrue(expression.getNodeType() instanceof Expression.NodeType.FunctionNodeType);
+    assertTrue(expression.getNodeType() instanceof NodeType.FunctionNodeType);
 
-    Expression.NodeType.FunctionNodeType nodeType =
-        (Expression.NodeType.FunctionNodeType)expression.getNodeType();
+    NodeType.FunctionNodeType nodeType =
+        (NodeType.FunctionNodeType)expression.getNodeType();
     assertEquals(nodeType.getFunctionName(), functionName);
   }
 }

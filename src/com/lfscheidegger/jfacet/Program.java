@@ -4,13 +4,13 @@ import android.opengl.GLES20;
 import android.opengl.GLUtils;
 import com.badlogic.gdx.backends.android.AndroidGL20;
 import com.google.common.base.Preconditions;
-import com.google.common.collect.ImmutableList;
 import com.lfscheidegger.jfacet.compiler.CompilationHelper;
 import com.lfscheidegger.jfacet.compiler.FragmentShaderCompiler;
 import com.lfscheidegger.jfacet.compiler.VertexShaderCompiler;
 import com.lfscheidegger.jfacet.facet.AttributeBuffer;
 import com.lfscheidegger.jfacet.shade.Parameter;
 import com.lfscheidegger.jfacet.shade.expression.Expression;
+import com.lfscheidegger.jfacet.shade.expression.NodeType;
 import com.lfscheidegger.jfacet.shade.expression.Real;
 import com.lfscheidegger.jfacet.shade.expression.Sampler;
 import com.lfscheidegger.jfacet.shade.expression.vector.Vector2;
@@ -152,7 +152,7 @@ public final class Program {
     List<Expression> attributeExpressions = mVertexShaderCompiler.getAttributeExpressions();
     for (int i = 0; i < attributeExpressions.size(); i++) {
       AttributeBuffer buffer =
-          ((Expression.NodeType.AttributeNodeType) attributeExpressions
+          ((NodeType.AttributeNodeType) attributeExpressions
               .get(i)
               .getNodeType())
               .getAttributeBuffer();

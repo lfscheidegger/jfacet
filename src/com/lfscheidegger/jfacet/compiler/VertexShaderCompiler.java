@@ -6,6 +6,7 @@ import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.lfscheidegger.jfacet.shade.expression.Expression;
+import com.lfscheidegger.jfacet.shade.expression.NodeType;
 import com.lfscheidegger.jfacet.shade.expression.vector.Vector4;
 
 import java.util.List;
@@ -28,7 +29,7 @@ public class VertexShaderCompiler {
     new ExpressionVisitor(mVertexPosition) {
       @Override
       public void visit(Expression expression) {
-        if (expression.getNodeType() instanceof Expression.NodeType.AttributeNodeType) {
+        if (expression.getNodeType() instanceof NodeType.AttributeNodeType) {
           attributeBuilder.add(expression);
         }
       }
@@ -39,7 +40,7 @@ public class VertexShaderCompiler {
     new ExpressionVisitor(mVertexPosition) {
       @Override
       public void visit(Expression expression) {
-        if (expression.getNodeType() instanceof Expression.NodeType.UniformNodeType) {
+        if (expression.getNodeType() instanceof NodeType.UniformNodeType) {
           uniformBuilder.add(expression);
         }
       }

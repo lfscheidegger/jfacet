@@ -5,6 +5,7 @@ import com.google.common.collect.ImmutableList;
 import com.lfscheidegger.jfacet.shade.expression.AbstractExpression;
 import com.lfscheidegger.jfacet.shade.expression.Bool;
 import com.lfscheidegger.jfacet.shade.expression.Expression;
+import com.lfscheidegger.jfacet.shade.expression.NodeType;
 import com.lfscheidegger.jfacet.utils.StringUtils;
 
 import java.util.Arrays;

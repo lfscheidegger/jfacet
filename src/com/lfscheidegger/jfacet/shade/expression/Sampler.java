@@ -1,11 +1,8 @@
 package com.lfscheidegger.jfacet.shade.expression;
 
 import android.graphics.Bitmap;
-import android.opengl.GLES20;
-import android.opengl.GLUtils;
 import com.google.common.collect.ImmutableList;
 import com.lfscheidegger.jfacet.shade.expression.vector.Vector2;
-import com.lfscheidegger.jfacet.shade.expression.vector.Vector3;
 import com.lfscheidegger.jfacet.shade.expression.vector.Vector4;
 
 public class Sampler extends AbstractExpression {

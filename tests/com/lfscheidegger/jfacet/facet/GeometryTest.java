@@ -1,6 +1,6 @@
 package com.lfscheidegger.jfacet.facet;
 
-import com.lfscheidegger.jfacet.shade.expression.Expression;
+import com.lfscheidegger.jfacet.shade.expression.NodeType;
 import com.lfscheidegger.jfacet.shade.expression.Real;
 import com.lfscheidegger.jfacet.shade.expression.vector.Vector2;
 import com.lfscheidegger.jfacet.shade.expression.vector.Vector3;
@@ -27,7 +27,7 @@ public class GeometryTest {
   @Test
   public void testGetVertices() {
     Vector2 vertices = mGeometry.getVertices2();
-    assertTrue(vertices.getNodeType() instanceof Expression.NodeType.AttributeNodeType);
+    assertTrue(vertices.getNodeType() instanceof NodeType.AttributeNodeType);
   }
 
   @Test
@@ -35,7 +35,7 @@ public class GeometryTest {
     mGeometry.setColors(new float[]{1, 0, 0, 0, 1, 0, 0, 0, 1}, 3);
 
     Vector3 colors = mGeometry.getColors3();
-    assertTrue(colors.getNodeType() instanceof Expression.NodeType.AttributeNodeType);
+    assertTrue(colors.getNodeType() instanceof NodeType.AttributeNodeType);
   }
 
   @Test
@@ -43,7 +43,7 @@ public class GeometryTest {
     mGeometry.setTexCoords(new float[]{0, 0, 1, 0, 1, 1}, 2);
 
     Vector2 texCoords = mGeometry.getTexCoords2();
-    assertTrue(texCoords.getNodeType() instanceof Expression.NodeType.AttributeNodeType);
+    assertTrue(texCoords.getNodeType() instanceof NodeType.AttributeNodeType);
   }
 
   @Test
@@ -51,7 +51,7 @@ public class GeometryTest {
     mGeometry.setNormals(new float[]{0, 0, -1, 0, 0, -1, 0, 0, -1}, 3);
 
     Vector3 normals = mGeometry.getNormals3();
-    assertTrue(normals.getNodeType() instanceof Expression.NodeType.AttributeNodeType);
+    assertTrue(normals.getNodeType() instanceof NodeType.AttributeNodeType);
   }
 
   @Test
@@ -59,6 +59,6 @@ public class GeometryTest {
     mGeometry.setAttributeValues(new float[]{0, 1, 2}, 1, "testKey");
 
     Real attribute = mGeometry.getAttribute1("testKey");
-    assertTrue(attribute.getNodeType() instanceof Expression.NodeType.AttributeNodeType);
+    assertTrue(attribute.getNodeType() instanceof NodeType.AttributeNodeType);
   }
 }

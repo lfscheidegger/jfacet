@@ -3,6 +3,7 @@ package com.lfscheidegger.jfacet.shade.expression.matrix;
 import com.google.common.collect.ImmutableList;
 import com.lfscheidegger.jfacet.shade.expression.Bool;
 import com.lfscheidegger.jfacet.shade.expression.Expression;
+import com.lfscheidegger.jfacet.shade.expression.NodeType;
 import com.lfscheidegger.jfacet.shade.expression.Real;
 import com.lfscheidegger.jfacet.shade.expression.vector.Vector2;
 import org.junit.Test;
@@ -22,7 +23,7 @@ public class Matrix2Test {
     Matrix2 matrix = new Matrix2();
 
     assertEquals(
-        ((Expression.NodeType.PrimitiveNodeType) matrix.getNodeType()).getPrimitive(),
+        ((NodeType.PrimitiveNodeType) matrix.getNodeType()).getPrimitive(),
         new Matrix2.Primitive());
 
     assertEquals(matrix.getParents(), ImmutableList.of());
@@ -30,12 +31,12 @@ public class Matrix2Test {
     Vector2 c0 = new Vector2(1, 2), c1 = new Vector2(3, 4);
     matrix = new Matrix2(c0, c1);
 
-    assertEquals(matrix.getNodeType(), Expression.NodeType.CONS);
+    assertEquals(matrix.getNodeType(), NodeType.CONS);
     assertEquals(matrix.getParents(), ImmutableList.<Expression>of(c0, c1));
 
-    matrix = new Matrix2(ImmutableList.<Expression>of(c0, c1), Expression.NodeType.CONS);
+    matrix = new Matrix2(ImmutableList.<Expression>of(c0, c1), NodeType.CONS);
 
-    assertEquals(matrix.getNodeType(), Expression.NodeType.CONS);
+    assertEquals(matrix.getNodeType(), NodeType.CONS);
     assertEquals(matrix.getParents(), ImmutableList.<Expression>of(c0, c1));
   }
 
@@ -60,7 +61,7 @@ public class Matrix2Test {
     Real real = new Real(1);
     Matrix2 rhs = new Matrix2();
 
-    testArithmetic(mMatrix, mat, mMatrix.add(real), real, mMatrix.add(rhs), rhs, Expression.NodeType.ADD);
+    testArithmetic(mMatrix, mat, mMatrix.add(real), real, mMatrix.add(rhs), rhs, NodeType.ADD);
   }
 
   @Test
@@ -69,7 +70,7 @@ public class Matrix2Test {
     Real real = new Real(1);
     Matrix2 rhs = new Matrix2();
 
-    testArithmetic(mMatrix, mat, mMatrix.sub(real), real, mMatrix.sub(rhs), rhs, Expression.NodeType.SUB);
+    testArithmetic(mMatrix, mat, mMatrix.sub(real), real, mMatrix.sub(rhs), rhs, NodeType.SUB);
   }
 
   @Test
@@ -78,11 +79,11 @@ public class Matrix2Test {
     Real real = new Real(1);
     Matrix2 rhs = new Matrix2();
 
-    testArithmetic(mMatrix, mat, mMatrix.mul(real), real, mMatrix.mul(rhs), rhs, Expression.NodeType.MUL);
+    testArithmetic(mMatrix, mat, mMatrix.mul(real), real, mMatrix.mul(rhs), rhs, NodeType.MUL);
 
     Vector2 input = new Vector2(1, 2);
     Vector2 transformed = mMatrix.mul(input);
-    assertEquals(transformed.getNodeType(), Expression.NodeType.MUL);
+    assertEquals(transformed.getNodeType(), NodeType.MUL);
     assertEquals(transformed.getParents(), ImmutableList.<Expression>of(mMatrix, input));
   }
 
@@ -92,14 +93,14 @@ public class Matrix2Test {
     Real real = new Real(1);
     Matrix2 rhs = new Matrix2();
 
-    testArithmetic(mMatrix, mat, mMatrix.div(real), real, mMatrix.div(rhs), rhs, Expression.NodeType.DIV);
+    testArithmetic(mMatrix, mat, mMatrix.div(real), real, mMatrix.div(rhs), rhs, NodeType.DIV);
   }
 
   @Test
   public void testNeg() {
     Matrix2 neg = mMatrix.neg();
 
-    assertEquals(neg.getNodeType(), Expression.NodeType.NEG);
+    assertEquals(neg.getNodeType(), NodeType.NEG);
     assertEquals(neg.getParents(), ImmutableList.<Expression>of(mMatrix));
   }
 
@@ -108,7 +109,7 @@ public class Matrix2Test {
     Matrix2 rhs = new Matrix2();
     Bool isEqual = mMatrix.isEqual(rhs);
 
-    assertEquals(isEqual.getNodeType(), Expression.NodeType.EQ);
+    assertEquals(isEqual.getNodeType(), NodeType.EQ);
     assertEquals(isEqual.getParents(), ImmutableList.<Expression>of(mMatrix, rhs));
   }
 
@@ -117,7 +118,7 @@ public class Matrix2Test {
     Matrix2 rhs = new Matrix2();
     Bool isNotEqual = mMatrix.isNotEqual(rhs);
 
-    assertEquals(isNotEqual.getNodeType(), Expression.NodeType.NEQ);
+    assertEquals(isNotEqual.getNodeType(), NodeType.NEQ);
     assertEquals(isNotEqual.getParents(), ImmutableList.<Expression>of(mMatrix, rhs));
   }
 

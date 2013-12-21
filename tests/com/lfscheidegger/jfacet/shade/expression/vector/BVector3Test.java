@@ -3,6 +3,7 @@ package com.lfscheidegger.jfacet.shade.expression.vector;
 import com.google.common.collect.ImmutableList;
 import com.lfscheidegger.jfacet.shade.expression.Bool;
 import com.lfscheidegger.jfacet.shade.expression.Expression;
+import com.lfscheidegger.jfacet.shade.expression.NodeType;
 import org.junit.Test;
 
 import static com.lfscheidegger.jfacet.shade.expression.ExpressionTestUtils.*;
@@ -19,7 +20,7 @@ public class BVector3Test {
   @Test
   public void testConstructors() {
     assertEquals(
-        ((Expression.NodeType.PrimitiveNodeType) mVec.getNodeType()).getPrimitive(),
+        ((NodeType.PrimitiveNodeType) mVec.getNodeType()).getPrimitive(),
         new BVector3.Primitive(true, false, false));
 
     assertEquals(mVec.getParents(), ImmutableList.of());
@@ -27,11 +28,11 @@ public class BVector3Test {
     Bool x = new Bool(true), y = new Bool(false), z = new Bool(false);
     BVector3 vec = new BVector3(x, y, z);
     testNonLeafExpression(vec, ImmutableList.<Expression>of(x, y, z));
-    assertEquals(vec.getNodeType(), Expression.NodeType.CONS);
+    assertEquals(vec.getNodeType(), NodeType.CONS);
 
-    vec = new BVector3(ImmutableList.<Expression>of(x, y, z), Expression.NodeType.CONS);
+    vec = new BVector3(ImmutableList.<Expression>of(x, y, z), NodeType.CONS);
     testNonLeafExpression(vec, ImmutableList.<Expression>of(x, y, z));
-    assertEquals(vec.getNodeType(), Expression.NodeType.CONS);
+    assertEquals(vec.getNodeType(), NodeType.CONS);
   }
 
   @Test
@@ -455,9 +456,9 @@ public class BVector3Test {
   public void testAny() {
     Bool any = mVec.any();
     testNonLeafExpression(any, ImmutableList.<Expression>of(mVec));
-    assertTrue(any.getNodeType() instanceof Expression.NodeType.FunctionNodeType);
-    Expression.NodeType.FunctionNodeType nodeType =
-        (Expression.NodeType.FunctionNodeType)any.getNodeType();
+    assertTrue(any.getNodeType() instanceof NodeType.FunctionNodeType);
+    NodeType.FunctionNodeType nodeType =
+        (NodeType.FunctionNodeType)any.getNodeType();
     assertEquals(nodeType.getFunctionName(), "any");
   }
 
@@ -465,9 +466,9 @@ public class BVector3Test {
   public void testAll() {
     Bool all = mVec.all();
     testNonLeafExpression(all, ImmutableList.<Expression>of(mVec));
-    assertTrue(all.getNodeType() instanceof Expression.NodeType.FunctionNodeType);
-    Expression.NodeType.FunctionNodeType nodeType =
-        (Expression.NodeType.FunctionNodeType)all.getNodeType();
+    assertTrue(all.getNodeType() instanceof NodeType.FunctionNodeType);
+    NodeType.FunctionNodeType nodeType =
+        (NodeType.FunctionNodeType)all.getNodeType();
     assertEquals(nodeType.getFunctionName(), "all");
   }
 
@@ -475,9 +476,9 @@ public class BVector3Test {
   public void testNot() {
     BVector3 not = mVec.not();
     testNonLeafExpression(not, ImmutableList.<Expression>of(mVec));
-    assertTrue(not.getNodeType() instanceof Expression.NodeType.FunctionNodeType);
-    Expression.NodeType.FunctionNodeType nodeType =
-        (Expression.NodeType.FunctionNodeType)not.getNodeType();
+    assertTrue(not.getNodeType() instanceof NodeType.FunctionNodeType);
+    NodeType.FunctionNodeType nodeType =
+        (NodeType.FunctionNodeType)not.getNodeType();
     assertEquals(nodeType.getFunctionName(), "not");
   }
 
@@ -485,7 +486,7 @@ public class BVector3Test {
   public void testFill() {
     BVector4 defaultExpression = new BVector4(true, true, true, true);
     BVector4 fill = mVec.fill(defaultExpression);
-    assertEquals(fill.getNodeType(), Expression.NodeType.CONS);
+    assertEquals(fill.getNodeType(), NodeType.CONS);
     assertEquals(fill.getParents().size(), 4);
   }
 }

@@ -3,6 +3,7 @@ package com.lfscheidegger.jfacet.shade.expression.matrix;
 import com.google.common.collect.ImmutableList;
 import com.lfscheidegger.jfacet.shade.expression.Bool;
 import com.lfscheidegger.jfacet.shade.expression.Expression;
+import com.lfscheidegger.jfacet.shade.expression.NodeType;
 import com.lfscheidegger.jfacet.shade.expression.Real;
 import com.lfscheidegger.jfacet.shade.expression.vector.Vector4;
 import org.junit.Test;
@@ -22,7 +23,7 @@ public class Matrix4Test {
     Matrix4 matrix = new Matrix4();
 
     assertEquals(
-        ((Expression.NodeType.PrimitiveNodeType) matrix.getNodeType()).getPrimitive(),
+        ((NodeType.PrimitiveNodeType) matrix.getNodeType()).getPrimitive(),
         new Matrix4.Primitive());
     assertEquals(matrix.getParents(), ImmutableList.of());
 
@@ -32,12 +33,12 @@ public class Matrix4Test {
         c3 = new Vector4(5, 6, 7, 8);
     matrix = new Matrix4(c0, c1, c2, c3);
 
-    assertEquals(matrix.getNodeType(), Expression.NodeType.CONS);
+    assertEquals(matrix.getNodeType(), NodeType.CONS);
     assertEquals(matrix.getParents(), ImmutableList.<Expression>of(c0, c1, c2, c3));
 
-    matrix = new Matrix4(ImmutableList.<Expression>of(c0, c1, c2, c3), Expression.NodeType.CONS);
+    matrix = new Matrix4(ImmutableList.<Expression>of(c0, c1, c2, c3), NodeType.CONS);
 
-    assertEquals(matrix.getNodeType(), Expression.NodeType.CONS);
+    assertEquals(matrix.getNodeType(), NodeType.CONS);
     assertEquals(matrix.getParents(), ImmutableList.<Expression>of(c0, c1, c2, c3));
   }
 
@@ -74,7 +75,7 @@ public class Matrix4Test {
     Real real = new Real(1);
     Matrix4 rhs = new Matrix4();
 
-    testArithmetic(mMatrix, mat, mMatrix.add(real), real, mMatrix.add(rhs), rhs, Expression.NodeType.ADD);
+    testArithmetic(mMatrix, mat, mMatrix.add(real), real, mMatrix.add(rhs), rhs, NodeType.ADD);
   }
 
   @Test
@@ -83,7 +84,7 @@ public class Matrix4Test {
     Real real = new Real(1);
     Matrix4 rhs = new Matrix4();
 
-    testArithmetic(mMatrix, mat, mMatrix.sub(real), real, mMatrix.sub(rhs), rhs, Expression.NodeType.SUB);
+    testArithmetic(mMatrix, mat, mMatrix.sub(real), real, mMatrix.sub(rhs), rhs, NodeType.SUB);
   }
 
   @Test
@@ -92,11 +93,11 @@ public class Matrix4Test {
     Real real = new Real(1);
     Matrix4 rhs = new Matrix4();
 
-    testArithmetic(mMatrix, mat, mMatrix.mul(real), real, mMatrix.mul(rhs), rhs, Expression.NodeType.MUL);
+    testArithmetic(mMatrix, mat, mMatrix.mul(real), real, mMatrix.mul(rhs), rhs, NodeType.MUL);
 
     Vector4 input = new Vector4(1, 2, 3, 4);
     Vector4 transformed = mMatrix.mul(input);
-    assertEquals(transformed.getNodeType(), Expression.NodeType.MUL);
+    assertEquals(transformed.getNodeType(), NodeType.MUL);
     assertEquals(transformed.getParents(), ImmutableList.<Expression>of(mMatrix, input));
   }
 
@@ -106,14 +107,14 @@ public class Matrix4Test {
     Real real = new Real(1);
     Matrix4 rhs = new Matrix4();
 
-    testArithmetic(mMatrix, mat, mMatrix.div(real), real, mMatrix.div(rhs), rhs, Expression.NodeType.DIV);
+    testArithmetic(mMatrix, mat, mMatrix.div(real), real, mMatrix.div(rhs), rhs, NodeType.DIV);
   }
 
   @Test
   public void testNeg() {
     Matrix4 neg = mMatrix.neg();
 
-    assertEquals(neg.getNodeType(), Expression.NodeType.NEG);
+    assertEquals(neg.getNodeType(), NodeType.NEG);
     assertEquals(neg.getParents(), ImmutableList.<Expression>of(mMatrix));
   }
 
@@ -122,7 +123,7 @@ public class Matrix4Test {
     Matrix4 rhs = new Matrix4();
     Bool isEqual = mMatrix.isEqual(rhs);
 
-    assertEquals(isEqual.getNodeType(), Expression.NodeType.EQ);
+    assertEquals(isEqual.getNodeType(), NodeType.EQ);
     assertEquals(isEqual.getParents(), ImmutableList.<Expression>of(mMatrix, rhs));
   }
 
@@ -131,7 +132,7 @@ public class Matrix4Test {
     Matrix4 rhs = new Matrix4();
     Bool isNotEqual = mMatrix.isNotEqual(rhs);
 
-    assertEquals(isNotEqual.getNodeType(), Expression.NodeType.NEQ);
+    assertEquals(isNotEqual.getNodeType(), NodeType.NEQ);
     assertEquals(isNotEqual.getParents(), ImmutableList.<Expression>of(mMatrix, rhs));
   }
 

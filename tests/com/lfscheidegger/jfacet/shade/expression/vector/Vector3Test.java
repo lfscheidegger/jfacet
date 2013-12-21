@@ -4,6 +4,7 @@ import com.google.common.collect.ImmutableList;
 import com.lfscheidegger.jfacet.facet.AttributeBuffer;
 import com.lfscheidegger.jfacet.shade.expression.Bool;
 import com.lfscheidegger.jfacet.shade.expression.Expression;
+import com.lfscheidegger.jfacet.shade.expression.NodeType;
 import com.lfscheidegger.jfacet.shade.expression.Real;
 import org.junit.Test;
 
@@ -23,7 +24,7 @@ public class Vector3Test {
     Vector3 vec = new Vector3(1, 2, 3);
 
     assertEquals(
-        ((Expression.NodeType.PrimitiveNodeType) vec.getNodeType()).getPrimitive(),
+        ((NodeType.PrimitiveNodeType) vec.getNodeType()).getPrimitive(),
         new Vector3.Primitive(1, 2, 3));
 
     assertEquals(vec.getParents(), ImmutableList.of());
@@ -31,17 +32,17 @@ public class Vector3Test {
     Real x = new Real(1), y = new Real(2), z = new Real(3);
     vec = new Vector3(x, y, z);
 
-    assertEquals(vec.getNodeType(), Expression.NodeType.CONS);
+    assertEquals(vec.getNodeType(), NodeType.CONS);
     assertEquals(vec.getParents(), ImmutableList.of(x, y, z));
 
-    vec = new Vector3(ImmutableList.<Expression>of(x, y, z), Expression.NodeType.CONS);
+    vec = new Vector3(ImmutableList.<Expression>of(x, y, z), NodeType.CONS);
 
-    assertEquals(vec.getNodeType(), Expression.NodeType.CONS);
+    assertEquals(vec.getNodeType(), NodeType.CONS);
     assertEquals(vec.getParents(), ImmutableList.of(x, y, z));
 
     vec = new Vector3(new AttributeBuffer(new float[] {0, 0, 1, 0, 1, 1}, 2));
 
-    assertTrue(vec.getNodeType() instanceof Expression.NodeType.AttributeNodeType);
+    assertTrue(vec.getNodeType() instanceof NodeType.AttributeNodeType);
     assertEquals(vec.getParents(), ImmutableList.<Expression>of());
   }
 
@@ -480,7 +481,7 @@ public class Vector3Test {
     Real real = new Real(1);
     Vector3 rhs = new Vector3(1, 2, 3);
 
-    testArithmetic(mVec, vec, mVec.add(real), real, mVec.add(rhs), rhs, Expression.NodeType.ADD);
+    testArithmetic(mVec, vec, mVec.add(real), real, mVec.add(rhs), rhs, NodeType.ADD);
   }
 
   @Test
@@ -489,7 +490,7 @@ public class Vector3Test {
     Real real = new Real(1);
     Vector3 rhs = new Vector3(1, 2, 3);
 
-    testArithmetic(mVec, vec, mVec.sub(real), real, mVec.sub(rhs), rhs, Expression.NodeType.SUB);
+    testArithmetic(mVec, vec, mVec.sub(real), real, mVec.sub(rhs), rhs, NodeType.SUB);
   }
 
   @Test
@@ -498,7 +499,7 @@ public class Vector3Test {
     Real real = new Real(1);
     Vector3 rhs = new Vector3(1, 2, 3);
 
-    testArithmetic(mVec, vec, mVec.mul(real), real, mVec.mul(rhs), rhs, Expression.NodeType.MUL);
+    testArithmetic(mVec, vec, mVec.mul(real), real, mVec.mul(rhs), rhs, NodeType.MUL);
   }
 
   @Test
@@ -507,14 +508,14 @@ public class Vector3Test {
     Real real = new Real(1);
     Vector3 rhs = new Vector3(1, 2, 3);
 
-    testArithmetic(mVec, vec, mVec.div(real), real, mVec.div(rhs), rhs, Expression.NodeType.DIV);
+    testArithmetic(mVec, vec, mVec.div(real), real, mVec.div(rhs), rhs, NodeType.DIV);
   }
 
   @Test
   public void testNeg() {
     Vector3 neg = mVec.neg();
 
-    assertEquals(neg.getNodeType(), Expression.NodeType.NEG);
+    assertEquals(neg.getNodeType(), NodeType.NEG);
     assertEquals(neg.getParents(), ImmutableList.<Expression>of(mVec));
   }
 
@@ -611,7 +612,7 @@ public class Vector3Test {
     Vector3 rhs = new Vector3(1, 2, 3);
     Bool equal = mVec.isEqual(rhs);
 
-    assertEquals(equal.getNodeType(), Expression.NodeType.EQ);
+    assertEquals(equal.getNodeType(), NodeType.EQ);
     assertEquals(equal.getParents(), ImmutableList.<Expression>of(mVec, rhs));
   }
 
@@ -620,7 +621,7 @@ public class Vector3Test {
     Vector3 rhs = new Vector3(1, 2, 3);
     Bool notEqual = mVec.isNotEqual(rhs);
 
-    assertEquals(notEqual.getNodeType(), Expression.NodeType.NEQ);
+    assertEquals(notEqual.getNodeType(), NodeType.NEQ);
     assertEquals(notEqual.getParents(), ImmutableList.<Expression>of(mVec, rhs));
   }
 
@@ -629,7 +630,7 @@ public class Vector3Test {
     Vector4 defaultValues = new Vector4(1, 2, 3, 4);
     Vector4 fill = mVec.fill(defaultValues);
 
-    assertEquals(fill.getNodeType(), Expression.NodeType.CONS);
+    assertEquals(fill.getNodeType(), NodeType.CONS);
     assertEquals(fill.getParents().size(), 4);
   }
 }
