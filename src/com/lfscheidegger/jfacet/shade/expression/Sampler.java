@@ -22,11 +22,6 @@ public class Sampler extends AbstractExpression {
   }
 
   @Override
-  public Sampler getExpressionForTernaryOperator(Bool condition, Expression elseExpression) {
-    throw new UnsupportedOperationException("No ternary operator for samplers :(");
-  }
-
-  @Override
   public String getGlSlTypeName() {
     return "sampler2D";
   }

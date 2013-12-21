@@ -25,13 +25,6 @@ public final class Real extends AbstractExpression {
   }
 
   @Override
-  public Real getExpressionForTernaryOperator(Bool condition, Expression elseExpression) {
-    return new Real(
-        ImmutableList.<Expression>of(condition, this, elseExpression),
-        NodeType.TERNARY);
-  }
-
-  @Override
   public String getGlSlTypeName() {
     return "float";
   }

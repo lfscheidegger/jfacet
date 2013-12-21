@@ -223,13 +223,6 @@ public final class Vector3 extends AbstractExpression implements VectorExpressio
     super(NodeType.AttributeNodeType.forAttribute(attributeBuffer));
   }
 
-  @Override
-  public Vector3 getExpressionForTernaryOperator(Bool condition, Expression elseExpression) {
-    return new Vector3(
-        ImmutableList.<Expression>of(condition, this, elseExpression),
-        NodeType.TERNARY);
-  }
-
   public Real getX() {
     return get(0);
   }

@@ -239,7 +239,5 @@ public interface Expression {
    */
   public ImmutableList<Expression> getParents();
 
-  public Expression getExpressionForTernaryOperator(Bool condition, Expression elseExpression);
-
   public String getGlSlTypeName();
 }

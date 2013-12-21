@@ -107,13 +107,6 @@ public final class BVector2 extends AbstractExpression implements VectorExpressi
     super(parents, nodeType);
   }
 
-  @Override
-  public BVector2 getExpressionForTernaryOperator(Bool condition, Expression elseExpression) {
-    return new BVector2(
-        ImmutableList.<Expression>of(condition, this, elseExpression),
-        NodeType.TERNARY);
-  }
-
   public Bool getX() {
     return get(0);
   }

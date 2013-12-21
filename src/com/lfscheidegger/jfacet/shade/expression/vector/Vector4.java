@@ -247,13 +247,6 @@ public final class Vector4 extends AbstractExpression implements VectorExpressio
     super(NodeType.AttributeNodeType.forAttribute(attributeBuffer));
   }
 
-  @Override
-  public Vector4 getExpressionForTernaryOperator(Bool condition, Expression elseExpression) {
-    return new Vector4(
-        ImmutableList.<Expression>of(condition, this, elseExpression),
-        NodeType.TERNARY);
-  }
-
   public Real getX() {
     return get(0);
   }

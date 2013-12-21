@@ -142,13 +142,6 @@ public final class Matrix2 extends AbstractExpression {
   }
 
   @Override
-  public Matrix2 getExpressionForTernaryOperator(Bool condition, Expression elseExpression) {
-    return new Matrix2(
-        ImmutableList.<Expression>of(condition, this, elseExpression),
-        NodeType.TERNARY);
-  }
-
-  @Override
   public String getGlSlTypeName() {
     return "mat2";
   }
