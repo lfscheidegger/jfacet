@@ -88,6 +88,8 @@ public class CompilationHelper {
       emitFunctionCall(sb, expression);
     } else if (nodeType instanceof Expression.NodeType.PrimitiveNodeType) {
       emitPrimitive(sb, expression);
+    } else if (nodeType instanceof Expression.NodeType.SwizzleNodeType) {
+      emitSwizzle(sb, expression);
     }
   }
 
@@ -160,6 +162,20 @@ public class CompilationHelper {
         typeName,
         getNameForExpression(expression),
         primitive));
+  }
+
+  private void emitSwizzle(StringBuilder sb, Expression expression) {
+    Expression.NodeType.SwizzleNodeType nodeType =
+        (Expression.NodeType.SwizzleNodeType)expression.getNodeType();
+    Expression parent = (Expression)expression.getParents().get(0);
+
+    String typeName = expression.getGlSlTypeName();
+    sb.append(String.format(
+        "%s %s = %s.%s;\n",
+        typeName,
+        getNameForExpression(expression),
+        getNameForExpression(parent),
+        nodeType.getSwizzleString()));
   }
 
   private void emitOperator(StringBuilder sb, Expression expression) {

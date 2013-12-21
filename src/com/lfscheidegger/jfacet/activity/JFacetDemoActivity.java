@@ -20,6 +20,7 @@ import com.lfscheidegger.jfacet.shade.camera.LookAtConfig;
 import com.lfscheidegger.jfacet.shade.expression.Real;
 import com.lfscheidegger.jfacet.shade.expression.vector.Vector3;
 import com.lfscheidegger.jfacet.shade.expression.vector.Vector4;
+import com.lfscheidegger.jfacet.shade.transform.Transform4;
 import com.lfscheidegger.jfacet.shade.transform.Translation4;
 import com.lfscheidegger.jfacet.view.FacetView;
 
@@ -51,7 +52,7 @@ public class JFacetDemoActivity extends Activity {
       case 3: prepareLesson4(scene); break;
       case 4: prepareLesson5(scene); break;
       case 5: prepareLesson6(scene); break;
-      //case 6: prepareLesson7(scene); break;
+      case 6: prepareLesson7(scene); break;
     }
 
     mView.setRenderer(new FacetRenderer(scene));
@@ -222,7 +223,7 @@ public class JFacetDemoActivity extends Activity {
         });
   }
 
-  /*private void prepareLesson7(Scene scene) {
+  private void prepareLesson7(Scene scene) {
     Geometry cube = Models.flatCube();
 
     Camera camera = Camera.perspective(
@@ -231,27 +232,31 @@ public class JFacetDemoActivity extends Activity {
             .setCenter(Shade.vec(0, 0, -1))
             .setUp(Shade.vec(0, 1, 0)), mSize.x, mSize.y);
 
-    //Real angle = Parameter.now().mul(50).radians();
+    final Real param = Parameter.real(0);
+    Real angle = param.mul(50).radians();
 
-    //Transform modelTransform = Shade.rotation(angle, Shade.vec(1, 1, 1));
-    scene.add(cube.bake(
-        camera.apply(cube.getVertices4()),
-        light(cube)));
+    Transform4 modelTransform = Shade.rotate(angle, Shade.vec(1, 1, 1));
+    scene.add(
+        cube.bake(camera.apply(modelTransform).apply(cube.getVertices4()), light(cube, modelTransform)))
+        .add(new Runnable() {
+          @Override
+          public void run() {
+            Parameter.set(param, (float) SystemClock.uptimeMillis() / 1000);
+          }
+        });
   }
 
-  private Vector4 light(Geometry cube) {
+  private Vector4 light(Geometry cube, Transform4 modelTransform) {
     Bitmap texture = BitmapFactory.decodeResource(getResources(), R.drawable.crate);
     Vector4 materialColor = Shade.texture2(texture, cube.getTexCoords2());
 
-    Vector4 ambientLight = Shade.vec(0.1f, 0.1f, 0.1f, 0.1f);
+    Vector3 lightPosition = Shade.vec(0, 0, 5);
 
-    Vector3 lightPosition = Shade.vec(2, 2, 2);
+    Vector3 fragPosition = modelTransform.apply(cube.getVertices4()).x().y().z().get();
+    Vector3 normal = modelTransform.apply(cube.getNormals4()).x().y().z().get();
 
-    Vector3 fragPosition = cube.getVertices3();
-    Vector3 normal = cube.getNormals3();
+    Real diffuse = lightPosition.sub(fragPosition).normalize().dot(normal);
 
-    Real diffuse = lightPosition.sub(fragPosition).dot(normal);
-
-    return materialColor.mul(ambientLight).add(materialColor.mul(diffuse));
-  } } */
+    return materialColor.mul(diffuse);
+  }
 }
