@@ -2,20 +2,21 @@ package com.lfscheidegger.jfacet.shade;
 
 import android.graphics.Bitmap;
 import com.google.common.base.Preconditions;
-import com.lfscheidegger.jfacet.shade.expression.Expression;
-import com.lfscheidegger.jfacet.shade.expression.NodeType;
-import com.lfscheidegger.jfacet.shade.expression.Real;
-import com.lfscheidegger.jfacet.shade.expression.Sampler;
+import com.lfscheidegger.jfacet.shade.expression.*;
 import com.lfscheidegger.jfacet.shade.expression.vector.Vector2;
 import com.lfscheidegger.jfacet.shade.expression.vector.Vector3;
 import com.lfscheidegger.jfacet.shade.expression.vector.Vector4;
 
-public class Parameter {
+public final class Parameter {
 
   private Parameter() {}
 
   public static Real real(float value) {
     return new Real(NodeType.UniformNodeType.forFloat(value));
+  }
+
+  public static Bool bool(boolean value) {
+    return new Bool(NodeType.UniformNodeType.forBoolean(value));
   }
 
   public static Sampler sampler(Bitmap texture) {
@@ -105,6 +106,11 @@ public class Parameter {
   public static float get(Real parameter) {
     Preconditions.checkArgument(parameter.getNodeType() instanceof NodeType.UniformNodeType);
     return Parameter.<Float>getNodeType(parameter).getValue();
+  }
+
+  public static boolean get(Bool parameter) {
+    Preconditions.checkArgument(parameter.getNodeType() instanceof NodeType.UniformNodeType);
+    return Parameter.<Boolean>getNodeType(parameter).getValue();
   }
 
   public static Sampler.SamplerData get(Sampler parameter) {

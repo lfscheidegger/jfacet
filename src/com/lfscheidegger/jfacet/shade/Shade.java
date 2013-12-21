@@ -1,14 +1,7 @@
 package com.lfscheidegger.jfacet.shade;
 
-import android.content.Context;
-import android.content.res.Resources;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.opengl.GLES20;
-import android.opengl.GLUtils;
-import com.lfscheidegger.jfacet.shade.expression.Expression;
 import com.lfscheidegger.jfacet.shade.expression.Real;
-import com.lfscheidegger.jfacet.shade.expression.Sampler;
 import com.lfscheidegger.jfacet.shade.expression.matrix.Matrix2;
 import com.lfscheidegger.jfacet.shade.expression.matrix.Matrix3;
 import com.lfscheidegger.jfacet.shade.expression.matrix.Matrix4;

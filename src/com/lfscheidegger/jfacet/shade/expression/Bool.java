@@ -56,6 +56,10 @@ public final class Bool extends AbstractExpression {
     super(c);
   }
 
+  public Bool(NodeType nodeType) {
+    super(nodeType);
+  }
+
   public Bool(ImmutableList<Expression> parents, NodeType nodeType) {
     super(parents, nodeType);
   }
