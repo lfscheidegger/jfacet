@@ -6,7 +6,7 @@ import com.lfscheidegger.jfacet.shade.expression.vector.Vector4;
 
 import java.util.List;
 
-public abstract class Transform4 {
+public class Transform4 {
 
   private final Matrix4 mTransformMatrix;
 

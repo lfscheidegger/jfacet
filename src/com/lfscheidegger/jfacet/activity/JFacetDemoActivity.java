@@ -17,6 +17,7 @@ import com.lfscheidegger.jfacet.shade.Parameter;
 import com.lfscheidegger.jfacet.shade.Shade;
 import com.lfscheidegger.jfacet.shade.camera.Camera;
 import com.lfscheidegger.jfacet.shade.camera.LookAtConfig;
+import com.lfscheidegger.jfacet.shade.camera.OrthographicConfig;
 import com.lfscheidegger.jfacet.shade.expression.Bool;
 import com.lfscheidegger.jfacet.shade.expression.Real;
 import com.lfscheidegger.jfacet.shade.expression.vector.Vector3;
@@ -54,7 +55,6 @@ public class JFacetDemoActivity extends Activity {
       case 4: prepareLesson5(scene); break;
       case 5: prepareLesson6(scene); break;
       case 6: prepareLesson7(scene); break;
-      case 7: prepareLesson8(scene); break;
     }
 
     mView.setRenderer(new FacetRenderer(scene));
@@ -238,11 +238,17 @@ public class JFacetDemoActivity extends Activity {
   private void prepareLesson7(Scene scene) {
     Geometry cube = Models.flatCube();
 
-    Camera camera = Camera.perspective(
+    float aspectRatio = mSize.y / (float)mSize.x;
+
+    Camera camera = Camera.ortho(
         new LookAtConfig()
-            .setEye(Shade.vec(0, 0, 12))
-            .setCenter(Shade.vec(0, 0, -1))
-            .setUp(Shade.vec(0, 1, 0)), mSize.x, mSize.y);
+        .setEye(Shade.vec(0, 0, 0))
+        .setCenter(Shade.vec(0, 0, -1))
+        .setUp(Shade.vec(0, 1, 0)),
+        new OrthographicConfig()
+            .setLeft(Shade.constant(-2)).setRight(Shade.constant(2))
+            .setBottom(Shade.constant(2 * -aspectRatio)).setTop(Shade.constant(2 * aspectRatio))
+            .setNear(Shade.constant(-2)).setFar(Shade.constant(2)));
 
     final Real param = Parameter.real(0);
     Real angle = param.mul(50).radians();
@@ -270,19 +276,5 @@ public class JFacetDemoActivity extends Activity {
     Real diffuse = lightPosition.sub(fragPosition).normalize().dot(normal);
 
     return materialColor.mul(diffuse);
-  }
-
-  private void prepareLesson8(Scene scene) {
-    Geometry square = new Geometry(
-        new int[]{0, 1, 2, 0, 2, 3},
-        new float[]{0, 0, 1, 0, 1, 1, 0, 1}, 2);
-
-    Bitmap a = BitmapFactory.decodeResource(getResources(), R.drawable.nehe);
-    Bitmap b = BitmapFactory.decodeResource(getResources(), R.drawable.crate);
-
-    Vector4 textureA = Shade.texture2(a, square.getVertices2());
-    Vector4 textureB = Shade.texture2(b, square.getVertices2());
-
-    scene.add(square.bake(square.getVertices2(), textureA.add(textureB)));
   }
 }

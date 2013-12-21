@@ -15,4 +15,8 @@ public final class Camera extends Transform4 {
   public static Camera perspective(CameraConfig lookAtConfig, int width, int height) {
     return new Camera(lookAtConfig, new PerspectiveConfig(width, height));
   }
+
+  public static Camera ortho(CameraConfig lookAtConfig, CameraConfig orthographicConfig) {
+    return new Camera(lookAtConfig, orthographicConfig);
+  }
 }
