@@ -3,7 +3,7 @@ package com.lfscheidegger.jfacet.shade.transform;
 import com.lfscheidegger.jfacet.shade.Shade;
 import com.lfscheidegger.jfacet.shade.expression.Real;
 
-public class Translation3 extends AbstractTransform3 {
+public class Translation3 extends Transform3 {
 
   public Translation3(float dx, float dy) {
     super(Shade.mat(

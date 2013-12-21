@@ -6,20 +6,19 @@ import com.lfscheidegger.jfacet.shade.expression.vector.Vector4;
 
 import java.util.List;
 
-public abstract class AbstractTransform4 implements Transform<Matrix4, Vector4> {
+public abstract class Transform4 {
 
   private final Matrix4 mTransformMatrix;
 
-  private final List<Transform<Matrix4, Vector4>> mQueuedTransforms;
+  private final List<Transform4> mQueuedTransforms;
 
-  public AbstractTransform4(Matrix4 transformMatrix) {
+  public Transform4(Matrix4 transformMatrix) {
     mTransformMatrix = transformMatrix;
 
     mQueuedTransforms = Lists.newArrayList();
     mQueuedTransforms.add(this);
   }
 
-  @Override
   public Vector4 apply(Vector4 exp) {
     Matrix4 mat = mQueuedTransforms.get(0).getMatrix();
 
@@ -33,14 +32,12 @@ public abstract class AbstractTransform4 implements Transform<Matrix4, Vector4> 
     return mat.mul(exp);
   }
 
-  @Override
-  public Transform<Matrix4, Vector4> apply(Transform<Matrix4, Vector4> other) {
+  public Transform4 apply(Transform4 other) {
     mQueuedTransforms.add(other);
 
     return this;
   }
 
-  @Override
   public Matrix4 getMatrix() {
     return mTransformMatrix;
   }

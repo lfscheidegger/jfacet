@@ -5,7 +5,7 @@ import com.lfscheidegger.jfacet.shade.expression.Real;
 import com.lfscheidegger.jfacet.shade.expression.matrix.Matrix4;
 import com.lfscheidegger.jfacet.shade.expression.vector.Vector3;
 
-public class Rotation4 extends AbstractTransform4 {
+public class Rotation4 extends Transform4 {
 
   public Rotation4(Real angle, Vector3 axis) {
     super(getMatrix(angle, axis));
