@@ -20,6 +20,7 @@ import com.lfscheidegger.jfacet.shade.camera.LookAtConfig;
 import com.lfscheidegger.jfacet.shade.camera.OrthographicConfig;
 import com.lfscheidegger.jfacet.shade.expression.Bool;
 import com.lfscheidegger.jfacet.shade.expression.Real;
+import com.lfscheidegger.jfacet.shade.expression.vector.Vector2;
 import com.lfscheidegger.jfacet.shade.expression.vector.Vector3;
 import com.lfscheidegger.jfacet.shade.expression.vector.Vector4;
 import com.lfscheidegger.jfacet.shade.transform.Transform4;
@@ -55,6 +56,7 @@ public class JFacetDemoActivity extends Activity {
       case 4: prepareLesson5(scene); break;
       case 5: prepareLesson6(scene); break;
       case 6: prepareLesson7(scene); break;
+      case 7: prepareLesson8(scene); break;
     }
 
     mView.setRenderer(new FacetRenderer(scene));
@@ -242,13 +244,13 @@ public class JFacetDemoActivity extends Activity {
 
     Camera camera = Camera.ortho(
         new LookAtConfig()
-        .setEye(Shade.vec(0, 0, 0))
-        .setCenter(Shade.vec(0, 0, -1))
-        .setUp(Shade.vec(0, 1, 0)),
+            .setEye(Shade.vec(0, 0, 0))
+            .setCenter(Shade.vec(0, 0, -1))
+            .setUp(Shade.vec(0, 1, 0)),
         new OrthographicConfig()
-            .setLeft(Shade.constant(-2)).setRight(Shade.constant(2))
-            .setBottom(Shade.constant(2 * -aspectRatio)).setTop(Shade.constant(2 * aspectRatio))
-            .setNear(Shade.constant(-2)).setFar(Shade.constant(2)));
+            .setLeft(-2).setRight(2)
+            .setBottom(-2).setTop(2)
+            .setNear(-2).setFar(2));
 
     final Real param = Parameter.real(0);
     Real angle = param.mul(50).radians();
@@ -276,5 +278,94 @@ public class JFacetDemoActivity extends Activity {
     Real diffuse = lightPosition.sub(fragPosition).normalize().dot(normal);
 
     return materialColor.mul(diffuse);
+  }
+
+  private void prepareLesson8(Scene scene) {
+    float aspectRatio = mSize.y / (float)mSize.x;
+
+    Camera camera = Camera.ortho(
+        new LookAtConfig(),
+        new OrthographicConfig()
+            .setLeft(Shade.constant(-1)).setRight(Shade.constant(1))
+            .setBottom(Shade.constant(1 * -aspectRatio)).setTop(Shade.constant(1 * aspectRatio))
+            .setNear(Shade.constant(-1)).setFar(Shade.constant(1)));
+
+    Geometry plane = new Geometry(
+        new int[] {0, 1, 2, 0, 2, 3},
+        new float[] {
+            -2, -2 * aspectRatio, 1,
+            2, -2 * aspectRatio, 1,
+            2, 2 * aspectRatio, 1,
+            -2, 2 * aspectRatio, 1}, 3);
+
+    Vector3 origin = plane.getVertices3();
+    Vector3 direction = Shade.vec(0, 0, -1);
+    Real radius = Shade.constant(1);
+
+    Real A = Shade.constant(1);
+    Real B = Shade.constant(2).mul(direction.dot(origin));
+    Real C = origin.dot(origin).sub(radius.mul(radius));
+
+    Real discriminant = B.mul(B).sub(A.mul(C).mul(4));
+    Bool isDiscriminantNegative = discriminant.isLessThan(0);
+
+    Real q = B.isLessThan(0)
+        .if_(B.neg().add(discriminant.sqrt()).div(2))
+        .else_(B.neg().sub(discriminant.sqrt()).div(2));
+
+    // t0 < t1
+    Real t0 = C.div(q);
+
+    final Real param = Parameter.real(0);
+    Real angle = param;//param.mul(20).radians();
+
+    Vector3 position = origin.add(direction.mul(t0));
+
+    Vector3 normal = position.normalize();
+
+    Vector3 light = Shade.vec(-2, -2, -2).normalize();
+
+    Real lightDot = light.neg().dot(normal);
+
+    Real intensity = lightDot.isLessThan(0).if_(Shade.constant(0)).else_(lightDot);
+
+    Bitmap texture = BitmapFactory.decodeResource(getResources(), R.drawable.earth);
+
+    Vector2 texCoords = positionToLatLng(position, angle);
+
+    Vector4 cubeColor = Shade.vec(texCoords.getX(), texCoords.getY(), 0, 1);
+    //Vector4 cubeColor = Shade.texture2(texture, positionToLatLng(position, angle));
+
+    Vector4 sphereColor = cubeColor;//.mul(intensity);
+
+    Vector4 color = isDiscriminantNegative.if_(Shade.vec(0, 0, 0, 0)).else_(sphereColor);
+
+    scene
+        .add(plane.bake(camera.apply(plane.getVertices4()), color))
+        .add(new Runnable() {
+          @Override
+          public void run() {
+            //Parameter.set(param, (float) SystemClock.uptimeMillis() / 1000);
+            float currentParam = Parameter.get(param);
+            if (currentParam > 1) {
+              currentParam = 0;
+            }
+            Parameter.set(param, currentParam + 0.001f);
+          }
+        });
+  }
+
+  private Vector2 positionToLatLng(Vector3 position, Real rotation) {
+
+    Transform4 dailyRotation = Shade.rotate(rotation, Shade.vec(0, 1, 0));
+    Transform4 inclination = Shade.rotate(.4f, Shade.vec(1, 0, 0));
+
+    Vector3 transformedPosition = position;//dailyRotation.apply(//inclination).apply(
+        //Shade.vec(position.getX(), position.getY(), position.getZ(), 1));
+
+    Real lat = transformedPosition.y().get().acos().div(Real.PI);
+    Real lng = transformedPosition.x().get().div(position.z().get()).atan().div(Real.PI.mul(2));
+
+    return Shade.vec(lng, lat);
   }
 }

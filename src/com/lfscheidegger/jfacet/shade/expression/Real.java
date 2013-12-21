@@ -121,6 +121,22 @@ public final class Real extends AbstractExpression {
     return new Real(ImmutableList.<Expression>of(this), NodeType.FunctionNodeType.forFunction("cos"));
   }
 
+  public Real asin() {
+    return new Real(ImmutableList.<Expression>of(this), NodeType.FunctionNodeType.forFunction("asin"));
+  }
+
+  public Real acos() {
+    return new Real(ImmutableList.<Expression>of(this), NodeType.FunctionNodeType.forFunction("acos"));
+  }
+
+  public Real atan() {
+    return new Real(ImmutableList.<Expression>of(this), NodeType.FunctionNodeType.forFunction("atan"));
+  }
+
+  public Real sqrt() {
+    return new Real(ImmutableList.<Expression>of(this), NodeType.FunctionNodeType.forFunction("sqrt"));
+  }
+
   private static final float DEGREES_TO_RADIANS = 0.01745329251f;
   public Real radians() {
     return mul(DEGREES_TO_RADIANS);
@@ -130,4 +146,6 @@ public final class Real extends AbstractExpression {
   public Real degrees() {
     return mul(RADIANS_TO_DEGREES);
   }
+
+  public static Real PI = new Real(3.14159265359f);
 }
