@@ -80,11 +80,21 @@ public class JFacetDemoActivity extends Activity {
             1, 0,
             1, 1}, 2)
         .setColors(new float[]{1, 0, 0, 0, 1, 0, 0, 0, 1}, 3);
-    Drawable triangle = triangleModel.bake(
-        triangleModel.getVertices2(),
-        triangleModel.getColors3());
 
-    scene.add(triangle);
+    Vector3 colors = triangleModel.getColors3();
+
+    Real red = colors.r().get().isGreaterThan(colors.g().get())
+        .and(colors.r().get().isGreaterThan(colors.b().get()))
+        .if_(Shade.constant(1))
+        .else_(Shade.constant(0));
+    Real green = colors.g().get().isGreaterThan(colors.r().get())
+        .and(colors.g().get().isGreaterThan(colors.b().get()))
+        .if_(Shade.constant(1))
+        .else_(Shade.constant(0));
+    Real blue = colors.b().get().isGreaterThan(colors.r().get())
+        .and(colors.b().get().isGreaterThan(colors.g().get()))
+        .if_(Shade.constant(1)).else_(Shade.constant(0));
+    scene.add(triangleModel.bake(triangleModel.getVertices2(), Shade.vec(red, green, blue)));
   }
 
   private void prepareLesson2(Scene scene) {
