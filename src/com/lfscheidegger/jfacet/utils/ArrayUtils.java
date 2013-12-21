@@ -4,6 +4,8 @@ import com.google.common.base.Preconditions;
 
 public final class ArrayUtils {
 
+  private ArrayUtils() {}
+
   public static float[] add(float[] left, float t) {
     float[] result = new float[left.length];
 

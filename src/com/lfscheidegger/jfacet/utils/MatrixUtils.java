@@ -4,6 +4,8 @@ import com.google.common.base.Preconditions;
 
 public final class MatrixUtils {
 
+  private MatrixUtils() {}
+
   public static float determinant2(float[] values) {
     return values[0] * values[3] - values[1] * values[2];
   }

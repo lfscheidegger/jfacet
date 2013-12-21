@@ -6,7 +6,7 @@ import com.lfscheidegger.jfacet.shade.expression.*;
 import com.lfscheidegger.jfacet.shade.expression.vector.Vector4;
 import com.lfscheidegger.jfacet.utils.ArrayUtils;
 import com.lfscheidegger.jfacet.utils.MatrixUtils;
-import com.lfscheidegger.jfacet.utils.StringUtils;
+import com.lfscheidegger.jfacet.utils.StringHelper;
 
 import java.util.Arrays;
 
@@ -133,7 +133,7 @@ public final class Matrix4 extends AbstractExpression {
 
     @Override
     public String toString() {
-      return StringUtils.toStringHelper("mat4")
+      return new StringHelper("mat4")
           .addValue(new Vector4.Primitive(mValues[ 0], mValues[ 1], mValues[ 2], mValues[ 3]))
           .addValue(new Vector4.Primitive(mValues[ 4], mValues[ 5], mValues[ 6], mValues[ 7]))
           .addValue(new Vector4.Primitive(mValues[ 8], mValues[ 9], mValues[10], mValues[11]))

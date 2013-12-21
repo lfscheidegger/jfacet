@@ -11,6 +11,8 @@ public final class BufferUtils {
 
   private static final int BYTES_PER_INT = 4;
 
+  private BufferUtils() {}
+
   public static FloatBuffer getBufferFromArray(float[] array) {
     FloatBuffer result = ByteBuffer.allocateDirect(array.length * BYTES_PER_FLOAT)
         .order(ByteOrder.nativeOrder()).asFloatBuffer();

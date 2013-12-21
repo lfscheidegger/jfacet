@@ -6,7 +6,7 @@ import com.lfscheidegger.jfacet.shade.expression.AbstractExpression;
 import com.lfscheidegger.jfacet.shade.expression.Bool;
 import com.lfscheidegger.jfacet.shade.expression.Expression;
 import com.lfscheidegger.jfacet.shade.expression.NodeType;
-import com.lfscheidegger.jfacet.utils.StringUtils;
+import com.lfscheidegger.jfacet.utils.StringHelper;
 
 import java.util.Arrays;
 
@@ -105,7 +105,7 @@ public final class BVector3 extends AbstractExpression implements VectorExpressi
 
     @Override
     public String toString() {
-      return StringUtils.toStringHelper("bvec3")
+      return new StringHelper("bvec3")
           .addValue(mValues[0])
           .addValue(mValues[1])
           .addValue(mValues[2])

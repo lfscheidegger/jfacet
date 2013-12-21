@@ -5,7 +5,7 @@ import com.google.common.collect.ImmutableList;
 import com.lfscheidegger.jfacet.facet.AttributeBuffer;
 import com.lfscheidegger.jfacet.shade.expression.*;
 import com.lfscheidegger.jfacet.utils.ArrayUtils;
-import com.lfscheidegger.jfacet.utils.StringUtils;
+import com.lfscheidegger.jfacet.utils.StringHelper;
 
 import java.util.Arrays;
 
@@ -211,7 +211,7 @@ public final class Vector4 extends AbstractExpression implements VectorExpressio
 
     @Override
     public String toString() {
-      return StringUtils.toStringHelper("vec4")
+      return new StringHelper("vec4")
           .addValue(mValues[0])
           .addValue(mValues[1])
           .addValue(mValues[2])

@@ -6,7 +6,7 @@ import com.lfscheidegger.jfacet.shade.expression.*;
 import com.lfscheidegger.jfacet.shade.expression.vector.Vector3;
 import com.lfscheidegger.jfacet.utils.ArrayUtils;
 import com.lfscheidegger.jfacet.utils.MatrixUtils;
-import com.lfscheidegger.jfacet.utils.StringUtils;
+import com.lfscheidegger.jfacet.utils.StringHelper;
 
 import java.util.Arrays;
 
@@ -127,7 +127,7 @@ public final class Matrix3 extends AbstractExpression {
 
     @Override
     public String toString() {
-      return StringUtils.toStringHelper("mat3")
+      return new StringHelper("mat3")
           .addValue(new Vector3.Primitive(mValues[0], mValues[1], mValues[2]))
           .addValue(new Vector3.Primitive(mValues[3], mValues[4], mValues[5]))
           .addValue(new Vector3.Primitive(mValues[6], mValues[7], mValues[8]))
