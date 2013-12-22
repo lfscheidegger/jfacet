@@ -114,49 +114,49 @@ public final class Real extends AbstractExpression {
     return isNotEqual(new Real(right));
   }
 
-  public Real radians() { return function("radians", this); }
+  public Real radians() { return function("radians"); }
 
-  public Real degrees() { return function("degrees", this); }
+  public Real degrees() { return function("degrees"); }
 
-  public Real sin() { return function("sin", this); }
+  public Real sin() { return function("sin"); }
 
-  public Real cos() { return function("cos", this); }
+  public Real cos() { return function("cos"); }
 
-  public Real tan() { return function("tan", this); }
+  public Real tan() { return function("tan"); }
 
-  public Real asin() { return function("asin", this); }
+  public Real asin() { return function("asin"); }
 
-  public Real acos() { return function("acos", this); }
+  public Real acos() { return function("acos"); }
 
-  public Real atan() { return function("atan", this); }
+  public Real atan() { return function("atan"); }
 
   public Real atan(float rhs) { return atan(Shade.constant(rhs)); }
 
-  public Real atan(Real rhs) { return function("atan", this, rhs); }
+  public Real atan(Real rhs) { return function("atan", rhs); }
 
   public Real pow(float rhs) { return pow(Shade.constant(rhs)); }
 
-  public Real pow(Real rhs) { return function("pow", this, rhs); }
+  public Real pow(Real rhs) { return function("pow", rhs); }
 
   public Real exp(float rhs) { return exp(Shade.constant(rhs)); }
 
-  public Real exp(Real rhs) { return function("exp", this, rhs); }
+  public Real exp(Real rhs) { return function("exp", rhs); }
 
   public Real log(float rhs) { return log(Shade.constant(rhs)); }
 
-  public Real log(Real rhs) { return function("log", this, rhs); }
+  public Real log(Real rhs) { return function("log", rhs); }
 
   public Real exp2(float rhs) { return exp2(Shade.constant(rhs)); }
 
-  public Real exp2(Real rhs) { return function("exp2", this, rhs); }
+  public Real exp2(Real rhs) { return function("exp2", rhs); }
 
   public Real log2(float rhs) { return log2(Shade.constant(rhs)); }
 
-  public Real log2(Real rhs) { return function("log2", this, rhs); }
+  public Real log2(Real rhs) { return function("log2", rhs); }
 
-  public Real sqrt() { return function("sqrt", this); }
+  public Real sqrt() { return function("sqrt"); }
 
-  public Real inversesqrt() { return function("inversesqrt", this); }
+  public Real inversesqrt() { return function("inversesqrt"); }
 
   public Real mod(float rhs) {
     return mod(Shade.constant(rhs));
@@ -182,8 +182,12 @@ public final class Real extends AbstractExpression {
     return new Real(ImmutableList.<Expression>of(this, rhs), NodeType.FunctionNodeType.forFunction("max"));
   }
 
-  private Real function(String name, Expression... parameters) {
-    return new Real(ImmutableList.copyOf(parameters), NodeType.FunctionNodeType.forFunction(name));
+  private Real function(String name, Expression... extraArguments) {
+    ImmutableList<Expression> parents = new ImmutableList.Builder<Expression>()
+        .add(this)
+        .addAll(ImmutableList.copyOf(extraArguments)).build();
+
+    return new Real(parents, NodeType.FunctionNodeType.forFunction(name));
   }
 
   public static Real PI = new Real(3.14159265359f);

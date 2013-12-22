@@ -354,40 +354,44 @@ public final class Vector2 extends AbstractExpression implements VectorExpressio
     return new Bool(ImmutableList.<Expression>of(this, right), NodeType.NEQ);
   }
 
-  public Vector2 radians() { return function("radians", this); }
+  public Vector2 radians() { return function("radians"); }
 
-  public Vector2 degrees() { return function("degrees", this); }
+  public Vector2 degrees() { return function("degrees"); }
 
-  public Vector2 sin() { return function("sin", this); }
+  public Vector2 sin() { return function("sin"); }
 
-  public Vector2 cos() { return function("cos", this); }
+  public Vector2 cos() { return function("cos"); }
 
-  public Vector2 tan() { return function("tan", this); }
+  public Vector2 tan() { return function("tan"); }
 
-  public Vector2 asin() { return function("asin", this); }
+  public Vector2 asin() { return function("asin"); }
 
-  public Vector2 acos() { return function("acos", this); }
+  public Vector2 acos() { return function("acos"); }
 
-  public Vector2 atan() { return function("atan", this); }
+  public Vector2 atan() { return function("atan"); }
 
-  public Vector2 atan(Vector2 rhs) { return function("atan", this, rhs); }
+  public Vector2 atan(Vector2 rhs) { return function("atan", rhs); }
 
-  public Vector2 pow(Vector2 rhs) { return function("pow", this, rhs); }
+  public Vector2 pow(Vector2 rhs) { return function("pow", rhs); }
 
-  public Vector2 exp(Vector2 rhs) { return function("exp", this, rhs); }
+  public Vector2 exp(Vector2 rhs) { return function("exp", rhs); }
 
-  public Vector2 log(Vector2 rhs) { return function("log", this, rhs); }
+  public Vector2 log(Vector2 rhs) { return function("log", rhs); }
 
-  public Vector2 exp2(Vector2 rhs) { return function("exp2", this, rhs); }
+  public Vector2 exp2(Vector2 rhs) { return function("exp2", rhs); }
 
-  public Vector2 log2(Vector2 rhs) { return function("log2", this, rhs); }
+  public Vector2 log2(Vector2 rhs) { return function("log2", rhs); }
 
-  public Vector2 sqrt() { return function("sqrt", this); }
+  public Vector2 sqrt() { return function("sqrt"); }
 
-  public Vector2 inversesqrt() { return function("inversesqrt", this); }
+  public Vector2 inversesqrt() { return function("inversesqrt"); }
 
-  private Vector2 function(String name, Expression... arguments) {
-    return new Vector2(ImmutableList.copyOf(arguments), NodeType.FunctionNodeType.forFunction(name));
+  private Vector2 function(String name, Expression... extraArguments) {
+    ImmutableList<Expression> parents = new ImmutableList.Builder<Expression>()
+        .add(this)
+        .addAll(ImmutableList.copyOf(extraArguments)).build();
+
+    return new Vector2(parents, NodeType.FunctionNodeType.forFunction(name));
   }
 
   public Vector2 reflect(Vector2 orientation) {
