@@ -436,6 +436,28 @@ public final class Vector4 extends AbstractExpression implements VectorExpressio
     return new Bool(ImmutableList.<Expression>of(this, right), NodeType.NEQ);
   }
 
+  public Vector4 radians() { return function("radians", this); }
+
+  public Vector4 degrees() { return function("degrees", this); }
+
+  public Vector4 sin() { return function("sin", this); }
+
+  public Vector4 cos() { return function("cos", this); }
+
+  public Vector4 tan() { return function("tan", this); }
+
+  public Vector4 asin() { return function("asin", this); }
+
+  public Vector4 acos() { return function("acos", this); }
+
+  public Vector4 atan() { return function("atan", this); }
+
+  public Vector4 atan(Vector4 rhs) { return function("atan", this, rhs); }
+
+  private Vector4 function(String name, Expression... arguments) {
+    return new Vector4(ImmutableList.copyOf(arguments), NodeType.FunctionNodeType.forFunction(name));
+  }
+
   public Vector4 reflect(Vector4 orientation) {
     return new Vector4(ImmutableList.<Expression>of(this, orientation), NodeType.FunctionNodeType.forFunction("reflect"));
   }

@@ -405,6 +405,28 @@ public final class Vector3 extends AbstractExpression implements VectorExpressio
     return new Bool(ImmutableList.<Expression>of(this, right), NodeType.NEQ);
   }
 
+  public Vector3 radians() { return function("radians", this); }
+
+  public Vector3 degrees() { return function("degrees", this); }
+
+  public Vector3 sin() { return function("sin", this); }
+
+  public Vector3 cos() { return function("cos", this); }
+
+  public Vector3 tan() { return function("tan", this); }
+
+  public Vector3 asin() { return function("asin", this); }
+
+  public Vector3 acos() { return function("acos", this); }
+
+  public Vector3 atan() { return function("atan", this); }
+
+  public Vector3 atan(Vector3 rhs) { return function("atan", this, rhs); }
+
+  private Vector3 function(String name, Expression... arguments) {
+    return new Vector3(ImmutableList.copyOf(arguments), NodeType.FunctionNodeType.forFunction(name));
+  }
+
   public Vector3 reflect(Vector3 orientation) {
     return new Vector3(ImmutableList.<Expression>of(this, orientation), NodeType.FunctionNodeType.forFunction("reflect"));
   }

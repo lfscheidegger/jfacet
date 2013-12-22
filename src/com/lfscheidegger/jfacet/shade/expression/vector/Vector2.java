@@ -354,6 +354,28 @@ public final class Vector2 extends AbstractExpression implements VectorExpressio
     return new Bool(ImmutableList.<Expression>of(this, right), NodeType.NEQ);
   }
 
+  public Vector2 radians() { return function("radians", this); }
+
+  public Vector2 degrees() { return function("degrees", this); }
+
+  public Vector2 sin() { return function("sin", this); }
+
+  public Vector2 cos() { return function("cos", this); }
+
+  public Vector2 tan() { return function("tan", this); }
+
+  public Vector2 asin() { return function("asin", this); }
+
+  public Vector2 acos() { return function("acos", this); }
+
+  public Vector2 atan() { return function("atan", this); }
+
+  public Vector2 atan(Vector2 rhs) { return function("atan", this, rhs); }
+
+  private Vector2 function(String name, Expression... arguments) {
+    return new Vector2(ImmutableList.copyOf(arguments), NodeType.FunctionNodeType.forFunction(name));
+  }
+
   public Vector2 reflect(Vector2 orientation) {
     return new Vector2(ImmutableList.<Expression>of(this, orientation), NodeType.FunctionNodeType.forFunction("reflect"));
   }

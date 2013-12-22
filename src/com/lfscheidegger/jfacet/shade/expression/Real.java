@@ -114,33 +114,25 @@ public final class Real extends AbstractExpression {
     return isNotEqual(new Real(right));
   }
 
-  public Real sin() {
-    return new Real(ImmutableList.<Expression>of(this), NodeType.FunctionNodeType.forFunction("sin"));
-  }
+  public Real radians() { return function("radians", this); }
 
-  public Real cos() {
-    return new Real(ImmutableList.<Expression>of(this), NodeType.FunctionNodeType.forFunction("cos"));
-  }
+  public Real degrees() { return function("degrees", this); }
 
-  public Real asin() {
-    return new Real(ImmutableList.<Expression>of(this), NodeType.FunctionNodeType.forFunction("asin"));
-  }
+  public Real sin() { return function("sin", this); }
 
-  public Real acos() {
-    return new Real(ImmutableList.<Expression>of(this), NodeType.FunctionNodeType.forFunction("acos"));
-  }
+  public Real cos() { return function("cos", this); }
 
-  public Real atan() {
-    return new Real(ImmutableList.<Expression>of(this), NodeType.FunctionNodeType.forFunction("atan"));
-  }
+  public Real tan() { return function("tan", this); }
 
-  public Real atan(float rhs) {
-    return atan(Shade.constant(rhs));
-  }
+  public Real asin() { return function("asin", this); }
 
-  public Real atan(Real rhs) {
-    return new Real(ImmutableList.<Expression>of(this, rhs), NodeType.FunctionNodeType.forFunction("atan"));
-  }
+  public Real acos() { return function("acos", this); }
+
+  public Real atan() { return function("atan", this); }
+
+  public Real atan(float rhs) { return function("atan", this, Shade.constant(rhs)); }
+
+  public Real atan(Real rhs) { return function("atan", this, rhs); }
 
   public Real mod(float rhs) {
     return mod(Shade.constant(rhs));
@@ -178,14 +170,8 @@ public final class Real extends AbstractExpression {
     return new Real(ImmutableList.<Expression>of(this, rhs), NodeType.FunctionNodeType.forFunction("max"));
   }
 
-  private static final float DEGREES_TO_RADIANS = 0.01745329251f;
-  public Real radians() {
-    return mul(DEGREES_TO_RADIANS);
-  }
-
-  private static final float RADIANS_TO_DEGREES = 57.2957795131f;
-  public Real degrees() {
-    return mul(RADIANS_TO_DEGREES);
+  private Real function(String name, Expression... parameters) {
+    return new Real(ImmutableList.copyOf(parameters), NodeType.FunctionNodeType.forFunction(name));
   }
 
   public static Real PI = new Real(3.14159265359f);
