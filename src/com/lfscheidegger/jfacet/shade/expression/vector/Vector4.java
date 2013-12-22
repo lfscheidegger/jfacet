@@ -436,6 +436,10 @@ public final class Vector4 extends AbstractExpression implements VectorExpressio
     return new Bool(ImmutableList.<Expression>of(this, right), NodeType.NEQ);
   }
 
+  public Vector4 reflect(Vector4 orientation) {
+    return new Vector4(ImmutableList.<Expression>of(this, orientation), NodeType.FunctionNodeType.forFunction("reflect"));
+  }
+
   @Override
   public Vector4 fill(Vector4 defaultExpression) {
     return this;

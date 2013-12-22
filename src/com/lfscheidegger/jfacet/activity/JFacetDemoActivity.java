@@ -271,22 +271,23 @@ public class JFacetDemoActivity extends Activity {
   private void prepareLesson8(Scene scene) {
     float aspectRatio = mSize.y / (float)mSize.x;
 
+    float scale = 1;
     Camera camera = Camera.ortho(
         new LookAtConfig(),
         new OrthographicConfig()
-            .setLeft(Shade.constant(-1)).setRight(Shade.constant(1))
-            .setBottom(Shade.constant(1 * -aspectRatio)).setTop(Shade.constant(1 * aspectRatio))
-            .setNear(Shade.constant(-1)).setFar(Shade.constant(1)));
+            .setLeft(Shade.constant(-scale)).setRight(Shade.constant(scale))
+            .setBottom(Shade.constant(scale * -aspectRatio)).setTop(Shade.constant(scale * aspectRatio))
+            .setNear(Shade.constant(-scale)).setFar(Shade.constant(scale)));
 
     Geometry plane = new Geometry(
         new int[] {0, 1, 2, 0, 2, 3},
         new float[] {
-            -2, -2 * aspectRatio, 1,
-            2, -2 * aspectRatio, 1,
-            2, 2 * aspectRatio, 1,
-            -2, 2 * aspectRatio, 1}, 3);
+            -2, -2 * aspectRatio,
+            2, -2 * aspectRatio,
+            2, 2 * aspectRatio,
+            -2, 2 * aspectRatio}, 2);
 
-    Vector3 origin = plane.getVertices3();
+    Vector3 origin = Shade.vec(plane.getVertices2(), 1);
     Vector3 direction = Shade.vec(0, 0, -1);
     Real radius = Shade.constant(1);
 
@@ -294,7 +295,7 @@ public class JFacetDemoActivity extends Activity {
     Real B = Shade.constant(2).mul(direction.dot(origin));
     Real C = origin.dot(origin).sub(radius.mul(radius));
 
-    Real discriminant = B.mul(B).sub(A.mul(C).mul(4));
+    Real discriminant = B.mul(B).sub(Shade.constant(4).mul(A).mul(C));
     Bool isDiscriminantNegative = discriminant.isLessThan(0);
 
     Real q = B.isLessThan(0)
@@ -305,55 +306,68 @@ public class JFacetDemoActivity extends Activity {
     Real t0 = C.div(q);
 
     final Real param = Parameter.real(0);
-    Real angle = param;//param.mul(20).radians();
 
     Vector3 position = origin.add(direction.mul(t0));
+    Transform4 surfaceRotation = getRotation(param);
+    Transform4 cloudRotation = getRotation(param.mul(0.95f));
 
-    Vector3 normal = position.normalize();
+    Vector2 surfaceTexCoords = positionToLatLng(surfaceRotation.apply(Shade.vec(position, 1)));
+    Vector2 cloudTexCoords = positionToLatLng(cloudRotation.apply(Shade.vec(position, 1)));
+
+    Bitmap surfaceTexture = BitmapFactory.decodeResource(getResources(), R.drawable.earth);
+    Vector4 surfaceColor = Shade.texture2(surfaceTexture, surfaceTexCoords);
+
+    Bitmap clouds = BitmapFactory.decodeResource(getResources(), R.drawable.cloud_combined_2048);
+    Vector4 cloudColor = Shade.texture2(clouds, cloudTexCoords).x().x().x().x();
+
+    Bitmap normals = BitmapFactory.decodeResource(getResources(), R.drawable.earth_normal);
+    Vector3 normal = Shade.texture2(normals, surfaceTexCoords).x().y().z().get().sub(Shade.vec(.5f, .5f, .5f)).normalize();
+
+    Bitmap specularHighlights = BitmapFactory.decodeResource(getResources(), R.drawable.earthspec__jestr);
+    Real specularity = Shade.texture2(specularHighlights, surfaceTexCoords).x().get();
+    specularity = specularity.mul(100);
+
+    Transform4 normalTransform = getNormalTransform(position);
+    normal = normalTransform.apply(Shade.vec(normal, 1)).x().y().z().get();
 
     Vector3 light = Shade.vec(-2, -2, -2).normalize();
 
-    Real lightDot = light.neg().dot(normal);
+    Real diffuse = light.neg().dot(normal).max(0);
+    Real specular = light.reflect(normal).normalize().dot(direction.neg()).pow(specularity).max(0);
 
-    Real intensity = lightDot.isLessThan(0).if_(Shade.constant(0)).else_(lightDot);
-
-    Bitmap texture = BitmapFactory.decodeResource(getResources(), R.drawable.earth);
-
-    Vector2 texCoords = positionToLatLng(position, angle);
-
-    Vector4 cubeColor = Shade.vec(texCoords.getX(), texCoords.getY(), 0, 1);
-    //Vector4 cubeColor = Shade.texture2(texture, positionToLatLng(position, angle));
-
-    Vector4 sphereColor = cubeColor;//.mul(intensity);
-
-    Vector4 color = isDiscriminantNegative.if_(Shade.vec(0, 0, 0, 0)).else_(sphereColor);
+    Vector4 color = surfaceColor.mul(diffuse.add(specular)).add(cloudColor.mul(diffuse));
+    color = isDiscriminantNegative.if_(Shade.vec(0, 0, 0, 0)).else_(color);
 
     scene
         .add(plane.bake(camera.apply(plane.getVertices4()), color))
         .add(new Runnable() {
           @Override
           public void run() {
-            //Parameter.set(param, (float) SystemClock.uptimeMillis() / 1000);
-            float currentParam = Parameter.get(param);
-            if (currentParam > 1) {
-              currentParam = 0;
-            }
-            Parameter.set(param, currentParam + 0.001f);
+            Parameter.set(param, Parameter.get(param) + 0.005f);
           }
         });
+
   }
 
-  private Vector2 positionToLatLng(Vector3 position, Real rotation) {
-
-    Transform4 dailyRotation = Shade.rotate(rotation, Shade.vec(0, 1, 0));
-    Transform4 inclination = Shade.rotate(.4f, Shade.vec(1, 0, 0));
-
-    Vector3 transformedPosition = position;//dailyRotation.apply(//inclination).apply(
-        //Shade.vec(position.getX(), position.getY(), position.getZ(), 1));
-
-    Real lat = transformedPosition.y().get().acos().div(Real.PI);
-    Real lng = transformedPosition.x().get().div(position.z().get()).atan().div(Real.PI.mul(2));
+  private Vector2 positionToLatLng(Vector4 position) {
+    Real lat = position.getY().acos().div(Real.PI);
+    Real lng = (position.getX().atan(position.getZ())).div(Real.PI.mul(2)).mod(1);
 
     return Shade.vec(lng, lat);
+  }
+
+  private Transform4 getRotation(Real angle) {
+    return Shade.rotate(angle, Shade.vec(0, 1, 0)).apply(Shade.rotate(.4f, Shade.vec(1, 1, 1)));
+  }
+
+  private Transform4 getNormalTransform(Vector3 position) {
+    Vector3 sphereNormal = position;
+    Vector3 planeNormal = Shade.vec(0, 0, 1);
+
+    Real angle = sphereNormal.dot(planeNormal).acos();
+
+    Vector3 axis = planeNormal.cross(sphereNormal);//sphereNormal.cross(planeNormal);
+
+    return Shade.rotate(angle, axis);
   }
 }

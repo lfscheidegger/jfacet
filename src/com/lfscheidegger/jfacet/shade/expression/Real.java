@@ -2,6 +2,7 @@ package com.lfscheidegger.jfacet.shade.expression;
 
 import com.google.common.collect.ImmutableList;
 import com.lfscheidegger.jfacet.facet.AttributeBuffer;
+import com.lfscheidegger.jfacet.shade.Shade;
 
 /**
  * {code Expression} for floats
@@ -133,8 +134,48 @@ public final class Real extends AbstractExpression {
     return new Real(ImmutableList.<Expression>of(this), NodeType.FunctionNodeType.forFunction("atan"));
   }
 
+  public Real atan(float rhs) {
+    return atan(Shade.constant(rhs));
+  }
+
+  public Real atan(Real rhs) {
+    return new Real(ImmutableList.<Expression>of(this, rhs), NodeType.FunctionNodeType.forFunction("atan"));
+  }
+
+  public Real mod(float rhs) {
+    return mod(Shade.constant(rhs));
+  }
+
+  public Real mod(Real rhs) {
+    return new Real(ImmutableList.<Expression>of(this, rhs), NodeType.FunctionNodeType.forFunction("mod"));
+  }
+
   public Real sqrt() {
     return new Real(ImmutableList.<Expression>of(this), NodeType.FunctionNodeType.forFunction("sqrt"));
+  }
+
+  public Real pow(float rhs) {
+    return pow(Shade.constant(rhs));
+  }
+
+  public Real pow(Real rhs) {
+    return new Real(ImmutableList.<Expression>of(this, rhs), NodeType.FunctionNodeType.forFunction("pow"));
+  }
+
+  public Real min(float rhs) {
+    return min(Shade.constant(rhs));
+  }
+
+  public Real min(Real rhs) {
+    return new Real(ImmutableList.<Expression>of(this, rhs), NodeType.FunctionNodeType.forFunction("min"));
+  }
+
+  public Real max(float rhs) {
+    return max(Shade.constant(rhs));
+  }
+
+  public Real max(Real rhs) {
+    return new Real(ImmutableList.<Expression>of(this, rhs), NodeType.FunctionNodeType.forFunction("max"));
   }
 
   private static final float DEGREES_TO_RADIANS = 0.01745329251f;
