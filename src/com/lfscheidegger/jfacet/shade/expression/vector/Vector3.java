@@ -423,6 +423,20 @@ public final class Vector3 extends AbstractExpression implements VectorExpressio
 
   public Vector3 atan(Vector3 rhs) { return function("atan", this, rhs); }
 
+  public Vector3 pow(Vector3 rhs) { return function("pow", this, rhs); }
+
+  public Vector3 exp(Vector3 rhs) { return function("exp", this, rhs); }
+
+  public Vector3 log(Vector3 rhs) { return function("log", this, rhs); }
+
+  public Vector3 exp2(Vector3 rhs) { return function("exp2", this, rhs); }
+
+  public Vector3 log2(Vector3 rhs) { return function("log2", this, rhs); }
+
+  public Vector3 sqrt() { return function("sqrt", this); }
+
+  public Vector3 inversesqrt() { return function("inversesqrt", this); }
+
   private Vector3 function(String name, Expression... arguments) {
     return new Vector3(ImmutableList.copyOf(arguments), NodeType.FunctionNodeType.forFunction(name));
   }

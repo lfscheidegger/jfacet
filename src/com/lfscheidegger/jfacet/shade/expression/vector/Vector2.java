@@ -372,6 +372,20 @@ public final class Vector2 extends AbstractExpression implements VectorExpressio
 
   public Vector2 atan(Vector2 rhs) { return function("atan", this, rhs); }
 
+  public Vector2 pow(Vector2 rhs) { return function("pow", this, rhs); }
+
+  public Vector2 exp(Vector2 rhs) { return function("exp", this, rhs); }
+
+  public Vector2 log(Vector2 rhs) { return function("log", this, rhs); }
+
+  public Vector2 exp2(Vector2 rhs) { return function("exp2", this, rhs); }
+
+  public Vector2 log2(Vector2 rhs) { return function("log2", this, rhs); }
+
+  public Vector2 sqrt() { return function("sqrt", this); }
+
+  public Vector2 inversesqrt() { return function("inversesqrt", this); }
+
   private Vector2 function(String name, Expression... arguments) {
     return new Vector2(ImmutableList.copyOf(arguments), NodeType.FunctionNodeType.forFunction(name));
   }

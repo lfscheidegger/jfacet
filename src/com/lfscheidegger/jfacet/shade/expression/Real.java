@@ -130,9 +130,33 @@ public final class Real extends AbstractExpression {
 
   public Real atan() { return function("atan", this); }
 
-  public Real atan(float rhs) { return function("atan", this, Shade.constant(rhs)); }
+  public Real atan(float rhs) { return atan(Shade.constant(rhs)); }
 
   public Real atan(Real rhs) { return function("atan", this, rhs); }
+
+  public Real pow(float rhs) { return pow(Shade.constant(rhs)); }
+
+  public Real pow(Real rhs) { return function("pow", this, rhs); }
+
+  public Real exp(float rhs) { return exp(Shade.constant(rhs)); }
+
+  public Real exp(Real rhs) { return function("exp", this, rhs); }
+
+  public Real log(float rhs) { return log(Shade.constant(rhs)); }
+
+  public Real log(Real rhs) { return function("log", this, rhs); }
+
+  public Real exp2(float rhs) { return exp2(Shade.constant(rhs)); }
+
+  public Real exp2(Real rhs) { return function("exp2", this, rhs); }
+
+  public Real log2(float rhs) { return log2(Shade.constant(rhs)); }
+
+  public Real log2(Real rhs) { return function("log2", this, rhs); }
+
+  public Real sqrt() { return function("sqrt", this); }
+
+  public Real inversesqrt() { return function("inversesqrt", this); }
 
   public Real mod(float rhs) {
     return mod(Shade.constant(rhs));
@@ -140,18 +164,6 @@ public final class Real extends AbstractExpression {
 
   public Real mod(Real rhs) {
     return new Real(ImmutableList.<Expression>of(this, rhs), NodeType.FunctionNodeType.forFunction("mod"));
-  }
-
-  public Real sqrt() {
-    return new Real(ImmutableList.<Expression>of(this), NodeType.FunctionNodeType.forFunction("sqrt"));
-  }
-
-  public Real pow(float rhs) {
-    return pow(Shade.constant(rhs));
-  }
-
-  public Real pow(Real rhs) {
-    return new Real(ImmutableList.<Expression>of(this, rhs), NodeType.FunctionNodeType.forFunction("pow"));
   }
 
   public Real min(float rhs) {

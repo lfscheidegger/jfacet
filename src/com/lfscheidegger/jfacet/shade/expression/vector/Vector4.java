@@ -454,6 +454,20 @@ public final class Vector4 extends AbstractExpression implements VectorExpressio
 
   public Vector4 atan(Vector4 rhs) { return function("atan", this, rhs); }
 
+  public Vector4 pow(Vector4 rhs) { return function("pow", this, rhs); }
+
+  public Vector4 exp(Vector4 rhs) { return function("exp", this, rhs); }
+
+  public Vector4 log(Vector4 rhs) { return function("log", this, rhs); }
+
+  public Vector4 exp2(Vector4 rhs) { return function("exp2", this, rhs); }
+
+  public Vector4 log2(Vector4 rhs) { return function("log2", this, rhs); }
+
+  public Vector4 sqrt() { return function("sqrt", this); }
+
+  public Vector4 inversesqrt() { return function("inversesqrt", this); }
+
   private Vector4 function(String name, Expression... arguments) {
     return new Vector4(ImmutableList.copyOf(arguments), NodeType.FunctionNodeType.forFunction(name));
   }
