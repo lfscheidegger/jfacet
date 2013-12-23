@@ -270,10 +270,8 @@ public final class Geometry {
     return (Vector4) mExpressions.get(attributeName);
   }
 
-  public <T> Drawable bake(
-      VectorExpression<T, Vector4> vertexPosition,
-      VectorExpression<T, Vector4> fragmentColor) {
-    return new Drawable<T>(this, vertexPosition, fragmentColor);
+  public Drawable bake(VectorExpression vertexPosition, VectorExpression fragmentColor) {
+    return new Drawable(this, vertexPosition, fragmentColor);
   }
 
   private String getNameForVertices(int dimension) {

@@ -5,18 +5,18 @@ import com.lfscheidegger.jfacet.Program;
 import com.lfscheidegger.jfacet.shade.expression.vector.Vector4;
 import com.lfscheidegger.jfacet.shade.expression.vector.VectorExpression;
 
-public final class Drawable<T> implements Runnable {
+public final class Drawable implements Runnable {
 
   private final Geometry mGeometry;
   private Program mProgram;
 
-  private final VectorExpression<T, Vector4> mPosition;
-  private final VectorExpression<T, Vector4> mFragColor;
+  private final VectorExpression mPosition;
+  private final VectorExpression mFragColor;
 
   public Drawable(
       Geometry geometry,
-      VectorExpression<T, Vector4> position,
-      VectorExpression<T, Vector4> fragColor) {
+      VectorExpression position,
+      VectorExpression fragColor) {
     mPosition = position;
     mFragColor = fragColor;
     mGeometry = geometry;

@@ -10,7 +10,7 @@ import com.lfscheidegger.jfacet.utils.StringHelper;
 
 import java.util.Arrays;
 
-public final class Vector3 extends AbstractExpression implements VectorExpression<Real, Vector4> {
+public final class Vector3 extends AbstractExpression implements VectorExpression<Real> {
 
   public static final class Primitive implements VectorPrimitive {
 
@@ -542,11 +542,6 @@ public final class Vector3 extends AbstractExpression implements VectorExpressio
 
   private Vector3 function(String name, Expression... arguments) {
     return new Vector3(ImmutableList.copyOf(arguments), NodeType.FunctionNodeType.forFunction(name));
-  }
-
-  @Override
-  public Vector4 fill(Vector4 defaultExpression) {
-    return new Vector4(getX(), getY(), getZ(), defaultExpression.getW());
   }
 }
 

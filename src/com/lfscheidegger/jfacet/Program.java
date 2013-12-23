@@ -9,6 +9,7 @@ import com.lfscheidegger.jfacet.compiler.FragmentShaderCompiler;
 import com.lfscheidegger.jfacet.compiler.VertexShaderCompiler;
 import com.lfscheidegger.jfacet.facet.AttributeBuffer;
 import com.lfscheidegger.jfacet.shade.Parameter;
+import com.lfscheidegger.jfacet.shade.Shade;
 import com.lfscheidegger.jfacet.shade.expression.Expression;
 import com.lfscheidegger.jfacet.shade.expression.NodeType;
 import com.lfscheidegger.jfacet.shade.expression.Real;
@@ -33,9 +34,9 @@ public final class Program {
   private int mMaxTextureUnits;
   private int mProgramHandle;
 
-  public <T> Program(VectorExpression<T, Vector4> position, VectorExpression<T, Vector4> fragColor) {
-    mPosition = position.fill(new Vector4(0, 0, 0, 1));
-    mFragColor = fragColor.fill(new Vector4(0, 0, 0, 1));
+  public <T> Program(VectorExpression position, VectorExpression fragColor) {
+    mPosition = fill(position, Shade.vec(0, 0, 0, 1));
+    mFragColor = fill(fragColor, Shade.vec(0, 0, 0, 1));
 
     mVertexShaderCompiler = new VertexShaderCompiler(mPosition);
     mFragmentShaderCompiler = new FragmentShaderCompiler(mFragColor);
@@ -70,6 +71,17 @@ public final class Program {
     loadTextures(mVertexShaderCompiler.getUniformExpressions());
   }
 
+  private Vector4 fill(VectorExpression vector, Vector4 defaultValue) {
+    if (vector instanceof Vector2) {
+      return Shade.vec((Vector2)vector, defaultValue.z().w().get());
+    } else if (vector instanceof Vector3) {
+      return Shade.vec((Vector3)vector, defaultValue.w().get());
+    } else if (vector instanceof Vector4) {
+      return (Vector4)vector;
+    }
+
+    throw new IllegalArgumentException("Can't fill from " + vector.getClass().getSimpleName());
+  }
   private void compileShader(int shaderHandle, String shaderSource) {
     GLES20.glShaderSource(shaderHandle, shaderSource);
     GLES20.glCompileShader(shaderHandle);

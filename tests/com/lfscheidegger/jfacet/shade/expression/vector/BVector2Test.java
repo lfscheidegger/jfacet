@@ -209,12 +209,4 @@ public class BVector2Test {
         (NodeType.FunctionNodeType)not.getNodeType();
     assertEquals(nodeType.getFunctionName(), "not");
   }
-
-  @Test
-  public void testFill() {
-    BVector4 defaultExpression = new BVector4(true, true, true, true);
-    BVector4 fill = mVec.fill(defaultExpression);
-    assertEquals(fill.getNodeType(), NodeType.CONS);
-    assertEquals(fill.getParents().size(), 4);
-  }
 }

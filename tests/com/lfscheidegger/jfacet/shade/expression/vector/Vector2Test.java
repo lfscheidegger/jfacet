@@ -339,13 +339,4 @@ public class Vector2Test {
     assertEquals(notEqual.getNodeType(), NodeType.NEQ);
     assertEquals(notEqual.getParents(), ImmutableList.<Expression>of(mVec, rhs));
   }
-
-  @Test
-  public void testFill() {
-    Vector4 defaultValues = new Vector4(1, 2, 3, 4);
-    Vector4 fill = mVec.fill(defaultValues);
-
-    assertEquals(fill.getNodeType(), NodeType.CONS);
-    assertEquals(fill.getParents().size(), 4);
-  }
 }

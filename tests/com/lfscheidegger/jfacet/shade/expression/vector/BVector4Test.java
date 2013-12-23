@@ -1142,9 +1142,4 @@ public class BVector4Test {
         (NodeType.FunctionNodeType)not.getNodeType();
     assertEquals(nodeType.getFunctionName(), "not");
   }
-
-  @Test
-  public void testFill() {
-    assertSame(mVec.fill(null), mVec);
-  }
 }
