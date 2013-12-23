@@ -3,6 +3,7 @@ package com.lfscheidegger.jfacet.shade.expression.vector;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableList;
 import com.lfscheidegger.jfacet.facet.AttributeBuffer;
+import com.lfscheidegger.jfacet.shade.Shade;
 import com.lfscheidegger.jfacet.shade.expression.*;
 import com.lfscheidegger.jfacet.utils.ArrayUtils;
 import com.lfscheidegger.jfacet.utils.StringHelper;
@@ -405,44 +406,122 @@ public final class Vector3 extends AbstractExpression implements VectorExpressio
     return new Bool(ImmutableList.<Expression>of(this, right), NodeType.NEQ);
   }
 
-  public Vector3 radians() { return function("radians"); }
+  public Vector3 radians() { return function("radians", this); }
 
-  public Vector3 degrees() { return function("degrees"); }
+  public Vector3 degrees() { return function("degrees", this); }
 
-  public Vector3 sin() { return function("sin"); }
+  public Vector3 sin() { return function("sin", this); }
 
-  public Vector3 cos() { return function("cos"); }
+  public Vector3 cos() { return function("cos", this); }
 
-  public Vector3 tan() { return function("tan"); }
+  public Vector3 tan() { return function("tan", this); }
 
-  public Vector3 asin() { return function("asin"); }
+  public Vector3 asin() { return function("asin", this); }
 
-  public Vector3 acos() { return function("acos"); }
+  public Vector3 acos() { return function("acos", this); }
 
-  public Vector3 atan() { return function("atan"); }
+  public Vector3 atan() { return function("atan", this); }
 
-  public Vector3 atan(Vector3 rhs) { return function("atan", rhs); }
+  public Vector3 atan(Vector3 rhs) { return function("atan", this, rhs); }
 
-  public Vector3 pow(Vector3 rhs) { return function("pow", rhs); }
+  public Vector3 pow() { return function("pow", this); }
 
-  public Vector3 exp(Vector3 rhs) { return function("exp", rhs); }
+  public Vector3 exp() { return function("exp", this); }
 
-  public Vector3 log(Vector3 rhs) { return function("log", rhs); }
+  public Vector3 log() { return function("log", this); }
 
-  public Vector3 exp2(Vector3 rhs) { return function("exp2", rhs); }
+  public Vector3 exp2() { return function("exp2", this); }
 
-  public Vector3 log2(Vector3 rhs) { return function("log2", rhs); }
+  public Vector3 log2() { return function("log2", this); }
 
-  public Vector3 sqrt() { return function("sqrt"); }
+  public Vector3 sqrt() { return function("sqrt", this); }
 
-  public Vector3 inversesqrt() { return function("inversesqrt"); }
+  public Vector3 inversesqrt() { return function("inversesqrt", this); }
 
-  private Vector3 function(String name, Expression... extraArguments) {
-    ImmutableList<Expression> parents = new ImmutableList.Builder<Expression>()
-        .add(this)
-        .addAll(ImmutableList.copyOf(extraArguments)).build();
+  public Vector3 abs() { return function("abs", this); }
 
-    return new Vector3(parents, NodeType.FunctionNodeType.forFunction(name));
+  public Vector3 sign() { return function("sign", this); }
+
+  public Vector3 floor() { return function("floor", this); }
+
+  public Vector3 ceil() { return function("ceil", this); }
+
+  public Vector3 fract() { return function("fract", this); }
+
+  public Vector3 mod(float rhs) { return mod(Shade.constant(rhs)); }
+
+  public Vector3 mod(Real rhs) { return function("mod", this, rhs); }
+
+  public Vector3 mod(Vector3 rhs) { return function("mod", this, rhs); }
+
+  public Vector3 min(float rhs) { return min(Shade.constant(rhs)); }
+
+  public Vector3 min(Real rhs) { return function("min", this, rhs); }
+
+  public Vector3 min(Vector3 rhs) { return function("min", this, rhs); }
+
+  public Vector3 max(float rhs) { return max(Shade.constant(rhs)); }
+
+  public Vector3 max(Real rhs) { return function("max", this, rhs); }
+
+  public Vector3 max(Vector3 rhs) { return function("max", this, rhs); }
+
+  public Vector3 clamp(float minValue, float maxValue) {
+    return clamp(Shade.constant(minValue), Shade.constant(maxValue));
+  }
+
+  public Vector3 clamp(float minValue, Real maxValue) {
+    return clamp(Shade.constant(minValue), maxValue);
+  }
+
+  public Vector3 clamp(Real minValue, float maxValue) {
+    return clamp(minValue, Shade.constant(maxValue));
+  }
+
+  public Vector3 clamp(Real minValue, Real maxValue) { return function("clamp", this, minValue, maxValue); }
+
+  public Vector3 clamp(Vector3 minValue, Vector3 maxValue) { return function("clamp", this, minValue, maxValue); }
+
+  public Vector3 mix(float minValue, float maxValue) {
+    return mix(Shade.constant(minValue), Shade.constant(maxValue));
+  }
+
+  public Vector3 mix(float minValue, Real maxValue) {
+    return mix(Shade.constant(minValue), maxValue);
+  }
+
+  public Vector3 mix(Real minValue, float maxValue) {
+    return mix(minValue, Shade.constant(maxValue));
+  }
+
+  public Vector3 mix(Real minValue, Real maxValue) { return function("mix", this, minValue, maxValue); }
+
+  public Vector3 mix(Vector3 minValue, Vector3 maxValue) { return function("mix", this, minValue, maxValue); }
+
+  public Vector3 step(float edge) { return step(Shade.constant(edge)); }
+
+  public Vector3 step(Real edge) { return function("step", edge, this); }
+
+  public Vector3 step(Vector3 edge) { return function("edge", edge, this); }
+
+  public Vector3 smoothStep(float edge0, float edge1) {
+    return smoothStep(Shade.constant(edge0), Shade.constant(edge1));
+  }
+
+  public Vector3 smoothStep(float edge0, Real edge1) {
+    return smoothStep(Shade.constant(edge0), edge1);
+  }
+
+  public Vector3 smoothStep(Real edgeo0, float edge1) {
+    return smoothStep(edgeo0, Shade.constant(edge1));
+  }
+
+  public Vector3 smoothStep(Real edge0, Real edge1) {
+    return function("edge", edge0, edge1, this);
+  }
+
+  private Vector3 function(String name, Expression... arguments) {
+    return new Vector3(ImmutableList.copyOf(arguments), NodeType.FunctionNodeType.forFunction(name));
   }
 
   public Vector3 reflect(Vector3 orientation) {
