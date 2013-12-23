@@ -9,7 +9,7 @@ import com.lfscheidegger.jfacet.shade.expression.vector.*;
 /**
  * {@code Expression} for boolean values
  */
-public final class Bool extends AbstractExpression {
+public final class Bool extends Expression {
 
   @SuppressWarnings("all")
   private static <T extends Expression> T getExpressionForTernaryOperator(

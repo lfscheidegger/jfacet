@@ -7,7 +7,7 @@ import com.lfscheidegger.jfacet.shade.Shade;
 /**
  * {code Expression} for floats
  */
-public final class Real extends AbstractExpression {
+public final class Real extends Expression {
 
   public Real(float c) {
     super(c);

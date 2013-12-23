@@ -10,7 +10,7 @@ import com.lfscheidegger.jfacet.utils.StringHelper;
 
 import java.util.Arrays;
 
-public final class Vector4 extends AbstractExpression implements VectorExpression<Real> {
+public final class Vector4 extends Expression implements VectorExpression<Real> {
 
   public static final class Primitive implements VectorPrimitive {
 

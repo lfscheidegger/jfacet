@@ -10,7 +10,7 @@ import com.lfscheidegger.jfacet.utils.StringHelper;
 
 import java.util.Arrays;
 
-public final class Matrix3 extends AbstractExpression {
+public final class Matrix3 extends Expression {
 
   public static final class Primitive {
 

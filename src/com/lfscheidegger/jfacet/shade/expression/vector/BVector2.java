@@ -2,15 +2,14 @@ package com.lfscheidegger.jfacet.shade.expression.vector;
 
 import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableList;
-import com.lfscheidegger.jfacet.shade.expression.AbstractExpression;
-import com.lfscheidegger.jfacet.shade.expression.Bool;
 import com.lfscheidegger.jfacet.shade.expression.Expression;
+import com.lfscheidegger.jfacet.shade.expression.Bool;
 import com.lfscheidegger.jfacet.shade.expression.NodeType;
 import com.lfscheidegger.jfacet.utils.StringHelper;
 
 import java.util.Arrays;
 
-public final class BVector2 extends AbstractExpression implements VectorExpression<Bool> {
+public final class BVector2 extends Expression implements VectorExpression<Bool> {
 
   public static final class Primitive implements BVectorPrimitive {
 
