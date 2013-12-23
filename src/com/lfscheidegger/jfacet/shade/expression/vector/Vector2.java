@@ -292,24 +292,6 @@ public final class Vector2 extends AbstractExpression implements VectorExpressio
     return new Vector2(ImmutableList.<Expression>of(this), NodeType.NEG);
   }
 
-  public Real dot(Vector2 right) {
-    return new Real(
-        ImmutableList.<Expression>of(this, right),
-        NodeType.FunctionNodeType.forFunction("dot"));
-  }
-
-  public Vector2 normalize() {
-    return new Vector2(
-        ImmutableList.<Expression>of(this),
-        NodeType.FunctionNodeType.forFunction("normalize"));
-  }
-
-  public Real length() {
-    return new Real(
-        ImmutableList.<Expression>of(this),
-        NodeType.FunctionNodeType.forFunction("length"));
-  }
-
   public BVector2 isLessThan(Vector2 right) {
     return new BVector2(
         ImmutableList.<Expression>of(this, right),
@@ -469,12 +451,46 @@ public final class Vector2 extends AbstractExpression implements VectorExpressio
     return function("edge", edge0, edge1, this);
   }
 
-  private Vector2 function(String name, Expression... arguments) {
-    return new Vector2(ImmutableList.copyOf(arguments), NodeType.FunctionNodeType.forFunction(name));
+  public Real length() {
+    return new Real(
+        ImmutableList.<Expression>of(this),
+        NodeType.FunctionNodeType.forFunction("length"));
   }
 
-  public Vector2 reflect(Vector2 orientation) {
-    return new Vector2(ImmutableList.<Expression>of(this, orientation), NodeType.FunctionNodeType.forFunction("reflect"));
+  public Real distance(Vector2 rhs) {
+    return new Real(
+        ImmutableList.<Expression>of(this, rhs),
+        NodeType.FunctionNodeType.forFunction("distance"));
+  }
+
+  public Real dot(Vector2 right) {
+    return new Real(
+        ImmutableList.<Expression>of(this, right),
+        NodeType.FunctionNodeType.forFunction("dot"));
+  }
+
+  public Vector2 normalize() {
+    return function("normalize", this);
+  }
+
+  public Vector2 faceForward(Vector2 i, Vector2 nRef) {
+    return function("faceforward", this, i, nRef);
+  }
+
+  public Vector2 reflect(Vector2 normal) {
+    return function("reflect", this, normal);
+  }
+
+  public Vector2 refract(Vector2 normal, float eta) {
+    return refract(normal, Shade.constant(eta));
+  }
+
+  public Vector2 refract(Vector2 normal, Real eta) {
+    return function("refract", this, normal, eta);
+  }
+
+  private Vector2 function(String name, Expression... arguments) {
+    return new Vector2(ImmutableList.copyOf(arguments), NodeType.FunctionNodeType.forFunction(name));
   }
 
   @Override

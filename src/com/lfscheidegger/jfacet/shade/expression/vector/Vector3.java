@@ -337,30 +337,6 @@ public final class Vector3 extends AbstractExpression implements VectorExpressio
     return new Vector3(ImmutableList.<Expression>of(this), NodeType.NEG);
   }
 
-  public Real dot(Vector3 right) {
-    return new Real(
-        ImmutableList.<Expression>of(this, right),
-        NodeType.FunctionNodeType.forFunction("dot"));
-  }
-
-  public Vector3 cross(Vector3 right) {
-    return new Vector3(
-        ImmutableList.<Expression>of(this, right),
-        NodeType.FunctionNodeType.forFunction("cross"));
-  }
-
-  public Vector3 normalize() {
-    return new Vector3(
-        ImmutableList.<Expression>of(this),
-        NodeType.FunctionNodeType.forFunction("normalize"));
-  }
-
-  public Real length() {
-    return new Real(
-        ImmutableList.<Expression>of(this),
-        NodeType.FunctionNodeType.forFunction("length"));
-  }
-
   public BVector3 isLessThan(Vector3 right) {
     return new BVector3(
         ImmutableList.<Expression>of(this, right),
@@ -520,12 +496,52 @@ public final class Vector3 extends AbstractExpression implements VectorExpressio
     return function("edge", edge0, edge1, this);
   }
 
-  private Vector3 function(String name, Expression... arguments) {
-    return new Vector3(ImmutableList.copyOf(arguments), NodeType.FunctionNodeType.forFunction(name));
+  public Real length() {
+    return new Real(
+        ImmutableList.<Expression>of(this),
+        NodeType.FunctionNodeType.forFunction("length"));
   }
 
-  public Vector3 reflect(Vector3 orientation) {
-    return new Vector3(ImmutableList.<Expression>of(this, orientation), NodeType.FunctionNodeType.forFunction("reflect"));
+  public Real distance(Vector3 rhs) {
+    return new Real(
+        ImmutableList.<Expression>of(this, rhs),
+        NodeType.FunctionNodeType.forFunction("distance"));
+  }
+
+  public Real dot(Vector3 right) {
+    return new Real(
+        ImmutableList.<Expression>of(this, right),
+        NodeType.FunctionNodeType.forFunction("dot"));
+  }
+
+  public Vector3 cross(Vector3 right) {
+    return new Vector3(
+        ImmutableList.<Expression>of(this, right),
+        NodeType.FunctionNodeType.forFunction("cross"));
+  }
+
+  public Vector3 normalize() {
+    return function("normalize", this);
+  }
+
+  public Vector3 faceForward(Vector3 i, Vector3 nRef) {
+    return function("faceforward", this, i, nRef);
+  }
+
+  public Vector3 reflect(Vector3 normal) {
+    return function("reflect", this, normal);
+  }
+
+  public Vector3 refract(Vector3 normal, float eta) {
+    return refract(normal, Shade.constant(eta));
+  }
+
+  public Vector3 refract(Vector3 normal, Real eta) {
+    return function("refract", this, normal, eta);
+  }
+
+  private Vector3 function(String name, Expression... arguments) {
+    return new Vector3(ImmutableList.copyOf(arguments), NodeType.FunctionNodeType.forFunction(name));
   }
 
   @Override

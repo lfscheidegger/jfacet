@@ -374,24 +374,6 @@ public final class Vector4 extends AbstractExpression implements VectorExpressio
     return new Vector4(ImmutableList.<Expression>of(this), NodeType.NEG);
   }
 
-  public Real dot(Vector4 right) {
-    return new Real(
-        ImmutableList.<Expression>of(this, right),
-        NodeType.FunctionNodeType.forFunction("dot"));
-  }
-
-  public Vector4 normalize() {
-    return new Vector4(
-        ImmutableList.<Expression>of(this),
-        NodeType.FunctionNodeType.forFunction("normalize"));
-  }
-
-  public Real length() {
-    return new Real(
-        ImmutableList.<Expression>of(this),
-        NodeType.FunctionNodeType.forFunction("length"));
-  }
-
   public BVector4 isLessThan(Vector4 right) {
     return new BVector4(
         ImmutableList.<Expression>of(this, right),
@@ -551,12 +533,52 @@ public final class Vector4 extends AbstractExpression implements VectorExpressio
     return function("edge", edge0, edge1, this);
   }
 
-  private Vector4 function(String name, Expression... arguments) {
-    return new Vector4(ImmutableList.copyOf(arguments), NodeType.FunctionNodeType.forFunction(name));
+  public Real length() {
+    return new Real(
+        ImmutableList.<Expression>of(this),
+        NodeType.FunctionNodeType.forFunction("length"));
   }
 
-  public Vector4 reflect(Vector4 orientation) {
-    return new Vector4(ImmutableList.<Expression>of(this, orientation), NodeType.FunctionNodeType.forFunction("reflect"));
+  public Real distance(Vector4 rhs) {
+    return new Real(
+        ImmutableList.<Expression>of(this, rhs),
+        NodeType.FunctionNodeType.forFunction("distance"));
+  }
+
+  public Real dot(Vector4 right) {
+    return new Real(
+        ImmutableList.<Expression>of(this, right),
+        NodeType.FunctionNodeType.forFunction("dot"));
+  }
+
+  public Vector4 cross(Vector4 right) {
+    return new Vector4(
+        ImmutableList.<Expression>of(this, right),
+        NodeType.FunctionNodeType.forFunction("cross"));
+  }
+
+  public Vector4 normalize() {
+    return function("normalize", this);
+  }
+
+  public Vector4 faceForward(Vector4 i, Vector4 nRef) {
+    return function("faceforward", this, i, nRef);
+  }
+
+  public Vector4 reflect(Vector4 normal) {
+    return function("reflect", this, normal);
+  }
+
+  public Vector4 refract(Vector4 normal, float eta) {
+    return refract(normal, Shade.constant(eta));
+  }
+
+  public Vector4 refract(Vector4 normal, Real eta) {
+    return function("refract", this, normal, eta);
+  }
+
+  private Vector4 function(String name, Expression... arguments) {
+    return new Vector4(ImmutableList.copyOf(arguments), NodeType.FunctionNodeType.forFunction(name));
   }
 
   @Override
