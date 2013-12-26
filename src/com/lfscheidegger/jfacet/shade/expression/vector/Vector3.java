@@ -12,6 +12,8 @@ import java.util.Arrays;
 
 public final class Vector3 extends Expression implements VectorExpression<Real> {
 
+  private static final String GLSL_TYPE_NAME = "vec3";
+
   public static final class Primitive implements VectorPrimitive {
 
     private final float[] mValues;
@@ -192,7 +194,7 @@ public final class Vector3 extends Expression implements VectorExpression<Real> 
 
     @Override
     public String toString() {
-      return new StringHelper("vec3")
+      return new StringHelper(GLSL_TYPE_NAME)
           .addValue(mValues[0])
           .addValue(mValues[1])
           .addValue(mValues[2])
@@ -205,23 +207,23 @@ public final class Vector3 extends Expression implements VectorExpression<Real> 
   }
 
   public Vector3(Primitive primitive) {
-    super(primitive);
+    super(primitive, GLSL_TYPE_NAME);
   }
 
   public Vector3(Real x, Real y, Real z) {
-    super(ImmutableList.<Expression>of(x, y, z), NodeType.CONS);
+    super(ImmutableList.<Expression>of(x, y, z), NodeType.CONS, GLSL_TYPE_NAME);
   }
 
   public Vector3(NodeType nodeType) {
-    super(nodeType);
+    super(nodeType, GLSL_TYPE_NAME);
   }
 
   public Vector3(ImmutableList<Expression> parents, NodeType nodeType) {
-    super(parents, nodeType);
+    super(parents, nodeType, GLSL_TYPE_NAME);
   }
 
   public Vector3(AttributeBuffer attributeBuffer) {
-    super(NodeType.AttributeNodeType.forAttribute(attributeBuffer));
+    super(NodeType.AttributeNodeType.forAttribute(attributeBuffer), GLSL_TYPE_NAME);
   }
 
   public Real getX() {
@@ -242,11 +244,6 @@ public final class Vector3 extends Expression implements VectorExpression<Real> 
     return new Real(
         ImmutableList.<Expression>of(this),
         NodeType.ComponentNodeType.forComponent(idx));
-  }
-
-  @Override
-  public String getGlSlTypeName() {
-    return "vec3";
   }
 
   public Swizzle.Swizzle31XYZW<Real, Vector2, Vector3, Vector4> x() {

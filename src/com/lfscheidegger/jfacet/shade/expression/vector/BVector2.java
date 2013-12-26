@@ -11,6 +11,8 @@ import java.util.Arrays;
 
 public final class BVector2 extends Expression implements VectorExpression<Bool> {
 
+  private static final String GLSL_TYPE_NAME = "bvec2";
+
   public static final class Primitive implements BVectorPrimitive {
 
     private final boolean[] mValues;
@@ -88,7 +90,7 @@ public final class BVector2 extends Expression implements VectorExpression<Bool>
 
     @Override
     public String toString() {
-      return new StringHelper("bvec2")
+      return new StringHelper(GLSL_TYPE_NAME)
           .addValue(mValues[0])
           .addValue(mValues[1])
           .toString();
@@ -96,15 +98,15 @@ public final class BVector2 extends Expression implements VectorExpression<Bool>
   }
 
   public BVector2(boolean x, boolean y) {
-    super(new Primitive(x, y));
+    super(new Primitive(x, y), GLSL_TYPE_NAME);
   }
 
   public BVector2(Bool x, Bool y) {
-    super(ImmutableList.<Expression>of(x, y), NodeType.CONS);
+    super(ImmutableList.<Expression>of(x, y), NodeType.CONS, GLSL_TYPE_NAME);
   }
 
   public BVector2(ImmutableList<Expression> parents, NodeType nodeType) {
-    super(parents, nodeType);
+    super(parents, nodeType, GLSL_TYPE_NAME);
   }
 
   public Bool getX() {
@@ -121,11 +123,6 @@ public final class BVector2 extends Expression implements VectorExpression<Bool>
     return new Bool(
         ImmutableList.<Expression>of(this),
         NodeType.ComponentNodeType.forComponent(idx));
-  }
-
-  @Override
-  public String getGlSlTypeName() {
-    return "bvec2";
   }
 
   public Swizzle.Swizzle21XYZW<Bool, BVector2, BVector3, BVector4> x() {

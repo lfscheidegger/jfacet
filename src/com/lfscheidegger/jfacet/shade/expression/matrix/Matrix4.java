@@ -12,6 +12,8 @@ import java.util.Arrays;
 
 public final class Matrix4 extends Expression {
 
+  private static final String GLSL_TYPE_NAME = "mat4";
+
   public static final class Primitive {
 
     private final float[] mValues;
@@ -133,7 +135,7 @@ public final class Matrix4 extends Expression {
 
     @Override
     public String toString() {
-      return new StringHelper("mat4")
+      return new StringHelper(GLSL_TYPE_NAME)
           .addValue(new Vector4.Primitive(mValues[ 0], mValues[ 1], mValues[ 2], mValues[ 3]))
           .addValue(new Vector4.Primitive(mValues[ 4], mValues[ 5], mValues[ 6], mValues[ 7]))
           .addValue(new Vector4.Primitive(mValues[ 8], mValues[ 9], mValues[10], mValues[11]))
@@ -143,20 +145,15 @@ public final class Matrix4 extends Expression {
   }
 
   public Matrix4() {
-    super(new Primitive());
+    super(new Primitive(), GLSL_TYPE_NAME);
   }
 
   public Matrix4(Vector4 c0, Vector4 c1, Vector4 c2, Vector4 c3) {
-    super(ImmutableList.<Expression>of(c0, c1, c2, c3), NodeType.CONS);
+    super(ImmutableList.<Expression>of(c0, c1, c2, c3), NodeType.CONS, GLSL_TYPE_NAME);
   }
 
   public Matrix4(ImmutableList<Expression> parents, NodeType nodeType) {
-    super(parents, nodeType);
-  }
-
-  @Override
-  public String getGlSlTypeName() {
-    return "mat4";
+    super(parents, nodeType, GLSL_TYPE_NAME);
   }
 
   public Vector4 getC0() {

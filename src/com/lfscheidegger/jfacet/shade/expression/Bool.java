@@ -11,6 +11,8 @@ import com.lfscheidegger.jfacet.shade.expression.vector.*;
  */
 public final class Bool extends Expression {
 
+  private static final String GLSL_TYPE_NAME = "bool";
+
   @SuppressWarnings("all")
   private static <T extends Expression> T getExpressionForTernaryOperator(
       Bool condition,
@@ -53,20 +55,15 @@ public final class Bool extends Expression {
   }
 
   public Bool(boolean c) {
-    super(c);
+    super(c, GLSL_TYPE_NAME);
   }
 
   public Bool(NodeType nodeType) {
-    super(nodeType);
+    super(nodeType, GLSL_TYPE_NAME);
   }
 
   public Bool(ImmutableList<Expression> parents, NodeType nodeType) {
-    super(parents, nodeType);
-  }
-
-  @Override
-  public String getGlSlTypeName() {
-    return "bool";
+    super(parents, nodeType, GLSL_TYPE_NAME);
   }
 
   public Bool and(Bool right) {

@@ -9,25 +9,22 @@ import com.lfscheidegger.jfacet.shade.Shade;
  */
 public final class Real extends Expression {
 
+  private static final String GLSL_TYPE_NAME = "float";
+
   public Real(float c) {
-    super(c);
+    super(c, GLSL_TYPE_NAME);
   }
 
   public Real(ImmutableList<Expression> parents, NodeType nodeType) {
-    super(parents, nodeType);
+    super(parents, nodeType, GLSL_TYPE_NAME);
   }
 
   public Real(NodeType nodeType) {
-    super(nodeType);
+    super(nodeType, GLSL_TYPE_NAME);
   }
 
   public Real(AttributeBuffer attributeBuffer) {
-    super(NodeType.AttributeNodeType.forAttribute(attributeBuffer));
-  }
-
-  @Override
-  public String getGlSlTypeName() {
-    return "float";
+    super(NodeType.AttributeNodeType.forAttribute(attributeBuffer), GLSL_TYPE_NAME);
   }
 
   public Real add(Real right) {
