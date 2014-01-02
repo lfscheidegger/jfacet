@@ -27,7 +27,7 @@ public final class Program {
   private int mMaxTextureUnits;
   private int mProgramHandle;
 
-  public <T> Program(VecExpression position, VecExpression fragColor) {
+  public <T> Program(VecLike position, VecLike fragColor) {
     mPosition = fill(position, Shade.vec(0, 0, 0, 1));
     mFragColor = fill(fragColor, Shade.vec(0, 0, 0, 1));
 
@@ -64,7 +64,7 @@ public final class Program {
     loadTextures(mVertexShaderCompiler.getUniformExpressions());
   }
 
-  private Vec4 fill(VecExpression vector, Vec4 defaultValue) {
+  private Vec4 fill(VecLike vector, Vec4 defaultValue) {
     if (vector instanceof Vec2) {
       return Shade.vec((Vec2)vector, defaultValue.z().w().get());
     } else if (vector instanceof Vec3) {

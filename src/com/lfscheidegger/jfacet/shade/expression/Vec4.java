@@ -9,7 +9,7 @@ import com.lfscheidegger.jfacet.utils.StringHelper;
 
 import java.util.Arrays;
 
-public final class Vec4 extends Expression implements VecExpression {
+public final class Vec4 extends Expression implements VecLike {
 
   private static final String GLSL_TYPE_NAME = "vec4";
 

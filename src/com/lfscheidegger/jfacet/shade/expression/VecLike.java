@@ -1,3 +1,3 @@
 package com.lfscheidegger.jfacet.shade.expression;
 
-public interface VecExpression {}
+public interface VecLike {}

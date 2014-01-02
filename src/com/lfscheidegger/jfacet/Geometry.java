@@ -266,7 +266,7 @@ public final class Geometry {
     return (Vec4) mExpressions.get(attributeName);
   }
 
-  public Drawable bake(VecExpression vertexPosition, VecExpression fragmentColor) {
+  public Drawable bake(VecLike vertexPosition, VecLike fragmentColor) {
     return new Drawable(this, vertexPosition, fragmentColor);
   }
 

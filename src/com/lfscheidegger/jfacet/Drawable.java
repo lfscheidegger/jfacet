@@ -1,20 +1,20 @@
 package com.lfscheidegger.jfacet;
 
 import android.opengl.GLES20;
-import com.lfscheidegger.jfacet.shade.expression.VecExpression;
+import com.lfscheidegger.jfacet.shade.expression.VecLike;
 
 public final class Drawable implements Runnable {
 
   private final Geometry mGeometry;
   private Program mProgram;
 
-  private final VecExpression mPosition;
-  private final VecExpression mFragColor;
+  private final VecLike mPosition;
+  private final VecLike mFragColor;
 
   public Drawable(
       Geometry geometry,
-      VecExpression position,
-      VecExpression fragColor) {
+      VecLike position,
+      VecLike fragColor) {
     mPosition = position;
     mFragColor = fragColor;
     mGeometry = geometry;
