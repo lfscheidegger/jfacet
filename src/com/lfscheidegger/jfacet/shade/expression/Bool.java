@@ -21,15 +21,15 @@ public final class Bool extends Expression {
     NodeType nodeType = NodeType.TERNARY;
     if (ifExpression instanceof Real) return (T)new Real(parents, nodeType);
     if (ifExpression instanceof Bool) return (T)new Bool(parents, nodeType);
-    if (ifExpression instanceof Vector2) return (T)new Vector2(parents, nodeType);
-    if (ifExpression instanceof Vector3) return (T)new Vector3(parents, nodeType);
-    if (ifExpression instanceof Vector4) return (T)new Vector4(parents, nodeType);
-    if (ifExpression instanceof BVector2) return (T)new BVector2(parents, nodeType);
-    if (ifExpression instanceof BVector3) return (T)new BVector3(parents, nodeType);
-    if (ifExpression instanceof BVector4) return (T)new BVector4(parents, nodeType);
-    if (ifExpression instanceof Matrix2) return (T)new Matrix2(parents, nodeType);
-    if (ifExpression instanceof Matrix3) return (T)new Matrix3(parents, nodeType);
-    if (ifExpression instanceof Matrix4) return (T)new Matrix4(parents, nodeType);
+    if (ifExpression instanceof Vec2) return (T)new Vec2(parents, nodeType);
+    if (ifExpression instanceof Vec3) return (T)new Vec3(parents, nodeType);
+    if (ifExpression instanceof Vec4) return (T)new Vec4(parents, nodeType);
+    if (ifExpression instanceof BVec2) return (T)new BVec2(parents, nodeType);
+    if (ifExpression instanceof BVec3) return (T)new BVec3(parents, nodeType);
+    if (ifExpression instanceof BVec4) return (T)new BVec4(parents, nodeType);
+    if (ifExpression instanceof Mat2) return (T)new Mat2(parents, nodeType);
+    if (ifExpression instanceof Mat3) return (T)new Mat3(parents, nodeType);
+    if (ifExpression instanceof Mat4) return (T)new Mat4(parents, nodeType);
     throw new IllegalArgumentException(
         "Can't use ternary operator for " + ifExpression.getClass().getSimpleName());
   }

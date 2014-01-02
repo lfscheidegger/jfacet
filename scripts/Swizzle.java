@@ -6,7 +6,7 @@ package com.lfscheidegger.jfacet.shade.expression.vector.swizzle;
  * dimensionality of the swizzling requested, as well as the coordinates used, are always valid.
  *
  * For example, in GLSL, one can mistakenly write vec2(1, 2).z, which fails to compile. We avoid this because
- * {@code Vector2} supports only 2-dimensional swizzling, which uses the {@code D21}, {@code D22}, {@code D23},
+ * {@code Vec2} supports only 2-dimensional swizzling, which uses the {@code D21}, {@code D22}, {@code D23},
  * and {@code D24} enumerations.
  *
  * This class has an exceptionally short name (as well as the enums themselves) to deemphasize their names when

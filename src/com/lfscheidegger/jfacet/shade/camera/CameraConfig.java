@@ -1,8 +1,8 @@
 package com.lfscheidegger.jfacet.shade.camera;
 
-import com.lfscheidegger.jfacet.shade.expression.Matrix4;
+import com.lfscheidegger.jfacet.shade.expression.Mat4;
 
 public interface CameraConfig {
 
-  public Matrix4 getMatrix();
+  public Mat4 getMatrix();
 }

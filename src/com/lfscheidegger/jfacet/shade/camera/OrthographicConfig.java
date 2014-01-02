@@ -1,8 +1,8 @@
 package com.lfscheidegger.jfacet.shade.camera;
 
 import com.lfscheidegger.jfacet.shade.Shade;
+import com.lfscheidegger.jfacet.shade.expression.Mat4;
 import com.lfscheidegger.jfacet.shade.expression.Real;
-import com.lfscheidegger.jfacet.shade.expression.Matrix4;
 
 public class OrthographicConfig implements CameraConfig {
 
@@ -75,7 +75,7 @@ public class OrthographicConfig implements CameraConfig {
   }
 
   @Override
-  public Matrix4 getMatrix() {
+  public Mat4 getMatrix() {
     Real tx = mRight.add(mLeft).div(mRight.sub(mLeft));
     Real ty = mTop.add(mBottom).div(mTop.sub(mBottom));
     Real tz = mFar.add(mNear).div(mFar.sub(mNear));

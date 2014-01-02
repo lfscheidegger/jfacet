@@ -7,21 +7,21 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.lfscheidegger.jfacet.shade.expression.Expression;
 import com.lfscheidegger.jfacet.shade.expression.NodeType;
-import com.lfscheidegger.jfacet.shade.expression.Vector4;
+import com.lfscheidegger.jfacet.shade.expression.Vec4;
 
 import java.util.List;
 import java.util.Map;
 
 public class VertexShaderCompiler {
 
-  private final Vector4 mVertexPosition;
+  private final Vec4 mVertexPosition;
   private final CompilationHelper mCompilationHelper;
   private final List<Expression> mAttributeExpressions;
   private final List<Expression> mUniformExpressions;
 
   private Map<Expression, String> mVaryingExpressions = Maps.newHashMap();
 
-  public VertexShaderCompiler(Vector4 vertexPosition) {
+  public VertexShaderCompiler(Vec4 vertexPosition) {
     mVertexPosition = vertexPosition;
     mCompilationHelper = new CompilationHelper();
 

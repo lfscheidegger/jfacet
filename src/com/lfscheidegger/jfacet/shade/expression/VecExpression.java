@@ -1,5 +1,5 @@
 package com.lfscheidegger.jfacet.shade.expression;
 
-public interface VectorExpression<T> {
+public interface VecExpression<T> {
   public T get(int idx);
 }

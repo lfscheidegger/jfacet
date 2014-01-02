@@ -3,7 +3,7 @@ package com.lfscheidegger.jfacet.shade.expression;
 import android.graphics.Bitmap;
 import com.google.common.collect.ImmutableList;
 
-public final class Sampler extends Expression {
+public final class Sampler2D extends Expression {
 
   private static final String GLSL_TYPE_NAME = "sampler2D";
 
@@ -14,12 +14,12 @@ public final class Sampler extends Expression {
     public Bitmap bitmap;
   }
 
-  public Sampler(NodeType nodeType) {
+  public Sampler2D(NodeType nodeType) {
     super(nodeType, GLSL_TYPE_NAME);
   }
 
-  public Vector4 texture(Vector2 textureCoordinates) {
-    return new Vector4(
+  public Vec4 texture(Vec2 textureCoordinates) {
+    return new Vec4(
         ImmutableList.<Expression>of(this, textureCoordinates),
         NodeType.FunctionNodeType.forFunction("texture2D"));
   }

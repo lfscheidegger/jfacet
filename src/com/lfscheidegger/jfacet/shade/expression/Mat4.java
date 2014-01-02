@@ -8,7 +8,7 @@ import com.lfscheidegger.jfacet.utils.StringHelper;
 
 import java.util.Arrays;
 
-public final class Matrix4 extends Expression {
+public final class Mat4 extends Expression {
 
   private static final String GLSL_TYPE_NAME = "mat4";
 
@@ -25,7 +25,7 @@ public final class Matrix4 extends Expression {
       }
     }
 
-    public Primitive(Vector4.Primitive c0, Vector4.Primitive c1, Vector4.Primitive c2, Vector4.Primitive c3) {
+    public Primitive(Vec4.Primitive c0, Vec4.Primitive c1, Vec4.Primitive c2, Vec4.Primitive c3) {
       mValues = new float[]{
           c0.getX(), c0.getY(), c0.getZ(), c0.getW(),
           c1.getX(), c1.getY(), c1.getZ(), c1.getW(),
@@ -37,24 +37,24 @@ public final class Matrix4 extends Expression {
       mValues = other;
     }
 
-    public Vector4.Primitive getC0() {
+    public Vec4.Primitive getC0() {
       return get(0);
     }
 
-    public Vector4.Primitive getC1() {
+    public Vec4.Primitive getC1() {
       return get(1);
     }
 
-    public Vector4.Primitive getC2() {
+    public Vec4.Primitive getC2() {
       return get(2);
     }
 
-    public Vector4.Primitive getC3() {
+    public Vec4.Primitive getC3() {
       return get(3);
     }
 
-    public Vector4.Primitive get(int idx) {
-      return new Vector4.Primitive(mValues[4 * idx], mValues[4 * idx + 1], mValues[4 * idx + 2], mValues[4 * idx + 3]);
+    public Vec4.Primitive get(int idx) {
+      return new Vec4.Primitive(mValues[4 * idx], mValues[4 * idx + 1], mValues[4 * idx + 2], mValues[4 * idx + 3]);
     }
 
     public Primitive add(Primitive other) {
@@ -81,8 +81,8 @@ public final class Matrix4 extends Expression {
       return new Primitive(ArrayUtils.mul(mValues, t));
     }
 
-    public Vector4.Primitive mul(Vector4.Primitive vec) {
-      return new Vector4.Primitive(
+    public Vec4.Primitive mul(Vec4.Primitive vec) {
+      return new Vec4.Primitive(
           mValues[0] * vec.getX() + mValues[4] * vec.getY() + mValues[ 8] * vec.getZ() + mValues[12] * vec.getW(),
           mValues[1] * vec.getX() + mValues[5] * vec.getY() + mValues[ 9] * vec.getZ() + mValues[13] * vec.getW(),
           mValues[2] * vec.getX() + mValues[6] * vec.getY() + mValues[10] * vec.getZ() + mValues[14] * vec.getW(),
@@ -134,113 +134,113 @@ public final class Matrix4 extends Expression {
     @Override
     public String toString() {
       return new StringHelper(GLSL_TYPE_NAME)
-          .addValue(new Vector4.Primitive(mValues[ 0], mValues[ 1], mValues[ 2], mValues[ 3]))
-          .addValue(new Vector4.Primitive(mValues[ 4], mValues[ 5], mValues[ 6], mValues[ 7]))
-          .addValue(new Vector4.Primitive(mValues[ 8], mValues[ 9], mValues[10], mValues[11]))
-          .addValue(new Vector4.Primitive(mValues[12], mValues[13], mValues[14], mValues[15]))
+          .addValue(new Vec4.Primitive(mValues[ 0], mValues[ 1], mValues[ 2], mValues[ 3]))
+          .addValue(new Vec4.Primitive(mValues[ 4], mValues[ 5], mValues[ 6], mValues[ 7]))
+          .addValue(new Vec4.Primitive(mValues[ 8], mValues[ 9], mValues[10], mValues[11]))
+          .addValue(new Vec4.Primitive(mValues[12], mValues[13], mValues[14], mValues[15]))
           .toString();
     }
   }
 
-  public Matrix4() {
+  public Mat4() {
     super(new Primitive(), GLSL_TYPE_NAME);
   }
 
-  public Matrix4(Vector4 c0, Vector4 c1, Vector4 c2, Vector4 c3) {
+  public Mat4(Vec4 c0, Vec4 c1, Vec4 c2, Vec4 c3) {
     super(ImmutableList.<Expression>of(c0, c1, c2, c3), NodeType.CONS, GLSL_TYPE_NAME);
   }
 
-  public Matrix4(ImmutableList<Expression> parents, NodeType nodeType) {
+  public Mat4(ImmutableList<Expression> parents, NodeType nodeType) {
     super(parents, nodeType, GLSL_TYPE_NAME);
   }
 
-  public Vector4 getC0() {
+  public Vec4 getC0() {
     return get(0);
   }
 
-  public Vector4 getC1() {
+  public Vec4 getC1() {
     return get(1);
   }
 
-  public Vector4 getC2() {
+  public Vec4 getC2() {
     return get(2);
   }
 
-  public Vector4 getC3() {
+  public Vec4 getC3() {
     return get(3);
   }
 
-  public Vector4 get(int idx) {
+  public Vec4 get(int idx) {
     Preconditions.checkState(idx < 4);
-    return new Vector4(ImmutableList.<Expression>of(this), NodeType.ComponentNodeType.forComponent(idx));
+    return new Vec4(ImmutableList.<Expression>of(this), NodeType.ComponentNodeType.forComponent(idx));
   }
 
-  public Matrix4 add(float right) {
+  public Mat4 add(float right) {
     return add(new Real(right));
   }
 
-  public Matrix4 add(Real right) {
-    return new Matrix4(ImmutableList.<Expression>of(this, right), NodeType.ADD);
+  public Mat4 add(Real right) {
+    return new Mat4(ImmutableList.<Expression>of(this, right), NodeType.ADD);
   }
 
-  public Matrix4 add(Matrix4 right) {
-    return new Matrix4(ImmutableList.<Expression>of(this, right), NodeType.ADD);
+  public Mat4 add(Mat4 right) {
+    return new Mat4(ImmutableList.<Expression>of(this, right), NodeType.ADD);
   }
 
-  public Matrix4 sub(float right) {
+  public Mat4 sub(float right) {
     return sub(new Real(right));
   }
 
-  public Matrix4 sub(Real right) {
-    return new Matrix4(ImmutableList.<Expression>of(this, right), NodeType.SUB);
+  public Mat4 sub(Real right) {
+    return new Mat4(ImmutableList.<Expression>of(this, right), NodeType.SUB);
   }
 
-  public Matrix4 sub(Matrix4 right) {
-    return new Matrix4(ImmutableList.<Expression>of(this, right), NodeType.SUB);
+  public Mat4 sub(Mat4 right) {
+    return new Mat4(ImmutableList.<Expression>of(this, right), NodeType.SUB);
   }
 
-  public Matrix4 mul(float right) {
+  public Mat4 mul(float right) {
     return mul(new Real(right));
   }
 
-  public Matrix4 mul(Real right) {
-    return new Matrix4(ImmutableList.<Expression>of(this, right), NodeType.MUL);
+  public Mat4 mul(Real right) {
+    return new Mat4(ImmutableList.<Expression>of(this, right), NodeType.MUL);
   }
 
-  public Matrix4 mul(Matrix4 right) {
-    return new Matrix4(ImmutableList.<Expression>of(this, right), NodeType.MUL);
+  public Mat4 mul(Mat4 right) {
+    return new Mat4(ImmutableList.<Expression>of(this, right), NodeType.MUL);
   }
 
-  public Vector4 mul(Vector4 right) {
-    return new Vector4(ImmutableList.<Expression>of(this, right), NodeType.MUL);
+  public Vec4 mul(Vec4 right) {
+    return new Vec4(ImmutableList.<Expression>of(this, right), NodeType.MUL);
   }
 
-  public Matrix4 div(float right) {
+  public Mat4 div(float right) {
     return div(new Real(right));
   }
 
-  public Matrix4 div(Real right) {
-    return new Matrix4(ImmutableList.<Expression>of(this, right), NodeType.DIV);
+  public Mat4 div(Real right) {
+    return new Mat4(ImmutableList.<Expression>of(this, right), NodeType.DIV);
   }
 
-  public Matrix4 div(Matrix4 right) {
-    return new Matrix4(ImmutableList.<Expression>of(this, right), NodeType.DIV);
+  public Mat4 div(Mat4 right) {
+    return new Mat4(ImmutableList.<Expression>of(this, right), NodeType.DIV);
   }
 
-  public Matrix4 neg() {
-    return new Matrix4(ImmutableList.<Expression>of(this), NodeType.NEG);
+  public Mat4 neg() {
+    return new Mat4(ImmutableList.<Expression>of(this), NodeType.NEG);
   }
 
-  public Bool isEqual(Matrix4 right) {
+  public Bool isEqual(Mat4 right) {
     return new Bool(ImmutableList.<Expression>of(this, right), NodeType.EQ);
   }
 
-  public Bool isNotEqual(Matrix4 right) {
+  public Bool isNotEqual(Mat4 right) {
     return new Bool(ImmutableList.<Expression>of(this, right), NodeType.NEQ);
   }
 
-  public Matrix4 matrixCompMult(Matrix4 right) {
-    return new Matrix4(
+  public Mat4 matrixCompMult(Mat4 right) {
+    return new Mat4(
         ImmutableList.<Expression>of(this, right),
         NodeType.FunctionNodeType.forFunction("matrixCompMult"));
   }

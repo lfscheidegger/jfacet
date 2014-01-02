@@ -1,26 +1,26 @@
 package com.lfscheidegger.jfacet.shade.transform;
 
 import com.google.common.collect.Lists;
-import com.lfscheidegger.jfacet.shade.expression.Matrix4;
-import com.lfscheidegger.jfacet.shade.expression.Vector4;
+import com.lfscheidegger.jfacet.shade.expression.Mat4;
+import com.lfscheidegger.jfacet.shade.expression.Vec4;
 
 import java.util.List;
 
 public class Transform4 {
 
-  private final Matrix4 mTransformMatrix;
+  private final Mat4 mTransformMatrix;
 
   private final List<Transform4> mQueuedTransforms;
 
-  public Transform4(Matrix4 transformMatrix) {
+  public Transform4(Mat4 transformMatrix) {
     mTransformMatrix = transformMatrix;
 
     mQueuedTransforms = Lists.newArrayList();
     mQueuedTransforms.add(this);
   }
 
-  public Vector4 apply(Vector4 exp) {
-    Matrix4 mat = mQueuedTransforms.get(0).getMatrix();
+  public Vec4 apply(Vec4 exp) {
+    Mat4 mat = mQueuedTransforms.get(0).getMatrix();
 
     for (int i = 1; i < mQueuedTransforms.size(); i++) {
       mat = mat.mul(mQueuedTransforms.get(i).getMatrix());
@@ -38,7 +38,7 @@ public class Transform4 {
     return this;
   }
 
-  public Matrix4 getMatrix() {
+  public Mat4 getMatrix() {
     return mTransformMatrix;
   }
 }

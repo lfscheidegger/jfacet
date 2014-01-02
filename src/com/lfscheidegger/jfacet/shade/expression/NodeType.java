@@ -130,54 +130,54 @@ public interface NodeType {
       mValue = value;
     }
 
-    public static UniformNodeType<Sampler.SamplerData> forSampler(Bitmap bitmap) {
-      Sampler.SamplerData primitive = new Sampler.SamplerData();
+    public static UniformNodeType<Sampler2D.SamplerData> forSampler(Bitmap bitmap) {
+      Sampler2D.SamplerData primitive = new Sampler2D.SamplerData();
       primitive.bitmap = bitmap;
-      return new UniformNodeType<Sampler.SamplerData>(primitive);
+      return new UniformNodeType<Sampler2D.SamplerData>(primitive);
     }
 
     public static UniformNodeType<Float> forFloat(Float primitive) {
       return new UniformNodeType<Float>(primitive);
     }
 
-    public static UniformNodeType<Vector2.Primitive> forVector2(Vector2.Primitive primitive) {
-      return new UniformNodeType<Vector2.Primitive>(primitive);
+    public static UniformNodeType<Vec2.Primitive> forVector2(Vec2.Primitive primitive) {
+      return new UniformNodeType<Vec2.Primitive>(primitive);
     }
 
-    public static UniformNodeType<Vector3.Primitive> forVector3(Vector3.Primitive primitive) {
-      return new UniformNodeType<Vector3.Primitive>(primitive);
+    public static UniformNodeType<Vec3.Primitive> forVector3(Vec3.Primitive primitive) {
+      return new UniformNodeType<Vec3.Primitive>(primitive);
     }
 
-    public static UniformNodeType<Vector4.Primitive> forVector4(Vector4.Primitive primitive) {
-      return new UniformNodeType<Vector4.Primitive>(primitive);
+    public static UniformNodeType<Vec4.Primitive> forVector4(Vec4.Primitive primitive) {
+      return new UniformNodeType<Vec4.Primitive>(primitive);
     }
 
     public static UniformNodeType<Boolean> forBoolean(Boolean primitive) {
       return new UniformNodeType<Boolean>(primitive);
     }
 
-    public static UniformNodeType<BVector2.Primitive> forBVector2(BVector2.Primitive primitive) {
-      return new UniformNodeType<BVector2.Primitive>(primitive);
+    public static UniformNodeType<BVec2.Primitive> forBVector2(BVec2.Primitive primitive) {
+      return new UniformNodeType<BVec2.Primitive>(primitive);
     }
 
-    public static UniformNodeType<BVector3.Primitive> forBVector3(BVector3.Primitive primitive) {
-      return new UniformNodeType<BVector3.Primitive>(primitive);
+    public static UniformNodeType<BVec3.Primitive> forBVector3(BVec3.Primitive primitive) {
+      return new UniformNodeType<BVec3.Primitive>(primitive);
     }
 
-    public static UniformNodeType<BVector4.Primitive> forBVector4(BVector4.Primitive primitive) {
-      return new UniformNodeType<BVector4.Primitive>(primitive);
+    public static UniformNodeType<BVec4.Primitive> forBVector4(BVec4.Primitive primitive) {
+      return new UniformNodeType<BVec4.Primitive>(primitive);
     }
 
-    public static UniformNodeType<Matrix2.Primitive> forMatrix2(Matrix2.Primitive primitive) {
-      return new UniformNodeType<Matrix2.Primitive>(primitive);
+    public static UniformNodeType<Mat2.Primitive> forMatrix2(Mat2.Primitive primitive) {
+      return new UniformNodeType<Mat2.Primitive>(primitive);
     }
 
-    public static UniformNodeType<Matrix3.Primitive> forMatrix3(Matrix3.Primitive primitive) {
-      return new UniformNodeType<Matrix3.Primitive>(primitive);
+    public static UniformNodeType<Mat3.Primitive> forMatrix3(Mat3.Primitive primitive) {
+      return new UniformNodeType<Mat3.Primitive>(primitive);
     }
 
-    public static UniformNodeType<Matrix4.Primitive> forMatrix4(Matrix4.Primitive primitive) {
-      return new UniformNodeType<Matrix4.Primitive>(primitive);
+    public static UniformNodeType<Mat4.Primitive> forMatrix4(Mat4.Primitive primitive) {
+      return new UniformNodeType<Mat4.Primitive>(primitive);
     }
 
     public T getValue() {

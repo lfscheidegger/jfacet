@@ -4,21 +4,21 @@ import android.util.Log;
 import com.google.common.collect.*;
 import com.lfscheidegger.jfacet.shade.expression.Expression;
 import com.lfscheidegger.jfacet.shade.expression.NodeType;
-import com.lfscheidegger.jfacet.shade.expression.Vector4;
+import com.lfscheidegger.jfacet.shade.expression.Vec4;
 
 import java.util.List;
 import java.util.Map;
 
 public class FragmentShaderCompiler {
 
-  private final Vector4 mFragmentColor;
+  private final Vec4 mFragmentColor;
   private final CompilationHelper mCompilationHelper;
 
   private final Map<Expression, String> mVaryingExpressions;
 
   private final List<Expression> mUniformExpressions;
 
-  public FragmentShaderCompiler(Vector4 fragmentColor) {
+  public FragmentShaderCompiler(Vec4 fragmentColor) {
     mFragmentColor = fragmentColor;
     mCompilationHelper = new CompilationHelper();
     mVaryingExpressions = Maps.newHashMap();

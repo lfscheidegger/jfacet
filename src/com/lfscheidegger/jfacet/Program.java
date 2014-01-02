@@ -9,21 +9,15 @@ import com.lfscheidegger.jfacet.compiler.FragmentShaderCompiler;
 import com.lfscheidegger.jfacet.compiler.VertexShaderCompiler;
 import com.lfscheidegger.jfacet.shade.Parameter;
 import com.lfscheidegger.jfacet.shade.Shade;
-import com.lfscheidegger.jfacet.shade.expression.Expression;
-import com.lfscheidegger.jfacet.shade.expression.NodeType;
-import com.lfscheidegger.jfacet.shade.expression.Real;
-import com.lfscheidegger.jfacet.shade.expression.Sampler;
-import com.lfscheidegger.jfacet.shade.expression.Vector2;
-import com.lfscheidegger.jfacet.shade.expression.Vector3;
-import com.lfscheidegger.jfacet.shade.expression.Vector4;
-import com.lfscheidegger.jfacet.shade.expression.VectorExpression;
+import com.lfscheidegger.jfacet.shade.expression.*;
+import com.lfscheidegger.jfacet.shade.expression.Sampler2D;
 
 import java.util.List;
 
 public final class Program {
 
-  private final Vector4 mPosition;
-  private final Vector4 mFragColor;
+  private final Vec4 mPosition;
+  private final Vec4 mFragColor;
 
   private final VertexShaderCompiler mVertexShaderCompiler;
   private final FragmentShaderCompiler mFragmentShaderCompiler;
@@ -33,7 +27,7 @@ public final class Program {
   private int mMaxTextureUnits;
   private int mProgramHandle;
 
-  public <T> Program(VectorExpression position, VectorExpression fragColor) {
+  public <T> Program(VecExpression position, VecExpression fragColor) {
     mPosition = fill(position, Shade.vec(0, 0, 0, 1));
     mFragColor = fill(fragColor, Shade.vec(0, 0, 0, 1));
 
@@ -70,13 +64,13 @@ public final class Program {
     loadTextures(mVertexShaderCompiler.getUniformExpressions());
   }
 
-  private Vector4 fill(VectorExpression vector, Vector4 defaultValue) {
-    if (vector instanceof Vector2) {
-      return Shade.vec((Vector2)vector, defaultValue.z().w().get());
-    } else if (vector instanceof Vector3) {
-      return Shade.vec((Vector3)vector, defaultValue.w().get());
-    } else if (vector instanceof Vector4) {
-      return (Vector4)vector;
+  private Vec4 fill(VecExpression vector, Vec4 defaultValue) {
+    if (vector instanceof Vec2) {
+      return Shade.vec((Vec2)vector, defaultValue.z().w().get());
+    } else if (vector instanceof Vec3) {
+      return Shade.vec((Vec3)vector, defaultValue.w().get());
+    } else if (vector instanceof Vec4) {
+      return (Vec4)vector;
     }
 
     throw new IllegalArgumentException("Can't fill from " + vector.getClass().getSimpleName());
@@ -120,11 +114,11 @@ public final class Program {
 
   private void loadTextures(List<Expression> uniformExpressions) {
     for (Expression expression : uniformExpressions) {
-      if (!(expression instanceof Sampler)) {
+      if (!(expression instanceof Sampler2D)) {
         continue;
       }
 
-      Sampler.SamplerData samplerData = Parameter.get((Sampler) expression);
+      Sampler2D.SamplerData samplerData = Parameter.get((Sampler2D) expression);
 
       final int[] textures = new int[1];
       GLES20.glGenTextures(1, textures, 0);
@@ -184,22 +178,22 @@ public final class Program {
       int location = GLES20.glGetUniformLocation(mProgramHandle, name);
       if (expression instanceof Real) {
         GLES20.glUniform1f(location, Parameter.get((Real) expression));
-      } else if (expression instanceof Sampler) {
+      } else if (expression instanceof Sampler2D) {
         Preconditions.checkArgument(textureUnitCounter < mMaxTextureUnits);
 
-        Sampler.SamplerData samplerData = Parameter.get((Sampler) expression);
+        Sampler2D.SamplerData samplerData = Parameter.get((Sampler2D) expression);
         GLES20.glActiveTexture(GLES20.GL_TEXTURE0 + textureUnitCounter);
         GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, samplerData.textureHandle);
         GLES20.glUniform1i(location, textureUnitCounter);
         textureUnitCounter++;
-      } else if (expression instanceof Vector2) {
-        Vector2.Primitive primitive = Parameter.get((Vector2) expression);
+      } else if (expression instanceof Vec2) {
+        Vec2.Primitive primitive = Parameter.get((Vec2) expression);
         GLES20.glUniform2f(location, primitive.getX(), primitive.getY());
-      } else if (expression instanceof Vector3) {
-        Vector3.Primitive primitive = Parameter.get((Vector3) expression);
+      } else if (expression instanceof Vec3) {
+        Vec3.Primitive primitive = Parameter.get((Vec3) expression);
         GLES20.glUniform3f(location, primitive.getX(), primitive.getY(), primitive.getZ());
-      } else if (expression instanceof Vector4) {
-        Vector4.Primitive primitive = Parameter.get((Vector4) expression);
+      } else if (expression instanceof Vec4) {
+        Vec4.Primitive primitive = Parameter.get((Vec4) expression);
         GLES20.glUniform4f(location, primitive.getX(), primitive.getY(), primitive.getZ(), primitive.getW());
       }
     }

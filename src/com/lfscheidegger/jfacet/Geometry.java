@@ -2,12 +2,8 @@ package com.lfscheidegger.jfacet;
 
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Maps;
-import com.lfscheidegger.jfacet.shade.expression.Expression;
-import com.lfscheidegger.jfacet.shade.expression.Real;
-import com.lfscheidegger.jfacet.shade.expression.Vector2;
-import com.lfscheidegger.jfacet.shade.expression.Vector3;
-import com.lfscheidegger.jfacet.shade.expression.Vector4;
-import com.lfscheidegger.jfacet.shade.expression.VectorExpression;
+import com.lfscheidegger.jfacet.shade.expression.*;
+import com.lfscheidegger.jfacet.shade.expression.Vec2;
 
 import javax.annotation.Nullable;
 import java.util.Map;
@@ -64,34 +60,34 @@ public final class Geometry {
     return (Real) mExpressions.get(attributeName);
   }
 
-  public Vector2 getVertices2() {
+  public Vec2 getVertices2() {
     String attributeName = getNameForVertices(2);
 
     if (mExpressions.get(attributeName) == null) {
-      mExpressions.put(attributeName, new Vector2(mVertices));
+      mExpressions.put(attributeName, new Vec2(mVertices));
     }
 
-    return (Vector2) mExpressions.get(attributeName);
+    return (Vec2) mExpressions.get(attributeName);
   }
 
-  public Vector3 getVertices3() {
+  public Vec3 getVertices3() {
     String attributeName = getNameForVertices(3);
 
     if (mExpressions.get(attributeName) == null) {
-      mExpressions.put(attributeName, new Vector3(mVertices));
+      mExpressions.put(attributeName, new Vec3(mVertices));
     }
 
-    return (Vector3) mExpressions.get(attributeName);
+    return (Vec3) mExpressions.get(attributeName);
   }
 
-  public Vector4 getVertices4() {
+  public Vec4 getVertices4() {
     String attributeName = getNameForVertices(4);
 
     if (mExpressions.get(attributeName) == null) {
-      mExpressions.put(attributeName, new Vector4(mVertices));
+      mExpressions.put(attributeName, new Vec4(mVertices));
     }
 
-    return (Vector4) mExpressions.get(attributeName);
+    return (Vec4) mExpressions.get(attributeName);
   }
 
   public Real getColors1() {
@@ -105,37 +101,37 @@ public final class Geometry {
     return (Real) mExpressions.get(attributeName);
   }
 
-  public Vector2 getColors2() {
+  public Vec2 getColors2() {
     Preconditions.checkNotNull(mColors);
     String attributeName = getNameForColors(2);
 
     if (mExpressions.get(attributeName) == null) {
-      mExpressions.put(attributeName, new Vector2(mColors));
+      mExpressions.put(attributeName, new Vec2(mColors));
     }
 
-    return (Vector2) mExpressions.get(attributeName);
+    return (Vec2) mExpressions.get(attributeName);
   }
 
-  public Vector3 getColors3() {
+  public Vec3 getColors3() {
     Preconditions.checkNotNull(mColors);
     String attributeName = getNameForColors(3);
 
     if (mExpressions.get(attributeName) == null) {
-      mExpressions.put(attributeName, new Vector3(mColors));
+      mExpressions.put(attributeName, new Vec3(mColors));
     }
 
-    return (Vector3) mExpressions.get(attributeName);
+    return (Vec3) mExpressions.get(attributeName);
   }
 
-  public Vector4 getColors4() {
+  public Vec4 getColors4() {
     Preconditions.checkNotNull(mColors);
     String attributeName = getNameForColors(4);
 
     if (mExpressions.get(attributeName) == null) {
-      mExpressions.put(attributeName, new Vector4(mColors));
+      mExpressions.put(attributeName, new Vec4(mColors));
     }
 
-    return (Vector4) mExpressions.get(attributeName);
+    return (Vec4) mExpressions.get(attributeName);
   }
 
   public Real getTexCoords1() {
@@ -149,37 +145,37 @@ public final class Geometry {
     return (Real) mExpressions.get(attributeName);
   }
 
-  public Vector2 getTexCoords2() {
+  public Vec2 getTexCoords2() {
     Preconditions.checkNotNull(mTexCoords);
     String attributeName = getNameForTexCoords(2);
 
     if (mExpressions.get(attributeName) == null) {
-      mExpressions.put(attributeName, new Vector2(mTexCoords));
+      mExpressions.put(attributeName, new Vec2(mTexCoords));
     }
 
-    return (Vector2) mExpressions.get(attributeName);
+    return (Vec2) mExpressions.get(attributeName);
   }
 
-  public Vector3 getTexCoords3() {
+  public Vec3 getTexCoords3() {
     Preconditions.checkNotNull(mTexCoords);
     String attributeName = getNameForTexCoords(3);
 
     if (mExpressions.get(attributeName) == null) {
-      mExpressions.put(attributeName, new Vector3(mTexCoords));
+      mExpressions.put(attributeName, new Vec3(mTexCoords));
     }
 
-    return (Vector3) mExpressions.get(attributeName);
+    return (Vec3) mExpressions.get(attributeName);
   }
 
-  public Vector4 getTexCoords4() {
+  public Vec4 getTexCoords4() {
     Preconditions.checkNotNull(mTexCoords);
     String attributeName = getNameForTexCoords(4);
 
     if (mExpressions.get(attributeName) == null) {
-      mExpressions.put(attributeName, new Vector4(mTexCoords));
+      mExpressions.put(attributeName, new Vec4(mTexCoords));
     }
 
-    return (Vector4) mExpressions.get(attributeName);
+    return (Vec4) mExpressions.get(attributeName);
   }
 
   public Real getNormals1() {
@@ -193,37 +189,37 @@ public final class Geometry {
     return (Real) mExpressions.get(attributeName);
   }
 
-  public Vector2 getNormals2() {
+  public Vec2 getNormals2() {
     Preconditions.checkNotNull(mNormals);
     String attributeName = getNameForNormals(2);
 
     if (mExpressions.get(attributeName) == null) {
-      mExpressions.put(attributeName, new Vector2(mNormals));
+      mExpressions.put(attributeName, new Vec2(mNormals));
     }
 
-    return (Vector2) mExpressions.get(attributeName);
+    return (Vec2) mExpressions.get(attributeName);
   }
 
-  public Vector3 getNormals3() {
+  public Vec3 getNormals3() {
     Preconditions.checkNotNull(mNormals);
     String attributeName = getNameForNormals(3);
 
     if (mExpressions.get(attributeName) == null) {
-      mExpressions.put(attributeName, new Vector3(mNormals));
+      mExpressions.put(attributeName, new Vec3(mNormals));
     }
 
-    return (Vector3) mExpressions.get(attributeName);
+    return (Vec3) mExpressions.get(attributeName);
   }
 
-  public Vector4 getNormals4() {
+  public Vec4 getNormals4() {
     Preconditions.checkNotNull(mNormals);
     String attributeName = getNameForNormals(4);
 
     if (mExpressions.get(attributeName) == null) {
-      mExpressions.put(attributeName, new Vector4(mNormals));
+      mExpressions.put(attributeName, new Vec4(mNormals));
     }
 
-    return (Vector4) mExpressions.get(attributeName);
+    return (Vec4) mExpressions.get(attributeName);
   }
 
   public Real getAttribute1(String attributeName) {
@@ -237,40 +233,40 @@ public final class Geometry {
     return (Real) mExpressions.get(attributeName);
   }
 
-  public Vector2 getAttribute2(String attributeName) {
+  public Vec2 getAttribute2(String attributeName) {
     AttributeBuffer attributeBuffer = mAttributeBuffers.get(attributeName);
     Preconditions.checkNotNull(attributeBuffer);
 
     if (mExpressions.get(attributeName) == null) {
-      mExpressions.put(attributeName, new Vector2(mAttributeBuffers.get(attributeName)));
+      mExpressions.put(attributeName, new Vec2(mAttributeBuffers.get(attributeName)));
     }
 
-    return (Vector2) mExpressions.get(attributeName);
+    return (Vec2) mExpressions.get(attributeName);
   }
 
-  public Vector3 getAttribute3(String attributeName) {
+  public Vec3 getAttribute3(String attributeName) {
     AttributeBuffer attributeBuffer = mAttributeBuffers.get(attributeName);
     Preconditions.checkNotNull(attributeBuffer);
 
     if (mExpressions.get(attributeName) == null) {
-      mExpressions.put(attributeName, new Vector3(mAttributeBuffers.get(attributeName)));
+      mExpressions.put(attributeName, new Vec3(mAttributeBuffers.get(attributeName)));
     }
 
-    return (Vector3) mExpressions.get(attributeName);
+    return (Vec3) mExpressions.get(attributeName);
   }
 
-  public Vector4 getAttribute4(String attributeName) {
+  public Vec4 getAttribute4(String attributeName) {
     AttributeBuffer attributeBuffer = mAttributeBuffers.get(attributeName);
     Preconditions.checkNotNull(attributeBuffer);
 
     if (mExpressions.get(attributeName) == null) {
-      mExpressions.put(attributeName, new Vector4(mAttributeBuffers.get(attributeName)));
+      mExpressions.put(attributeName, new Vec4(mAttributeBuffers.get(attributeName)));
     }
 
-    return (Vector4) mExpressions.get(attributeName);
+    return (Vec4) mExpressions.get(attributeName);
   }
 
-  public Drawable bake(VectorExpression vertexPosition, VectorExpression fragmentColor) {
+  public Drawable bake(VecExpression vertexPosition, VecExpression fragmentColor) {
     return new Drawable(this, vertexPosition, fragmentColor);
   }
 

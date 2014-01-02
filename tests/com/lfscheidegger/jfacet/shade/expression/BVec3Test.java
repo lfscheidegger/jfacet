@@ -1,7 +1,6 @@
 package com.lfscheidegger.jfacet.shade.expression;
 
 import com.google.common.collect.ImmutableList;
-import com.lfscheidegger.jfacet.AttributeBuffer;
 import org.junit.Test;
 
 import static com.lfscheidegger.jfacet.shade.expression.ExpressionTestUtils.*;
@@ -9,78 +8,57 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 /**
- * Unit tests for {@code Vector3}
+ * Unit tests for {@code BVec3}
  */
-public class Vector3Test {
+public class BVec3Test {
 
-  private final Vector3 mVec = new Vector3(1, 2, 3);
+  private final BVec3 mVec = new BVec3(true, false, false);
 
   @Test
   public void testConstructors() {
-    Vector3 vec = new Vector3(1, 2, 3);
-
     assertEquals(
-        ((NodeType.PrimitiveNodeType) vec.getNodeType()).getPrimitive(),
-        new Vector3.Primitive(1, 2, 3));
+        ((NodeType.PrimitiveNodeType) mVec.getNodeType()).getPrimitive(),
+        new BVec3.Primitive(true, false, false));
 
-    assertEquals(vec.getParents(), ImmutableList.of());
+    assertEquals(mVec.getParents(), ImmutableList.of());
 
-    Real x = new Real(1), y = new Real(2), z = new Real(3);
-    vec = new Vector3(x, y, z);
-
+    Bool x = new Bool(true), y = new Bool(false), z = new Bool(false);
+    BVec3 vec = new BVec3(x, y, z);
+    testNonLeafExpression(vec, ImmutableList.<Expression>of(x, y, z));
     assertEquals(vec.getNodeType(), NodeType.CONS);
-    assertEquals(vec.getParents(), ImmutableList.of(x, y, z));
 
-    vec = new Vector3(ImmutableList.<Expression>of(x, y, z), NodeType.CONS);
-
+    vec = new BVec3(ImmutableList.<Expression>of(x, y, z), NodeType.CONS);
+    testNonLeafExpression(vec, ImmutableList.<Expression>of(x, y, z));
     assertEquals(vec.getNodeType(), NodeType.CONS);
-    assertEquals(vec.getParents(), ImmutableList.of(x, y, z));
-
-    vec = new Vector3(new AttributeBuffer(new float[] {0, 0, 1, 0, 1, 1}, 2));
-
-    assertTrue(vec.getNodeType() instanceof NodeType.AttributeNodeType);
-    assertEquals(vec.getParents(), ImmutableList.<Expression>of());
   }
 
   @Test
   public void testGetters() {
-    Vector3 vec = new Vector3(1, 2, 3);
-    Real x = vec.getX();
-    testGetter(x, 0, ImmutableList.<Expression>of(vec));
-
-    Real y = vec.getY();
-    testGetter(y, 1, ImmutableList.<Expression>of(vec));
-
-    Real z = vec.getZ();
-    testGetter(z, 2, ImmutableList.<Expression>of(vec));
-
-    x = vec.get(0);
-    testGetter(x, 0, ImmutableList.<Expression>of(vec));
-
-    y = vec.get(1);
-    testGetter(y, 1, ImmutableList.<Expression>of(vec));
-
-    z = vec.get(2);
-    testGetter(z, 2, ImmutableList.<Expression>of(vec));
+    testGetter(mVec.getX(), 0, ImmutableList.<Expression>of(mVec));
+    testGetter(mVec.getY(), 1, ImmutableList.<Expression>of(mVec));
+    testGetter(mVec.getZ(), 2, ImmutableList.<Expression>of(mVec));
+    testGetter(mVec.get(0), 0, ImmutableList.<Expression>of(mVec));
+    testGetter(mVec.get(1), 1, ImmutableList.<Expression>of(mVec));
+    testGetter(mVec.get(2), 2, ImmutableList.<Expression>of(mVec));
   }
 
   private void testSwizzle1(Expression swizzled, String expectedString) {
-    assertTrue(swizzled instanceof Real);
+    assertTrue(swizzled instanceof Bool);
     testSwizzle(mVec, swizzled, expectedString);
   }
 
   private void testSwizzle2(Expression swizzled, String expectedString) {
-    assertTrue(swizzled instanceof Vector2);
+    assertTrue(swizzled instanceof BVec2);
     testSwizzle(mVec, swizzled, expectedString);
   }
 
   private void testSwizzle3(Expression swizzled, String expectedString) {
-    assertTrue(swizzled instanceof Vector3);
+    assertTrue(swizzled instanceof BVec3);
     testSwizzle(mVec, swizzled, expectedString);
   }
 
   private void testSwizzle4(Expression swizzled, String expectedString) {
-    assertTrue(swizzled instanceof Vector4);
+    assertTrue(swizzled instanceof BVec4);
     testSwizzle(mVec, swizzled, expectedString);
   }
 
@@ -472,152 +450,32 @@ public class Vector3Test {
   }
 
   @Test
-  public void testAdd() {
-    Vector3 vec = mVec.add(1);
-    Real real = new Real(1);
-    Vector3 rhs = new Vector3(1, 2, 3);
-
-    testArithmetic(mVec, vec, mVec.add(real), real, mVec.add(rhs), rhs, NodeType.ADD);
+  public void testAny() {
+    Bool any = mVec.any();
+    testNonLeafExpression(any, ImmutableList.<Expression>of(mVec));
+    assertTrue(any.getNodeType() instanceof NodeType.FunctionNodeType);
+    NodeType.FunctionNodeType nodeType =
+        (NodeType.FunctionNodeType)any.getNodeType();
+    assertEquals(nodeType.getFunctionName(), "any");
   }
 
   @Test
-  public void testSub() {
-    Vector3 vec = mVec.sub(1);
-    Real real = new Real(1);
-    Vector3 rhs = new Vector3(1, 2, 3);
-
-    testArithmetic(mVec, vec, mVec.sub(real), real, mVec.sub(rhs), rhs, NodeType.SUB);
+  public void testAll() {
+    Bool all = mVec.all();
+    testNonLeafExpression(all, ImmutableList.<Expression>of(mVec));
+    assertTrue(all.getNodeType() instanceof NodeType.FunctionNodeType);
+    NodeType.FunctionNodeType nodeType =
+        (NodeType.FunctionNodeType)all.getNodeType();
+    assertEquals(nodeType.getFunctionName(), "all");
   }
 
   @Test
-  public void testMul() {
-    Vector3 vec = mVec.mul(1);
-    Real real = new Real(1);
-    Vector3 rhs = new Vector3(1, 2, 3);
-
-    testArithmetic(mVec, vec, mVec.mul(real), real, mVec.mul(rhs), rhs, NodeType.MUL);
-  }
-
-  @Test
-  public void testDiv() {
-    Vector3 vec = mVec.div(1);
-    Real real = new Real(1);
-    Vector3 rhs = new Vector3(1, 2, 3);
-
-    testArithmetic(mVec, vec, mVec.div(real), real, mVec.div(rhs), rhs, NodeType.DIV);
-  }
-
-  @Test
-  public void testNeg() {
-    Vector3 neg = mVec.neg();
-
-    assertEquals(neg.getNodeType(), NodeType.NEG);
-    assertEquals(neg.getParents(), ImmutableList.<Expression>of(mVec));
-  }
-
-  @Test
-  public void testDot() {
-    Vector3 vec = new Vector3(1, 2, 3);
-    Real dot = mVec.dot(vec);
-
-    testFunction(dot, "dot");
-    assertEquals(dot.getParents(), ImmutableList.<Expression>of(mVec, vec));
-  }
-
-  @Test
-  public void testCross() {
-    Vector3 vec = new Vector3(2, 3, 4);
-    Vector3 cross = mVec.cross(vec);
-
-    testFunction(cross, "cross");
-    assertEquals(cross.getParents(), ImmutableList.<Expression>of(mVec, vec));
-  }
-
-  @Test
-  public void testNormalize() {
-    Vector3 normalized = mVec.normalize();
-
-    testFunction(normalized, "normalize");
-    assertEquals(normalized.getParents(), ImmutableList.<Expression>of(mVec));
-  }
-
-  @Test
-  public void testLength() {
-    Real length = mVec.length();
-
-    testFunction(length, "length");
-    assertEquals(length.getParents(), ImmutableList.<Expression>of(mVec));
-  }
-
-  @Test
-  public void testIsLessThan() {
-    Vector3 rhs = new Vector3(1, 2, 3);
-    BVector3 lessThan = mVec.isLessThan(rhs);
-
-    testFunction(lessThan, "lessThan");
-    assertEquals(lessThan.getParents(), ImmutableList.<Expression>of(mVec, rhs));
-  }
-
-  @Test
-  public void testIsLessThanOrEqual() {
-    Vector3 rhs = new Vector3(1, 2, 3);
-    BVector3 lessThanOrEqual = mVec.isLessThanOrEqual(rhs);
-
-    testFunction(lessThanOrEqual, "lessThanEqual");
-    assertEquals(lessThanOrEqual.getParents(), ImmutableList.<Expression>of(mVec, rhs));
-  }
-
-  @Test
-  public void testIsGreaterThan() {
-    Vector3 rhs = new Vector3(1, 2, 3);
-    BVector3 greaterThan = mVec.isGreaterThan(rhs);
-
-    testFunction(greaterThan, "greaterThan");
-    assertEquals(greaterThan.getParents(), ImmutableList.<Expression>of(mVec, rhs));
-  }
-
-  @Test
-  public void testIsGreaterThanOrEqual() {
-    Vector3 rhs = new Vector3(1, 2, 3);
-    BVector3 greaterThanOrEqual = mVec.isGreaterThanOrEqual(rhs);
-
-    testFunction(greaterThanOrEqual, "greaterThanEqual");
-    assertEquals(greaterThanOrEqual.getParents(), ImmutableList.<Expression>of(mVec, rhs));
-  }
-
-  @Test
-  public void testIsEqualComponentwise() {
-    Vector3 rhs = new Vector3(1, 2, 3);
-    BVector3 equalComponentwise = mVec.isEqualComponentwise(rhs);
-
-    testFunction(equalComponentwise, "equal");
-    assertEquals(equalComponentwise.getParents(), ImmutableList.<Expression>of(mVec, rhs));
-  }
-
-  @Test
-  public void testIsNotEqualComponentwise() {
-    Vector3 rhs = new Vector3(1, 2, 3);
-    BVector3 notEqualComponentwise = mVec.isNotEqualComponentwise(rhs);
-
-    testFunction(notEqualComponentwise, "notEqual");
-    assertEquals(notEqualComponentwise.getParents(), ImmutableList.<Expression>of(mVec, rhs));
-  }
-
-  @Test
-  public void testIsEqual() {
-    Vector3 rhs = new Vector3(1, 2, 3);
-    Bool equal = mVec.isEqual(rhs);
-
-    assertEquals(equal.getNodeType(), NodeType.EQ);
-    assertEquals(equal.getParents(), ImmutableList.<Expression>of(mVec, rhs));
-  }
-
-  @Test
-  public void testIsNotEqual() {
-    Vector3 rhs = new Vector3(1, 2, 3);
-    Bool notEqual = mVec.isNotEqual(rhs);
-
-    assertEquals(notEqual.getNodeType(), NodeType.NEQ);
-    assertEquals(notEqual.getParents(), ImmutableList.<Expression>of(mVec, rhs));
+  public void testNot() {
+    BVec3 not = mVec.not();
+    testNonLeafExpression(not, ImmutableList.<Expression>of(mVec));
+    assertTrue(not.getNodeType() instanceof NodeType.FunctionNodeType);
+    NodeType.FunctionNodeType nodeType =
+        (NodeType.FunctionNodeType)not.getNodeType();
+    assertEquals(nodeType.getFunctionName(), "not");
   }
 }

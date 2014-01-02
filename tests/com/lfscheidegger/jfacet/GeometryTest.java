@@ -1,10 +1,9 @@
 package com.lfscheidegger.jfacet;
 
-import com.lfscheidegger.jfacet.Geometry;
 import com.lfscheidegger.jfacet.shade.expression.NodeType;
 import com.lfscheidegger.jfacet.shade.expression.Real;
-import com.lfscheidegger.jfacet.shade.expression.Vector2;
-import com.lfscheidegger.jfacet.shade.expression.Vector3;
+import com.lfscheidegger.jfacet.shade.expression.Vec2;
+import com.lfscheidegger.jfacet.shade.expression.Vec3;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -27,7 +26,7 @@ public class GeometryTest {
 
   @Test
   public void testGetVertices() {
-    Vector2 vertices = mGeometry.getVertices2();
+    Vec2 vertices = mGeometry.getVertices2();
     assertTrue(vertices.getNodeType() instanceof NodeType.AttributeNodeType);
   }
 
@@ -35,7 +34,7 @@ public class GeometryTest {
   public void testGetColors() {
     mGeometry.setColors(new float[]{1, 0, 0, 0, 1, 0, 0, 0, 1}, 3);
 
-    Vector3 colors = mGeometry.getColors3();
+    Vec3 colors = mGeometry.getColors3();
     assertTrue(colors.getNodeType() instanceof NodeType.AttributeNodeType);
   }
 
@@ -43,7 +42,7 @@ public class GeometryTest {
   public void testGetTexCoords() {
     mGeometry.setTexCoords(new float[]{0, 0, 1, 0, 1, 1}, 2);
 
-    Vector2 texCoords = mGeometry.getTexCoords2();
+    Vec2 texCoords = mGeometry.getTexCoords2();
     assertTrue(texCoords.getNodeType() instanceof NodeType.AttributeNodeType);
   }
 
@@ -51,7 +50,7 @@ public class GeometryTest {
   public void testGetNormals() {
     mGeometry.setNormals(new float[]{0, 0, -1, 0, 0, -1, 0, 0, -1}, 3);
 
-    Vector3 normals = mGeometry.getNormals3();
+    Vec3 normals = mGeometry.getNormals3();
     assertTrue(normals.getNodeType() instanceof NodeType.AttributeNodeType);
   }
 

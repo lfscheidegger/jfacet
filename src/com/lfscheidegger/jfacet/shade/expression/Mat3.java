@@ -8,7 +8,7 @@ import com.lfscheidegger.jfacet.utils.StringHelper;
 
 import java.util.Arrays;
 
-public final class Matrix3 extends Expression {
+public final class Mat3 extends Expression {
 
   private static final String GLSL_TYPE_NAME = "mat3";
 
@@ -25,7 +25,7 @@ public final class Matrix3 extends Expression {
       }
     }
 
-    public Primitive(Vector3.Primitive c0, Vector3.Primitive c1, Vector3.Primitive c2) {
+    public Primitive(Vec3.Primitive c0, Vec3.Primitive c1, Vec3.Primitive c2) {
       mValues = new float[]{
           c0.getX(), c0.getY(), c0.getZ(),
           c1.getX(), c1.getY(), c1.getZ(),
@@ -36,20 +36,20 @@ public final class Matrix3 extends Expression {
       mValues = other;
     }
 
-    public Vector3.Primitive getC0() {
+    public Vec3.Primitive getC0() {
       return get(0);
     }
 
-    public Vector3.Primitive getC1() {
+    public Vec3.Primitive getC1() {
       return get(1);
     }
 
-    public Vector3.Primitive getC2() {
+    public Vec3.Primitive getC2() {
       return get(2);
     }
 
-    public Vector3.Primitive get(int idx) {
-      return new Vector3.Primitive(mValues[3 * idx], mValues[3 * idx + 1], mValues[3 * idx + 2]);
+    public Vec3.Primitive get(int idx) {
+      return new Vec3.Primitive(mValues[3 * idx], mValues[3 * idx + 1], mValues[3 * idx + 2]);
     }
 
     public Primitive add(Primitive other) {
@@ -76,8 +76,8 @@ public final class Matrix3 extends Expression {
       return new Primitive(ArrayUtils.mul(mValues, t));
     }
 
-    public Vector3.Primitive mul(Vector3.Primitive vec) {
-      return new Vector3.Primitive(
+    public Vec3.Primitive mul(Vec3.Primitive vec) {
+      return new Vec3.Primitive(
           mValues[0] * vec.getX() + mValues[3] * vec.getY() + mValues[6] * vec.getZ(),
           mValues[1] * vec.getX() + mValues[4] * vec.getY() + mValues[7] * vec.getZ(),
           mValues[2] * vec.getX() + mValues[5] * vec.getY() + mValues[8] * vec.getZ());
@@ -128,110 +128,110 @@ public final class Matrix3 extends Expression {
     @Override
     public String toString() {
       return new StringHelper(GLSL_TYPE_NAME)
-          .addValue(new Vector3.Primitive(mValues[0], mValues[1], mValues[2]))
-          .addValue(new Vector3.Primitive(mValues[3], mValues[4], mValues[5]))
-          .addValue(new Vector3.Primitive(mValues[6], mValues[7], mValues[8]))
+          .addValue(new Vec3.Primitive(mValues[0], mValues[1], mValues[2]))
+          .addValue(new Vec3.Primitive(mValues[3], mValues[4], mValues[5]))
+          .addValue(new Vec3.Primitive(mValues[6], mValues[7], mValues[8]))
           .toString();
     }
   }
 
-  public Matrix3() {
+  public Mat3() {
     super(new Primitive(), GLSL_TYPE_NAME);
   }
 
-  public Matrix3(Vector3 c0, Vector3 c1, Vector3 c2) {
+  public Mat3(Vec3 c0, Vec3 c1, Vec3 c2) {
     super(ImmutableList.<Expression>of(c0, c1, c2), NodeType.CONS, GLSL_TYPE_NAME);
   }
 
-  public Matrix3(ImmutableList<Expression> parents, NodeType nodeType) {
+  public Mat3(ImmutableList<Expression> parents, NodeType nodeType) {
     super(parents, nodeType, GLSL_TYPE_NAME);
   }
 
-  public Vector3 getC0() {
+  public Vec3 getC0() {
     return get(0);
   }
 
-  public Vector3 getC1() {
+  public Vec3 getC1() {
     return get(1);
   }
 
-  public Vector3 getC2() {
+  public Vec3 getC2() {
     return get(2);
   }
 
-  public Vector3 get(int idx) {
+  public Vec3 get(int idx) {
     Preconditions.checkState(idx < 3);
-    return new Vector3(
+    return new Vec3(
         ImmutableList.<Expression>of(this),
         NodeType.ComponentNodeType.forComponent(idx));
   }
 
-  public Matrix3 add(float right) {
+  public Mat3 add(float right) {
     return add(new Real(right));
   }
 
-  public Matrix3 add(Real right) {
-    return new Matrix3(ImmutableList.<Expression>of(this, right), NodeType.ADD);
+  public Mat3 add(Real right) {
+    return new Mat3(ImmutableList.<Expression>of(this, right), NodeType.ADD);
   }
 
-  public Matrix3 add(Matrix3 right) {
-    return new Matrix3(ImmutableList.<Expression>of(this, right), NodeType.ADD);
+  public Mat3 add(Mat3 right) {
+    return new Mat3(ImmutableList.<Expression>of(this, right), NodeType.ADD);
   }
 
-  public Matrix3 sub(float right) {
+  public Mat3 sub(float right) {
     return sub(new Real(right));
   }
 
-  public Matrix3 sub(Real right) {
-    return new Matrix3(ImmutableList.<Expression>of(this, right), NodeType.SUB);
+  public Mat3 sub(Real right) {
+    return new Mat3(ImmutableList.<Expression>of(this, right), NodeType.SUB);
   }
 
-  public Matrix3 sub(Matrix3 right) {
-    return new Matrix3(ImmutableList.<Expression>of(this, right), NodeType.SUB);
+  public Mat3 sub(Mat3 right) {
+    return new Mat3(ImmutableList.<Expression>of(this, right), NodeType.SUB);
   }
 
-  public Matrix3 mul(float right) {
+  public Mat3 mul(float right) {
     return mul(new Real(right));
   }
 
-  public Matrix3 mul(Real right) {
-    return new Matrix3(ImmutableList.<Expression>of(this, right), NodeType.MUL);
+  public Mat3 mul(Real right) {
+    return new Mat3(ImmutableList.<Expression>of(this, right), NodeType.MUL);
   }
 
-  public Matrix3 mul(Matrix3 right) {
-    return new Matrix3(ImmutableList.<Expression>of(this, right), NodeType.MUL);
+  public Mat3 mul(Mat3 right) {
+    return new Mat3(ImmutableList.<Expression>of(this, right), NodeType.MUL);
   }
 
-  public Vector3 mul(Vector3 right) {
-    return new Vector3(ImmutableList.<Expression>of(this, right), NodeType.MUL);
+  public Vec3 mul(Vec3 right) {
+    return new Vec3(ImmutableList.<Expression>of(this, right), NodeType.MUL);
   }
 
-  public Matrix3 div(float right) {
+  public Mat3 div(float right) {
     return div(new Real(right));
   }
 
-  public Matrix3 div(Real right) {
-    return new Matrix3(ImmutableList.<Expression>of(this, right), NodeType.DIV);
+  public Mat3 div(Real right) {
+    return new Mat3(ImmutableList.<Expression>of(this, right), NodeType.DIV);
   }
 
-  public Matrix3 div(Matrix3 right) {
-    return new Matrix3(ImmutableList.<Expression>of(this, right), NodeType.DIV);
+  public Mat3 div(Mat3 right) {
+    return new Mat3(ImmutableList.<Expression>of(this, right), NodeType.DIV);
   }
 
-  public Matrix3 neg() {
-    return new Matrix3(ImmutableList.<Expression>of(this), NodeType.NEG);
+  public Mat3 neg() {
+    return new Mat3(ImmutableList.<Expression>of(this), NodeType.NEG);
   }
 
-  public Bool isEqual(Matrix3 right) {
+  public Bool isEqual(Mat3 right) {
     return new Bool(ImmutableList.<Expression>of(this, right), NodeType.EQ);
   }
 
-  public Bool isNotEqual(Matrix3 right) {
+  public Bool isNotEqual(Mat3 right) {
     return new Bool(ImmutableList.<Expression>of(this, right), NodeType.NEQ);
   }
 
-  public Matrix3 matrixCompMult(Matrix3 right) {
-    return new Matrix3(
+  public Mat3 matrixCompMult(Mat3 right) {
+    return new Mat3(
         ImmutableList.<Expression>of(this, right),
         NodeType.FunctionNodeType.forFunction("matrixCompMult"));
   }

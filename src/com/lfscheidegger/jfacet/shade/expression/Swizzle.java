@@ -606,53 +606,53 @@ public class Swizzle {
     if (parent instanceof Expression) {
       ImmutableList<Expression> parents = ImmutableList.of((Expression) parent);
       NodeType nodeType = NodeType.SwizzleNodeType.forSwizzle(swizzleString);
-      if (parent instanceof Vector2 || parent instanceof Vector3 || parent instanceof Vector4) {
+      if (parent instanceof Vec2 || parent instanceof Vec3 || parent instanceof Vec4) {
         switch(swizzleString.length()) {
           case 1: return new Real(parents, nodeType);
-          case 2: return new Vector2(parents, nodeType);
-          case 3: return new Vector3(parents, nodeType);
-          case 4: return new Vector4(parents, nodeType);
+          case 2: return new Vec2(parents, nodeType);
+          case 3: return new Vec3(parents, nodeType);
+          case 4: return new Vec4(parents, nodeType);
         }
       } else if (
-          parent instanceof BVector2 ||
-              parent instanceof BVector3 ||
-              parent instanceof BVector4) {
+          parent instanceof BVec2 ||
+              parent instanceof BVec3 ||
+              parent instanceof BVec4) {
         switch(swizzleString.length()) {
           case 1: return new Bool(parents, nodeType);
-          case 2: return new BVector2(parents, nodeType);
-          case 3: return new BVector3(parents, nodeType);
-          case 4: return new BVector4(parents, nodeType);
+          case 2: return new BVec2(parents, nodeType);
+          case 3: return new BVec3(parents, nodeType);
+          case 4: return new BVec4(parents, nodeType);
         }
       }
-    } else if (parent instanceof BVectorPrimitive) {
-      BVectorPrimitive vec = (BVectorPrimitive) parent;
+    } else if (parent instanceof BVecPrimitive) {
+      BVecPrimitive vec = (BVecPrimitive) parent;
       switch(swizzleString.length()) {
         case 1: return vec.get(getIndexForSwizzle(swizzleString.charAt(0)));
-        case 2: return new BVector2.Primitive(
+        case 2: return new BVec2.Primitive(
             vec.get(getIndexForSwizzle(swizzleString.charAt(0))),
             vec.get(getIndexForSwizzle(swizzleString.charAt(1))));
-        case 3: return new BVector3.Primitive(
+        case 3: return new BVec3.Primitive(
             vec.get(getIndexForSwizzle(swizzleString.charAt(0))),
             vec.get(getIndexForSwizzle(swizzleString.charAt(1))),
             vec.get(getIndexForSwizzle(swizzleString.charAt(2))));
-        case 4: return new BVector4.Primitive(
+        case 4: return new BVec4.Primitive(
             vec.get(getIndexForSwizzle(swizzleString.charAt(0))),
             vec.get(getIndexForSwizzle(swizzleString.charAt(1))),
             vec.get(getIndexForSwizzle(swizzleString.charAt(2))),
             vec.get(getIndexForSwizzle(swizzleString.charAt(3))));
       }
-    } else if (parent instanceof VectorPrimitive) {
-      VectorPrimitive vec = (VectorPrimitive) parent;
+    } else if (parent instanceof VecPrimitive) {
+      VecPrimitive vec = (VecPrimitive) parent;
       switch(swizzleString.length()) {
         case 1: return vec.get(getIndexForSwizzle(swizzleString.charAt(0)));
-        case 2: return new Vector2.Primitive(
+        case 2: return new Vec2.Primitive(
             vec.get(getIndexForSwizzle(swizzleString.charAt(0))),
             vec.get(getIndexForSwizzle(swizzleString.charAt(1))));
-        case 3: return new Vector3.Primitive(
+        case 3: return new Vec3.Primitive(
             vec.get(getIndexForSwizzle(swizzleString.charAt(0))),
             vec.get(getIndexForSwizzle(swizzleString.charAt(1))),
             vec.get(getIndexForSwizzle(swizzleString.charAt(2))));
-        case 4: return new Vector4.Primitive(
+        case 4: return new Vec4.Primitive(
             vec.get(getIndexForSwizzle(swizzleString.charAt(0))),
             vec.get(getIndexForSwizzle(swizzleString.charAt(1))),
             vec.get(getIndexForSwizzle(swizzleString.charAt(2))),
