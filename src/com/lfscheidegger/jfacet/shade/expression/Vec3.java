@@ -9,7 +9,7 @@ import com.lfscheidegger.jfacet.utils.StringHelper;
 
 import java.util.Arrays;
 
-public final class Vec3 extends Expression implements VecExpression<Real> {
+public final class Vec3 extends Expression implements VecExpression {
 
   private static final String GLSL_TYPE_NAME = "vec3";
 
@@ -237,7 +237,6 @@ public final class Vec3 extends Expression implements VecExpression<Real> {
     return get(2);
   }
 
-  @Override
   public Real get(int idx) {
     Preconditions.checkState(idx < 3);
     return new Real(

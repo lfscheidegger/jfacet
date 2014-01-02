@@ -6,7 +6,7 @@ import com.lfscheidegger.jfacet.utils.StringHelper;
 
 import java.util.Arrays;
 
-public final class BVec2 extends Expression implements VecExpression<Bool> {
+public final class BVec2 extends Expression {
 
   private static final String GLSL_TYPE_NAME = "bvec2";
 
@@ -114,7 +114,6 @@ public final class BVec2 extends Expression implements VecExpression<Bool> {
     return get(1);
   }
 
-  @Override
   public Bool get(int idx) {
     Preconditions.checkState(idx < 2);
     return new Bool(
