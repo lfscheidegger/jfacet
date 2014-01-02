@@ -1,7 +1,7 @@
 package com.lfscheidegger.jfacet.shade.expression;
 
 import android.graphics.Bitmap;
-import com.lfscheidegger.jfacet.facet.AttributeBuffer;
+import com.lfscheidegger.jfacet.AttributeBuffer;
 
 public interface NodeType {
 

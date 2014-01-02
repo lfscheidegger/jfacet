@@ -1,8 +1,7 @@
 package com.lfscheidegger.jfacet.shade.expression;
 
 import com.google.common.collect.ImmutableList;
-import com.lfscheidegger.jfacet.facet.AttributeBuffer;
-import com.lfscheidegger.jfacet.shade.expression.*;
+import com.lfscheidegger.jfacet.AttributeBuffer;
 import org.junit.Test;
 
 import static com.lfscheidegger.jfacet.shade.expression.ExpressionTestUtils.*;

@@ -1,4 +1,4 @@
-package com.lfscheidegger.jfacet.facet;
+package com.lfscheidegger.jfacet;
 
 import com.lfscheidegger.jfacet.utils.BufferUtils;
 

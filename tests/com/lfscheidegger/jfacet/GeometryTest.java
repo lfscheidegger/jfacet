@@ -1,5 +1,6 @@
-package com.lfscheidegger.jfacet.facet;
+package com.lfscheidegger.jfacet;
 
+import com.lfscheidegger.jfacet.Geometry;
 import com.lfscheidegger.jfacet.shade.expression.NodeType;
 import com.lfscheidegger.jfacet.shade.expression.Real;
 import com.lfscheidegger.jfacet.shade.expression.Vector2;

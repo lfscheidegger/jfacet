@@ -2,7 +2,7 @@ package com.lfscheidegger.jfacet.shade.expression;
 
 import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableList;
-import com.lfscheidegger.jfacet.facet.AttributeBuffer;
+import com.lfscheidegger.jfacet.AttributeBuffer;
 import com.lfscheidegger.jfacet.shade.Shade;
 import com.lfscheidegger.jfacet.utils.ArrayUtils;
 import com.lfscheidegger.jfacet.utils.StringHelper;

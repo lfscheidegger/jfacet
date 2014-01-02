@@ -7,7 +7,6 @@ import com.google.common.base.Preconditions;
 import com.lfscheidegger.jfacet.compiler.CompilationHelper;
 import com.lfscheidegger.jfacet.compiler.FragmentShaderCompiler;
 import com.lfscheidegger.jfacet.compiler.VertexShaderCompiler;
-import com.lfscheidegger.jfacet.facet.AttributeBuffer;
 import com.lfscheidegger.jfacet.shade.Parameter;
 import com.lfscheidegger.jfacet.shade.Shade;
 import com.lfscheidegger.jfacet.shade.expression.Expression;

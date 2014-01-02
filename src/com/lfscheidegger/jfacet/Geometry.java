@@ -1,4 +1,4 @@
-package com.lfscheidegger.jfacet.facet;
+package com.lfscheidegger.jfacet;
 
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Maps;

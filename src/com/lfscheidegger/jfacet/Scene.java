@@ -1,8 +1,7 @@
-package com.lfscheidegger.jfacet.facet;
+package com.lfscheidegger.jfacet;
 
 import com.google.common.collect.Sets;
 
-import java.util.HashSet;
 import java.util.Set;
 
 public final class Scene implements Runnable {
