@@ -48,14 +48,14 @@ public class Mat4PrimitiveTest {
 
   @Test
   public void testAdd() {
-    Mat4.Primitive added = mat.add(1);
+    Mat4.Primitive added = mat.plus(1);
     assertEquals(added, new Mat4.Primitive(
         new Vec4.Primitive(2, 3, 4, 5),
         new Vec4.Primitive(5, 6, 7, 8),
         new Vec4.Primitive(8, 9, 10, 11),
         new Vec4.Primitive(11, 12, 13, 14)));
 
-    added = mat.add(mat);
+    added = mat.plus(mat);
     assertEquals(added, new Mat4.Primitive(
         new Vec4.Primitive(2, 4, 6, 8),
         new Vec4.Primitive(8, 10, 12, 14),
@@ -65,14 +65,14 @@ public class Mat4PrimitiveTest {
 
   @Test
   public void testSub() {
-    Mat4.Primitive subtracted = mat.sub(1);
+    Mat4.Primitive subtracted = mat.minus(1);
     assertEquals(subtracted, new Mat4.Primitive(
         new Vec4.Primitive(0, 1, 2, 3),
         new Vec4.Primitive(3, 4, 5, 6),
         new Vec4.Primitive(6, 7, 8, 9),
         new Vec4.Primitive(9, 10, 11, 12)));
 
-    subtracted = mat.sub(mat);
+    subtracted = mat.minus(mat);
     assertEquals(subtracted, new Mat4.Primitive(
         new Vec4.Primitive(0, 0, 0, 0),
         new Vec4.Primitive(0, 0, 0, 0),
@@ -82,21 +82,21 @@ public class Mat4PrimitiveTest {
 
   @Test
   public void testMul() {
-    Mat4.Primitive multiplied = mat.mul(2);
+    Mat4.Primitive multiplied = mat.times(2);
     assertEquals(multiplied, new Mat4.Primitive(
         new Vec4.Primitive(2, 4, 6, 8),
         new Vec4.Primitive(8, 10, 12, 14),
         new Vec4.Primitive(14, 16, 18, 20),
         new Vec4.Primitive(20, 22, 24, 26)));
 
-    multiplied = mat.mul(mat);
+    multiplied = mat.times(mat);
     assertEquals(multiplied, new Mat4.Primitive(
         new Vec4.Primitive(70,  80,  90, 100),
         new Vec4.Primitive(136, 158, 180, 202),
         new Vec4.Primitive(202, 236, 270, 304),
         new Vec4.Primitive(268, 314, 360, 406)));
 
-    Vec4.Primitive transformed = mat.mul(new Vec4.Primitive(1, 2, 3, 4));
+    Vec4.Primitive transformed = mat.times(new Vec4.Primitive(1, 2, 3, 4));
     assertEquals(transformed, new Vec4.Primitive(70, 80, 90, 100));
   }
 
@@ -119,7 +119,7 @@ public class Mat4PrimitiveTest {
 
   @Test
   public void testNeg() {
-    Mat4.Primitive negated = mat.neg();
+    Mat4.Primitive negated = mat.negative();
     assertEquals(negated, new Mat4.Primitive(
         new Vec4.Primitive(-1, -2, -3, -4),
         new Vec4.Primitive(-4, -5, -6, -7),
@@ -155,8 +155,8 @@ public class Mat4PrimitiveTest {
 
     Mat4.Primitive inverse = invertible.inverse();
 
-    assertEquals(invertible.mul(inverse), new Mat4.Primitive());
-    assertEquals(inverse.mul(invertible), new Mat4.Primitive());
+    assertEquals(invertible.times(inverse), new Mat4.Primitive());
+    assertEquals(inverse.times(invertible), new Mat4.Primitive());
   }
 
   @Test

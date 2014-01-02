@@ -38,12 +38,12 @@ public class Mat2PrimitiveTest {
 
   @Test
   public void testAdd() {
-    Mat2.Primitive added = mat.add(1);
+    Mat2.Primitive added = mat.plus(1);
     assertEquals(added, new Mat2.Primitive(
         new Vec2.Primitive(2, 3),
         new Vec2.Primitive(4, 5)));
 
-    added = mat.add(mat);
+    added = mat.plus(mat);
     assertEquals(added, new Mat2.Primitive(
         new Vec2.Primitive(2, 4),
         new Vec2.Primitive(6, 8)));
@@ -51,12 +51,12 @@ public class Mat2PrimitiveTest {
 
   @Test
   public void testSub() {
-    Mat2.Primitive subtracted = mat.sub(1);
+    Mat2.Primitive subtracted = mat.minus(1);
     assertEquals(subtracted, new Mat2.Primitive(
         new Vec2.Primitive(0, 1),
         new Vec2.Primitive(2, 3)));
 
-    subtracted = mat.sub(mat);
+    subtracted = mat.minus(mat);
     assertEquals(subtracted, new Mat2.Primitive(
         new Vec2.Primitive(0, 0),
         new Vec2.Primitive(0, 0)));
@@ -64,17 +64,17 @@ public class Mat2PrimitiveTest {
 
   @Test
   public void testMul() {
-    Mat2.Primitive multiplied = mat.mul(2);
+    Mat2.Primitive multiplied = mat.times(2);
     assertEquals(multiplied, new Mat2.Primitive(
         new Vec2.Primitive(2, 4),
         new Vec2.Primitive(6, 8)));
 
-    multiplied = mat.mul(mat);
+    multiplied = mat.times(mat);
     assertEquals(multiplied, new Mat2.Primitive(
         new Vec2.Primitive(7, 10),
         new Vec2.Primitive(15, 22)));
 
-    Vec2.Primitive transformed = mat.mul(new Vec2.Primitive(1, 2));
+    Vec2.Primitive transformed = mat.times(new Vec2.Primitive(1, 2));
     assertEquals(transformed, new Vec2.Primitive(7, 10));
   }
 
@@ -93,7 +93,7 @@ public class Mat2PrimitiveTest {
 
   @Test
   public void testNeg() {
-    Mat2.Primitive negated = mat.neg();
+    Mat2.Primitive negated = mat.negative();
     assertEquals(negated, new Mat2.Primitive(
         new Vec2.Primitive(-1, -2),
         new Vec2.Primitive(-3, -4)));
@@ -119,8 +119,8 @@ public class Mat2PrimitiveTest {
   public void testInverse() {
     Mat2.Primitive inverse = mat.inverse();
 
-    assertEquals(mat.mul(inverse), new Mat2.Primitive());
-    assertEquals(inverse.mul(mat), new Mat2.Primitive());
+    assertEquals(mat.times(inverse), new Mat2.Primitive());
+    assertEquals(inverse.times(mat), new Mat2.Primitive());
   }
 
   @Test

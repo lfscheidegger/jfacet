@@ -33,7 +33,7 @@ public final class LookAtConfig implements CameraConfig {
 
   @Override
   public Mat4 getMatrix() {
-    Vec3 z = mEye.sub(mCenter).normalize();
+    Vec3 z = mEye.minus(mCenter).normalize();
     Vec3 x = mUp.cross(z).normalize();
     Vec3 y = mUp.normalize();
 
@@ -43,6 +43,6 @@ public final class LookAtConfig implements CameraConfig {
         Shade.vec(x.get(0), x.get(1), x.get(2), 0),
         Shade.vec(y.get(0), y.get(1), y.get(2), 0),
         Shade.vec(z.get(0), z.get(1), z.get(2), 0),
-        Shade.vec(x.dot(mEye).neg(), y.dot(mEye).neg(), z.dot(mEye).neg(), 1));
+        Shade.vec(x.dot(mEye).negative(), y.dot(mEye).negative(), z.dot(mEye).negative(), 1));
   }
 }

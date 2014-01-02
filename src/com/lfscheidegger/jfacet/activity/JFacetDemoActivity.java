@@ -137,7 +137,7 @@ public class JFacetDemoActivity extends Activity {
 
     Camera camera = Camera.perspective(mSize.x, mSize.y);
     final Real param = Parameter.real(0);
-    Real angle = param.mul(50).radians();
+    Real angle = param.times(50).radians();
 
     Vec4 squarePosition = camera
         .apply(Shade.translate(1.5f, 0, -12))
@@ -169,7 +169,7 @@ public class JFacetDemoActivity extends Activity {
 
     Camera camera = Camera.perspective(mSize.x, mSize.y);
     final Real param = Parameter.real(0);
-    Real angle = param.mul(50).radians();
+    Real angle = param.times(50).radians();
 
     Vec4 cubePosition = camera
         .apply(Shade.translate(1.5f, 0, -12))
@@ -202,7 +202,7 @@ public class JFacetDemoActivity extends Activity {
             .setUp(Shade.vec(0, 1, 0)), mSize.x, mSize.y);
 
     final Real param = Parameter.real(0);
-    Real angle = param.mul(50).radians();
+    Real angle = param.times(50).radians();
 
     Vec4 cubePosition = camera
         .apply(Shade.rotate(angle, Shade.vec(1, 1, 1)))
@@ -238,7 +238,7 @@ public class JFacetDemoActivity extends Activity {
             .setNear(-2).setFar(2));
 
     final Real param = Parameter.real(0);
-    Real angle = param.mul(50).radians();
+    Real angle = param.times(50).radians();
 
     Transform4 modelTransform = Shade.rotate(angle, Shade.vec(1, 1, 1));
     scene.add(
@@ -260,9 +260,9 @@ public class JFacetDemoActivity extends Activity {
     Vec3 fragPosition = modelTransform.apply(cube.getVertices4()).x().y().z().get();
     Vec3 normal = modelTransform.apply(cube.getNormals4()).x().y().z().get();
 
-    Real diffuse = lightPosition.sub(fragPosition).normalize().dot(normal);
+    Real diffuse = lightPosition.minus(fragPosition).normalize().dot(normal);
 
-    return materialColor.mul(diffuse);
+    return materialColor.times(diffuse);
   }
 
   private void prepareLesson8(Scene scene) {
@@ -289,24 +289,24 @@ public class JFacetDemoActivity extends Activity {
     Real radius = Shade.constant(1);
 
     Real A = Shade.constant(1);
-    Real B = Shade.constant(2).mul(direction.dot(origin));
-    Real C = origin.dot(origin).sub(radius.mul(radius));
+    Real B = Shade.constant(2).times(direction.dot(origin));
+    Real C = origin.dot(origin).minus(radius.times(radius));
 
-    Real discriminant = B.mul(B).sub(Shade.constant(4).mul(A).mul(C));
+    Real discriminant = B.times(B).minus(Shade.constant(4).times(A).times(C));
     Bool isDiscriminantNegative = discriminant.isLessThan(0);
 
     Real q = B.isLessThan(0)
-        .if_(B.neg().add(discriminant.sqrt()).div(2))
-        .else_(B.neg().sub(discriminant.sqrt()).div(2));
+        .if_(B.negative().plus(discriminant.sqrt()).div(2))
+        .else_(B.negative().minus(discriminant.sqrt()).div(2));
 
     // t0 < t1
     Real t0 = C.div(q);
 
     final Real param = Parameter.real(0);
 
-    Vec3 position = origin.add(direction.mul(t0));
+    Vec3 position = origin.plus(direction).times(t0);
     Transform4 surfaceRotation = getRotation(param);
-    Transform4 cloudRotation = getRotation(param.mul(0.95f));
+    Transform4 cloudRotation = getRotation(param.times(0.95f));
 
     Vec2 surfaceTexCoords = positionToLatLng(surfaceRotation.apply(Shade.vec(position, 1)));
     Vec2 cloudTexCoords = positionToLatLng(cloudRotation.apply(Shade.vec(position, 1)));
@@ -318,21 +318,21 @@ public class JFacetDemoActivity extends Activity {
     Vec4 cloudColor = Shade.texture2(clouds, cloudTexCoords).x().x().x().x();
 
     Bitmap normals = BitmapFactory.decodeResource(getResources(), R.drawable.earth_normal);
-    Vec3 normal = Shade.texture2(normals, surfaceTexCoords).x().y().z().get().sub(Shade.vec(.5f, .5f, .5f)).normalize();
+    Vec3 normal = Shade.texture2(normals, surfaceTexCoords).x().y().z().get().minus(Shade.vec(.5f, .5f, .5f)).normalize();
 
     Bitmap specularHighlights = BitmapFactory.decodeResource(getResources(), R.drawable.earthspec__jestr);
     Real specularity = Shade.texture2(specularHighlights, surfaceTexCoords).x().get();
-    specularity = specularity.mul(100);
+    specularity = specularity.times(100);
 
     Transform4 normalTransform = getNormalTransform(position);
     normal = normalTransform.apply(Shade.vec(normal, 1)).x().y().z().get();
 
     Vec3 light = Shade.vec(-2, -2, -2).normalize();
 
-    Real diffuse = light.neg().dot(normal).max(0);
-    Real specular = light.reflect(normal).normalize().dot(direction.neg()).pow(specularity).max(0);
+    Real diffuse = light.negative().dot(normal).max(0);
+    Real specular = light.reflect(normal).normalize().dot(direction.negative()).pow(specularity).max(0);
 
-    Vec4 color = surfaceColor.mul(diffuse.add(specular)).add(cloudColor.mul(diffuse));
+    Vec4 color = surfaceColor.times(diffuse.plus(specular)).plus(cloudColor.times(diffuse));
     color = isDiscriminantNegative.if_(Shade.vec(0, 0, 0, 0)).else_(color);
 
     scene
@@ -348,7 +348,7 @@ public class JFacetDemoActivity extends Activity {
 
   private Vec2 positionToLatLng(Vec4 position) {
     Real lat = position.getY().acos().div(Real.PI);
-    Real lng = (position.getX().atan(position.getZ())).div(Real.PI.mul(2)).mod(1);
+    Real lng = (position.getX().atan(position.getZ())).div(Real.PI.times(2)).mod(1);
 
     return Shade.vec(lng, lat);
   }

@@ -31,33 +31,33 @@ public class RealTest {
   @Test
   public void testAdd() {
     Real rhs = new Real(2);
-    Real add = mReal.add(rhs);
+    Real add = mReal.plus(rhs);
     testNonLeafExpression(add, ImmutableList.<Expression>of(mReal, rhs));
     assertEquals(add.getNodeType(), NodeType.ADD);
 
-    add = mReal.add(2);
+    add = mReal.plus(2);
     assertEquals(add.getNodeType(), NodeType.ADD);
   }
 
   @Test
   public void testSub() {
     Real rhs = new Real(2);
-    Real sub = mReal.sub(rhs);
+    Real sub = mReal.minus(rhs);
     testNonLeafExpression(sub, ImmutableList.<Expression>of(mReal, rhs));
     assertEquals(sub.getNodeType(), NodeType.SUB);
 
-    sub = mReal.sub(2);
+    sub = mReal.minus(2);
     assertEquals(sub.getNodeType(), NodeType.SUB);
   }
 
   @Test
   public void testMul() {
     Real rhs = new Real(2);
-    Real mul = mReal.mul(rhs);
+    Real mul = mReal.times(rhs);
     testNonLeafExpression(mul, ImmutableList.<Expression>of(mReal, rhs));
     assertEquals(mul.getNodeType(), NodeType.MUL);
 
-    mul = mReal.mul(2);
+    mul = mReal.times(2);
     assertEquals(mul.getNodeType(), NodeType.MUL);
   }
 
@@ -74,7 +74,7 @@ public class RealTest {
 
   @Test
   public void testNeg() {
-    Real neg = mReal.neg();
+    Real neg = mReal.negative();
     testNonLeafExpression(neg, ImmutableList.<Expression>of(mReal));
     assertEquals(neg.getNodeType(), NodeType.NEG);
   }

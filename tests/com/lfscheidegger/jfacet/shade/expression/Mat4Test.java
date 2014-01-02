@@ -66,32 +66,32 @@ public class Mat4Test {
 
   @Test
   public void testAdd() {
-    Mat4 mat = mMatrix.add(1);
+    Mat4 mat = mMatrix.plus(1);
     Real real = new Real(1);
     Mat4 rhs = new Mat4();
 
-    testArithmetic(mMatrix, mat, mMatrix.add(real), real, mMatrix.add(rhs), rhs, NodeType.ADD);
+    testArithmetic(mMatrix, mat, mMatrix.plus(real), real, mMatrix.plus(rhs), rhs, NodeType.ADD);
   }
 
   @Test
   public void testSub() {
-    Mat4 mat = mMatrix.sub(1);
+    Mat4 mat = mMatrix.minus(1);
     Real real = new Real(1);
     Mat4 rhs = new Mat4();
 
-    testArithmetic(mMatrix, mat, mMatrix.sub(real), real, mMatrix.sub(rhs), rhs, NodeType.SUB);
+    testArithmetic(mMatrix, mat, mMatrix.minus(real), real, mMatrix.minus(rhs), rhs, NodeType.SUB);
   }
 
   @Test
   public void testMul() {
-    Mat4 mat = mMatrix.mul(1);
+    Mat4 mat = mMatrix.times(1);
     Real real = new Real(1);
     Mat4 rhs = new Mat4();
 
-    testArithmetic(mMatrix, mat, mMatrix.mul(real), real, mMatrix.mul(rhs), rhs, NodeType.MUL);
+    testArithmetic(mMatrix, mat, mMatrix.times(real), real, mMatrix.times(rhs), rhs, NodeType.MUL);
 
     Vec4 input = new Vec4(1, 2, 3, 4);
-    Vec4 transformed = mMatrix.mul(input);
+    Vec4 transformed = mMatrix.times(input);
     assertEquals(transformed.getNodeType(), NodeType.MUL);
     assertEquals(transformed.getParents(), ImmutableList.<Expression>of(mMatrix, input));
   }
@@ -107,7 +107,7 @@ public class Mat4Test {
 
   @Test
   public void testNeg() {
-    Mat4 neg = mMatrix.neg();
+    Mat4 neg = mMatrix.negative();
 
     assertEquals(neg.getNodeType(), NodeType.NEG);
     assertEquals(neg.getParents(), ImmutableList.<Expression>of(mMatrix));

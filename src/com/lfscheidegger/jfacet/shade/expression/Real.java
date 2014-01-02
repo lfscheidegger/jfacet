@@ -27,28 +27,28 @@ public final class Real extends Expression {
     super(NodeType.AttributeNodeType.forAttribute(attributeBuffer), GLSL_TYPE_NAME);
   }
 
-  public Real add(Real right) {
+  public Real plus(Real right) {
     return new Real(ImmutableList.<Expression>of(this, right), NodeType.ADD);
   }
 
-  public Real add(float right) {
-    return add(new Real(right));
+  public Real plus(float right) {
+    return plus(new Real(right));
   }
 
-  public Real sub(Real right) {
+  public Real minus(Real right) {
     return new Real(ImmutableList.<Expression>of(this, right), NodeType.SUB);
   }
 
-  public Real sub(float right) {
-    return sub(new Real(right));
+  public Real minus(float right) {
+    return minus(new Real(right));
   }
 
-  public Real mul(Real right) {
+  public Real times(Real right) {
     return new Real(ImmutableList.<Expression>of(this, right), NodeType.MUL);
   }
 
-  public Real mul(float right) {
-    return mul(new Real(right));
+  public Real times(float right) {
+    return times(new Real(right));
   }
 
   public Real div(Real right) {
@@ -59,7 +59,7 @@ public final class Real extends Expression {
     return div(new Real(right));
   }
 
-  public Real neg() {
+  public Real negative() {
     return new Real(ImmutableList.<Expression>of(this), NodeType.NEG);
   }
 

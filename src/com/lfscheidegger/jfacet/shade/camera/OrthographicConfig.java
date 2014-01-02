@@ -76,13 +76,13 @@ public class OrthographicConfig implements CameraConfig {
 
   @Override
   public Mat4 getMatrix() {
-    Real tx = mRight.add(mLeft).div(mRight.sub(mLeft));
-    Real ty = mTop.add(mBottom).div(mTop.sub(mBottom));
-    Real tz = mFar.add(mNear).div(mFar.sub(mNear));
+    Real tx = mRight.plus(mLeft).div(mRight.minus(mLeft));
+    Real ty = mTop.plus(mBottom).div(mTop.minus(mBottom));
+    Real tz = mFar.plus(mNear).div(mFar.minus(mNear));
 
-    Real x = Shade.constant(2).div(mRight.sub(mLeft));
-    Real y = Shade.constant(2).div(mTop.sub(mBottom));
-    Real z = Shade.constant(-2).div(mFar.sub(mNear));
+    Real x = Shade.constant(2).div(mRight.minus(mLeft));
+    Real y = Shade.constant(2).div(mTop.minus(mBottom));
+    Real z = Shade.constant(-2).div(mFar.minus(mNear));
 
     return Shade.mat(
         Shade.vec(x, 0, 0, 0),

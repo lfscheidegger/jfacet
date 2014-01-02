@@ -5,7 +5,7 @@ import com.lfscheidegger.jfacet.shade.transform.Transform4;
 public final class Camera extends Transform4 {
 
   public Camera(CameraConfig modelViewConfig, CameraConfig projectionConfig) {
-    super(projectionConfig.getMatrix().mul(modelViewConfig.getMatrix()));
+    super(projectionConfig.getMatrix().times(modelViewConfig.getMatrix()));
   }
 
   public static Camera perspective(int width, int height) {

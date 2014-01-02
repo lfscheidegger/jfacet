@@ -1126,29 +1126,29 @@ public class Vec4Test {
 
   @Test
   public void testAdd() {
-    Vec4 vec = mVec.add(1);
+    Vec4 vec = mVec.plus(1);
     Real real = new Real(1);
     Vec4 rhs = new Vec4(1, 2, 3, 4);
 
-    testArithmetic(mVec, vec, mVec.add(real), real, mVec.add(rhs), rhs, NodeType.ADD);
+    testArithmetic(mVec, vec, mVec.plus(real), real, mVec.plus(rhs), rhs, NodeType.ADD);
   }
 
   @Test
   public void testSub() {
-    Vec4 vec = mVec.sub(1);
+    Vec4 vec = mVec.minus(1);
     Real real = new Real(1);
     Vec4 rhs = new Vec4(1, 2, 3, 4);
 
-    testArithmetic(mVec, vec, mVec.sub(real), real, mVec.sub(rhs), rhs, NodeType.SUB);
+    testArithmetic(mVec, vec, mVec.minus(real), real, mVec.minus(rhs), rhs, NodeType.SUB);
   }
 
   @Test
   public void testMul() {
-    Vec4 vec = mVec.mul(1);
+    Vec4 vec = mVec.times(1);
     Real real = new Real(1);
     Vec4 rhs = new Vec4(1, 2, 3, 4);
 
-    testArithmetic(mVec, vec, mVec.mul(real), real, mVec.mul(rhs), rhs, NodeType.MUL);
+    testArithmetic(mVec, vec, mVec.times(real), real, mVec.times(rhs), rhs, NodeType.MUL);
   }
 
   @Test
@@ -1162,7 +1162,7 @@ public class Vec4Test {
 
   @Test
   public void testNeg() {
-    Vec4 neg = mVec.neg();
+    Vec4 neg = mVec.negative();
 
     assertEquals(neg.getNodeType(), NodeType.NEG);
     assertEquals(neg.getParents(), ImmutableList.<Expression>of(mVec));

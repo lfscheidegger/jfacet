@@ -57,31 +57,31 @@ public final class Mat4 extends Expression {
       return new Vec4.Primitive(mValues[4 * idx], mValues[4 * idx + 1], mValues[4 * idx + 2], mValues[4 * idx + 3]);
     }
 
-    public Primitive add(Primitive other) {
+    public Primitive plus(Primitive other) {
       return new Primitive(ArrayUtils.add(mValues, other.mValues));
     }
 
-    public Primitive add(float t) {
+    public Primitive plus(float t) {
       return new Primitive(ArrayUtils.add(mValues, t));
     }
 
-    public Primitive sub(Primitive other) {
+    public Primitive minus(Primitive other) {
       return new Primitive(ArrayUtils.sub(mValues, other.mValues));
     }
 
-    public Primitive sub(float t) {
+    public Primitive minus(float t) {
       return new Primitive(ArrayUtils.sub(mValues, t));
     }
 
-    public Primitive mul(Primitive other) {
+    public Primitive times(Primitive other) {
       return new Primitive(ArrayUtils.mulMatrix(mValues, other.mValues, 4));
     }
 
-    public Primitive mul(float t) {
+    public Primitive times(float t) {
       return new Primitive(ArrayUtils.mul(mValues, t));
     }
 
-    public Vec4.Primitive mul(Vec4.Primitive vec) {
+    public Vec4.Primitive times(Vec4.Primitive vec) {
       return new Vec4.Primitive(
           mValues[0] * vec.getX() + mValues[4] * vec.getY() + mValues[ 8] * vec.getZ() + mValues[12] * vec.getW(),
           mValues[1] * vec.getX() + mValues[5] * vec.getY() + mValues[ 9] * vec.getZ() + mValues[13] * vec.getW(),
@@ -97,7 +97,7 @@ public final class Mat4 extends Expression {
       return new Primitive(ArrayUtils.div(mValues, t));
     }
 
-    public Primitive neg() {
+    public Primitive negative() {
       return new Primitive(ArrayUtils.mul(mValues, -1));
     }
 
@@ -175,43 +175,43 @@ public final class Mat4 extends Expression {
     return new Vec4(ImmutableList.<Expression>of(this), NodeType.ComponentNodeType.forComponent(idx));
   }
 
-  public Mat4 add(float right) {
-    return add(new Real(right));
+  public Mat4 plus(float right) {
+    return plus(new Real(right));
   }
 
-  public Mat4 add(Real right) {
+  public Mat4 plus(Real right) {
     return new Mat4(ImmutableList.<Expression>of(this, right), NodeType.ADD);
   }
 
-  public Mat4 add(Mat4 right) {
+  public Mat4 plus(Mat4 right) {
     return new Mat4(ImmutableList.<Expression>of(this, right), NodeType.ADD);
   }
 
-  public Mat4 sub(float right) {
-    return sub(new Real(right));
+  public Mat4 minus(float right) {
+    return minus(new Real(right));
   }
 
-  public Mat4 sub(Real right) {
+  public Mat4 minus(Real right) {
     return new Mat4(ImmutableList.<Expression>of(this, right), NodeType.SUB);
   }
 
-  public Mat4 sub(Mat4 right) {
+  public Mat4 minus(Mat4 right) {
     return new Mat4(ImmutableList.<Expression>of(this, right), NodeType.SUB);
   }
 
-  public Mat4 mul(float right) {
-    return mul(new Real(right));
+  public Mat4 times(float right) {
+    return times(new Real(right));
   }
 
-  public Mat4 mul(Real right) {
+  public Mat4 times(Real right) {
     return new Mat4(ImmutableList.<Expression>of(this, right), NodeType.MUL);
   }
 
-  public Mat4 mul(Mat4 right) {
+  public Mat4 times(Mat4 right) {
     return new Mat4(ImmutableList.<Expression>of(this, right), NodeType.MUL);
   }
 
-  public Vec4 mul(Vec4 right) {
+  public Vec4 times(Vec4 right) {
     return new Vec4(ImmutableList.<Expression>of(this, right), NodeType.MUL);
   }
 
@@ -227,7 +227,7 @@ public final class Mat4 extends Expression {
     return new Mat4(ImmutableList.<Expression>of(this, right), NodeType.DIV);
   }
 
-  public Mat4 neg() {
+  public Mat4 negative() {
     return new Mat4(ImmutableList.<Expression>of(this), NodeType.NEG);
   }
 

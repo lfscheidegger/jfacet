@@ -45,31 +45,31 @@ public final class Mat2 extends Expression {
       return new Vec2.Primitive(mValues[2 * idx], mValues[2 * idx + 1]);
     }
 
-    public Primitive add(Primitive other) {
+    public Primitive plus(Primitive other) {
       return new Primitive(ArrayUtils.add(mValues, other.mValues));
     }
 
-    public Primitive add(float t) {
+    public Primitive plus(float t) {
       return new Primitive(ArrayUtils.add(mValues, t));
     }
 
-    public Primitive sub(Primitive other) {
+    public Primitive minus(Primitive other) {
       return new Primitive(ArrayUtils.sub(mValues, other.mValues));
     }
 
-    public Primitive sub(float t) {
+    public Primitive minus(float t) {
       return new Primitive(ArrayUtils.sub(mValues, t));
     }
 
-    public Primitive mul(Primitive other) {
+    public Primitive times(Primitive other) {
       return new Primitive(ArrayUtils.mulMatrix(mValues, other.mValues, 2));
     }
 
-    public Primitive mul(float t) {
+    public Primitive times(float t) {
       return new Primitive(ArrayUtils.mul(mValues, t));
     }
 
-    public Vec2.Primitive mul(Vec2.Primitive vec) {
+    public Vec2.Primitive times(Vec2.Primitive vec) {
       return new Vec2.Primitive(
           mValues[0] * vec.getX() + mValues[2] * vec.getY(),
           mValues[1] * vec.getX() + mValues[3] * vec.getY());
@@ -83,7 +83,7 @@ public final class Mat2 extends Expression {
       return new Primitive(ArrayUtils.div(mValues, t));
     }
 
-    public Primitive neg() {
+    public Primitive negative() {
       return new Primitive(ArrayUtils.mul(mValues, -1));
     }
 
@@ -153,43 +153,43 @@ public final class Mat2 extends Expression {
         NodeType.ComponentNodeType.forComponent(idx));
   }
 
-  public Mat2 add(float right) {
-    return add(new Real(right));
+  public Mat2 plus(float right) {
+    return plus(new Real(right));
   }
 
-  public Mat2 add(Real right) {
+  public Mat2 plus(Real right) {
     return new Mat2(ImmutableList.<Expression>of(this, right), NodeType.ADD);
   }
 
-  public Mat2 add(Mat2 right) {
+  public Mat2 plus(Mat2 right) {
     return new Mat2(ImmutableList.<Expression>of(this, right), NodeType.ADD);
   }
 
-  public Mat2 sub(float right) {
-    return sub(new Real(right));
+  public Mat2 minus(float right) {
+    return minus(new Real(right));
   }
 
-  public Mat2 sub(Real right) {
+  public Mat2 minus(Real right) {
     return new Mat2(ImmutableList.<Expression>of(this, right), NodeType.SUB);
   }
 
-  public Mat2 sub(Mat2 right) {
+  public Mat2 minus(Mat2 right) {
     return new Mat2(ImmutableList.<Expression>of(this, right), NodeType.SUB);
   }
 
-  public Mat2 mul(float right) {
-    return mul(new Real(right));
+  public Mat2 times(float right) {
+    return times(new Real(right));
   }
 
-  public Mat2 mul(Real right) {
+  public Mat2 times(Real right) {
     return new Mat2(ImmutableList.<Expression>of(this, right), NodeType.MUL);
   }
 
-  public Mat2 mul(Mat2 right) {
+  public Mat2 times(Mat2 right) {
     return new Mat2(ImmutableList.<Expression>of(this, right), NodeType.MUL);
   }
 
-  public Vec2 mul(Vec2 right) {
+  public Vec2 times(Vec2 right) {
     return new Vec2(ImmutableList.<Expression>of(this, right), NodeType.MUL);
   }
 
@@ -205,7 +205,7 @@ public final class Mat2 extends Expression {
     return new Mat2(ImmutableList.<Expression>of(this, right), NodeType.DIV);
   }
 
-  public Mat2 neg() {
+  public Mat2 negative() {
     return new Mat2(ImmutableList.<Expression>of(this), NodeType.NEG);
   }
 

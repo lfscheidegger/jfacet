@@ -52,31 +52,31 @@ public final class Mat3 extends Expression {
       return new Vec3.Primitive(mValues[3 * idx], mValues[3 * idx + 1], mValues[3 * idx + 2]);
     }
 
-    public Primitive add(Primitive other) {
+    public Primitive plus(Primitive other) {
       return new Primitive(ArrayUtils.add(mValues, other.mValues));
     }
 
-    public Primitive add(float t) {
+    public Primitive plus(float t) {
       return new Primitive(ArrayUtils.add(mValues, t));
     }
 
-    public Primitive sub(Primitive other) {
+    public Primitive minus(Primitive other) {
       return new Primitive(ArrayUtils.sub(mValues, other.mValues));
     }
 
-    public Primitive sub(float t) {
+    public Primitive minus(float t) {
       return new Primitive(ArrayUtils.sub(mValues, t));
     }
 
-    public Primitive mul(Primitive other) {
+    public Primitive times(Primitive other) {
       return new Primitive(ArrayUtils.mulMatrix(mValues, other.mValues, 3));
     }
 
-    public Primitive mul(float t) {
+    public Primitive times(float t) {
       return new Primitive(ArrayUtils.mul(mValues, t));
     }
 
-    public Vec3.Primitive mul(Vec3.Primitive vec) {
+    public Vec3.Primitive times(Vec3.Primitive vec) {
       return new Vec3.Primitive(
           mValues[0] * vec.getX() + mValues[3] * vec.getY() + mValues[6] * vec.getZ(),
           mValues[1] * vec.getX() + mValues[4] * vec.getY() + mValues[7] * vec.getZ(),
@@ -91,7 +91,7 @@ public final class Mat3 extends Expression {
       return new Primitive(ArrayUtils.div(mValues, t));
     }
 
-    public Primitive neg() {
+    public Primitive negative() {
       return new Primitive(ArrayUtils.mul(mValues, -1));
     }
 
@@ -166,43 +166,43 @@ public final class Mat3 extends Expression {
         NodeType.ComponentNodeType.forComponent(idx));
   }
 
-  public Mat3 add(float right) {
-    return add(new Real(right));
+  public Mat3 plus(float right) {
+    return plus(new Real(right));
   }
 
-  public Mat3 add(Real right) {
+  public Mat3 plus(Real right) {
     return new Mat3(ImmutableList.<Expression>of(this, right), NodeType.ADD);
   }
 
-  public Mat3 add(Mat3 right) {
+  public Mat3 plus(Mat3 right) {
     return new Mat3(ImmutableList.<Expression>of(this, right), NodeType.ADD);
   }
 
-  public Mat3 sub(float right) {
-    return sub(new Real(right));
+  public Mat3 minus(float right) {
+    return minus(new Real(right));
   }
 
-  public Mat3 sub(Real right) {
+  public Mat3 minus(Real right) {
     return new Mat3(ImmutableList.<Expression>of(this, right), NodeType.SUB);
   }
 
-  public Mat3 sub(Mat3 right) {
+  public Mat3 minus(Mat3 right) {
     return new Mat3(ImmutableList.<Expression>of(this, right), NodeType.SUB);
   }
 
-  public Mat3 mul(float right) {
-    return mul(new Real(right));
+  public Mat3 times(float right) {
+    return times(new Real(right));
   }
 
-  public Mat3 mul(Real right) {
+  public Mat3 times(Real right) {
     return new Mat3(ImmutableList.<Expression>of(this, right), NodeType.MUL);
   }
 
-  public Mat3 mul(Mat3 right) {
+  public Mat3 times(Mat3 right) {
     return new Mat3(ImmutableList.<Expression>of(this, right), NodeType.MUL);
   }
 
-  public Vec3 mul(Vec3 right) {
+  public Vec3 times(Vec3 right) {
     return new Vec3(ImmutableList.<Expression>of(this, right), NodeType.MUL);
   }
 
@@ -218,7 +218,7 @@ public final class Mat3 extends Expression {
     return new Mat3(ImmutableList.<Expression>of(this, right), NodeType.DIV);
   }
 
-  public Mat3 neg() {
+  public Mat3 negative() {
     return new Mat3(ImmutableList.<Expression>of(this), NodeType.NEG);
   }
 

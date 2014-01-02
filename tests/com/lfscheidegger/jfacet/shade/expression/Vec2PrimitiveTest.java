@@ -151,33 +151,33 @@ public class Vec2PrimitiveTest {
 
   @Test
   public void testAdd() {
-    Vec2.Primitive added = vec.add(1);
+    Vec2.Primitive added = vec.plus(1);
     assertTrue(added.getX() == 2);
     assertTrue(added.getY() == 3);
 
-    added = vec.add(vec);
+    added = vec.plus(vec);
     assertTrue(added.getX() == 2);
     assertTrue(added.getY() == 4);
   }
 
   @Test
   public void testSub() {
-    Vec2.Primitive subtracted = vec.sub(1);
+    Vec2.Primitive subtracted = vec.minus(1);
     assertTrue(subtracted.getX() == 0);
     assertTrue(subtracted.getY() == 1);
 
-    subtracted = vec.sub(vec);
+    subtracted = vec.minus(vec);
     assertTrue(subtracted.getX() == 0);
     assertTrue(subtracted.getY() == 0);
   }
 
   @Test
   public void testMul() {
-    Vec2.Primitive scaled = vec.mul(3);
+    Vec2.Primitive scaled = vec.times(3);
     assertTrue(scaled.getX() == 3);
     assertTrue(scaled.getY() == 6);
 
-    scaled = vec.mul(vec);
+    scaled = vec.times(vec);
     assertTrue(scaled.getX() == 1);
     assertTrue(scaled.getY() == 4);
   }
@@ -195,7 +195,7 @@ public class Vec2PrimitiveTest {
 
   @Test
   public void testNeg() {
-    Vec2.Primitive negated = vec.neg();
+    Vec2.Primitive negated = vec.negative();
 
     assertTrue(negated.getX() == -1);
     assertTrue(negated.getY() == -2);

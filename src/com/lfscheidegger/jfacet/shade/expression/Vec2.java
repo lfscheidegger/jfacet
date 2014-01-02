@@ -77,27 +77,27 @@ public final class Vec2 extends Expression implements VecLike {
       return new Swizzle.Swizzle21STPQ<Float, Vec2.Primitive, Vec3.Primitive, Vec4.Primitive>("t", this);
     }
 
-    public Primitive add(Primitive other) {
+    public Primitive plus(Primitive other) {
       return new Primitive(ArrayUtils.add(mValues, other.mValues));
     }
 
-    public Primitive add(float t) {
+    public Primitive plus(float t) {
       return new Primitive(ArrayUtils.add(mValues, t));
     }
 
-    public Primitive sub(Primitive other) {
+    public Primitive minus(Primitive other) {
       return new Primitive(ArrayUtils.sub(mValues, other.mValues));
     }
 
-    public Primitive sub(float t) {
+    public Primitive minus(float t) {
       return new Primitive(ArrayUtils.sub(mValues, t));
     }
 
-    public Primitive mul(Primitive other) {
+    public Primitive times(Primitive other) {
       return new Primitive(ArrayUtils.mul(mValues, other.mValues));
     }
 
-    public Primitive mul(float t) {
+    public Primitive times(float t) {
       return new Primitive(ArrayUtils.mul(mValues, t));
     }
 
@@ -109,7 +109,7 @@ public final class Vec2 extends Expression implements VecLike {
       return new Primitive(ArrayUtils.div(mValues, t));
     }
 
-    public Primitive neg() {
+    public Primitive negative() {
       return new Primitive(ArrayUtils.neg(mValues));
     }
 
@@ -235,39 +235,39 @@ public final class Vec2 extends Expression implements VecLike {
     return new Swizzle.Swizzle21STPQ<Real, Vec2, Vec3, Vec4>("t", this);
   }
 
-  public Vec2 add(float right) {
-    return add(new Real(right));
+  public Vec2 plus(float right) {
+    return plus(new Real(right));
   }
 
-  public Vec2 add(Real right) {
+  public Vec2 plus(Real right) {
     return new Vec2(ImmutableList.<Expression>of(this, right), NodeType.ADD);
   }
 
-  public Vec2 add(Vec2 right) {
+  public Vec2 plus(Vec2 right) {
     return new Vec2(ImmutableList.<Expression>of(this, right), NodeType.ADD);
   }
 
-  public Vec2 sub(float right) {
-    return sub(new Real(right));
+  public Vec2 minus(float right) {
+    return minus(new Real(right));
   }
 
-  public Vec2 sub(Real right) {
+  public Vec2 minus(Real right) {
     return new Vec2(ImmutableList.<Expression>of(this, right), NodeType.SUB);
   }
 
-  public Vec2 sub(Vec2 right) {
+  public Vec2 minus(Vec2 right) {
     return new Vec2(ImmutableList.<Expression>of(this, right), NodeType.SUB);
   }
 
-  public Vec2 mul(float right) {
-    return mul(new Real(right));
+  public Vec2 times(float right) {
+    return times(new Real(right));
   }
 
-  public Vec2 mul(Real right) {
+  public Vec2 times(Real right) {
     return new Vec2(ImmutableList.<Expression>of(this, right), NodeType.MUL);
   }
 
-  public Vec2 mul(Vec2 right) {
+  public Vec2 times(Vec2 right) {
     return new Vec2(ImmutableList.<Expression>of(this, right), NodeType.MUL);
   }
 
@@ -283,7 +283,7 @@ public final class Vec2 extends Expression implements VecLike {
     return new Vec2(ImmutableList.<Expression>of(this, right), NodeType.DIV);
   }
 
-  public Vec2 neg() {
+  public Vec2 negative() {
     return new Vec2(ImmutableList.<Expression>of(this), NodeType.NEG);
   }
 

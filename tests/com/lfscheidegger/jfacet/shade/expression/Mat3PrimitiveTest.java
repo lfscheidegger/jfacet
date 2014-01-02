@@ -43,13 +43,13 @@ public class Mat3PrimitiveTest {
 
   @Test
   public void testAdd() {
-    Mat3.Primitive added = mat.add(1);
+    Mat3.Primitive added = mat.plus(1);
     assertEquals(added, new Mat3.Primitive(
         new Vec3.Primitive(2, 3, 4),
         new Vec3.Primitive(5, 6, 7),
         new Vec3.Primitive(8, 9, 10)));
 
-    added = mat.add(mat);
+    added = mat.plus(mat);
     assertEquals(added, new Mat3.Primitive(
         new Vec3.Primitive(2, 4, 6),
         new Vec3.Primitive(8, 10, 12),
@@ -58,13 +58,13 @@ public class Mat3PrimitiveTest {
 
   @Test
   public void testSub() {
-    Mat3.Primitive subtracted = mat.sub(1);
+    Mat3.Primitive subtracted = mat.minus(1);
     assertEquals(subtracted, new Mat3.Primitive(
         new Vec3.Primitive(0, 1, 2),
         new Vec3.Primitive(3, 4, 5),
         new Vec3.Primitive(6, 7, 8)));
 
-    subtracted = mat.sub(mat);
+    subtracted = mat.minus(mat);
     assertEquals(subtracted, new Mat3.Primitive(
         new Vec3.Primitive(0, 0, 0),
         new Vec3.Primitive(0, 0, 0),
@@ -73,19 +73,19 @@ public class Mat3PrimitiveTest {
 
   @Test
   public void testMul() {
-    Mat3.Primitive multiplied = mat.mul(2);
+    Mat3.Primitive multiplied = mat.times(2);
     assertEquals(multiplied, new Mat3.Primitive(
         new Vec3.Primitive(2, 4, 6),
         new Vec3.Primitive(8, 10, 12),
         new Vec3.Primitive(14, 16, 18)));
 
-    multiplied = mat.mul(mat);
+    multiplied = mat.times(mat);
     assertEquals(multiplied, new Mat3.Primitive(
         new Vec3.Primitive(30, 36, 42),
         new Vec3.Primitive(66, 81, 96),
         new Vec3.Primitive(102, 126, 150)));
 
-    Vec3.Primitive transformed = mat.mul(new Vec3.Primitive(1, 2, 3));
+    Vec3.Primitive transformed = mat.times(new Vec3.Primitive(1, 2, 3));
     assertEquals(transformed, new Vec3.Primitive(30, 36, 42));
   }
 
@@ -106,7 +106,7 @@ public class Mat3PrimitiveTest {
 
   @Test
   public void testNeg() {
-    Mat3.Primitive negated = mat.neg();
+    Mat3.Primitive negated = mat.negative();
     assertEquals(negated, new Mat3.Primitive(
         new Vec3.Primitive(-1, -2, -3),
         new Vec3.Primitive(-4, -5, -6),
@@ -139,8 +139,8 @@ public class Mat3PrimitiveTest {
 
     Mat3.Primitive inverse = invertible.inverse();
 
-    assertEquals(invertible.mul(inverse), new Mat3.Primitive());
-    assertEquals(inverse.mul(invertible), new Mat3.Primitive());
+    assertEquals(invertible.times(inverse), new Mat3.Primitive());
+    assertEquals(inverse.times(invertible), new Mat3.Primitive());
   }
 
   @Test

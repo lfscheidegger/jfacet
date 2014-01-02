@@ -23,13 +23,13 @@ public class Transform4 {
     Mat4 mat = mQueuedTransforms.get(0).getMatrix();
 
     for (int i = 1; i < mQueuedTransforms.size(); i++) {
-      mat = mat.mul(mQueuedTransforms.get(i).getMatrix());
+      mat = mat.times(mQueuedTransforms.get(i).getMatrix());
     }
 
     mQueuedTransforms.clear();
     mQueuedTransforms.add(this);
 
-    return mat.mul(exp);
+    return mat.times(exp);
   }
 
   public Transform4 apply(Transform4 other) {

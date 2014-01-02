@@ -17,23 +17,23 @@ public class Rotation4 extends Transform4 {
     Real s = angle.sin();
     Real c = angle.cos();
 
-    Real t = Shade.constant(1).sub(c);
+    Real t = Shade.constant(1).minus(c);
     Real x = axis.get(0);
     Real y = axis.get(1);
     Real z = axis.get(2);
 
     return Shade.mat(
-        Shade.vec(x.mul(x).mul(t).add(c),
-            y.mul(x).mul(t).add(z.mul(s)),
-            z.mul(x).mul(t).sub(y.mul(s)),
+        Shade.vec(x.times(x).times(t).plus(c),
+            y.times(x).times(t).plus(z.times(s)),
+            z.times(x).times(t).minus(y.times(s)),
             0),
-        Shade.vec(x.mul(y).mul(t).sub(z.mul(s)),
-            y.mul(y).mul(t).add(c),
-            z.mul(y).mul(t).add(x.mul(s)),
+        Shade.vec(x.times(y).times(t).minus(z.times(s)),
+            y.times(y).times(t).plus(c),
+            z.times(y).times(t).plus(x.times(s)),
             0),
-        Shade.vec(x.mul(z).mul(t).add(y.mul(s)),
-            y.mul(z).mul(t).sub(x.mul(s)),
-            z.mul(z).mul(t).add(c),
+        Shade.vec(x.times(z).times(t).plus(y.times(s)),
+            y.times(z).times(t).minus(x.times(s)),
+            z.times(z).times(t).plus(c),
             0),
         Shade.vec(0, 0, 0, 1));
   }

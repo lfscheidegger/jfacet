@@ -1089,13 +1089,13 @@ public class Vec4PrimitiveTest {
 
   @Test
   public void testAdd() {
-    Vec4.Primitive added = vec.add(1);
+    Vec4.Primitive added = vec.plus(1);
     assertTrue(added.getX() == 2);
     assertTrue(added.getY() == 3);
     assertTrue(added.getZ() == 4);
     assertTrue(added.getW() == 5);
 
-    added = vec.add(vec);
+    added = vec.plus(vec);
     assertTrue(added.getX() == 2);
     assertTrue(added.getY() == 4);
     assertTrue(added.getZ() == 6);
@@ -1104,13 +1104,13 @@ public class Vec4PrimitiveTest {
 
   @Test
   public void testSub() {
-    Vec4.Primitive subtracted = vec.sub(1);
+    Vec4.Primitive subtracted = vec.minus(1);
     assertTrue(subtracted.getX() == 0);
     assertTrue(subtracted.getY() == 1);
     assertTrue(subtracted.getZ() == 2);
     assertTrue(subtracted.getW() == 3);
 
-    subtracted = vec.sub(vec);
+    subtracted = vec.minus(vec);
     assertTrue(subtracted.getX() == 0);
     assertTrue(subtracted.getY() == 0);
     assertTrue(subtracted.getZ() == 0);
@@ -1119,13 +1119,13 @@ public class Vec4PrimitiveTest {
 
   @Test
   public void testMul() {
-    Vec4.Primitive scaled = vec.mul(3);
+    Vec4.Primitive scaled = vec.times(3);
     assertTrue(scaled.getX() == 3);
     assertTrue(scaled.getY() == 6);
     assertTrue(scaled.getZ() == 9);
     assertTrue(scaled.getW() == 12);
 
-    scaled = vec.mul(vec);
+    scaled = vec.times(vec);
     assertTrue(scaled.getX() == 1);
     assertTrue(scaled.getY() == 4);
     assertTrue(scaled.getZ() == 9);
@@ -1149,7 +1149,7 @@ public class Vec4PrimitiveTest {
 
   @Test
   public void testNeg() {
-    Vec4.Primitive negated = vec.neg();
+    Vec4.Primitive negated = vec.negative();
 
     assertTrue(negated.getX() == -1);
     assertTrue(negated.getY() == -2);
