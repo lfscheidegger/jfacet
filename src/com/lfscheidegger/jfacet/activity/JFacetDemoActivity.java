@@ -12,7 +12,7 @@ import com.lfscheidegger.jfacet.Drawable;
 import com.lfscheidegger.jfacet.Geometry;
 import com.lfscheidegger.jfacet.Models;
 import com.lfscheidegger.jfacet.Scene;
-import com.lfscheidegger.jfacet.facet.renderer.FacetRenderer;
+import com.lfscheidegger.jfacet.renderer.FacetRenderer;
 import com.lfscheidegger.jfacet.shade.Parameter;
 import com.lfscheidegger.jfacet.shade.Shade;
 import com.lfscheidegger.jfacet.shade.camera.Camera;

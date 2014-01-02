@@ -1,4 +1,4 @@
-package com.lfscheidegger.jfacet.facet.renderer;
+package com.lfscheidegger.jfacet.renderer;
 
 import android.opengl.GLES20;
 import android.opengl.GLSurfaceView;
