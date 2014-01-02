@@ -1,10 +1,6 @@
 package com.lfscheidegger.jfacet.shade.expression;
 
 import com.google.common.collect.ImmutableList;
-import com.lfscheidegger.jfacet.shade.expression.matrix.Matrix2;
-import com.lfscheidegger.jfacet.shade.expression.matrix.Matrix3;
-import com.lfscheidegger.jfacet.shade.expression.matrix.Matrix4;
-import com.lfscheidegger.jfacet.shade.expression.vector.*;
 
 /**
  * {@code Expression} for boolean values

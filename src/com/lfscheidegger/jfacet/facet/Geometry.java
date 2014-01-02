@@ -4,10 +4,10 @@ import com.google.common.base.Preconditions;
 import com.google.common.collect.Maps;
 import com.lfscheidegger.jfacet.shade.expression.Expression;
 import com.lfscheidegger.jfacet.shade.expression.Real;
-import com.lfscheidegger.jfacet.shade.expression.vector.Vector2;
-import com.lfscheidegger.jfacet.shade.expression.vector.Vector3;
-import com.lfscheidegger.jfacet.shade.expression.vector.Vector4;
-import com.lfscheidegger.jfacet.shade.expression.vector.VectorExpression;
+import com.lfscheidegger.jfacet.shade.expression.Vector2;
+import com.lfscheidegger.jfacet.shade.expression.Vector3;
+import com.lfscheidegger.jfacet.shade.expression.Vector4;
+import com.lfscheidegger.jfacet.shade.expression.VectorExpression;
 
 import javax.annotation.Nullable;
 import java.util.Map;

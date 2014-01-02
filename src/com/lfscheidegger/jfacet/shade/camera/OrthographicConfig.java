@@ -2,7 +2,7 @@ package com.lfscheidegger.jfacet.shade.camera;
 
 import com.lfscheidegger.jfacet.shade.Shade;
 import com.lfscheidegger.jfacet.shade.expression.Real;
-import com.lfscheidegger.jfacet.shade.expression.matrix.Matrix4;
+import com.lfscheidegger.jfacet.shade.expression.Matrix4;
 
 public class OrthographicConfig implements CameraConfig {
 

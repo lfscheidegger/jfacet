@@ -2,8 +2,8 @@ package com.lfscheidegger.jfacet.facet;
 
 import com.lfscheidegger.jfacet.shade.expression.NodeType;
 import com.lfscheidegger.jfacet.shade.expression.Real;
-import com.lfscheidegger.jfacet.shade.expression.vector.Vector2;
-import com.lfscheidegger.jfacet.shade.expression.vector.Vector3;
+import com.lfscheidegger.jfacet.shade.expression.Vector2;
+import com.lfscheidegger.jfacet.shade.expression.Vector3;
 import org.junit.Before;
 import org.junit.Test;
 

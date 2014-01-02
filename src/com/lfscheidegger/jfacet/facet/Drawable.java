@@ -2,8 +2,7 @@ package com.lfscheidegger.jfacet.facet;
 
 import android.opengl.GLES20;
 import com.lfscheidegger.jfacet.Program;
-import com.lfscheidegger.jfacet.shade.expression.vector.Vector4;
-import com.lfscheidegger.jfacet.shade.expression.vector.VectorExpression;
+import com.lfscheidegger.jfacet.shade.expression.VectorExpression;
 
 public final class Drawable implements Runnable {
 

@@ -2,10 +2,6 @@ package com.lfscheidegger.jfacet.shade.expression;
 
 import android.graphics.Bitmap;
 import com.lfscheidegger.jfacet.facet.AttributeBuffer;
-import com.lfscheidegger.jfacet.shade.expression.matrix.Matrix2;
-import com.lfscheidegger.jfacet.shade.expression.matrix.Matrix3;
-import com.lfscheidegger.jfacet.shade.expression.matrix.Matrix4;
-import com.lfscheidegger.jfacet.shade.expression.vector.*;
 
 public interface NodeType {
 

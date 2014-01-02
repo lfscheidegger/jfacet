@@ -3,9 +3,9 @@ package com.lfscheidegger.jfacet.shade;
 import android.graphics.Bitmap;
 import com.google.common.base.Preconditions;
 import com.lfscheidegger.jfacet.shade.expression.*;
-import com.lfscheidegger.jfacet.shade.expression.vector.Vector2;
-import com.lfscheidegger.jfacet.shade.expression.vector.Vector3;
-import com.lfscheidegger.jfacet.shade.expression.vector.Vector4;
+import com.lfscheidegger.jfacet.shade.expression.Vector2;
+import com.lfscheidegger.jfacet.shade.expression.Vector3;
+import com.lfscheidegger.jfacet.shade.expression.Vector4;
 
 public final class Parameter {
 

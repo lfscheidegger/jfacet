@@ -2,8 +2,6 @@ package com.lfscheidegger.jfacet.shade.expression;
 
 import android.graphics.Bitmap;
 import com.google.common.collect.ImmutableList;
-import com.lfscheidegger.jfacet.shade.expression.vector.Vector2;
-import com.lfscheidegger.jfacet.shade.expression.vector.Vector4;
 
 public final class Sampler extends Expression {
 

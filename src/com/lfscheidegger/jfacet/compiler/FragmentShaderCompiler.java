@@ -4,7 +4,7 @@ import android.util.Log;
 import com.google.common.collect.*;
 import com.lfscheidegger.jfacet.shade.expression.Expression;
 import com.lfscheidegger.jfacet.shade.expression.NodeType;
-import com.lfscheidegger.jfacet.shade.expression.vector.Vector4;
+import com.lfscheidegger.jfacet.shade.expression.Vector4;
 
 import java.util.List;
 import java.util.Map;
