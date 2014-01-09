@@ -1,3 +1,4 @@
+// Copyright (c) 2013- Luiz Fernando Scheidegger
 package com.lfscheidegger.jfacet.shade.expression;
 
 import android.graphics.Bitmap;
