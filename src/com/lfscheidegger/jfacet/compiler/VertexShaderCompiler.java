@@ -26,27 +26,8 @@ public class VertexShaderCompiler {
     mVertexPosition = vertexPosition;
     mCompilationHelper = new CompilationHelper();
 
-    final ImmutableSet.Builder<Expression> attributeBuilder = new ImmutableSet.Builder<Expression>();
-    new ExpressionVisitor(mVertexPosition) {
-      @Override
-      public void visit(Expression expression) {
-        if (expression.getNodeType() instanceof NodeType.AttributeNodeType) {
-          attributeBuilder.add(expression);
-        }
-      }
-    }.run();
-    mAttributeExpressions = Lists.newArrayList(attributeBuilder.build());
-
-    final ImmutableSet.Builder<Expression> uniformBuilder = new ImmutableSet.Builder<Expression>();
-    new ExpressionVisitor(mVertexPosition) {
-      @Override
-      public void visit(Expression expression) {
-        if (expression.getNodeType() instanceof NodeType.UniformNodeType) {
-          uniformBuilder.add(expression);
-        }
-      }
-    }.run();
-    mUniformExpressions = Lists.newArrayList(uniformBuilder.build());
+    mUniformExpressions = mCompilationHelper.extractUniformExpressions(mVertexPosition);
+    mAttributeExpressions = mCompilationHelper.extractAttributeExpressions(mVertexPosition);
   }
 
   public void setVaryingExpressions(Map<Expression, String> varyingExpressions) {

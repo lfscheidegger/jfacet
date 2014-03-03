@@ -23,17 +23,7 @@ public class FragmentShaderCompiler {
     mFragmentColor = fragmentColor;
     mCompilationHelper = new CompilationHelper();
     mVaryingExpressions = Maps.newHashMap();
-
-    final ImmutableSet.Builder<Expression> uniformBuilder = new ImmutableSet.Builder<Expression>();
-    new ExpressionVisitor(mFragmentColor) {
-      @Override
-      public void visit(Expression expression) {
-        if (expression.getNodeType() instanceof NodeType.UniformNodeType) {
-          uniformBuilder.add(expression);
-        }
-      }
-    }.run();
-    mUniformExpressions = Lists.newArrayList(uniformBuilder.build());
+    mUniformExpressions = mCompilationHelper.extractUniformExpressions(mFragmentColor);
   }
 
   public String compile() {

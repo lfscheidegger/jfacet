@@ -1,47 +1,56 @@
 // Copyright (c) 2013- Luiz Fernando Scheidegger
 package com.lfscheidegger.jfacet.compiler;
 
-import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Maps;
+import com.google.common.collect.*;
 import com.lfscheidegger.jfacet.shade.expression.Expression;
 import com.lfscheidegger.jfacet.shade.expression.NodeType;
 
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class CompilationHelper {
 
-  public enum Qualifier {
-    UNIFORM("uniform"),
-    ATTRIBUTE("attribute");
-
-    private final String mQualifier;
-
-    Qualifier(String qualifier) {
-      mQualifier = qualifier;
-    }
-
-    public String getQualifier() {
-      return mQualifier;
-    }
-  }
-
   private final Map<Expression, String> mExpressionNames;
+
+  private static int sNameCounter = 0;
 
   public CompilationHelper() {
     mExpressionNames = Maps.newHashMap();
   }
 
+  public List<Expression> extractUniformExpressions(Expression root) {
+    final Set<Expression> uniformExpressions = Sets.newLinkedHashSet();
+    new ExpressionVisitor(root) {
+      @Override
+      public void visit(Expression expression) {
+        if (expression.getNodeType() instanceof NodeType.UniformNodeType) {
+          uniformExpressions.add(expression);
+        }
+      }
+    }.run();
+    return Lists.newArrayList(uniformExpressions);
+  }
+
+  public List<Expression> extractAttributeExpressions(Expression root) {
+    final Set<Expression> attributeExpressions = Sets.newLinkedHashSet();
+    new ExpressionVisitor(root) {
+      @Override
+      public void visit(Expression expression) {
+        if (expression.getNodeType() instanceof NodeType.AttributeNodeType) {
+          attributeExpressions.add(expression);
+        }
+      }
+    }.run();
+    return Lists.newArrayList(attributeExpressions);
+  }
+
   public String getNameForExpression(Expression expression) {
     if (!mExpressionNames.containsKey(expression)) {
-      mExpressionNames.put(expression, getUniqueName());
+      mExpressionNames.put(expression, "var_" + sNameCounter++);
     }
 
     return mExpressionNames.get(expression);
-  }
-
-  private static int sNameCounter = 0;
-  private String getUniqueName() {
-    return "var_" + sNameCounter++;
   }
 
   public String getVaryingName() {
@@ -49,29 +58,18 @@ public class CompilationHelper {
   }
 
   public void emitAttributeDeclaration(StringBuilder sb, Expression attributeExpression) {
-    emitDeclaration(Qualifier.ATTRIBUTE, sb, attributeExpression);
+    emitDeclaration("attribute", sb, attributeExpression);
   }
 
   public void emitUniformDeclaration(StringBuilder sb, Expression uniformExpression) {
-    emitDeclaration(Qualifier.UNIFORM, sb, uniformExpression);
-  }
-
-  private void emitDeclaration(Qualifier qualifier, StringBuilder sb, Expression expression) {
-    sb.append(String.format(
-        "%s %s %s;\n",
-        qualifier.getQualifier(),
-        expression.getGlSlTypeName(),
-        getNameForExpression(expression)));
+    emitDeclaration("uniform", sb, uniformExpression);
   }
 
   public void emitVaryingDeclaration(
       StringBuilder sb,
       Expression varyingExpression,
       String varyingName) {
-    sb.append(String.format(
-        "varying %s %s;\n",
-        varyingExpression.getGlSlTypeName(),
-        varyingName));
+    sb.append(String.format("varying %s %s;\n", varyingExpression.getGlSlTypeName(), varyingName));
   }
 
   public void emitExpression(StringBuilder sb, Expression expression) {
@@ -93,6 +91,21 @@ public class CompilationHelper {
     } else if (nodeType instanceof NodeType.SwizzleNodeType) {
       emitSwizzle(sb, expression);
     }
+  }
+
+  public void emitAssignment(StringBuilder sb, String expressionName, Expression rhs) {
+    sb.append(String.format(
+        "%s = %s;\n",
+        expressionName,
+        getNameForExpression(rhs)));
+  }
+
+  private void emitDeclaration(String qualifier, StringBuilder sb, Expression expression) {
+    sb.append(String.format(
+        "%s %s %s;\n",
+        qualifier,
+        expression.getGlSlTypeName(),
+        getNameForExpression(expression)));
   }
 
   private void emitConstructor(StringBuilder sb, Expression expression) {
@@ -221,12 +234,5 @@ public class CompilationHelper {
         getNameForExpression(expression),
         nodeType.getFunctionName(),
         parentsString));
-  }
-
-  public void emitAssignment(StringBuilder sb, String expressionName, Expression rhs) {
-    sb.append(String.format(
-        "%s = %s;\n",
-        expressionName,
-        getNameForExpression(rhs)));
   }
 }

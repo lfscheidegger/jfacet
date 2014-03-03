@@ -28,7 +28,7 @@ public final class Program {
   private int mMaxTextureUnits;
   private int mProgramHandle;
 
-  public <T> Program(VecLike position, VecLike fragColor) {
+  public Program(VecLike position, VecLike fragColor) {
     mPosition = fill(position, Shade.vec(0, 0, 0, 1));
     mFragColor = fill(fragColor, Shade.vec(0, 0, 0, 1));
 
