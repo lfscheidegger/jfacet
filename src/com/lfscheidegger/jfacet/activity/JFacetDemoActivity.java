@@ -82,7 +82,7 @@ public class JFacetDemoActivity extends Activity {
         .setColors(new float[]{1, 0, 0, 0, 1, 0, 0, 0, 1}, 3);
 
     Vec3 colors = Shade.vec(0, triangleModel.getColors3().x().y().get());
-    scene.add(triangleModel.bake(triangleModel.getVertices2(), colors));
+    scene.add(triangleModel.getDrawable(triangleModel.getVertices2(), colors));
   }
 
   private void prepareLesson2(Scene scene) {
@@ -98,8 +98,8 @@ public class JFacetDemoActivity extends Activity {
     Vec4 squarePosition = camera.apply(Shade.translate(1.5f, 0, -12)).apply(squareModel.getVertices4());
     Vec4 trianglePosition = camera.apply(Shade.translate(-1.5f, 0, -12)).apply(triangleModel.getVertices4());
 
-    Drawable square = squareModel.bake(squarePosition, Shade.vec(1, 1, 1));
-    Drawable triangle = triangleModel.bake(trianglePosition, Shade.vec(1, 1, 1));
+    Drawable square = squareModel.getDrawable(squarePosition, Shade.vec(1, 1, 1));
+    Drawable triangle = triangleModel.getDrawable(trianglePosition, Shade.vec(1, 1, 1));
 
     scene.add(square, triangle);
   }
@@ -121,8 +121,8 @@ public class JFacetDemoActivity extends Activity {
     Vec4 squarePosition = camera.apply(new Translation4(1.5f, 0, -12)).apply(squareModel.getVertices4());
     Vec4 trianglePosition = camera.apply(new Translation4(-1.5f, 0, -12)).apply(triangleModel.getVertices4());
 
-    Drawable square = squareModel.bake(squarePosition, Shade.vec(0.5f, 0.5f, 1));
-    Drawable triangle = triangleModel.bake(trianglePosition, triangleModel.getColors3());
+    Drawable square = squareModel.getDrawable(squarePosition, Shade.vec(0.5f, 0.5f, 1));
+    Drawable triangle = triangleModel.getDrawable(trianglePosition, triangleModel.getColors3());
 
     scene.add(square, triangle);
   }
@@ -150,8 +150,8 @@ public class JFacetDemoActivity extends Activity {
         .apply(Shade.rotate(angle, Shade.vec(0, 1, 0)))
         .apply(triangleModel.getVertices4());
 
-    Drawable square = squareModel.bake(squarePosition, Shade.vec(0.5f, 0.5f, 1)),
-        triangle = triangleModel.bake(trianglePosition, triangleModel.getColors3());
+    Drawable square = squareModel.getDrawable(squarePosition, Shade.vec(0.5f, 0.5f, 1)),
+        triangle = triangleModel.getDrawable(trianglePosition, triangleModel.getColors3());
 
     scene
         .add(square, triangle)
@@ -183,8 +183,8 @@ public class JFacetDemoActivity extends Activity {
         .apply(pyramidModel.getVertices4());
 
     scene
-        .add(cubeModel.bake(cubePosition, cubeModel.getColors3()))
-        .add(pyramidModel.bake(pyramidPosition, pyramidModel.getColors3()))
+        .add(cubeModel.getDrawable(cubePosition, cubeModel.getColors3()))
+        .add(pyramidModel.getDrawable(pyramidPosition, pyramidModel.getColors3()))
         .add(new Runnable() {
           @Override
           public void run() {
@@ -214,7 +214,7 @@ public class JFacetDemoActivity extends Activity {
     Vec4 cubeColor = Shade.texture2(texture, cube.getTexCoords2());
 
     scene
-        .add(cube.bake(cubePosition, cubeColor))
+        .add(cube.getDrawable(cubePosition, cubeColor))
         .add(new Runnable() {
           @Override
           public void run() {
@@ -243,7 +243,7 @@ public class JFacetDemoActivity extends Activity {
 
     Transform4 modelTransform = Shade.rotate(angle, Shade.vec(1, 1, 1));
     scene.add(
-        cube.bake(camera.apply(modelTransform).apply(cube.getVertices4()), light(cube, modelTransform)))
+        cube.getDrawable(camera.apply(modelTransform).apply(cube.getVertices4()), light(cube, modelTransform)))
         .add(new Runnable() {
           @Override
           public void run() {
@@ -336,7 +336,7 @@ public class JFacetDemoActivity extends Activity {
     color = isDiscriminantNegative.if_(colorAtClosest).else_(color);
 
     scene
-        .add(plane.bake(camera.apply(plane.getVertices4()), color))
+        .add(plane.getDrawable(camera.apply(plane.getVertices4()), color))
         .add(new Runnable() {
           @Override
           public void run() {

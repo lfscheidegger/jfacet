@@ -13,39 +13,44 @@ import java.util.Map;
 /**
  * {@link Geometry} holds all per-vertex geometric information needed to display a
  * {@link com.lfscheidegger.jfacet.Drawable}. All objects that you can draw using jfacet require
- * a basic amount of geometric information, such as vertex positions, colors, normals, etc, and
+ * a basic amount of geometric information, such as vertex positions, colors, normals, etc., and
  * {@link Geometry} objects hold this information.
  * <p>
- * You can instantiate {@link Geometry} objects directly, by invoking {@link #Geometry(int[], float[], int)},
- * which requires an array of integer <i>indices</i>, an array of floating-point <i>vertex coordinates</i>, and
- * an integer <i>dimension</i>. The indices you pass in allow you to reuse vertex coordinates, allowing
- * the vertex coordinate array to be more compact. The vertex coordinates determine the geometric
+ * You instantiate {@link Geometry} objects directly, by invoking {@link #Geometry(int[], float[], int)},
+ * which takes as parameters an array of integer <i>indices</i>, an array of floating-point <i>vertex coordinates</i>, and
+ * an integer <i>dimension</i>. The indices you pass in allow you to reuse vertex coordinates, making
+ * the vertex coordinate array more compact. The vertex coordinates determine the geometric
  * position used for each vertex, and the dimension determines if this is a 2- or 3-dimensional
- * object. 4 dimensions are also supported, if you want to manage your homogeneous coordinates
+ * object. 4 dimensions are also supported, if you want to handle homogeneous coordinates
  * manually.
  * <p>
- * The process that takes a {@link Geometry} object to something drawn on screen happens in
- * two steps, conceptually (the GPU is free to optimize this however it wants). The first step
+ * Conceptually, the process that takes a {@link Geometry} to something drawn on screen happens in
+ * two steps (the GPU is free to optimize this however it wants). The first step
  * turns the vertex indices and geometry information (coordinates, colors, etc.) into a <i>stream</i>
  * of vertices, and the second step turns this stream into geometrical primitives drawn on screen,
- * based on the {@link PrimitiveType} for this object. Let's illustrate this with some examples,
+ * based on this object's {@link PrimitiveType}. Let's illustrate this with some examples,
  * starting with a single, two-dimensional triangle. To draw a single triangle, with vertices
- * {@code (0, 0)}, {@code (1, 0)}, {@code (1, 1)}, we can instantiate a {@link Geometry} object like
+ * {@code (0, 0)}, {@code (1, 0)}, {@code (1, 1)}, we instantiate a {@link Geometry} like
  * this:
  * <pre>
- *   Geometry geometry = new Geometry(new int[]{0, 1, 2}, new float[]{0, 0, 1, 0, 1, 1}, 2);
+ *
+ *   Geometry geometry = new Geometry(
+ *     new int[]{0, 1, 2},
+ *     new float[]{0, 0, 1, 0, 1, 1},
+ *     2);
  * </pre>
  * Notice how the vertex coordinates are flattened in the floating point array that you pass in.
- * The first step of the drawing process will generate a stream of three vertices, by
- * reading from the vertices according to the integer indices. In this case, it will extract this
+ * The first step of the drawing process generates a stream of three vertices, by
+ * reading from the vertex array according to the indices. In this case, it extracts this
  * stream: {@code ([0, 0), (1, 0), (1, 1)]}. The second step simply takes these three vertices
  * and draws them as a triangle (since the default {@link PrimitiveType} for a {@link Geometry}
  * is {@link Geometry.PrimitiveType#TRIANGLES}). This example covers the basics of the process,
  * but there's a lot more power in using the indices, which we can illustrate with a more complex
- * example - a square. We will draw a square composed of two triangles. The naive way to do this
- * would involve six vertices - three for each triangle. However, two of these vertices are the
- * same, so we can use the index array to avoid repeating vertices.
- * This is what the {@link Geometry} object would look like:
+ * example - a square. We will draw a square composed of two triangles - a lower left and an upper right triangle, sharing
+ * an edge diagonally across the square. The naive way to do this
+ * would involve six vertices - three per triangle. However, two of these vertices are the
+ * same (the lower right and upper left vertices), so we can use the index array to avoid repeating them.
+ * This is what the {@link Geometry} object would look like in that case:
  * <pre>
  *
  *   Geometry geometry = new Geometry(
@@ -55,49 +60,54 @@ import java.util.Map;
  * </pre>
  * Notice how we have six indices, but only <i>four</i> vertices! The first step of the drawing
  * process, in this case, follows each index <i>into</i> the vertex array, and produces a stream
- * with the six vertices we would expect: {@code [(0, 0), (1, 0), (1, 1), (0, 0), (1, 1), (0, 1)]}.
+ * with the six vertices we need: {@code [(0, 0), (1, 0), (1, 1), (0, 0), (1, 1), (0, 1)]}.
  * The second step, then, simply draws the triangles again. From these examples, we can derive
  * some important observations about the sizes of these arrays: the size of the index array
- * dictates the number of <i>total</i> vertices that will be used for drawing. Values in the index
+ * dictates the number of <i>total</i> vertices used for drawing. Values in the index
  * array must lie in the range {@code [0, n-1]}, (index referencing is zero-indexed), where <i>n</i>
- * is the number of vertices in the vertex array (or the length of the vertex array divided by the
+ * is the number of vertices in the vertex array (or the length of the vertex array divided by its
  * <i>dimension</i>). There is no limitation to the size of the vertex array (barring memory
- * constraints), but it is generally recommended to avoid duplicate vertices, since they can
+ * constraints), but you should avoid duplicate vertices, since they can
  * be expressed by entries in the indices array.
  * <p>
- * {@link Geometry} objects support many different kinds of geometric data, in addition to
+ * {@link Geometry} objects also support many different kinds of geometric data, in addition to
  * vertex coordinates. You can specify colors ({@link Geometry#setColors(float[], int)}), texture
  * coordinates ({@link Geometry#setTexCoords(float[], int)}), and normals
  * ({@link Geometry#setNormals(float[], int)}), as well as arbitrary vertex
  * data ({@link Geometry#setVertexDataBuffer(String, float[], int)}). When setting these values,
- * keep in mind that the number of <i>elements</i> (the length of the array divided by the
- * dimension) of all of them must match the number of vertex <i>elements</i> passed to the
+ * keep in mind that the number of <i>elements</i> (the length of the array divided by its
+ * dimension) must always match the number of vertex <i>elements</i> passed in the
  * constructor.
  */
 public final class Geometry {
 
   /**
-   * Specifies how vertices in {@link Geometry} are "glued together" to form primitives.
+   * Specifies how the vertex stream in {@link Geometry} is "glued together" to form primitives.
    */
   public static enum PrimitiveType {
 
     /**
-     * Draws a line loop by connecting successive vertices, and also connecting the last vertex
-     * back to the first.
+     * Draws a line loop by connecting successive vertices, also connecting the last vertex
+     * in the stream back to the first.
      */
     LINE_LOOP(GLES20.GL_LINE_LOOP),
 
     /**
-     * Draws line strip by connecting successive vertices, <i>without</i> connecting the
-     * last vertex back to the first.
+     * Draws a line strip by connecting successive vertices, <i>without</i> connecting the
+     * last vertex in the stream back to the first.
      */
     LINE_STRIP(GLES20.GL_LINE_STRIP),
 
     /**
-     * For a {@link Geometry} with <i>n</i> vertices, Draws <i>n/2</i> line segments by connecting
-     * pairs of successive vertices.
+     * Draws <i>n/2</i> line segments by connecting pairs of successive vertices in the stream.
      * <p>
-     * This configuration assumes an <i>even</i> number of vertices.
+     * This configuration draws a set of <i>disconnected</i> line segments formed by successive
+     * pairs of vertices. If the vertex stream is composed of {@code [v0, v1, v2, v3]}, then this
+     * configuration draws two line segments: {@code (v0, v1)} and {@code (v2, 3)}, but it
+     * <i>does not</i> draw a line between {@code v1} and {@code v2}.
+     * <p>
+     * This configuration assumes an <i>even</i> number of vertices in the stream resolved by
+     * the indices in its {@link Geometry}.
      */
     LINES(GLES20.GL_LINES),
 
@@ -109,11 +119,12 @@ public final class Geometry {
     /**
      * Draws a triangle fan centered on the first vertex.
      * <p>
-     * If we call the vertices in a {@link com.lfscheidegger.jfacet.Geometry}
-     * {@code [v0, v1, v2, ..., v(n-1)]}, then this will draw triangles with vertex triples
+     * If the vertex stream is composed of
+     * {@code [v0, v1, v2, ..., v(n-1)]}, then this draws triangles
      * of the form {@code (v0, v1, v2)}, {@code (v0, v3, v4)}, {@code (v0, v5, v6)}, etc.
      * <p>
-     * This configuration assumes an <i>odd</i> number of vertices.
+     * This configuration assumes an <i>odd</i> number of vertices in the stream resolved by
+     * the indices in its {@link Geometry}.
      */
     TRIANGLE_FAN(GLES20.GL_TRIANGLE_FAN),
 
@@ -121,15 +132,16 @@ public final class Geometry {
      * Draws a triangle strip.
      * <p>
      * The first triangle drawn by this configuration connects the first three vertices
-     * in a {@link Geometry}. After these three, each subsequent <i>k-th</i> vertex produces a
-     * triangle of the form {@code (v(k-2), v(k-1), vk)}.
+     * in the vertex stream. After these three, each subsequent <i>k-th</i> vertex draws a
+     * new triangle of the form {@code (v(k-2), v(k-1), vk)}.
      */
     TRIANGLE_STRIP(GLES20.GL_TRIANGLE_STRIP),
 
     /**
      * Draws a triangle for every three vertices.
      * <p>
-     * This configuration assumes that there are <i>3n</i> vertices, for integer values of <i>n</i>.
+     * This configuration assumes that there are <i>3n</i> vertices, for integer values of <i>n</i>,
+     * in the stream resolved by the indices in its {@link Geometry}.
      */
     TRIANGLES(GLES20.GL_TRIANGLES);
 
@@ -199,7 +211,7 @@ public final class Geometry {
   /**
    * Gets a {@link Real} object for the vertices in this {@link Geometry}.
    * <p>
-   * This method returns a one-dimensional view into the vertices in this geometry. If the
+   * Returns a one-dimensional view into the vertices in this geometry. If the
    * vertices passed in have more than one dimension, the value returned by this method refers
    * only to the x coordinate.
    *
@@ -219,7 +231,7 @@ public final class Geometry {
   /**
    * Gets a {@link Vec2} object for the vertices in this {@link Geometry}.
    * <p>
-   * This method returns a two-dimensional view into the vertices in this geometry. If the
+   * Returns a two-dimensional view into the vertices in this geometry. If the
    * vertices passed in have more than two dimensions, the value returned by this method refers
    * only to the x and y coordinates. If the vertices passed in have <i>less</i> than two
    * dimensions, the value of the y coordinate is left to the GPU (this is usually, but not
@@ -241,7 +253,7 @@ public final class Geometry {
   /**
    * Gets a {@link Vec3} object for the vertices in this {@link Geometry}.
    * <p>
-   * This method returns a three-dimensional view into the vertices in this geometry. If the
+   * Returns a three-dimensional view into the vertices in this geometry. If the
    * vertices passed in have more than three dimensions, the value returned by this method refers
    * only to the x, y, and z coordinates. If the vertices passed in have <i>less</i> than three
    * dimensions, the value of the y and z coordinates is left to the GPU (these are usually, but not
@@ -263,7 +275,7 @@ public final class Geometry {
   /**
    * Gets a {@link Vec4} object for the vertices in this {@link Geometry}.
    * <p>
-   * This method returns a four-dimensional view into the vertices in this geometry. This includes
+   * Returns a four-dimensional view into the vertices in this geometry. This includes
    * the three conventional x, y, and z coordinates, as well as the <i>homogeneous</i> w
    * coordinate. If the vertices passed in have <i>less</i> than four dimensions, the value of
    * the y, z, and w coordinates is left to the GPU (these are usually, but not guaranteed to be,
@@ -305,7 +317,7 @@ public final class Geometry {
   /**
    * Gets a {@link Real} object for the colors in this {@link Geometry}.
    * <p>
-   * This method returns a one-dimensional (red only) view into the colors in this geometry. If the
+   * Returns a one-dimensional (red only) view into the colors in this geometry. If the
    * colors passed in have more than one dimension, the value returned by this method refers
    * only to the red component.
    *
@@ -328,7 +340,7 @@ public final class Geometry {
   /**
    * Gets a {@link Vec2} object for the colors in this {@link Geometry}.
    * <p>
-   * This method returns a two-dimensional (red and green) view into the colors in this geometry.
+   * Returns a two-dimensional (red and green) view into the colors in this geometry.
    * If the colors passed in have more than two dimensions, the value returned by this method refers
    * only to the red and green components. If the colors passed in have <i>less</i> than two
    * dimensions, the value of the green component is left to the GPU (this is usually, but not
@@ -353,7 +365,7 @@ public final class Geometry {
   /**
    * Gets a {@link Vec3} object for the colors in this {@link Geometry}.
    * <p>
-   * This method returns a three-dimensional (red, green, and blue) view into the colors in this
+   * Returns a three-dimensional (red, green, and blue) view into the colors in this
    * geometry. If the colors passed in have more than three dimensions, the value returned by this
    * method refers only to the red, green, and blue components. If the colors passed in have <i>less</i> than
    * three dimensions, the value of the green and blue components is left to the GPU (these are
@@ -378,7 +390,7 @@ public final class Geometry {
   /**
    * Gets a {@link Vec4} object for the colors in this {@link Geometry}.
    * <p>
-   * This method returns a four-dimensional (red, green, blue, and alpha channel) view into the
+   * Returns a four-dimensional (red, green, blue, and alpha channel) view into the
    * colors in this geometry. If the colors passed in have <i>less</i> than four dimensions, the value of
    * the green, blue, and alpha channel components is left to the GPU (these are usually, but not
    * guaranteed to be, 0, 0, and 1, respectively)
@@ -422,12 +434,15 @@ public final class Geometry {
   /**
    * Gets a {@link Real} object for the texture coordinates in this {@link Geometry}.
    * <p>
-   * This method returns a one-dimensional (s only) view into the texture coordinates in this
+   * Returns a one-dimensional (s only) view into the texture coordinates in this
    * geometry. If the texture coordinates  passed in have more than one dimension, the value returned
    * by this method refers only to the s component.
    *
    * @return
    *   A {@link Real} referring to the texture coordinates for this {@link Geometry}
+   *
+   * @throws
+   *   {@link java.lang.IllegalStateException} if texture coordinates haven't been set
    */
   public Real getTexCoords1() {
     String attributeName = getNameForTexCoords(1);
@@ -442,7 +457,7 @@ public final class Geometry {
   /**
    * Gets a {@link Vec2} object for the texture coordinates in this {@link Geometry}.
    * <p>
-   * This method returns a two-dimensional (s and t) view into the texture coordinates in this geometry.
+   * Returns a two-dimensional (s and t) view into the texture coordinates in this geometry.
    * If the texture coordinates passed in have more than two dimensions, the value returned by this method refers
    * only to the s and t components. If the texture coordinates passed in have <i>less</i> than two
    * dimensions, the value of the t component is left to the GPU (this is usually, but not
@@ -467,7 +482,7 @@ public final class Geometry {
   /**
    * Gets a {@link Vec3} object for the texture coordinates in this {@link Geometry}.
    * <p>
-   * This method returns a three-dimensional (s, t, and p) view into the texture coordinates in this
+   * Returns a three-dimensional (s, t, and p) view into the texture coordinates in this
    * geometry. If the texture coordinates passed in have more than three dimensions, the value returned by this
    * method refers only to the s, t, and p components. If the texture coordinates passed in have <i>less</i> than
    * three dimensions, the value of the t and p components is left to the GPU (these are
@@ -492,7 +507,7 @@ public final class Geometry {
   /**
    * Gets a {@link Vec4} object for the texture coordinates in this {@link Geometry}.
    * <p>
-   * This method returns a four-dimensional (s, t, p, and q) view into the
+   * Returns a four-dimensional (s, t, p, and q) view into the
    * texture coordinates in this geometry. If the texture coordinates passed in have <i>less</i> than
    * four dimensions, the value of the t, p, and q components is left to the GPU (these are usually, but not
    * guaranteed to be, 0, 0, and 1, respectively)
@@ -536,7 +551,7 @@ public final class Geometry {
   /**
    * Gets a {@link Real} object for the normals in this {@link Geometry}
    * <p>
-   * This method returns a one-dimensional (x only) view into the normals in this
+   * Returns a one-dimensional (x only) view into the normals in this
    * geometry. If the normals  passed in have more than one dimension, the value returned
    * by this method refers only to the x component.
    *
@@ -559,7 +574,7 @@ public final class Geometry {
   /**
    * Gets a {@link Vec2} object for the normals in this {@link Geometry}.
    * <p>
-   * This method returns a two-dimensional (x and y) view into the normals in this geometry.
+   * Returns a two-dimensional (x and y) view into the normals in this geometry.
    * If the normals passed in have more than two dimensions, the value returned by this method refers
    * only to the x and y components. If the normals passed in have <i>less</i> than two
    * dimensions, the value of the y component is left to the GPU (this is usually, but not
@@ -584,7 +599,7 @@ public final class Geometry {
   /**
    * Gets a {@link Vec3} object for the normals in this {@link Geometry}.
    * <p>
-   * This method returns a three-dimensional (x, y, and z) view into the normals in this
+   * Returns a three-dimensional (x, y, and z) view into the normals in this
    * geometry. If the normals passed in have more than three dimensions, the value returned by this
    * method refers only to the x, y, and z components. If the normals passed in have <i>less</i> than
    * three dimensions, the value of the y and z components is left to the GPU (these are
@@ -609,7 +624,7 @@ public final class Geometry {
   /**
    * Gets a {@link Vec4} object for the normals in this {@link Geometry}.
    * <p>
-   * This method returns a four-dimensional (x, y, z, and w) view into the
+   * Returns a four-dimensional (x, y, z, and w) view into the
    * normals in this geometry. If the normals passed in have <i>less</i> than
    * four dimensions, the value of the y, z, and w components is left to the GPU (these are usually, but not
    * guaranteed to be, 0, 0, and 1, respectively)
@@ -634,7 +649,7 @@ public final class Geometry {
    * Sets arbitrary vertex data information on this {@link Geometry}.
    * <p>
    * This method supports passing in arbitrary vertex-level data with one, two, three, or
-   * four components. Data objects passed in are keyed by {@param key}, and retrieved using
+   * four components. Data objects passed in are keyed by {@code key}, and retrieved using
    * {@link Geometry#getVertexData1(String)}, {@link Geometry#getVertexData2(String)},
    * {@link Geometry#getVertexData3(String)}, and {@link com.lfscheidegger.jfacet.Geometry#getTexCoords4()}.
    * The number of vertex data <i>elements</i> supplied ({@code values.length / dimension}) must match
@@ -655,21 +670,20 @@ public final class Geometry {
   }
 
   /**
-   * Gets a {@link Real} object for the vertex data in this {@link Geometry}, keyed by
-   * {@param key}.
+   * Gets a {@link Real} object for the vertex data in this {@link Geometry}, keyed by {@code key}.
    * <p>
-   * This method returns a one-dimensional (first component) view into the vertex data in this
-   * geometry keyed by {@param key}. If the vertex data passed in has more than one dimension,
+   * Returns a one-dimensional (first component) view into the vertex data in this
+   * geometry keyed by {@code key}. If the vertex data passed in has more than one dimension,
    * the value returned by this method refers only to the first component.
    *
    * @param key
    *   A {@link java.lang.String} to identify this set of vertex data
    *
    * @return
-   *   A {@link Real} referring to the vertex data keyed by {@param key} for this {@link Geometry}
+   *   A {@link Real} referring to the vertex data keyed by {@code key} for this {@link Geometry}
    *
    * @throws
-   *   {@link java.lang.NullPointerException} if vertex data for {@param key} hasn't been set
+   *   {@link java.lang.NullPointerException} if vertex data for {@code key} hasn't been set
    */
   public Real getVertexData1(String key) {
     VertexDataBuffer vertexDataBuffer = mVertexDataBuffers.get(key);
@@ -684,10 +698,10 @@ public final class Geometry {
 
   /**
    * Gets a {@link Vec2} object for the vertex data in this {@link Geometry}, keyed by
-   * {@param key}.
+   * {@code key}.
    * <p>
-   * This method returns a two-dimensional (first and second components) view into the vertex data in this
-   * geometry keyed by {@param key}. If the vertex data passed in has more than two dimensions,
+   * Returns a two-dimensional (first and second components) view into the vertex data in this
+   * geometry keyed by {@code key}. If the vertex data passed in has more than two dimensions,
    * the value returned by this method refers only to the first component and second components. If
    * the vertex data passed in has <i>less</i> than two dimensions, the value of the second
    * component is left to the GPU (this is usually, but not guaranteed to be, 0).
@@ -696,10 +710,10 @@ public final class Geometry {
    *   A {@link java.lang.String} to identify this set of vertex data
    *
    * @return
-   *   A {@link Vec2} referring to the vertex keyed by {@param key} for this {@link Geometry}
+   *   A {@link Vec2} referring to the vertex keyed by {@code key} for this {@link Geometry}
    *
    * @throws
-   *   {@link java.lang.NullPointerException} if vertex data for {@param key} hasn't been set
+   *   {@link java.lang.NullPointerException} if vertex data for {@code key} hasn't been set
    */
   public Vec2 getVertexData2(String key) {
     VertexDataBuffer vertexDataBuffer = mVertexDataBuffers.get(key);
@@ -714,10 +728,10 @@ public final class Geometry {
 
   /**
    * Gets a {@link Vec3} object for the vertex data in this {@link Geometry}, keyed by
-   * {@param key}.
+   * {@code key}.
    * <p>
-   * This method returns a three-dimensional (first, second, and third components) view into the
-   * vertex data in this geometry keyed by {@param key}. If the vertex data passed in has more than three dimensions,
+   * Returns a three-dimensional (first, second, and third components) view into the
+   * vertex data in this geometry keyed by {@code key}. If the vertex data passed in has more than three dimensions,
    * the value returned by this method refers only to the first, second, and third components. If
    * the vertex data passed in has <i>less</i> than three dimensions, the value of the second and
    * third components is left to the GPU (these are usually, but not guaranteed to be, 0).
@@ -726,10 +740,10 @@ public final class Geometry {
    *   A {@link java.lang.String} to identify this set of vertex data
    *
    * @return
-   *   A {@link Vec3} referring to the vertex keyed by {@param key} for this {@link Geometry}
+   *   A {@link Vec3} referring to the vertex keyed by {@code key} for this {@link Geometry}
    *
    * @throws
-   *   {@link java.lang.NullPointerException} if vertex data for {@param key} hasn't been set
+   *   {@link java.lang.NullPointerException} if vertex data for {@code key} hasn't been set
    */
   public Vec3 getVertexData3(String key) {
     VertexDataBuffer vertexDataBuffer = mVertexDataBuffers.get(key);
@@ -744,10 +758,10 @@ public final class Geometry {
 
   /**
    * Gets a {@link Vec4} object for the vertex data in this {@link Geometry}, keyed by
-   * {@param key}.
+   * {@code key}.
    * <p>
-   * This method returns a four-dimensional view into the
-   * vertex data in this geometry keyed by {@param key}. If
+   * Returns a four-dimensional view into the
+   * vertex data in this geometry keyed by {@code key}. If
    * the vertex data passed in has <i>less</i> than four dimensions, the value of the second, third,
    * and fourth components is left to the GPU (these are usually, but not guaranteed to be, 0, 0,
    * and 1, respectively).
@@ -756,10 +770,10 @@ public final class Geometry {
    *   A {@link java.lang.String} to identify this set of vertex data
    *
    * @return
-   *   A {@link Vec4} referring to the vertex keyed by {@param key} for this {@link Geometry}
+   *   A {@link Vec4} referring to the vertex keyed by {@code key} for this {@link Geometry}
    *
    * @throws
-   *   {@link java.lang.NullPointerException} if vertex data for {@param key} hasn't been set
+   *   {@link java.lang.NullPointerException} if vertex data for {@code key} hasn't been set
    */
   public Vec4 getVertexData4(String key) {
     VertexDataBuffer vertexDataBuffer = mVertexDataBuffers.get(key);
@@ -775,10 +789,10 @@ public final class Geometry {
   /**
    * Sets the {@link Geometry.PrimitiveType} to use when rendering this {@link Geometry}.
    * <p>
-   * {@link Geometry.PrimitiveType} values can customize how the GPU draws geometries. They can
+    * {@link Geometry.PrimitiveType} can customize how the GPU draws geometries. They can
    * be used to draw lines, triangle strips, triangle fans, and more.
    * <p>
-   * If not set, the default value for a {@link Geometry} is {@link Geometry.PrimitiveType#TRIANGLES}.
+   * If not set, the default is {@link Geometry.PrimitiveType#TRIANGLES}.
    * @param
    *   primitiveType The {@link PrimitiveType} to use with this {@link Geometry}
    * @return
@@ -796,16 +810,44 @@ public final class Geometry {
    * {@link Geometry}. Different values of {@link PrimitiveType} can customize how the GPU
    * draws this {@link Geometry}, and support drawing lines, triangle strips, triangle fans,
    * and more. If this value is never set (see {@link Geometry#setPrimitiveType(com.lfscheidegger.jfacet.Geometry.PrimitiveType)},
-   * the default value is {@link PrimitiveType#TRIANGLES}.
+   * it defaults to {@link PrimitiveType#TRIANGLES}.
    *
    * @return
-   *   The {@link PrimitiveType} used for this {@link Geometry}
+   *   The {@link PrimitiveType} for this {@link Geometry}
    */
   public PrimitiveType getPrimitiveType() {
     return mPrimitiveType;
   }
 
-  public Drawable bake(VecLike vertexPosition, VecLike fragmentColor) {
+  /**
+   * Returns a {@link com.lfscheidegger.jfacet.Drawable} for this {@link com.lfscheidegger.jfacet.Geometry}.
+   * <p>
+   * Returns a new {@link com.lfscheidegger.jfacet.Drawable} that you can use to draw
+   * the object represented by this {@link com.lfscheidegger.jfacet.Geometry}. It takes as parameters
+   * {@link com.lfscheidegger.jfacet.shade.expression.VecLike} expressions for the (fully modelview/projection
+   * transformed) vertices, and final fragment colors.
+   * <p>
+   * jfacet maintains a separation between the <i>specification</i> of a geometrical object (represented
+   * by a {@link com.lfscheidegger.jfacet.Geometry} object) and the <i>drawing</i> of that object
+   * (represented by a {@link Drawable}). This allows you to specify different ways of drawing the
+   * same geometry, by making successive calls to this method using different parameters. The
+   * underlying geometry data for all {@link com.lfscheidegger.jfacet.Drawable} objects returned
+   * is the same.
+   *
+   * @param
+   *   vertexPosition A {@link com.lfscheidegger.jfacet.shade.expression.VecLike} object
+   *   representing the fully modelview/projection-transformed vertex data for the {@link com.lfscheidegger.jfacet.Drawable}
+   *
+   * @param
+   *   fragmentColor A {@link com.lfscheidegger.jfacet.shade.expression.VecLike} object
+   *   representing the final per-fragment color for the {@link com.lfscheidegger.jfacet.Drawable}
+   *
+   * @return
+   *   A new {@link com.lfscheidegger.jfacet.Drawable} used to draw this
+   *   {@link com.lfscheidegger.jfacet.Geometry} with the transformed vertex expression given by
+   *   {@code vertexPosition} and final per-fragment color given by {@code fragmentColor}
+   */
+  public Drawable getDrawable(VecLike vertexPosition, VecLike fragmentColor) {
     return new Drawable(this, vertexPosition, fragmentColor);
   }
 
