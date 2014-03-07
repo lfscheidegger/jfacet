@@ -17,9 +17,62 @@ import java.util.Map;
  * {@link Geometry} objects hold this information.
  * <p>
  * You can instantiate {@link Geometry} objects directly, by invoking {@link #Geometry(int[], float[], int)},
- * which requires an array of integer <i>indices</i>, and array of floating-point <i>vertex coordinates</i>, and
+ * which requires an array of integer <i>indices</i>, an array of floating-point <i>vertex coordinates</i>, and
  * an integer <i>dimension</i>. The indices you pass in allow you to reuse vertex coordinates, allowing
- * the vertex coordinate array to be more complex.
+ * the vertex coordinate array to be more compact. The vertex coordinates determine the geometric
+ * position used for each vertex, and the dimension determines if this is a 2- or 3-dimensional
+ * object. 4 dimensions are also supported, if you want to manage your homogeneous coordinates
+ * manually.
+ * <p>
+ * The process that takes a {@link Geometry} object to something drawn on screen happens in
+ * two steps, conceptually (the GPU is free to optimize this however it wants). The first step
+ * turns the vertex indices and geometry information (coordinates, colors, etc.) into a <i>stream</i>
+ * of vertices, and the second step turns this stream into geometrical primitives drawn on screen,
+ * based on the {@link PrimitiveType} for this object. Let's illustrate this with some examples,
+ * starting with a single, two-dimensional triangle. To draw a single triangle, with vertices
+ * {@code (0, 0)}, {@code (1, 0)}, {@code (1, 1)}, we can instantiate a {@link Geometry} object like
+ * this:
+ * <pre>
+ *   Geometry geometry = new Geometry(new int[]{0, 1, 2}, new float[]{0, 0, 1, 0, 1, 1}, 2);
+ * </pre>
+ * Notice how the vertex coordinates are flattened in the floating point array that you pass in.
+ * The first step of the drawing process will generate a stream of three vertices, by
+ * reading from the vertices according to the integer indices. In this case, it will extract this
+ * stream: {@code ([0, 0), (1, 0), (1, 1)]}. The second step simply takes these three vertices
+ * and draws them as a triangle (since the default {@link PrimitiveType} for a {@link Geometry}
+ * is {@link Geometry.PrimitiveType#TRIANGLES}). This example covers the basics of the process,
+ * but there's a lot more power in using the indices, which we can illustrate with a more complex
+ * example - a square. We will draw a square composed of two triangles. The naive way to do this
+ * would involve six vertices - three for each triangle. However, two of these vertices are the
+ * same, so we can use the index array to avoid repeating vertices.
+ * This is what the {@link Geometry} object would look like:
+ * <pre>
+ *
+ *   Geometry geometry = new Geometry(
+ *     new int[]{0, 1, 2, 0, 2, 3},
+ *     new float[]{0, 0, 1, 0, 1, 1, 1, 0},
+ *     2);
+ * </pre>
+ * Notice how we have six indices, but only <i>four</i> vertices! The first step of the drawing
+ * process, in this case, follows each index <i>into</i> the vertex array, and produces a stream
+ * with the six vertices we would expect: {@code [(0, 0), (1, 0), (1, 1), (0, 0), (1, 1), (0, 1)]}.
+ * The second step, then, simply draws the triangles again. From these examples, we can derive
+ * some important observations about the sizes of these arrays: the size of the index array
+ * dictates the number of <i>total</i> vertices that will be used for drawing. Values in the index
+ * array must lie in the range {@code [0, n-1]}, (index referencing is zero-indexed), where <i>n</i>
+ * is the number of vertices in the vertex array (or the length of the vertex array divided by the
+ * <i>dimension</i>). There is no limitation to the size of the vertex array (barring memory
+ * constraints), but it is generally recommended to avoid duplicate vertices, since they can
+ * be expressed by entries in the indices array.
+ * <p>
+ * {@link Geometry} objects support many different kinds of geometric data, in addition to
+ * vertex coordinates. You can specify colors ({@link Geometry#setColors(float[], int)}), texture
+ * coordinates ({@link Geometry#setTexCoords(float[], int)}), and normals
+ * ({@link Geometry#setNormals(float[], int)}), as well as arbitrary vertex
+ * data ({@link Geometry#setVertexDataBuffer(String, float[], int)}). When setting these values,
+ * keep in mind that the number of <i>elements</i> (the length of the array divided by the
+ * dimension) of all of them must match the number of vertex <i>elements</i> passed to the
+ * constructor.
  */
 public final class Geometry {
 
@@ -113,6 +166,19 @@ public final class Geometry {
   // Determines what mode to use when drawing primitives
   private PrimitiveType mPrimitiveType = PrimitiveType.TRIANGLES;
 
+  /**
+   * Default constructor.
+   * <p>
+   * The three parameters passed into this constructor define the full geometric information for
+   * this {@link Geometry}.
+   *
+   * @param indices
+   *   An integer array whose values point to entries in {@code vertices}
+   * @param vertices
+   *   A floating point array with vertex coordinates
+   * @param vertexDimension
+   *   The dimension of each vertex. Must be 1, 2, 3, or 4
+   */
   public Geometry(int[] indices, float[] vertices, int vertexDimension) {
     mIndices = new IndexBuffer(indices);
     mVertices = new VertexDataBuffer(vertices, vertexDimension);
@@ -120,10 +186,26 @@ public final class Geometry {
     mExpressionCache = Maps.newHashMap();
   }
 
+  /**
+   * Gets the indices for this {@link Geometry}.
+   *
+   * @return
+   *   An {@link IndexBuffer} with the indices for this {@link Geometry}
+   */
   public IndexBuffer getIndexBuffer() {
     return mIndices;
   }
 
+  /**
+   * Gets a {@link Real} object for the vertices in this {@link Geometry}.
+   * <p>
+   * This method returns a one-dimensional view into the vertices in this geometry. If the
+   * vertices passed in have more than one dimension, the value returned by this method refers
+   * only to the x coordinate.
+   *
+   * @return
+   *   A {@link Real} referring to the vertices for this {@link Geometry}
+   */
   public Real getVertices1() {
     String attributeName = getNameForVertices(1);
 
@@ -134,6 +216,18 @@ public final class Geometry {
     return (Real) mExpressionCache.get(attributeName);
   }
 
+  /**
+   * Gets a {@link Vec2} object for the vertices in this {@link Geometry}.
+   * <p>
+   * This method returns a two-dimensional view into the vertices in this geometry. If the
+   * vertices passed in have more than two dimensions, the value returned by this method refers
+   * only to the x and y coordinates. If the vertices passed in have <i>less</i> than two
+   * dimensions, the value of the y coordinate is left to the GPU (this is usually, but not
+   * guaranteed to be, 0).
+   *
+   * @return
+   *   A {@link Vec2} referring to the vertices for this {@link Geometry}
+   */
   public Vec2 getVertices2() {
     String attributeName = getNameForVertices(2);
 
@@ -144,6 +238,18 @@ public final class Geometry {
     return (Vec2) mExpressionCache.get(attributeName);
   }
 
+  /**
+   * Gets a {@link Vec3} object for the vertices in this {@link Geometry}.
+   * <p>
+   * This method returns a three-dimensional view into the vertices in this geometry. If the
+   * vertices passed in have more than three dimensions, the value returned by this method refers
+   * only to the x, y, and z coordinates. If the vertices passed in have <i>less</i> than three
+   * dimensions, the value of the y and z coordinates is left to the GPU (these are usually, but not
+   * guaranteed to be, 0).
+   *
+   * @return
+   *   A {@link Vec3} referring to the vertices for this {@link Geometry}
+   */
   public Vec3 getVertices3() {
     String attributeName = getNameForVertices(3);
 
@@ -154,6 +260,18 @@ public final class Geometry {
     return (Vec3) mExpressionCache.get(attributeName);
   }
 
+  /**
+   * Gets a {@link Vec4} object for the vertices in this {@link Geometry}.
+   * <p>
+   * This method returns a four-dimensional view into the vertices in this geometry. This includes
+   * the three conventional x, y, and z coordinates, as well as the <i>homogeneous</i> w
+   * coordinate. If the vertices passed in have <i>less</i> than four dimensions, the value of
+   * the y, z, and w coordinates is left to the GPU (these are usually, but not guaranteed to be,
+   * 0, 0, and 1, respectively)
+   *
+   * @return
+   *   A {@link Vec4} referring to the vertices for this {@link Geometry}
+   */
   public Vec4 getVertices4() {
     String attributeName = getNameForVertices(4);
 
@@ -164,11 +282,39 @@ public final class Geometry {
     return (Vec4) mExpressionCache.get(attributeName);
   }
 
+  /**
+   * Sets color information on this {@link Geometry}.
+   * <p>
+   * This method supports passing colors in one, two, three, or four dimensions. They correspond
+   * to red, green, blue, and the alpha channel, respectively. The number of color <i>elements</i>
+   * supplied ({@code colors.length / dimension}) must match the number of vertex elements used
+   * to instantiate this {@link Geometry}.
+   *
+   * @param colors
+   *   A floating point array with color data
+   * @param dimension
+   *   The number of color components. Must be 1, 2, 3, or 4
+   * @return
+   *   This {@link Geometry}, for chaining setter calls
+   */
   public Geometry setColors(float[] colors, int dimension) {
     mColors = Optional.of(new VertexDataBuffer(colors, dimension));
     return this;
   }
 
+  /**
+   * Gets a {@link Real} object for the colors in this {@link Geometry}.
+   * <p>
+   * This method returns a one-dimensional (red only) view into the colors in this geometry. If the
+   * colors passed in have more than one dimension, the value returned by this method refers
+   * only to the red component.
+   *
+   * @return
+   *   A {@link Real} referring to the colors for this {@link Geometry}
+   *
+   * @throws
+   *   {@link java.lang.IllegalStateException} if colors haven't been set
+   */
   public Real getColors1() {
     String attributeName = getNameForColors(1);
 
@@ -179,6 +325,21 @@ public final class Geometry {
     return (Real) mExpressionCache.get(attributeName);
   }
 
+  /**
+   * Gets a {@link Vec2} object for the colors in this {@link Geometry}.
+   * <p>
+   * This method returns a two-dimensional (red and green) view into the colors in this geometry.
+   * If the colors passed in have more than two dimensions, the value returned by this method refers
+   * only to the red and green components. If the colors passed in have <i>less</i> than two
+   * dimensions, the value of the green component is left to the GPU (this is usually, but not
+   * guaranteed to be, 0).
+   *
+   * @return
+   *   A {@link Vec2} referring to the colors for this {@link Geometry}
+   *
+   * @throws
+   *   {@link java.lang.IllegalStateException} if colors haven't been set
+   */
   public Vec2 getColors2() {
     String attributeName = getNameForColors(2);
 
@@ -189,6 +350,21 @@ public final class Geometry {
     return (Vec2) mExpressionCache.get(attributeName);
   }
 
+  /**
+   * Gets a {@link Vec3} object for the colors in this {@link Geometry}.
+   * <p>
+   * This method returns a three-dimensional (red, green, and blue) view into the colors in this
+   * geometry. If the colors passed in have more than three dimensions, the value returned by this
+   * method refers only to the red, green, and blue components. If the colors passed in have <i>less</i> than
+   * three dimensions, the value of the green and blue components is left to the GPU (these are
+   * usually, but not guaranteed to be, 0).
+   *
+   * @return
+   *   A {@link Vec3} referring to the colors for this {@link Geometry}
+   *
+   * @throws
+   *   {@link java.lang.IllegalStateException} if colors haven't been set
+   */
   public Vec3 getColors3() {
     String attributeName = getNameForColors(3);
 
@@ -199,6 +375,20 @@ public final class Geometry {
     return (Vec3) mExpressionCache.get(attributeName);
   }
 
+  /**
+   * Gets a {@link Vec4} object for the colors in this {@link Geometry}.
+   * <p>
+   * This method returns a four-dimensional (red, green, blue, and alpha channel) view into the
+   * colors in this geometry. If the colors passed in have <i>less</i> than four dimensions, the value of
+   * the green, blue, and alpha channel components is left to the GPU (these are usually, but not
+   * guaranteed to be, 0, 0, and 1, respectively)
+   *
+   * @return
+   *   A {@link Vec4} referring to the colors for this {@link Geometry}
+   *
+   * @throws
+   *   {@link java.lang.IllegalStateException} if colors haven't been set
+   */
   public Vec4 getColors4() {
     String attributeName = getNameForColors(4);
 
@@ -209,11 +399,36 @@ public final class Geometry {
     return (Vec4) mExpressionCache.get(attributeName);
   }
 
+  /**
+   * Sets texture coordinate information on this {@link Geometry}.
+   * <p>
+   * This method supports passing texture coordinates in one, two, three, or four dimensions.
+   * They correspond the s, t, p, and q coordinates, respectively. The number of texture coordinate
+   * <i>elements</i> supplied ({@code texCoords.length / dimension}) must match the number of vertex
+   * elements used to instantiate this {@link Geometry}.
+   *
+   * @param texCoords
+   *   A floating point array with texture coordinate data
+   * @param dimension
+   *   The number of texture coordinate dimensions. Must be 1, 2, 3, or 4
+   * @return
+   *   This {@link Geometry}, for chaining setter calls
+   */
   public Geometry setTexCoords(float[] texCoords, int dimension) {
     mTexCoords = Optional.of(new VertexDataBuffer(texCoords, dimension));
     return this;
   }
 
+  /**
+   * Gets a {@link Real} object for the texture coordinates in this {@link Geometry}.
+   * <p>
+   * This method returns a one-dimensional (s only) view into the texture coordinates in this
+   * geometry. If the texture coordinates  passed in have more than one dimension, the value returned
+   * by this method refers only to the s component.
+   *
+   * @return
+   *   A {@link Real} referring to the texture coordinates for this {@link Geometry}
+   */
   public Real getTexCoords1() {
     String attributeName = getNameForTexCoords(1);
 
@@ -224,6 +439,21 @@ public final class Geometry {
     return (Real) mExpressionCache.get(attributeName);
   }
 
+  /**
+   * Gets a {@link Vec2} object for the texture coordinates in this {@link Geometry}.
+   * <p>
+   * This method returns a two-dimensional (s and t) view into the texture coordinates in this geometry.
+   * If the texture coordinates passed in have more than two dimensions, the value returned by this method refers
+   * only to the s and t components. If the texture coordinates passed in have <i>less</i> than two
+   * dimensions, the value of the t component is left to the GPU (this is usually, but not
+   * guaranteed to be, 0).
+   *
+   * @return
+   *   A {@link Vec2} referring to the texture coordinates for this {@link Geometry}
+   *
+   * @throws
+   *   {@link java.lang.IllegalStateException} if texture coordinates haven't been set
+   */
   public Vec2 getTexCoords2() {
     String attributeName = getNameForTexCoords(2);
 
@@ -234,6 +464,21 @@ public final class Geometry {
     return (Vec2) mExpressionCache.get(attributeName);
   }
 
+  /**
+   * Gets a {@link Vec3} object for the texture coordinates in this {@link Geometry}.
+   * <p>
+   * This method returns a three-dimensional (s, t, and p) view into the texture coordinates in this
+   * geometry. If the texture coordinates passed in have more than three dimensions, the value returned by this
+   * method refers only to the s, t, and p components. If the texture coordinates passed in have <i>less</i> than
+   * three dimensions, the value of the t and p components is left to the GPU (these are
+   * usually, but not guaranteed to be, 0).
+   *
+   * @return
+   *   A {@link Vec3} referring to the texture coordinates for this {@link Geometry}
+   *
+   * @throws
+   *   {@link java.lang.IllegalStateException} if texture coordinates haven't been set
+   */
   public Vec3 getTexCoords3() {
     String attributeName = getNameForTexCoords(3);
 
@@ -244,6 +489,20 @@ public final class Geometry {
     return (Vec3) mExpressionCache.get(attributeName);
   }
 
+  /**
+   * Gets a {@link Vec4} object for the texture coordinates in this {@link Geometry}.
+   * <p>
+   * This method returns a four-dimensional (s, t, p, and q) view into the
+   * texture coordinates in this geometry. If the texture coordinates passed in have <i>less</i> than
+   * four dimensions, the value of the t, p, and q components is left to the GPU (these are usually, but not
+   * guaranteed to be, 0, 0, and 1, respectively)
+   *
+   * @return
+   *   A {@link Vec4} referring to the texture coordinates for this {@link Geometry}
+   *
+   * @throws
+   *   {@link java.lang.IllegalStateException} if texture coordinates haven't been set
+   */
   public Vec4 getTexCoords4() {
     String attributeName = getNameForTexCoords(4);
 
@@ -254,11 +513,39 @@ public final class Geometry {
     return (Vec4) mExpressionCache.get(attributeName);
   }
 
+  /**
+   * Sets normal information on this {@link Geometry}.
+   * <p>
+   * This method supports passing normals in one, two, three, or four dimensions.
+   * They correspond the x, y, z, and w coordinates, respectively. The number of normal
+   * <i>elements</i> supplied ({@code normals.length / dimension}) must match the number of vertex
+   * elements used to instantiate this {@link Geometry}.
+   *
+   * @param normals
+   *   A floating point array with normal data
+   * @param dimension
+   *   The number of normal dimensions. Must be 1, 2, 3, or 4
+   * @return
+   *   This {@link Geometry}, for chaining setter calls
+   */
   public Geometry setNormals(float[] normals, int dimension) {
     mNormals = Optional.of(new VertexDataBuffer(normals, dimension));
     return this;
   }
 
+  /**
+   * Gets a {@link Real} object for the normals in this {@link Geometry}
+   * <p>
+   * This method returns a one-dimensional (x only) view into the normals in this
+   * geometry. If the normals  passed in have more than one dimension, the value returned
+   * by this method refers only to the x component.
+   *
+   * @return
+   *   A {@link Real} referring to the normals for this {@link Geometry}
+   *
+   * @throws
+   *   {@link java.lang.IllegalStateException} if normals haven't been set
+   */
   public Real getNormals1() {
     String attributeName = getNameForNormals(1);
 
@@ -269,6 +556,21 @@ public final class Geometry {
     return (Real) mExpressionCache.get(attributeName);
   }
 
+  /**
+   * Gets a {@link Vec2} object for the normals in this {@link Geometry}.
+   * <p>
+   * This method returns a two-dimensional (x and y) view into the normals in this geometry.
+   * If the normals passed in have more than two dimensions, the value returned by this method refers
+   * only to the x and y components. If the normals passed in have <i>less</i> than two
+   * dimensions, the value of the y component is left to the GPU (this is usually, but not
+   * guaranteed to be, 0).
+   *
+   * @return
+   *   A {@link Vec2} referring to the normals for this {@link Geometry}
+   *
+   * @throws
+   *   {@link java.lang.IllegalStateException} if normals haven't been set
+   */
   public Vec2 getNormals2() {
     String attributeName = getNameForNormals(2);
 
@@ -279,6 +581,21 @@ public final class Geometry {
     return (Vec2) mExpressionCache.get(attributeName);
   }
 
+  /**
+   * Gets a {@link Vec3} object for the normals in this {@link Geometry}.
+   * <p>
+   * This method returns a three-dimensional (x, y, and z) view into the normals in this
+   * geometry. If the normals passed in have more than three dimensions, the value returned by this
+   * method refers only to the x, y, and z components. If the normals passed in have <i>less</i> than
+   * three dimensions, the value of the y and z components is left to the GPU (these are
+   * usually, but not guaranteed to be, 0).
+   *
+   * @return
+   *   A {@link Vec3} referring to the normals for this {@link Geometry}
+   *
+   * @throws
+   *   {@link java.lang.IllegalStateException} if normals haven't been set
+   */
   public Vec3 getNormals3() {
     String attributeName = getNameForNormals(3);
 
@@ -289,6 +606,20 @@ public final class Geometry {
     return (Vec3) mExpressionCache.get(attributeName);
   }
 
+  /**
+   * Gets a {@link Vec4} object for the normals in this {@link Geometry}.
+   * <p>
+   * This method returns a four-dimensional (x, y, z, and w) view into the
+   * normals in this geometry. If the normals passed in have <i>less</i> than
+   * four dimensions, the value of the y, z, and w components is left to the GPU (these are usually, but not
+   * guaranteed to be, 0, 0, and 1, respectively)
+   *
+   * @return
+   *   A {@link Vec4} referring to the normals for this {@link Geometry}
+   *
+   * @throws
+   *   {@link java.lang.IllegalStateException} if normals haven't been set
+   */
   public Vec4 getNormals4() {
     String attributeName = getNameForNormals(4);
 
@@ -299,60 +630,177 @@ public final class Geometry {
     return (Vec4) mExpressionCache.get(attributeName);
   }
 
+  /**
+   * Sets arbitrary vertex data information on this {@link Geometry}.
+   * <p>
+   * This method supports passing in arbitrary vertex-level data with one, two, three, or
+   * four components. Data objects passed in are keyed by {@param key}, and retrieved using
+   * {@link Geometry#getVertexData1(String)}, {@link Geometry#getVertexData2(String)},
+   * {@link Geometry#getVertexData3(String)}, and {@link com.lfscheidegger.jfacet.Geometry#getTexCoords4()}.
+   * The number of vertex data <i>elements</i> supplied ({@code values.length / dimension}) must match
+   * the number of vertex elements used to instantiate this {@link Geometry}.
+   *
+   * @param key
+   *   A {@link java.lang.String} to identify this set of vertex data
+   * @param values
+   *   A floating point array with the vertex data
+   * @param dimension
+   *   The number of vertex data dimensions for this set. Must be 1, 2, 3, or 4
+   * @return
+   *   This {@link Geometry}, for chaining setter calls
+   */
   public Geometry setVertexDataBuffer(String key, float[] values, int dimension) {
     mVertexDataBuffers.put(key, new VertexDataBuffer(values, dimension));
     return this;
   }
 
-  public Real getAttribute1(String attributeName) {
-    VertexDataBuffer vertexDataBuffer = mVertexDataBuffers.get(attributeName);
+  /**
+   * Gets a {@link Real} object for the vertex data in this {@link Geometry}, keyed by
+   * {@param key}.
+   * <p>
+   * This method returns a one-dimensional (first component) view into the vertex data in this
+   * geometry keyed by {@param key}. If the vertex data passed in has more than one dimension,
+   * the value returned by this method refers only to the first component.
+   *
+   * @param key
+   *   A {@link java.lang.String} to identify this set of vertex data
+   *
+   * @return
+   *   A {@link Real} referring to the vertex data keyed by {@param key} for this {@link Geometry}
+   *
+   * @throws
+   *   {@link java.lang.NullPointerException} if vertex data for {@param key} hasn't been set
+   */
+  public Real getVertexData1(String key) {
+    VertexDataBuffer vertexDataBuffer = mVertexDataBuffers.get(key);
     Preconditions.checkNotNull(vertexDataBuffer);
 
-    if (mExpressionCache.get(attributeName) == null) {
-      mExpressionCache.put(attributeName, new Real(mVertexDataBuffers.get(attributeName)));
+    if (mExpressionCache.get(key) == null) {
+      mExpressionCache.put(key, new Real(mVertexDataBuffers.get(key)));
     }
 
-    return (Real) mExpressionCache.get(attributeName);
+    return (Real) mExpressionCache.get(key);
   }
 
-  public Vec2 getAttribute2(String attributeName) {
-    VertexDataBuffer vertexDataBuffer = mVertexDataBuffers.get(attributeName);
+  /**
+   * Gets a {@link Vec2} object for the vertex data in this {@link Geometry}, keyed by
+   * {@param key}.
+   * <p>
+   * This method returns a two-dimensional (first and second components) view into the vertex data in this
+   * geometry keyed by {@param key}. If the vertex data passed in has more than two dimensions,
+   * the value returned by this method refers only to the first component and second components. If
+   * the vertex data passed in has <i>less</i> than two dimensions, the value of the second
+   * component is left to the GPU (this is usually, but not guaranteed to be, 0).
+   *
+   * @param key
+   *   A {@link java.lang.String} to identify this set of vertex data
+   *
+   * @return
+   *   A {@link Vec2} referring to the vertex keyed by {@param key} for this {@link Geometry}
+   *
+   * @throws
+   *   {@link java.lang.NullPointerException} if vertex data for {@param key} hasn't been set
+   */
+  public Vec2 getVertexData2(String key) {
+    VertexDataBuffer vertexDataBuffer = mVertexDataBuffers.get(key);
     Preconditions.checkNotNull(vertexDataBuffer);
 
-    if (mExpressionCache.get(attributeName) == null) {
-      mExpressionCache.put(attributeName, new Vec2(mVertexDataBuffers.get(attributeName)));
+    if (mExpressionCache.get(key) == null) {
+      mExpressionCache.put(key, new Vec2(mVertexDataBuffers.get(key)));
     }
 
-    return (Vec2) mExpressionCache.get(attributeName);
+    return (Vec2) mExpressionCache.get(key);
   }
 
-  public Vec3 getAttribute3(String attributeName) {
-    VertexDataBuffer vertexDataBuffer = mVertexDataBuffers.get(attributeName);
+  /**
+   * Gets a {@link Vec3} object for the vertex data in this {@link Geometry}, keyed by
+   * {@param key}.
+   * <p>
+   * This method returns a three-dimensional (first, second, and third components) view into the
+   * vertex data in this geometry keyed by {@param key}. If the vertex data passed in has more than three dimensions,
+   * the value returned by this method refers only to the first, second, and third components. If
+   * the vertex data passed in has <i>less</i> than three dimensions, the value of the second and
+   * third components is left to the GPU (these are usually, but not guaranteed to be, 0).
+   *
+   * @param key
+   *   A {@link java.lang.String} to identify this set of vertex data
+   *
+   * @return
+   *   A {@link Vec3} referring to the vertex keyed by {@param key} for this {@link Geometry}
+   *
+   * @throws
+   *   {@link java.lang.NullPointerException} if vertex data for {@param key} hasn't been set
+   */
+  public Vec3 getVertexData3(String key) {
+    VertexDataBuffer vertexDataBuffer = mVertexDataBuffers.get(key);
     Preconditions.checkNotNull(vertexDataBuffer);
 
-    if (mExpressionCache.get(attributeName) == null) {
-      mExpressionCache.put(attributeName, new Vec3(mVertexDataBuffers.get(attributeName)));
+    if (mExpressionCache.get(key) == null) {
+      mExpressionCache.put(key, new Vec3(mVertexDataBuffers.get(key)));
     }
 
-    return (Vec3) mExpressionCache.get(attributeName);
+    return (Vec3) mExpressionCache.get(key);
   }
 
-  public Vec4 getAttribute4(String attributeName) {
-    VertexDataBuffer vertexDataBuffer = mVertexDataBuffers.get(attributeName);
+  /**
+   * Gets a {@link Vec4} object for the vertex data in this {@link Geometry}, keyed by
+   * {@param key}.
+   * <p>
+   * This method returns a four-dimensional view into the
+   * vertex data in this geometry keyed by {@param key}. If
+   * the vertex data passed in has <i>less</i> than four dimensions, the value of the second, third,
+   * and fourth components is left to the GPU (these are usually, but not guaranteed to be, 0, 0,
+   * and 1, respectively).
+   *
+   * @param key
+   *   A {@link java.lang.String} to identify this set of vertex data
+   *
+   * @return
+   *   A {@link Vec4} referring to the vertex keyed by {@param key} for this {@link Geometry}
+   *
+   * @throws
+   *   {@link java.lang.NullPointerException} if vertex data for {@param key} hasn't been set
+   */
+  public Vec4 getVertexData4(String key) {
+    VertexDataBuffer vertexDataBuffer = mVertexDataBuffers.get(key);
     Preconditions.checkNotNull(vertexDataBuffer);
 
-    if (mExpressionCache.get(attributeName) == null) {
-      mExpressionCache.put(attributeName, new Vec4(mVertexDataBuffers.get(attributeName)));
+    if (mExpressionCache.get(key) == null) {
+      mExpressionCache.put(key, new Vec4(mVertexDataBuffers.get(key)));
     }
 
-    return (Vec4) mExpressionCache.get(attributeName);
+    return (Vec4) mExpressionCache.get(key);
   }
 
+  /**
+   * Sets the {@link Geometry.PrimitiveType} to use when rendering this {@link Geometry}.
+   * <p>
+   * {@link Geometry.PrimitiveType} values can customize how the GPU draws geometries. They can
+   * be used to draw lines, triangle strips, triangle fans, and more.
+   * <p>
+   * If not set, the default value for a {@link Geometry} is {@link Geometry.PrimitiveType#TRIANGLES}.
+   * @param
+   *   primitiveType The {@link PrimitiveType} to use with this {@link Geometry}
+   * @return
+   *   This {@link Geometry}, for chaining setter calls
+   */
   public Geometry setPrimitiveType(PrimitiveType primitiveType) {
     mPrimitiveType = primitiveType;
     return this;
   }
 
+  /**
+   * Gets the {@link PrimitiveType} for this {@link Geometry}.
+   * <p>
+   * Returns the {@link PrimitiveType} used to determine how to build the primitives in this
+   * {@link Geometry}. Different values of {@link PrimitiveType} can customize how the GPU
+   * draws this {@link Geometry}, and support drawing lines, triangle strips, triangle fans,
+   * and more. If this value is never set (see {@link Geometry#setPrimitiveType(com.lfscheidegger.jfacet.Geometry.PrimitiveType)},
+   * the default value is {@link PrimitiveType#TRIANGLES}.
+   *
+   * @return
+   *   The {@link PrimitiveType} used for this {@link Geometry}
+   */
   public PrimitiveType getPrimitiveType() {
     return mPrimitiveType;
   }

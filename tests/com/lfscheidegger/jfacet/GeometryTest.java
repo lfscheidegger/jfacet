@@ -59,7 +59,7 @@ public class GeometryTest {
   public void testGetAttribute() {
     mGeometry.setVertexDataBuffer("testKey", new float[]{0, 1, 2}, 1);
 
-    Real attribute = mGeometry.getAttribute1("testKey");
+    Real attribute = mGeometry.getVertexData1("testKey");
     assertTrue(attribute.getNodeType() instanceof NodeType.AttributeNodeType);
   }
 }
