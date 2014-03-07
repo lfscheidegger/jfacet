@@ -310,6 +310,10 @@ public final class Geometry {
    *   This {@link Geometry}, for chaining setter calls
    */
   public Geometry setColors(float[] colors, int dimension) {
+    Preconditions.checkState(
+        mVertices.getElementCount() == colors.length / dimension,
+        "Number of color elements and vertex elements do not match");
+
     mColors = Optional.of(new VertexDataBuffer(colors, dimension));
     return this;
   }
@@ -427,6 +431,10 @@ public final class Geometry {
    *   This {@link Geometry}, for chaining setter calls
    */
   public Geometry setTexCoords(float[] texCoords, int dimension) {
+    Preconditions.checkState(
+        mVertices.getElementCount() == texCoords.length / dimension,
+        "Number of texture coordinate elements and vertex elements do not match");
+
     mTexCoords = Optional.of(new VertexDataBuffer(texCoords, dimension));
     return this;
   }
@@ -544,6 +552,10 @@ public final class Geometry {
    *   This {@link Geometry}, for chaining setter calls
    */
   public Geometry setNormals(float[] normals, int dimension) {
+    Preconditions.checkState(
+        mVertices.getElementCount() == normals.length / dimension,
+        "Number of normal elements and vertex elements do not match");
+
     mNormals = Optional.of(new VertexDataBuffer(normals, dimension));
     return this;
   }
@@ -665,6 +677,10 @@ public final class Geometry {
    *   This {@link Geometry}, for chaining setter calls
    */
   public Geometry setVertexDataBuffer(String key, float[] values, int dimension) {
+    Preconditions.checkState(
+        mVertices.getElementCount() == values.length / dimension,
+        "Number of vertex data elements and vertex elements do not match");
+
     mVertexDataBuffers.put(key, new VertexDataBuffer(values, dimension));
     return this;
   }
