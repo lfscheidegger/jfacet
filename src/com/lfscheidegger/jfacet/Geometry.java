@@ -1,6 +1,7 @@
 // Copyright (c) 2013- Luiz Fernando Scheidegger
 package com.lfscheidegger.jfacet;
 
+import android.opengl.GLES20;
 import com.google.common.base.Optional;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Maps;
@@ -9,6 +10,17 @@ import com.lfscheidegger.jfacet.shade.expression.Vec2;
 
 import java.util.Map;
 
+/**
+ * {@link Geometry} holds all per-vertex geometric information needed to display a
+ * {@link com.lfscheidegger.jfacet.Drawable}. All objects that you can draw using jfacet require
+ * a basic amount of geometric information, such as vertex positions, colors, normals, etc, and
+ * {@link Geometry} objects hold this information.
+ * <p>
+ * You can instantiate {@link Geometry} objects directly, by invoking {@link #Geometry(int[], float[], int)},
+ * which requires an array of integer <i>indices</i>, and array of floating-point <i>vertex coordinates</i>, and
+ * an integer <i>dimension</i>. The indices you pass in allow you to reuse vertex coordinates, allowing
+ * the vertex coordinate array to be more complex.
+ */
 public final class Geometry {
 
   // Index data for this geometry
