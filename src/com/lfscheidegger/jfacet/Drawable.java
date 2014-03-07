@@ -29,7 +29,7 @@ public final class Drawable implements Runnable {
   public void run() {
     mProgram.use();
     GLES20.glDrawElements(
-        GLES20.GL_TRIANGLES,
+        mGeometry.getPrimitiveType().glMode,
         mGeometry.getIndexBuffer().getElementCount(),
         GLES20.GL_UNSIGNED_INT,
         mGeometry.getIndexBuffer().getBuffer());

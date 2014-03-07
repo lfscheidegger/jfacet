@@ -23,6 +23,69 @@ import java.util.Map;
  */
 public final class Geometry {
 
+  /**
+   * Specifies how vertices in {@link Geometry} are "glued together" to form primitives.
+   */
+  public static enum PrimitiveType {
+
+    /**
+     * Draws a line loop by connecting successive vertices, and also connecting the last vertex
+     * back to the first.
+     */
+    LINE_LOOP(GLES20.GL_LINE_LOOP),
+
+    /**
+     * Draws line strip by connecting successive vertices, <i>without</i> connecting the
+     * last vertex back to the first.
+     */
+    LINE_STRIP(GLES20.GL_LINE_STRIP),
+
+    /**
+     * For a {@link Geometry} with <i>n</i> vertices, Draws <i>n/2</i> line segments by connecting
+     * pairs of successive vertices.
+     * <p>
+     * This configuration assumes an <i>even</i> number of vertices.
+     */
+    LINES(GLES20.GL_LINES),
+
+    /**
+     * Draws each vertex as a point.
+     */
+    POINTS(GLES20.GL_POINTS),
+
+    /**
+     * Draws a triangle fan centered on the first vertex.
+     * <p>
+     * If we call the vertices in a {@link com.lfscheidegger.jfacet.Geometry}
+     * {@code [v0, v1, v2, ..., v(n-1)]}, then this will draw triangles with vertex triples
+     * of the form {@code (v0, v1, v2)}, {@code (v0, v3, v4)}, {@code (v0, v5, v6)}, etc.
+     * <p>
+     * This configuration assumes an <i>odd</i> number of vertices.
+     */
+    TRIANGLE_FAN(GLES20.GL_TRIANGLE_FAN),
+
+    /**
+     * Draws a triangle strip.
+     * <p>
+     * The first triangle drawn by this configuration connects the first three vertices
+     * in a {@link Geometry}. After these three, each subsequent <i>k-th</i> vertex produces a
+     * triangle of the form {@code (v(k-2), v(k-1), vk)}.
+     */
+    TRIANGLE_STRIP(GLES20.GL_TRIANGLE_STRIP),
+
+    /**
+     * Draws a triangle for every three vertices.
+     * <p>
+     * This configuration assumes that there are <i>3n</i> vertices, for integer values of <i>n</i>.
+     */
+    TRIANGLES(GLES20.GL_TRIANGLES);
+
+    public final int glMode;
+
+    PrimitiveType(int glMode) {
+      this.glMode = glMode;
+    }
+  }
   // Index data for this geometry
   private final IndexBuffer mIndices;
 
@@ -47,31 +110,14 @@ public final class Geometry {
   // expression
   private final Map<String, Expression> mExpressionCache;
 
+  // Determines what mode to use when drawing primitives
+  private PrimitiveType mPrimitiveType = PrimitiveType.TRIANGLES;
+
   public Geometry(int[] indices, float[] vertices, int vertexDimension) {
     mIndices = new IndexBuffer(indices);
     mVertices = new VertexDataBuffer(vertices, vertexDimension);
     mVertexDataBuffers = Maps.newHashMap();
     mExpressionCache = Maps.newHashMap();
-  }
-
-  public Geometry setColors(float[] colors, int dimension) {
-    mColors = Optional.of(new VertexDataBuffer(colors, dimension));
-    return this;
-  }
-
-  public Geometry setTexCoords(float[] texCoords, int dimension) {
-    mTexCoords = Optional.of(new VertexDataBuffer(texCoords, dimension));
-    return this;
-  }
-
-  public Geometry setNormals(float[] normals, int dimension) {
-    mNormals = Optional.of(new VertexDataBuffer(normals, dimension));
-    return this;
-  }
-
-  public Geometry setVertexDataBuffer(String key, float[] values, int dimension) {
-    mVertexDataBuffers.put(key, new VertexDataBuffer(values, dimension));
-    return this;
   }
 
   public IndexBuffer getIndexBuffer() {
@@ -118,6 +164,11 @@ public final class Geometry {
     return (Vec4) mExpressionCache.get(attributeName);
   }
 
+  public Geometry setColors(float[] colors, int dimension) {
+    mColors = Optional.of(new VertexDataBuffer(colors, dimension));
+    return this;
+  }
+
   public Real getColors1() {
     String attributeName = getNameForColors(1);
 
@@ -156,6 +207,11 @@ public final class Geometry {
     }
 
     return (Vec4) mExpressionCache.get(attributeName);
+  }
+
+  public Geometry setTexCoords(float[] texCoords, int dimension) {
+    mTexCoords = Optional.of(new VertexDataBuffer(texCoords, dimension));
+    return this;
   }
 
   public Real getTexCoords1() {
@@ -198,6 +254,11 @@ public final class Geometry {
     return (Vec4) mExpressionCache.get(attributeName);
   }
 
+  public Geometry setNormals(float[] normals, int dimension) {
+    mNormals = Optional.of(new VertexDataBuffer(normals, dimension));
+    return this;
+  }
+
   public Real getNormals1() {
     String attributeName = getNameForNormals(1);
 
@@ -236,6 +297,11 @@ public final class Geometry {
     }
 
     return (Vec4) mExpressionCache.get(attributeName);
+  }
+
+  public Geometry setVertexDataBuffer(String key, float[] values, int dimension) {
+    mVertexDataBuffers.put(key, new VertexDataBuffer(values, dimension));
+    return this;
   }
 
   public Real getAttribute1(String attributeName) {
@@ -280,6 +346,15 @@ public final class Geometry {
     }
 
     return (Vec4) mExpressionCache.get(attributeName);
+  }
+
+  public Geometry setPrimitiveType(PrimitiveType primitiveType) {
+    mPrimitiveType = primitiveType;
+    return this;
+  }
+
+  public PrimitiveType getPrimitiveType() {
+    return mPrimitiveType;
   }
 
   public Drawable bake(VecLike vertexPosition, VecLike fragmentColor) {
