@@ -2,7 +2,7 @@
 package com.lfscheidegger.jfacet.shade.expression;
 
 import com.google.common.collect.ImmutableList;
-import com.lfscheidegger.jfacet.AttributeBuffer;
+import com.lfscheidegger.jfacet.VertexDataBuffer;
 import org.junit.Test;
 
 import static com.lfscheidegger.jfacet.shade.expression.ExpressionTestUtils.*;
@@ -37,7 +37,7 @@ public class Vec2Test {
     assertEquals(vec.getNodeType(), NodeType.CONS);
     assertEquals(vec.getParents(), ImmutableList.of(x, y));
 
-    vec = new Vec2(new AttributeBuffer(new float[] {0, 0, 1, 0, 1, 1}, 2));
+    vec = new Vec2(new VertexDataBuffer(new float[] {0, 0, 1, 0, 1, 1}, 2));
 
     assertTrue(vec.getNodeType() instanceof NodeType.AttributeNodeType);
     assertEquals(vec.getParents(), ImmutableList.<Expression>of());

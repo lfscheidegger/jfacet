@@ -8,13 +8,13 @@ import java.nio.FloatBuffer;
 /**
  * Container for a {@code FloatBuffer} and its accompanying dimension
  */
-public final class AttributeBuffer {
+public final class VertexDataBuffer {
 
   private final FloatBuffer mBuffer;
   private final int mDimension;
   private final int mElementCount;
 
-  public AttributeBuffer(float[] array, int dimension) {
+  public VertexDataBuffer(float[] array, int dimension) {
     mBuffer = BufferUtils.getBufferFromArray(array);
     mDimension = dimension;
     mElementCount = array.length / dimension;

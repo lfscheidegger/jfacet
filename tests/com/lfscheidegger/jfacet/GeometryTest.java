@@ -57,7 +57,7 @@ public class GeometryTest {
 
   @Test
   public void testGetAttribute() {
-    mGeometry.setAttributeValues(new float[]{0, 1, 2}, 1, "testKey");
+    mGeometry.setVertexDataBuffer("testKey", new float[]{0, 1, 2}, 1);
 
     Real attribute = mGeometry.getAttribute1("testKey");
     assertTrue(attribute.getNodeType() instanceof NodeType.AttributeNodeType);

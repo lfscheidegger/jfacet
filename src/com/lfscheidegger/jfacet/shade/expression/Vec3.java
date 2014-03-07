@@ -3,7 +3,7 @@ package com.lfscheidegger.jfacet.shade.expression;
 
 import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableList;
-import com.lfscheidegger.jfacet.AttributeBuffer;
+import com.lfscheidegger.jfacet.VertexDataBuffer;
 import com.lfscheidegger.jfacet.shade.Shade;
 import com.lfscheidegger.jfacet.utils.ArrayUtils;
 import com.lfscheidegger.jfacet.utils.StringHelper;
@@ -222,8 +222,8 @@ public final class Vec3 extends Expression implements VecLike {
     super(parents, nodeType, GLSL_TYPE_NAME);
   }
 
-  public Vec3(AttributeBuffer attributeBuffer) {
-    super(NodeType.AttributeNodeType.forAttribute(attributeBuffer), GLSL_TYPE_NAME);
+  public Vec3(VertexDataBuffer vertexDataBuffer) {
+    super(NodeType.AttributeNodeType.forAttribute(vertexDataBuffer), GLSL_TYPE_NAME);
   }
 
   public Real getX() {

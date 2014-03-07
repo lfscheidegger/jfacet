@@ -2,7 +2,7 @@
 package com.lfscheidegger.jfacet.shade.expression;
 
 import com.google.common.collect.ImmutableList;
-import com.lfscheidegger.jfacet.AttributeBuffer;
+import com.lfscheidegger.jfacet.VertexDataBuffer;
 import com.lfscheidegger.jfacet.shade.Shade;
 
 /**
@@ -24,8 +24,8 @@ public final class Real extends Expression {
     super(nodeType, GLSL_TYPE_NAME);
   }
 
-  public Real(AttributeBuffer attributeBuffer) {
-    super(NodeType.AttributeNodeType.forAttribute(attributeBuffer), GLSL_TYPE_NAME);
+  public Real(VertexDataBuffer vertexDataBuffer) {
+    super(NodeType.AttributeNodeType.forAttribute(vertexDataBuffer), GLSL_TYPE_NAME);
   }
 
   public Real plus(Real right) {

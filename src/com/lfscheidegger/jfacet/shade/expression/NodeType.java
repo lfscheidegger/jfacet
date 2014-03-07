@@ -2,7 +2,7 @@
 package com.lfscheidegger.jfacet.shade.expression;
 
 import android.graphics.Bitmap;
-import com.lfscheidegger.jfacet.AttributeBuffer;
+import com.lfscheidegger.jfacet.VertexDataBuffer;
 
 public interface NodeType {
 
@@ -108,18 +108,18 @@ public interface NodeType {
 
   public static final class AttributeNodeType implements NodeType {
 
-    private final AttributeBuffer mAttributeBuffer;
+    private final VertexDataBuffer mVertexDataBuffer;
 
-    AttributeNodeType(AttributeBuffer attributeBuffer) {
-      mAttributeBuffer = attributeBuffer;
+    AttributeNodeType(VertexDataBuffer vertexDataBuffer) {
+      mVertexDataBuffer = vertexDataBuffer;
     }
 
-    public static NodeType forAttribute(AttributeBuffer attributeBuffer) {
-      return new AttributeNodeType(attributeBuffer);
+    public static NodeType forAttribute(VertexDataBuffer vertexDataBuffer) {
+      return new AttributeNodeType(vertexDataBuffer);
     }
 
-    public AttributeBuffer getAttributeBuffer() {
-      return mAttributeBuffer;
+    public VertexDataBuffer getAttributeBuffer() {
+      return mVertexDataBuffer;
     }
   }
 

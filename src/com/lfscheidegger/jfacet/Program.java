@@ -157,7 +157,7 @@ public final class Program {
   private void bindAttributes() {
     List<Expression> attributeExpressions = mVertexShaderCompiler.getAttributeExpressions();
     for (int i = 0; i < attributeExpressions.size(); i++) {
-      AttributeBuffer buffer =
+      VertexDataBuffer buffer =
           ((NodeType.AttributeNodeType) attributeExpressions
               .get(i)
               .getNodeType())
