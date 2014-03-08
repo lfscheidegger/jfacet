@@ -1,8 +1,8 @@
 // Copyright (c) 2013- Luiz Fernando Scheidegger
 package com.lfscheidegger.jfacet;
 
-import com.lfscheidegger.jfacet.utils.BufferUtils;
-
+import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
 import java.nio.FloatBuffer;
 
 /**
@@ -10,14 +10,21 @@ import java.nio.FloatBuffer;
  */
 public final class VertexDataBuffer {
 
+  private static final int BYTES_PER_FLOAT = 4;
+
   private final FloatBuffer mBuffer;
   private final int mDimension;
-  private final int mElementCount;
+  private final int mSize;
 
   public VertexDataBuffer(float[] array, int dimension) {
-    mBuffer = BufferUtils.getBufferFromArray(array);
+    mBuffer = (FloatBuffer) ByteBuffer
+        .allocateDirect(array.length * BYTES_PER_FLOAT)
+        .order(ByteOrder.nativeOrder())
+        .asFloatBuffer()
+        .put(array)
+        .position(0);
     mDimension = dimension;
-    mElementCount = array.length / dimension;
+    mSize = array.length / dimension;
   }
 
   public FloatBuffer getBuffer() {
@@ -28,7 +35,7 @@ public final class VertexDataBuffer {
     return mDimension;
   }
 
-  public int getElementCount() {
-    return mElementCount;
+  public int size() {
+    return mSize;
   }
 }

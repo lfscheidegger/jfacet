@@ -405,7 +405,7 @@ public final class Geometry {
     checkDimension(dimension);
 
     Preconditions.checkState(
-        mVertices.getElementCount() == colors.length / dimension,
+        mVertices.size() == colors.length / dimension,
         "Number of color elements and vertex elements do not match");
 
     mColors = Optional.of(new VertexDataBuffer(colors, dimension));
@@ -528,7 +528,7 @@ public final class Geometry {
     checkDimension(dimension);
 
     Preconditions.checkState(
-        mVertices.getElementCount() == texCoords.length / dimension,
+        mVertices.size() == texCoords.length / dimension,
         "Number of texture coordinate elements and vertex elements do not match");
 
     mTexCoords = Optional.of(new VertexDataBuffer(texCoords, dimension));
@@ -651,7 +651,7 @@ public final class Geometry {
     checkDimension(dimension);
 
     Preconditions.checkState(
-        mVertices.getElementCount() == normals.length / dimension,
+        mVertices.size() == normals.length / dimension,
         "Number of normal elements and vertex elements do not match");
 
     mNormals = Optional.of(new VertexDataBuffer(normals, dimension));
@@ -778,7 +778,7 @@ public final class Geometry {
     checkDimension(dimension);
 
     Preconditions.checkState(
-        mVertices.getElementCount() == values.length / dimension,
+        mVertices.size() == values.length / dimension,
         "Number of vertex data elements and vertex elements do not match");
 
     mVertexDataBuffers.put(key, new VertexDataBuffer(values, dimension));

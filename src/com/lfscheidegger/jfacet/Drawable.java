@@ -179,7 +179,7 @@ public final class Drawable implements Runnable {
     mProgram.use();
     GLES20.glDrawElements(
         mGeometry.getPrimitiveType().glMode,
-        mGeometry.getIndexBuffer().getElementCount(),
+        mGeometry.getIndexBuffer().size(),
         GLES20.GL_UNSIGNED_INT,
         mGeometry.getIndexBuffer().getBuffer());
   }
