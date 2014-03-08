@@ -3,7 +3,6 @@ package com.lfscheidegger.jfacet.shade.expression;
 
 import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableList;
-import com.lfscheidegger.jfacet.utils.ArrayUtils;
 import com.lfscheidegger.jfacet.utils.MatrixUtils;
 import com.lfscheidegger.jfacet.utils.StringHelper;
 

@@ -5,7 +5,6 @@ import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableList;
 import com.lfscheidegger.jfacet.VertexDataBuffer;
 import com.lfscheidegger.jfacet.shade.Shade;
-import com.lfscheidegger.jfacet.utils.ArrayUtils;
 import com.lfscheidegger.jfacet.utils.StringHelper;
 
 import java.util.Arrays;

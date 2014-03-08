@@ -1,9 +1,9 @@
 // Copyright (c) 2013- Luiz Fernando Scheidegger
-package com.lfscheidegger.jfacet.utils;
+package com.lfscheidegger.jfacet.shade.expression;
 
 import com.google.common.base.Preconditions;
 
-public final class ArrayUtils {
+final class ArrayUtils {
 
   private ArrayUtils() {}
 
