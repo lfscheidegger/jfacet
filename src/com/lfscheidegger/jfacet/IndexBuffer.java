@@ -16,7 +16,7 @@ import java.nio.IntBuffer;
  */
 public final class IndexBuffer {
 
-  // bytes per integer
+  // bytes per int
   private static final int BYTES_PER_INT = 4;
 
   // in-memory buffer for the integers
