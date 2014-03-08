@@ -1,0 +1,10 @@
+com.lfscheidegger.jfacet
+com.lfscheidegger.jfacet.activity
+com.lfscheidegger.jfacet.compiler
+com.lfscheidegger.jfacet.renderer
+com.lfscheidegger.jfacet.shade
+com.lfscheidegger.jfacet.shade.camera
+com.lfscheidegger.jfacet.shade.expression
+com.lfscheidegger.jfacet.shade.transform
+com.lfscheidegger.jfacet.utils
+com.lfscheidegger.jfacet.view
