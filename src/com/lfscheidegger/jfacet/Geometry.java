@@ -151,6 +151,7 @@ public final class Geometry {
       this.glMode = glMode;
     }
   }
+
   // Index data for this geometry
   private final IndexBuffer mIndices;
 
@@ -177,6 +178,95 @@ public final class Geometry {
 
   // Determines what mode to use when drawing primitives
   private PrimitiveType mPrimitiveType = PrimitiveType.TRIANGLES;
+
+  /**
+   * Returns a {@link Geometry} for a flat-shaded cube.
+   * <p>
+   * Returns a new {@link Geometry} for a flat-shaded cube, with vertices at {@code (-1, -1, -1)},
+   * {@code (1, -1, -1)}, {@code (-1, 1, -1)}, {@code (1, 1, -1)}, {@code (-1, -1, 1)},
+   * {@code (1, -1, 1)}, {@code (-1, 1, 1)}, and {@code (1, 1, 1)}. Therefore, the edge-length
+   * of the cube is 2. For convenience, we also set some colors, texture coordinates
+   * (which you're free to replace), and outward-facing normals on the vertices.
+   *
+   * @return
+   *   A new {@link Geometry} for a flat-shaded cube
+   */
+  public static Geometry newFlatCube() {
+    return new Geometry(
+        new int[]{
+            0, 1, 2, 0, 2, 3,
+            5, 4, 7, 5, 7, 6,
+            9, 8, 11, 9, 11, 10,
+            12, 13, 14, 12, 14, 15,
+            16, 17, 18, 16, 18, 19,
+            21, 20, 23, 21, 23, 22},
+        new float[]{
+          /* x   y   z |  x   y   z |  x   y   z |  x   y   z */
+            -1, -1, -1,   1, -1, -1,   1,  1, -1,  -1,  1, -1, // front
+            -1, -1,  1,   1, -1,  1,   1,  1,  1,  -1,  1,  1, // back
+            -1, -1, -1,   1, -1, -1,   1, -1,  1,  -1, -1,  1, // bottom
+            -1,  1, -1,   1,  1, -1,   1,  1,  1,  -1,  1,  1, // top
+            -1, -1,  1,  -1, -1, -1,  -1,  1, -1,  -1,  1,  1, // left
+            1, -1,  1,   1, -1, -1,   1,  1, -1,   1,  1,  1  // right
+        }, 3)
+        .setColors(new float[]{
+            0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0,
+            1, 0.5f, 0, 1, 0.5f, 0, 1, 0.5f, 0, 1, 0.5f, 0,
+            1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0,
+            1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 0,
+            0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1,
+            1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1}, 3)
+        .setTexCoords(new float[] {
+            0, 0, 1, 0, 1, 1, 0, 1,
+            0, 0, 1, 0, 1, 1, 0, 1,
+            0, 0, 1, 0, 1, 1, 0, 1,
+            0, 0, 1, 0, 1, 1, 0, 1,
+            0, 0, 1, 0, 1, 1, 0, 1,
+            0, 0, 1, 0, 1, 1, 0, 1
+        }, 2)
+        .setNormals(new float[] {
+            0,  0, -1,   0,  0, -1,   0,  0, -1,   0,  0, -1,
+            0,  0,  1,   0,  0,  1,   0,  0,  1,   0,  0,  1,
+            0, -1,  0,   0, -1,  0,   0, -1,  0,   0, -1,  0,
+            0,  1,  0,   0,  1,  0,   0,  1,  0,   0,  1,  0,
+            -1,  0,  0,  -1,  0,  0,  -1,  0,  0,  -1,  0,  0,
+            1,  0,  0,   1,  0,  0,   1,  0,  0,   1,  0,  0
+        }, 3);
+  }
+
+  /**
+   * Returns a {@link Geometry} for a flat-shaded, four-sided pyramid.
+   * <p>
+   * Returns a new {@link Geometry} for a flat-shaded, four-sided pyramid. The apex of the
+   * pyramid is at {@code (0, 1, 0)}, and the base is a square with vertices at {@code (-1, -1, 1)},
+   * {@code (-1, -1, -1)}, {@code (1, -1, -1)}, and {@code (1, -1, 1)}. This pyramid includes only
+   * the triangles for its sides (the bottom is hollow). We set colors on the vertices, for
+   * convenience, but nothing else.
+   *
+   * @return
+   *   A new {@link Geometry} for a flat-shaded, four-sided pyramid
+   */
+  public static Geometry newFlatPyramid() {
+    return new Geometry(
+        new int[]{
+            0, 1, 2,
+            0, 2, 3,
+            0, 3, 4,
+            0, 4, 1},
+        new float[]{
+            0, 1, 0,
+            -1, -1, 1,
+            -1, -1, -1,
+            1, -1, -1,
+            1, -1, 1}, 3)
+        .setColors(new float[]{
+            1, 0, 0,
+            0, 1, 0,
+            0, 0, 1,
+            0, 1, 0,
+            0, 0, 1
+        }, 3);
+  }
 
   /**
    * Default constructor.

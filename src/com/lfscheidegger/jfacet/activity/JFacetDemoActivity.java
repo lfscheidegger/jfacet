@@ -11,7 +11,6 @@ import android.view.Display;
 import com.lfscheidegger.jfacet.R;
 import com.lfscheidegger.jfacet.Drawable;
 import com.lfscheidegger.jfacet.Geometry;
-import com.lfscheidegger.jfacet.Models;
 import com.lfscheidegger.jfacet.Scene;
 import com.lfscheidegger.jfacet.renderer.FacetRenderer;
 import com.lfscheidegger.jfacet.shade.Parameter;
@@ -165,8 +164,8 @@ public class JFacetDemoActivity extends Activity {
 
   private void prepareLesson5(Scene scene) {
     Geometry
-        cubeModel = Models.flatCube(),
-        pyramidModel = Models.flatPyramid();
+        cubeModel = Geometry.newFlatCube(),
+        pyramidModel = Geometry.newFlatPyramid();
 
     Camera camera = Camera.perspective(mSize.x, mSize.y);
     final Real param = Parameter.real(0);
@@ -194,7 +193,7 @@ public class JFacetDemoActivity extends Activity {
   }
 
   private void prepareLesson6(Scene scene) {
-    Geometry cube = Models.flatCube();
+    Geometry cube = Geometry.newFlatCube();
 
     Camera camera = Camera.perspective(
         new LookAtConfig()
@@ -224,7 +223,7 @@ public class JFacetDemoActivity extends Activity {
   }
 
   private void prepareLesson7(Scene scene) {
-    Geometry cube = Models.flatCube();
+    Geometry cube = Geometry.newFlatCube();
 
     float aspectRatio = mSize.y / (float)mSize.x;
 

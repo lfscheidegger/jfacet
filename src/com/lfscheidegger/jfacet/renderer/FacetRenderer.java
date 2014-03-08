@@ -19,7 +19,7 @@ public class FacetRenderer implements GLSurfaceView.Renderer {
   @Override
   public void onSurfaceCreated(GL10 gl, EGLConfig config) {
     GLES20.glEnable(GLES20.GL_DEPTH_TEST);
-    mScene.bake();
+    mScene.build();
   }
 
   @Override

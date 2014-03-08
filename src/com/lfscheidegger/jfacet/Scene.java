@@ -21,10 +21,10 @@ public final class Scene implements Runnable {
     return this;
   }
 
-  public void bake() {
+  public void build() {
     for (Runnable runnable: mRunnables) {
       if (runnable instanceof Drawable) {
-        ((Drawable) runnable).bake();
+        ((Drawable) runnable).build();
       }
     }
   }
