@@ -3,7 +3,6 @@ package com.lfscheidegger.jfacet.shade.expression;
 
 import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableList;
-import com.lfscheidegger.jfacet.utils.MatrixUtils;
 import com.lfscheidegger.jfacet.utils.StringHelper;
 
 import java.util.Arrays;
@@ -53,27 +52,27 @@ public final class Mat3 extends Expression {
     }
 
     public Primitive plus(Primitive other) {
-      return new Primitive(ArrayUtils.add(mValues, other.mValues));
+      return new Primitive(ArrayMathUtils.add(mValues, other.mValues));
     }
 
     public Primitive plus(float t) {
-      return new Primitive(ArrayUtils.add(mValues, t));
+      return new Primitive(ArrayMathUtils.add(mValues, t));
     }
 
     public Primitive minus(Primitive other) {
-      return new Primitive(ArrayUtils.sub(mValues, other.mValues));
+      return new Primitive(ArrayMathUtils.sub(mValues, other.mValues));
     }
 
     public Primitive minus(float t) {
-      return new Primitive(ArrayUtils.sub(mValues, t));
+      return new Primitive(ArrayMathUtils.sub(mValues, t));
     }
 
     public Primitive times(Primitive other) {
-      return new Primitive(ArrayUtils.mulMatrix(mValues, other.mValues, 3));
+      return new Primitive(ArrayMathUtils.mulMatrix(mValues, other.mValues, 3));
     }
 
     public Primitive times(float t) {
-      return new Primitive(ArrayUtils.mul(mValues, t));
+      return new Primitive(ArrayMathUtils.mul(mValues, t));
     }
 
     public Vec3.Primitive times(Vec3.Primitive vec) {
@@ -84,31 +83,31 @@ public final class Mat3 extends Expression {
     }
 
     public Primitive div(Primitive other) {
-      return new Primitive(ArrayUtils.div(mValues, other.mValues));
+      return new Primitive(ArrayMathUtils.div(mValues, other.mValues));
     }
 
     public Primitive div(float t) {
-      return new Primitive(ArrayUtils.div(mValues, t));
+      return new Primitive(ArrayMathUtils.div(mValues, t));
     }
 
     public Primitive negative() {
-      return new Primitive(ArrayUtils.mul(mValues, -1));
+      return new Primitive(ArrayMathUtils.mul(mValues, -1));
     }
 
     public float determinant() {
-      return MatrixUtils.determinant3(mValues);
+      return ArrayMathUtils.determinant3(mValues);
     }
 
     public Primitive transpose() {
-      return new Primitive(MatrixUtils.transpose3(mValues));
+      return new Primitive(ArrayMathUtils.transpose3(mValues));
     }
 
     public Primitive inverse() {
-      return new Primitive(MatrixUtils.inverse3(mValues));
+      return new Primitive(ArrayMathUtils.inverse3(mValues));
     }
 
     public Primitive matrixCompMult(Primitive right) {
-      return new Primitive(MatrixUtils.matrixCompMult(mValues, right.mValues));
+      return new Primitive(ArrayMathUtils.matrixCompMult(mValues, right.mValues));
     }
 
     @Override

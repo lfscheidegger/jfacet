@@ -99,51 +99,51 @@ public final class Vec3 extends Expression implements VecLike {
     }
 
     public Primitive plus(Primitive other) {
-      return new Primitive(ArrayUtils.add(mValues, other.mValues));
+      return new Primitive(ArrayMathUtils.add(mValues, other.mValues));
     }
 
     public Primitive plus(float t) {
-      return new Primitive(ArrayUtils.add(mValues, t));
+      return new Primitive(ArrayMathUtils.add(mValues, t));
     }
 
     public Primitive minus(Primitive other) {
-      return new Primitive(ArrayUtils.sub(mValues, other.mValues));
+      return new Primitive(ArrayMathUtils.sub(mValues, other.mValues));
     }
 
     public Primitive minus(float t) {
-      return new Primitive(ArrayUtils.sub(mValues, t));
+      return new Primitive(ArrayMathUtils.sub(mValues, t));
     }
 
     public Primitive times(Primitive other) {
-      return new Primitive(ArrayUtils.mul(mValues, other.mValues));
+      return new Primitive(ArrayMathUtils.mul(mValues, other.mValues));
     }
 
     public Primitive times(float t) {
-      return new Primitive(ArrayUtils.mul(mValues, t));
+      return new Primitive(ArrayMathUtils.mul(mValues, t));
     }
 
     public Primitive div(Primitive other) {
-      return new Primitive(ArrayUtils.div(mValues, other.mValues));
+      return new Primitive(ArrayMathUtils.div(mValues, other.mValues));
     }
 
     public Primitive div(float t) {
-      return new Primitive(ArrayUtils.div(mValues, t));
+      return new Primitive(ArrayMathUtils.div(mValues, t));
     }
 
     public Primitive negative() {
-      return new Primitive(ArrayUtils.neg(mValues));
+      return new Primitive(ArrayMathUtils.neg(mValues));
     }
 
     public Primitive normalize() {
-      return new Primitive(ArrayUtils.normalize(mValues));
+      return new Primitive(ArrayMathUtils.normalize(mValues));
     }
 
     public float length() {
-      return ArrayUtils.length(mValues);
+      return ArrayMathUtils.length(mValues);
     }
 
     public float dot(Primitive other) {
-      return ArrayUtils.dot(mValues, other.mValues);
+      return ArrayMathUtils.dot(mValues, other.mValues);
     }
 
     public Primitive cross(Primitive other) {
