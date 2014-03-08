@@ -282,6 +282,8 @@ public final class Geometry {
    *   The dimension of each vertex. Must be 1, 2, 3, or 4
    */
   public Geometry(int[] indices, float[] vertices, int vertexDimension) {
+    checkDimension(vertexDimension);
+
     mIndices = new IndexBuffer(indices);
     mVertices = new VertexDataBuffer(vertices, vertexDimension);
     mVertexDataBuffers = Maps.newHashMap();
@@ -400,6 +402,8 @@ public final class Geometry {
    *   This {@link Geometry}, for chaining setter calls
    */
   public Geometry setColors(float[] colors, int dimension) {
+    checkDimension(dimension);
+
     Preconditions.checkState(
         mVertices.getElementCount() == colors.length / dimension,
         "Number of color elements and vertex elements do not match");
@@ -521,6 +525,8 @@ public final class Geometry {
    *   This {@link Geometry}, for chaining setter calls
    */
   public Geometry setTexCoords(float[] texCoords, int dimension) {
+    checkDimension(dimension);
+
     Preconditions.checkState(
         mVertices.getElementCount() == texCoords.length / dimension,
         "Number of texture coordinate elements and vertex elements do not match");
@@ -642,6 +648,8 @@ public final class Geometry {
    *   This {@link Geometry}, for chaining setter calls
    */
   public Geometry setNormals(float[] normals, int dimension) {
+    checkDimension(dimension);
+
     Preconditions.checkState(
         mVertices.getElementCount() == normals.length / dimension,
         "Number of normal elements and vertex elements do not match");
@@ -767,6 +775,8 @@ public final class Geometry {
    *   This {@link Geometry}, for chaining setter calls
    */
   public Geometry setVertexDataBuffer(String key, float[] values, int dimension) {
+    checkDimension(dimension);
+
     Preconditions.checkState(
         mVertices.getElementCount() == values.length / dimension,
         "Number of vertex data elements and vertex elements do not match");
@@ -971,5 +981,11 @@ public final class Geometry {
 
   private String getNameForTexCoords(int dimension) {
     return "__texCoords__" + dimension;
+  }
+
+  private void checkDimension(int dimension) {
+    Preconditions.checkState(
+        dimension >= 1 && dimension <= 4,
+        "Vertex data dimension must be 1, 2, 3, or 4");
   }
 }
