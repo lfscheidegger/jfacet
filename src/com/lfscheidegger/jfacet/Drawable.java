@@ -148,8 +148,8 @@ public final class Drawable implements Runnable {
       return;
     }
 
-    mProgram = new Program(mVertexPosition, mFragmentColor);
-    mProgram.bake();
+    mProgram = new Program();//(mVertexPosition, mFragmentColor);
+    mProgram.build(mVertexPosition, mFragmentColor);
   }
 
   /**

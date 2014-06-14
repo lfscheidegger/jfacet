@@ -12,23 +12,34 @@ import java.util.Map;
 
 public class FragmentShaderCompiler {
 
-  private final Vec4 mFragmentColor;
-  private final CompilationHelper mCompilationHelper;
+  public static final class CompilationResult {
 
-  private final Map<Expression, String> mVaryingExpressions;
+    public final String code;
+    public final ImmutableList<Expression> uniformExpressions;
+    public final ImmutableMap<Expression, String> varyingExpressions;
 
-  private final List<Expression> mUniformExpressions;
-
-  public FragmentShaderCompiler(Vec4 fragmentColor) {
-    mFragmentColor = fragmentColor;
-    mCompilationHelper = new CompilationHelper();
-    mVaryingExpressions = Maps.newHashMap();
-    mUniformExpressions = mCompilationHelper.extractUniformExpressions(mFragmentColor);
+    private CompilationResult(
+        String code,
+        List<Expression> uniformExpressions,
+        Map<Expression, String> varyingExpressions) {
+      this.code = code;
+      this.uniformExpressions = ImmutableList.copyOf(uniformExpressions);
+      this.varyingExpressions = ImmutableMap.copyOf(varyingExpressions);
+    }
   }
 
-  public String compile() {
-    ImmutableList<Expression> sortedExpressions = TopologicalSorter.sort(mFragmentColor);
+  private final CompilationHelper mCompilationHelper;
+
+  public FragmentShaderCompiler(CompilationHelper compilationHelper) {
+    mCompilationHelper = compilationHelper;
+  }
+
+  public CompilationResult compile(Vec4 fragmentColor) {
+    ImmutableList<Expression> sortedExpressions = TopologicalSorter.sort(fragmentColor);
     ImmutableSet<Expression> attributeExpressions = extractAttributeExpressions(sortedExpressions);
+    ImmutableList<Expression> uniformExpressions =
+        mCompilationHelper.extractUniformExpressions(fragmentColor);
+    Map<Expression, String> varyingExpressions = Maps.newHashMap();
 
     StringBuilder sb = new StringBuilder();
 
@@ -36,15 +47,15 @@ public class FragmentShaderCompiler {
 
     for (Expression attributeExpression : attributeExpressions) {
       String varyingName = mCompilationHelper.getVaryingName();
-      mVaryingExpressions.put(attributeExpression, varyingName);
+      varyingExpressions.put(attributeExpression, varyingName);
       mCompilationHelper.emitVaryingDeclaration(sb, attributeExpression, varyingName);
     }
 
-    if (!mUniformExpressions.isEmpty()) {
+    if (!uniformExpressions.isEmpty()) {
       sb.append("\n");
     }
 
-    for (Expression expression : mUniformExpressions) {
+    for (Expression expression : uniformExpressions) {
       mCompilationHelper.emitUniformDeclaration(sb, expression);
     }
 
@@ -58,21 +69,26 @@ public class FragmentShaderCompiler {
       }
 
     }
-    mCompilationHelper.emitAssignment(sb, "gl_FragColor", mFragmentColor);
+    mCompilationHelper.emitAssignment(sb, "gl_FragColor", fragmentColor);
 
     sb.append("}\n");
 
-    String source = replaceAttributeNames(sb.toString());
+    String source = replaceAttributeNames(sb.toString(), varyingExpressions);
 
     Log.i("FragmentShaderCompiler", source);
 
-    return source;
+    return new CompilationResult(
+        source,
+        uniformExpressions,
+        varyingExpressions);
   }
 
-  private String replaceAttributeNames(String source) {
-    for (Expression attributeExpression : mVaryingExpressions.keySet()) {
+  private String replaceAttributeNames(
+      String source,
+      Map<Expression, String> varyingExpressions) {
+    for (Expression attributeExpression : varyingExpressions.keySet()) {
       String attributeName = mCompilationHelper.getNameForExpression(attributeExpression);
-      source = source.replaceAll(attributeName, mVaryingExpressions.get(attributeExpression));
+      source = source.replaceAll(attributeName, varyingExpressions.get(attributeExpression));
     }
 
     return source;
@@ -89,17 +105,5 @@ public class FragmentShaderCompiler {
     }
 
     return builder.build();
-  }
-
-  public ImmutableMap<Expression, String> getVaryingExpressions() {
-    return ImmutableMap.copyOf(mVaryingExpressions);
-  }
-
-  public List<Expression> getUniformExpressions() {
-    return mUniformExpressions;
-  }
-
-  public CompilationHelper getCompilationHelper() {
-    return mCompilationHelper;
   }
 }

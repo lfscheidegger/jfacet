@@ -17,32 +17,33 @@ import java.util.List;
 
 public final class Program {
 
-  private final Vec4 mPosition;
-  private final Vec4 mFragColor;
-
+  private final CompilationHelper mCompilationHelper;
   private final VertexShaderCompiler mVertexShaderCompiler;
   private final FragmentShaderCompiler mFragmentShaderCompiler;
+
+  private VertexShaderCompiler.CompilationResult mVertexShaderCompilationResult;
+  private FragmentShaderCompiler.CompilationResult mFragmentShaderCompilationResult;
 
   private AndroidGL20 mAndroidGL;
 
   private int mMaxTextureUnits;
   private int mProgramHandle;
 
-  public Program(VecLike position, VecLike fragColor) {
-    mPosition = fill(position, Shade.vec(0, 0, 0, 1));
-    mFragColor = fill(fragColor, Shade.vec(0, 0, 0, 1));
-
-    mVertexShaderCompiler = new VertexShaderCompiler(mPosition);
-    mFragmentShaderCompiler = new FragmentShaderCompiler(mFragColor);
+  public Program() {
+    mCompilationHelper = new CompilationHelper();
+    mVertexShaderCompiler = new VertexShaderCompiler(mCompilationHelper);
+    mFragmentShaderCompiler = new FragmentShaderCompiler(mCompilationHelper);
   }
 
-  public void bake() {
+  public void build(VecLike vertexPosition, VecLike fragmentColor) {
+    vertexPosition = fill(vertexPosition);
+    fragmentColor = fill(fragmentColor);
+
     mAndroidGL = new AndroidGL20();
 
-    String fragmentShaderSource = mFragmentShaderCompiler.compile();
-
-    mVertexShaderCompiler.setVaryingExpressions(mFragmentShaderCompiler.getVaryingExpressions());
-    String vertexShaderSource = mVertexShaderCompiler.compile();
+    mFragmentShaderCompilationResult = mFragmentShaderCompiler.compile((Vec4)fragmentColor);
+    mVertexShaderCompilationResult = mVertexShaderCompiler.compile(
+        (Vec4)vertexPosition, mFragmentShaderCompilationResult.varyingExpressions);
 
     int vertexShaderHandle = GLES20.glCreateShader(GLES20.GL_VERTEX_SHADER);
     int fragmentShaderHandle = GLES20.glCreateShader(GLES20.GL_FRAGMENT_SHADER);
@@ -53,19 +54,20 @@ public final class Program {
 
     mProgramHandle = GLES20.glCreateProgram();
 
-    compileShader(vertexShaderHandle, vertexShaderSource);
-    compileShader(fragmentShaderHandle, fragmentShaderSource);
+    compileShader(vertexShaderHandle, mVertexShaderCompilationResult.code);
+    compileShader(fragmentShaderHandle, mFragmentShaderCompilationResult.code);
 
     GLES20.glAttachShader(mProgramHandle, vertexShaderHandle);
     GLES20.glAttachShader(mProgramHandle, fragmentShaderHandle);
 
     linkProgram();
 
-    loadTextures(mFragmentShaderCompiler.getUniformExpressions());
-    loadTextures(mVertexShaderCompiler.getUniformExpressions());
+    loadTextures(mFragmentShaderCompilationResult.uniformExpressions);
+    loadTextures(mVertexShaderCompilationResult.uniformExpressions);
   }
 
-  private Vec4 fill(VecLike vector, Vec4 defaultValue) {
+  private Vec4 fill(VecLike vector) {
+    Vec4 defaultValue = Shade.vec(0, 0, 0, 1);
     if (vector instanceof Vec2) {
       return Shade.vec((Vec2)vector, defaultValue.z().w().get());
     } else if (vector instanceof Vec3) {
@@ -76,6 +78,7 @@ public final class Program {
 
     throw new IllegalArgumentException("Can't fill from " + vector.getClass().getSimpleName());
   }
+
   private void compileShader(int shaderHandle, String shaderSource) {
     GLES20.glShaderSource(shaderHandle, shaderSource);
     GLES20.glCompileShader(shaderHandle);
@@ -143,19 +146,17 @@ public final class Program {
   }
 
   private void bindAttributeLocations() {
-    List<Expression> attributeExpressions = mVertexShaderCompiler.getAttributeExpressions();
+    List<Expression> attributeExpressions = mVertexShaderCompilationResult.attributeExpressions;
     for (int i = 0; i < attributeExpressions.size(); i++) {
       GLES20.glBindAttribLocation(
           mProgramHandle,
           i,
-          mVertexShaderCompiler
-              .getCompilationHelper()
-              .getNameForExpression(attributeExpressions.get(i)));
+          mCompilationHelper.getNameForExpression(attributeExpressions.get(i)));
     }
   }
 
   private void bindAttributes() {
-    List<Expression> attributeExpressions = mVertexShaderCompiler.getAttributeExpressions();
+    List<Expression> attributeExpressions = mVertexShaderCompilationResult.attributeExpressions;
     for (int i = 0; i < attributeExpressions.size(); i++) {
       VertexDataBuffer buffer =
           ((NodeType.AttributeNodeType) attributeExpressions
@@ -169,13 +170,11 @@ public final class Program {
     }
   }
 
-  private void bindUniforms(
-      List<Expression> uniformExpressions,
-      CompilationHelper compilationHelper) {
+  private void bindUniforms(List<Expression> uniformExpressions) {
     int textureUnitCounter = 0;
 
     for (Expression expression : uniformExpressions) {
-      String name = compilationHelper.getNameForExpression(expression);
+      String name = mCompilationHelper.getNameForExpression(expression);
       int location = GLES20.glGetUniformLocation(mProgramHandle, name);
       if (expression instanceof Real) {
         GLES20.glUniform1f(location, Parameter.get((Real) expression));
@@ -201,13 +200,8 @@ public final class Program {
   }
 
   private void bindUniforms() {
-    bindUniforms(
-        mVertexShaderCompiler.getUniformExpressions(),
-        mVertexShaderCompiler.getCompilationHelper());
-
-    bindUniforms(
-        mFragmentShaderCompiler.getUniformExpressions(),
-        mFragmentShaderCompiler.getCompilationHelper());
+    bindUniforms(mVertexShaderCompilationResult.uniformExpressions);
+    bindUniforms(mFragmentShaderCompilationResult.uniformExpressions);
   }
 
   public void use() {

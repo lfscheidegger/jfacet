@@ -19,7 +19,7 @@ public class CompilationHelper {
     mExpressionNames = Maps.newHashMap();
   }
 
-  public List<Expression> extractUniformExpressions(Expression root) {
+  public ImmutableList<Expression> extractUniformExpressions(Expression root) {
     final Set<Expression> uniformExpressions = Sets.newLinkedHashSet();
     new ExpressionVisitor(root) {
       @Override
@@ -29,10 +29,10 @@ public class CompilationHelper {
         }
       }
     }.run();
-    return Lists.newArrayList(uniformExpressions);
+    return ImmutableList.copyOf(uniformExpressions);
   }
 
-  public List<Expression> extractAttributeExpressions(Expression root) {
+  public ImmutableList<Expression> extractAttributeExpressions(Expression root) {
     final Set<Expression> attributeExpressions = Sets.newLinkedHashSet();
     new ExpressionVisitor(root) {
       @Override
@@ -42,7 +42,7 @@ public class CompilationHelper {
         }
       }
     }.run();
-    return Lists.newArrayList(attributeExpressions);
+    return ImmutableList.copyOf(attributeExpressions);
   }
 
   public String getNameForExpression(Expression expression) {
@@ -133,9 +133,9 @@ public class CompilationHelper {
   private void emitTernary(StringBuilder sb, Expression expression) {
     String typeName = expression.getGlSlTypeName();
     Expression
-        condition = (Expression)expression.getParents().get(0),
-        if_ = (Expression)expression.getParents().get(1),
-        else_ = (Expression)expression.getParents().get(2);
+        condition = expression.getParents().get(0),
+        if_ = expression.getParents().get(1),
+        else_ = expression.getParents().get(2);
 
     sb.append(String.format(
         "%s %s = %s ? %s : %s;\n",
@@ -154,7 +154,7 @@ public class CompilationHelper {
         "%s %s = %s;\n",
         typeName,
         getNameForExpression(expression),
-        getComponentString(nodeType, (Expression)expression.getParents().get(0))));
+        getComponentString(nodeType, expression.getParents().get(0))));
   }
 
   private static String[] sComponents = new String[]{"x", "y", "z", "w"};
@@ -182,7 +182,7 @@ public class CompilationHelper {
   private void emitSwizzle(StringBuilder sb, Expression expression) {
     NodeType.SwizzleNodeType nodeType =
         (NodeType.SwizzleNodeType)expression.getNodeType();
-    Expression parent = (Expression)expression.getParents().get(0);
+    Expression parent = expression.getParents().get(0);
 
     String typeName = expression.getGlSlTypeName();
     sb.append(String.format(
@@ -198,8 +198,8 @@ public class CompilationHelper {
     NodeType.OperatorNodeType nodeType =
         (NodeType.OperatorNodeType)expression.getNodeType();
     Expression
-        lhs = (Expression)expression.getParents().get(0),
-        rhs = (Expression)expression.getParents().get(1);
+        lhs = expression.getParents().get(0),
+        rhs = expression.getParents().get(1);
     sb.append(String.format(
         "%s %s = %s %s %s;\n",
         typeName,
@@ -213,7 +213,7 @@ public class CompilationHelper {
     String typeName = expression.getGlSlTypeName();
     NodeType.UnaryNodeType nodeType =
         (NodeType.UnaryNodeType)expression.getNodeType();
-    Expression lhs = (Expression)expression.getParents().get(0);
+    Expression lhs = expression.getParents().get(0);
     sb.append(String.format(
         "%s %s = %s%s;\n",
         typeName,

@@ -15,79 +15,78 @@ import java.util.Map;
 
 public class VertexShaderCompiler {
 
-  private final Vec4 mVertexPosition;
+  public static final class CompilationResult {
+
+    public final String code;
+    public final ImmutableList<Expression> attributeExpressions;
+    public final ImmutableList<Expression> uniformExpressions;
+
+    private CompilationResult(
+        String code,
+        ImmutableList<Expression> attributeExpressions,
+        ImmutableList<Expression> uniformExpressions) {
+      this.code = code;
+      this.attributeExpressions = attributeExpressions;
+      this.uniformExpressions = uniformExpressions;
+    }
+  }
+
   private final CompilationHelper mCompilationHelper;
-  private final List<Expression> mAttributeExpressions;
-  private final List<Expression> mUniformExpressions;
 
-  private Map<Expression, String> mVaryingExpressions = Maps.newHashMap();
-
-  public VertexShaderCompiler(Vec4 vertexPosition) {
-    mVertexPosition = vertexPosition;
-    mCompilationHelper = new CompilationHelper();
-
-    mUniformExpressions = mCompilationHelper.extractUniformExpressions(mVertexPosition);
-    mAttributeExpressions = mCompilationHelper.extractAttributeExpressions(mVertexPosition);
+  public VertexShaderCompiler(CompilationHelper compilationHelper) {
+    mCompilationHelper = compilationHelper;
   }
 
-  public void setVaryingExpressions(Map<Expression, String> varyingExpressions) {
-    mVaryingExpressions = varyingExpressions;
-    mAttributeExpressions.addAll(varyingExpressions.keySet());
-  }
+  public CompilationResult compile(Vec4 vertexPosition, Map<Expression, String> varyingExpressions) {
+    ImmutableList<Expression> attributeExpressions =
+        ImmutableList.copyOf(new ImmutableSet.Builder<Expression>()
+        .addAll(mCompilationHelper.extractAttributeExpressions(vertexPosition))
+        .addAll(varyingExpressions.keySet())
+        .build());
 
-  public String compile() {
+    ImmutableList<Expression> uniformExpressions =
+        mCompilationHelper.extractUniformExpressions(vertexPosition);
+
     StringBuilder sb = new StringBuilder();
 
-    ImmutableSet.Builder<Expression> builder = new ImmutableSet.Builder<Expression>();
-    builder
-        .addAll(mAttributeExpressions)
-        .addAll(mVaryingExpressions.keySet());
-
-    for (Expression expression : builder.build()) {
+    for (Expression expression : attributeExpressions) {
       mCompilationHelper.emitAttributeDeclaration(sb, expression);
     }
 
-    if (!mUniformExpressions.isEmpty()) {
+    if (!uniformExpressions.isEmpty()) {
       sb.append("\n");
     }
 
-    for (Expression expression : mUniformExpressions) {
+    for (Expression expression : uniformExpressions) {
       mCompilationHelper.emitUniformDeclaration(sb, expression);
     }
 
     sb.append("\n");
 
-    for (Expression attribute : mVaryingExpressions.keySet()) {
-      String varyingName = mVaryingExpressions.get(attribute);
+    for (Expression attribute : varyingExpressions.keySet()) {
+      String varyingName = varyingExpressions.get(attribute);
       mCompilationHelper.emitVaryingDeclaration(sb, attribute, varyingName);
     }
 
     sb.append("void main() {\n");
 
-    ImmutableList<Expression> sortedExpressions = TopologicalSorter.sort(mVertexPosition);
+    ImmutableList<Expression> sortedExpressions = TopologicalSorter.sort(vertexPosition);
     for (Expression expression : sortedExpressions) {
       mCompilationHelper.emitExpression(sb, expression);
     }
-    mCompilationHelper.emitAssignment(sb, "gl_Position", mVertexPosition);
+    mCompilationHelper.emitAssignment(sb, "gl_Position", vertexPosition);
 
-    for (Expression expression : mVaryingExpressions.keySet()) {
-      mCompilationHelper.emitAssignment(sb, mVaryingExpressions.get(expression), expression);
+    for (Expression expression : varyingExpressions.keySet()) {
+      mCompilationHelper.emitAssignment(sb, varyingExpressions.get(expression), expression);
     }
 
     sb.append("}\n");
 
     Log.i("VertexShaderCompiler", sb.toString());
 
-    return sb.toString();
-  }
-
-  public List<Expression> getAttributeExpressions() {
-    return mAttributeExpressions;
-  }
-
-  public List<Expression> getUniformExpressions() { return mUniformExpressions; }
-
-  public CompilationHelper getCompilationHelper() {
-    return mCompilationHelper;
+    return new CompilationResult(
+        sb.toString(),
+        attributeExpressions,
+        uniformExpressions);
   }
 }
