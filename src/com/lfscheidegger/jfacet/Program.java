@@ -43,7 +43,8 @@ public final class Program {
 
     mFragmentShaderCompilationResult = mFragmentShaderCompiler.compile((Vec4)fragmentColor);
     mVertexShaderCompilationResult = mVertexShaderCompiler.compile(
-        (Vec4)vertexPosition, mFragmentShaderCompilationResult.varyingExpressions);
+        (Vec4)vertexPosition,
+        mFragmentShaderCompilationResult);
 
     int vertexShaderHandle = GLES20.glCreateShader(GLES20.GL_VERTEX_SHADER);
     int fragmentShaderHandle = GLES20.glCreateShader(GLES20.GL_FRAGMENT_SHADER);

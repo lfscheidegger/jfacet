@@ -2,10 +2,7 @@
 package com.lfscheidegger.jfacet.compiler;
 
 import android.util.Log;
-import com.google.common.collect.ImmutableList;
-import com.google.common.collect.ImmutableSet;
-import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
+import com.google.common.collect.*;
 import com.lfscheidegger.jfacet.shade.expression.Expression;
 import com.lfscheidegger.jfacet.shade.expression.NodeType;
 import com.lfscheidegger.jfacet.shade.expression.Vec4;
@@ -37,7 +34,13 @@ public class VertexShaderCompiler {
     mCompilationHelper = compilationHelper;
   }
 
-  public CompilationResult compile(Vec4 vertexPosition, Map<Expression, String> varyingExpressions) {
+  public CompilationResult compile(
+      Vec4 vertexPosition,
+      FragmentShaderCompiler.CompilationResult fragmentShaderCompilationResult) {
+
+    ImmutableMap<Expression, String> varyingExpressions =
+        fragmentShaderCompilationResult.varyingExpressions;
+
     ImmutableList<Expression> attributeExpressions =
         ImmutableList.copyOf(new ImmutableSet.Builder<Expression>()
         .addAll(mCompilationHelper.extractAttributeExpressions(vertexPosition))
